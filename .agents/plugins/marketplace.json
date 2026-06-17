@@ -1,0 +1,20 @@
+{
+  "name": "skill-mania-local",
+  "interface": {
+    "displayName": "Skill Mania Local"
+  },
+  "plugins": [
+    {
+      "name": "skill-mania",
+      "source": {
+        "source": "local",
+        "path": "./plugins/skill-mania"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

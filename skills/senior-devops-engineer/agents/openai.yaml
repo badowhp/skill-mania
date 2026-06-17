@@ -1,0 +1,4 @@
+interface:
+  display_name: "Senior DevOps Engineer"
+  short_description: "Operate GCP, Terraform, Ansible, PHP, and Nginx"
+  default_prompt: "Use $senior-devops-engineer to review our Terraform module layout, plan a GCP multi-environment setup, write an Ansible hardening role, troubleshoot PHP/Nginx 502s, or design a CI/CD pipeline and container build workflow."

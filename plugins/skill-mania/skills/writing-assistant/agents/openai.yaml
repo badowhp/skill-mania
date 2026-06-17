@@ -1,0 +1,4 @@
+interface:
+  display_name: "Writing Assistant"
+  short_description: "Draft, revise, and review novels and manuscripts, with stronger fiction craft, scene work, and KDP readiness"
+  default_prompt: "Use $writing-assistant to strengthen this manuscript's structure, scene tension, voice, dialogue, and publishing readiness."
