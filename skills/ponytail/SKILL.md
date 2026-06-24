@@ -1,6 +1,6 @@
 ---
 name: ponytail
-description: "Force the laziest solution that actually works: simplest, shortest, most minimal. Use when the user says ponytail, be lazy, lazy mode, simplest solution, minimal solution, YAGNI, do less, shortest path, or complains about over-engineering, bloat, boilerplate, or unnecessary dependencies. Supports intensity levels: lite, full (default), ultra."
+description: "Force the laziest solution that actually works: simplest, shortest, minimal. Use when the user says ponytail, be lazy, lazy mode, simplest solution, minimal solution, YAGNI, do less, shortest path, or complains about over-engineering, bloat, boilerplate, or unnecessary dependencies. Supports lite, full (default), and ultra."
 ---
 
 # Ponytail
@@ -48,7 +48,7 @@ For bug fixes, fix the root cause, not the named symptom. Before editing a share
 
 ## Output
 
-Put code first. Then use at most three short lines:
+Put code first. Then use at most three short lines, including an evidence-based `honest opinion:` naming the weakest risk or `no material implementation concern found`.
 
 ```text
 honest opinion: <weakest implementation concern, omitted risk, or no material implementation concern found>
@@ -56,10 +56,6 @@ skipped: <what you did not build>, add when <condition>
 ```
 
 Do not add essays, feature tours, or design notes unless the user explicitly asks for explanation.
-
-## Honest Opinion
-
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, unnecessary complexity, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 
 ## Intensity
 

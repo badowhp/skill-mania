@@ -1,14 +1,5 @@
 # Ansible Reference
 
-## Table Of Contents
-
-1. Structure
-2. Idempotence and safety
-3. Inventory and secrets
-4. Deployment patterns
-5. Validation and troubleshooting
-6. Review checklist
-
 ## Structure
 
 - Prefer roles with clear defaults, tasks, handlers, templates, and vars over one large playbook.

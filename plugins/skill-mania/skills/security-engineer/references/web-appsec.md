@@ -2,14 +2,6 @@
 
 Use this for web app, API, browser, upload, request handling, and dangerous-sink review.
 
-## Table Of Contents
-
-1. Entry points
-2. Dangerous sinks
-3. Browser controls
-4. Upload and file handling
-5. API review checklist
-
 ## Entry Points
 
 Map:

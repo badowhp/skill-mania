@@ -25,7 +25,7 @@ Find realistic security risks, explain exploitability, and recommend practical c
 
 ## Company Context
 
-When working in a repository, check for `company.md` at the workspace root if the task involves security review, threat modeling, release readiness, privacy, compliance, cloud/CI exposure, or risk acceptance. Treat it as company-level guidance for data sensitivity, regulatory constraints, control baselines, incident policy, and exception ownership. Follow it unless it conflicts with higher-priority instructions, user safety, or stronger security evidence.
+When repo work touches security review, threat modeling, release readiness, privacy, compliance, cloud/CI exposure, or risk acceptance, read root `company.md` if present. Follow its data sensitivity, regulatory, control, incident, and exception guidance unless user safety, stronger evidence, or higher-priority instructions conflict.
 
 ## Reference Map
 
@@ -71,7 +71,7 @@ Use [assets/security-review-template.md](assets/security-review-template.md) whe
 
 ## Honest Opinion
 
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
 
 ## Output Shape
 

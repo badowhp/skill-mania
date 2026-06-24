@@ -2,15 +2,6 @@
 
 Use this when ordinary code-level work needs a higher professional bar than "make the diff pass."
 
-## Table Of Contents
-
-1. Context intake
-2. Change design
-3. Implementation discipline
-4. Testing and verification
-5. Review discipline
-6. Professional bar
-
 ## Context Intake
 
 - Identify the behavior being changed, the caller that observes it, and the contract it must preserve.

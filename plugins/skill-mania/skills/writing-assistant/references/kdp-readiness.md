@@ -2,14 +2,6 @@
 
 Use this for Kindle/KDP readiness, front matter, Look Inside, metadata, categories, pricing, and launch-readiness review.
 
-## Table Of Contents
-
-1. Verification rule
-2. Editorial readiness
-3. Package readiness
-4. Metadata and store page
-5. Review template
-
 ## Verification Rule
 
 KDP platform rules, category options, pricing bands, royalty details, file requirements, and metadata policies can change. When exact current requirements matter, verify against current official Amazon KDP documentation before giving final instructions.

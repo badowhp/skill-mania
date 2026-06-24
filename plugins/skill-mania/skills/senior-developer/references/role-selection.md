@@ -2,12 +2,6 @@
 
 Use this when a request could trigger multiple broad skills.
 
-## Table Of Contents
-
-1. Default routing
-2. Overlap rules
-3. Combination rules
-
 ## Default Routing
 
 - Code-level implementation, bug fix, refactor, tests, or code review: use `senior-developer`.

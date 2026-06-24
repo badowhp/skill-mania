@@ -2,15 +2,6 @@
 
 Use this for architecture reviews that must be safe to operate, govern, and evolve after launch.
 
-## Table Of Contents
-
-1. Readiness inputs
-2. Non-functional requirements
-3. Operability
-4. Resilience
-5. Enterprise delivery
-6. Readiness decision
-
 ## Readiness Inputs
 
 Collect the facts that change the decision:

@@ -2,14 +2,6 @@
 
 Use this for suspected exposure, active compromise, leaked secrets, suspicious access, or post-incident hardening.
 
-## Table Of Contents
-
-1. First hour
-2. Containment
-3. Evidence
-4. Recovery
-5. Follow-up
-
 ## First Hour
 
 Establish:

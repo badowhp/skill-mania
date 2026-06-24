@@ -1,14 +1,5 @@
 # PHP And Nginx Reference
 
-## Table Of Contents
-
-1. Runtime model
-2. Nginx standards
-3. PHP-FPM standards
-4. Deployment concerns
-5. Troubleshooting patterns
-6. Review checklist
-
 ## Runtime Model
 
 - Treat Nginx, PHP-FPM, the application, cache, session store, queue workers, cron, and database as one operational system.

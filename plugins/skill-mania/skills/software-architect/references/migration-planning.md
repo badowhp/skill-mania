@@ -2,14 +2,6 @@
 
 Use this for decomposition, modernization, strangler migrations, data moves, backfills, and incremental rollout.
 
-## Table Of Contents
-
-1. Strategy
-2. Rollout
-3. Data movement
-4. Validation and rollback
-5. Migration plan template
-
 ## Strategy
 
 Prefer incremental migration when the current system is live:

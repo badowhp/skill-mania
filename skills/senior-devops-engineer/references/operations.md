@@ -1,16 +1,5 @@
 # Operations Reference
 
-## Table Of Contents
-
-1. Delivery and release engineering
-2. Tooling defaults
-3. Observability
-4. Incident response
-5. Backups and disaster recovery
-6. Security posture
-7. Cost and capacity
-8. Review checklist
-
 ## Delivery And Release Engineering
 
 - Prefer CI to produce immutable artifacts and CD to promote them through environments.

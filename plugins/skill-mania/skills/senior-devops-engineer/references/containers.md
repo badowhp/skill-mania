@@ -1,14 +1,5 @@
 # Containers And Artifact Registry Reference
 
-## Table Of Contents
-
-1. Dockerfile patterns for PHP applications
-2. Artifact Registry setup and IAM
-3. Cloud Build trigger design
-4. Container-based deploy patterns
-5. Image lifecycle management
-6. Review checklist
-
 ## Dockerfile Patterns For PHP Applications
 
 - Use multi-stage builds: a build stage for Composer installs and asset compilation, a runtime stage with only production dependencies.

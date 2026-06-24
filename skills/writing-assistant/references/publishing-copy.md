@@ -2,14 +2,6 @@
 
 Use this for title, subtitle, blurb, back-cover copy, taglines, author bio, launch copy, and metadata-facing copy.
 
-## Table Of Contents
-
-1. Positioning
-2. Title and subtitle
-3. Blurb
-4. Metadata-facing copy
-5. Output templates
-
 ## Positioning
 
 Before writing copy, identify:

@@ -2,14 +2,6 @@
 
 Use this for source-of-truth decisions, shared data, migrations, consistency, retention, and reporting.
 
-## Table Of Contents
-
-1. Ownership
-2. Sharing patterns
-3. Consistency
-4. Retention and deletion
-5. Review template
-
 ## Ownership
 
 Every important entity needs one source of truth. State:

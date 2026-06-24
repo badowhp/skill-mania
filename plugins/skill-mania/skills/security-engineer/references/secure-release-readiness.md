@@ -2,15 +2,6 @@
 
 Use this when security review affects production launch, risk acceptance, or operational sign-off.
 
-## Table Of Contents
-
-1. Release inputs
-2. Security gates
-3. Evidence
-4. Exceptions
-5. Privacy basics
-6. Decision rubric
-
 ## Release Inputs
 
 Capture:

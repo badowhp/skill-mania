@@ -1,14 +1,5 @@
 # Terraform Reference
 
-## Table Of Contents
-
-1. Layout and state
-2. Module standards
-3. Safe change process
-4. Imports, refactors, and drift
-5. Quality controls
-6. Review checklist
-
 ## Layout And State
 
 - Prefer one state per environment and stack boundary. Do not let unrelated systems share a state file.

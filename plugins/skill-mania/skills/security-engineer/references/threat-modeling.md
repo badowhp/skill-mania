@@ -2,14 +2,6 @@
 
 Use this when the task needs assets, trust boundaries, abuse cases, or mitigation planning.
 
-## Table Of Contents
-
-1. Inputs
-2. Model structure
-3. Abuse cases
-4. Mitigations
-5. Output template
-
 ## Inputs
 
 Collect only what changes the model:

@@ -1,15 +1,13 @@
 ---
 name: writing-assistant
-description: Help draft, revise, critique, de-slop, and review prose such as novels, chapters, nonfiction manuscripts, articles, emails, README text, blurbs, publishing copy, and Kindle/KDP-ready content. Use when Codex should act as a writing assistant, fiction consultant, editorial reviewer, manuscript doctor, book consultant, publishing helper, or AI-slop text auditor for structure, pacing, voice, dialogue, reader impact, and commercial readiness.
+description: "Draft, revise, critique, de-slop, and review prose: fiction, nonfiction, manuscripts, articles, emails, README/docs text, blurbs, publishing copy, and Kindle/KDP content. Use for writing assistance, fiction consulting, editorial review, manuscript/book consulting, publishing help, AI-slop audits, structure, pacing, voice, dialogue, reader impact, and commercial readiness."
 ---
 
 # Writing Assistant
 
-Help with two main jobs: producing stronger prose and giving editorial review that leads to concrete revisions.
+Produce stronger prose and editorial review that leads to concrete revisions. Preserve the author's intent, language, and tonal identity while increasing force, clarity, emotional precision, and reader pull.
 
-Default to preserving the author's intent, language, and tonal identity. The job is to increase force, clarity, emotional precision, and reader pull without sanding off the work's character.
-
-Always check reader-facing text for AI-slop tells before considering the work done. Remove unchosen default phrasing, assistant residue, hollow structure, and mechanical cadence while preserving deliberate voice.
+Before returning reader-facing text, remove unchosen default phrasing, assistant residue, hollow structure, and mechanical cadence without flattening deliberate voice.
 
 ## Workflow
 
@@ -40,7 +38,7 @@ Always check reader-facing text for AI-slop tells before considering the work do
 
 ## Company Context
 
-When working in a repository, check for `company.md` at the workspace root if the task involves docs, README text, product copy, emails, release notes, marketing copy, support text, or public content. Treat it as company-level guidance for voice, terminology, audience, claims, compliance, and publishing constraints. Follow it unless it conflicts with higher-priority instructions, truthfulness, reader clarity, or the user's explicit current request.
+When repo work touches docs, README text, product copy, email, release notes, marketing, support, or public content, read root `company.md` if present. Follow its voice, terminology, audience, claims, compliance, and publishing guidance unless truthfulness, reader clarity, or higher-priority instructions conflict.
 
 ## Core Priorities
 
@@ -55,46 +53,23 @@ Use this priority order unless the user asks for line-level work only:
 
 ## Reference Map
 
-Load [references/manuscript-review.md](references/manuscript-review.md) for:
+Load [references/manuscript-review.md](references/manuscript-review.md) for chapter/full-manuscript critique, commercial strength, reader promise, structure, pacing, prose diagnosis, publishing readiness, packaging, and genre lenses.
 
-- chapter critique, full-manuscript review, and commercial strength
-- reader promise, structure, pacing, prose diagnosis, and publishing readiness
-- title, subtitle, blurb, metadata, chapter-title, and opening-page review
-- genre-specific review lenses for fiction, nonfiction, memoir, and self-help
+Load [references/creative-writing.md](references/creative-writing.md) for fiction craft: story engine, scene tension, reversals, payoff, character pressure, dialogue, action, worldbuilding, theme, voice, revision passes, and novel readiness.
 
-Load [references/creative-writing.md](references/creative-writing.md) for:
+Load [references/nonfiction.md](references/nonfiction.md) for nonfiction, business, educational, argument-driven, or self-help work: promise-to-delivery, reader activation, credibility, evidence, and chapter utility.
 
-- fiction scene craft, story engine, tension, reversals, and payoff design
-- character pressure, dialogue, action scenes, worldbuilding, theme, and voice
-- revision passes, continuity checks, and production-ready novel review
-- failure modes that weaken fiction or produce generic prose
+Load [references/memoir.md](references/memoir.md) for memoir, personal essay, autobiographical nonfiction, emotional truth, scene-vs-reflection balance, and ethical framing.
 
-Load [references/nonfiction.md](references/nonfiction.md) for:
+Load [references/publishing-copy.md](references/publishing-copy.md) for titles, subtitles, blurbs, back-cover copy, taglines, author bios, metadata-facing copy, and launch text.
 
-- nonfiction, business, educational, argument-driven, and self-help manuscripts
-- promise-to-delivery review, reader activation, credibility, evidence, and chapter utility
+Load [references/kdp-readiness.md](references/kdp-readiness.md) for Kindle/KDP readiness, front matter, Look Inside, categories, pricing, metadata, and platform-sensitive checks.
 
-Load [references/memoir.md](references/memoir.md) for:
-
-- memoir, personal essay, autobiographical nonfiction, emotional truth, scene-vs-reflection balance, and ethical framing
-
-Load [references/publishing-copy.md](references/publishing-copy.md) for:
-
-- titles, subtitles, blurbs, back-cover copy, taglines, author bios, metadata-facing copy, and launch text
-
-Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
-
-- Kindle/KDP readiness, front matter, Look Inside, categories, pricing, metadata, and platform-sensitive publishing checks
-
-Load [references/ai-slop-text.md](references/ai-slop-text.md) for:
-
-- any drafting, rewriting, copy review, README/docs prose, email, article, blurb, manuscript, or publishing text that will be read by a person
-- requests mentioning AI-written, ChatGPT-ish, robotic, generic, slop, de-slop, too polished, too corporate, too formal, "make it sound human," or "make it sound like me"
-- final quality checks before shipping prose, especially when the text was generated or heavily assisted
+Load [references/ai-slop-text.md](references/ai-slop-text.md) for human-read prose, requests mentioning AI-written/ChatGPT-ish/robotic/generic/slop/de-slop/human voice, or final quality checks on generated or heavily assisted text.
 
 ## Bundled Helpers
 
-- Use `scripts/scan-ai-slop-text.py` for a deterministic lexical scan of local prose files.
+- Use `scripts/scan-ai-slop-text.py` for deterministic lexical scans of local prose files.
 - Use `--json` when another tool or CI job should consume findings.
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that AI-slop tells are release-blocking for the text under review.
 - Treat scanner output as the first pass only. Structural tells still need a human read for rhythm, claim, specificity, and voice.
@@ -103,23 +78,17 @@ Load [references/ai-slop-text.md](references/ai-slop-text.md) for:
 
 ### Drafting
 
-- Produce clean prose that matches the requested tone, genre, and audience.
-- When the brief is underspecified, make the smallest reasonable assumptions.
+- Match the requested tone, genre, and audience; if underspecified, make the smallest reasonable assumptions.
 - Offer variants only when they materially help.
 - Pin the register, speaker, claim, and structure before drafting prose for readers.
-- Avoid assistant boilerplate, hollow openers, generic hype, listicle scaffolding, and a signposted recap unless the form truly calls for them.
-- Build around movement, not just description. In scenes, prefer:
-  - desire
-  - obstacle
-  - turn
-  - consequence
+- Avoid assistant boilerplate, hollow openers, generic hype, listicle scaffolding, and signposted recaps unless the form calls for them.
+- Build scenes around desire, obstacle, turn, and consequence.
 - Make each paragraph earn its space through tension, surprise, image, humor, revelation, or emotional deepening.
 - Finish with an AI-slop pass and revise any unchosen default phrasing.
 
 ### Revision
 
-- Tighten prose without removing the author's personality.
-- Improve clarity, rhythm, sentence variety, and transitions.
+- Tighten clarity, rhythm, sentence variety, and transitions without removing the author's personality.
 - Remove repetition, vagueness, accidental tone shifts, and filler.
 - Preserve strange or memorable language when it is doing useful work.
 - Repair weak passages before replacing them wholesale.
@@ -127,13 +96,7 @@ Load [references/ai-slop-text.md](references/ai-slop-text.md) for:
 
 ### Editorial Review
 
-- Review at the highest-impact level first:
-  - premise and positioning
-  - chapter structure
-  - pacing
-  - clarity
-  - emotional or persuasive effect
-  - line-level prose issues
+- Review highest-impact issues first: premise, positioning, chapter structure, pacing, clarity, emotional or persuasive effect, then line-level prose.
 - Give findings in priority order.
 - Quote only short excerpts from the manuscript when needed to anchor feedback.
 - End with an actionable revision plan.
@@ -177,7 +140,7 @@ Use this mode when the user wants stronger storytelling rather than generic pros
 
 ## Honest Opinion
 
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
 
 ## Review Output Shape
 
@@ -192,19 +155,4 @@ Use this structure whenever the user asks for critique, chapter review, or manus
 
 ## Chapter Review Checklist
 
-Check for:
-
-- strong opening and clear reader orientation
-- one clear purpose per chapter
-- pacing and paragraph flow
-- repeated ideas
-- unclear references or jumps in logic
-- tonal inconsistency
-- weak endings
-- places where the prose sounds translated, stiff, or generic
-- AI-slop tells: assistant residue, hollow openers, uniform rhythm, generic diction, sycophancy, listicle scaffolding, and a conclusion that only recaps
-- opportunities to sharpen specificity, tension, humor, authority, or emotional weight
-- whether the chapter changes the story, not just reports it
-- whether scene turns create new problems instead of just resolving old ones
-- whether dialogue has conflicting intent
-- whether the final line pulls the reader into the next chapter
+Check for opening orientation, chapter purpose, pacing, repeats, logic jumps, tone drift, weak endings, translated/stiff/generic prose, AI-slop tells, specificity, tension, humor, authority, emotional weight, story change, scene turns, dialogue intent, and final-line pull.

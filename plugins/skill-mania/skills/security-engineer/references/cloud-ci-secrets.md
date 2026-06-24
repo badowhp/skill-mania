@@ -2,14 +2,6 @@
 
 Use this for cloud posture, CI/CD identity, deploy credentials, secrets handling, containers, and supply-chain controls.
 
-## Table Of Contents
-
-1. Identity
-2. Secrets
-3. CI/CD
-4. Containers
-5. Cloud exposure
-
 ## Identity
 
 - Prefer workload identity federation or short-lived credentials over static keys.

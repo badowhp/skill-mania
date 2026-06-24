@@ -29,7 +29,7 @@ Design systems that are understandable, changeable, and fit the actual constrain
 
 ## Company Context
 
-When working in a repository, check for `company.md` at the workspace root if the task involves system design, boundaries, technology choices, data ownership, migration, reliability, or governance. Treat it as company-level guidance for preferred platforms, ownership model, integration rules, compliance, scalability targets, and delivery constraints. Follow it unless it conflicts with higher-priority instructions, correctness, or the user's explicit current request.
+When repo work touches system design, boundaries, technology choices, data ownership, migration, reliability, or governance, read root `company.md` if present. Follow its platform, ownership, integration, compliance, scale, and delivery guidance unless correctness or higher-priority instructions conflict.
 
 ## Reference Map
 
@@ -69,7 +69,7 @@ Use [assets/architecture-review-template.md](assets/architecture-review-template
 
 ## Honest Opinion
 
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
 
 ## Output Shape
 

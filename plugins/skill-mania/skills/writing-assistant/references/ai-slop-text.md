@@ -4,15 +4,6 @@ Use this as a quality gate for reader-facing prose. A tell is an unchosen defaul
 
 This reference is based on JCarterJohnson's `vibecoded-design-tells` research and `unslop-text` skill: https://github.com/JCarterJohnson/vibecoded-design-tells/tree/main/unslop-ai-text. The repo reports a Reddit-mined study of AI-writing complaints and packages those findings as text audit guidance.
 
-## Table Of Contents
-
-1. Always-on pass
-2. Mechanical tells
-3. Structural tells
-4. Over-correction
-5. Fixing order
-6. Audit output
-
 ## Always-On Pass
 
 Before returning prose, ask:

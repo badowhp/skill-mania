@@ -1,6 +1,6 @@
 ---
 name: seo-geo
-description: Improve website visibility in search engines and generative AI answer surfaces. Use for technical SEO, on-page SEO, content audits, metadata, structured data, crawl/indexing, canonicals, sitemaps, robots, internal links, local/ecommerce search, AI Overviews, answer-engine optimization, generative engine optimization, entity clarity, citation readiness, and SEO/GEO review before launch or migration.
+description: Improve visibility in search engines and generative answer surfaces. Use for technical/on-page SEO, content audits, metadata, structured data, crawl/indexing, canonicals, sitemaps, robots, internal links, local/ecommerce search, AI Overviews, AEO/GEO, entity clarity, citation readiness, and launch or migration review.
 ---
 
 # SEO/GEO
@@ -23,42 +23,20 @@ Improve discoverability without hacks: make pages crawlable, indexable, understa
    - site stack, rendered HTML, routes, sitemap, robots, canonicals, and metadata templates
    - Search Console, analytics, crawl, or rank data if provided
    - launch, migration, or traffic-risk timeline
-3. If `company.md` exists at the workspace root or the user provides company guidelines, read it before recommending changes. Apply brand, content, compliance, localization, platform, analytics, and release constraints unless they conflict with higher-priority instructions or search quality.
+3. If root `company.md` exists or the user provides company guidelines, read it before recommending changes. Apply brand, content, compliance, localization, platform, analytics, and release constraints unless higher-priority instructions or search quality conflict.
 4. Prioritize fixes by impact, confidence, and risk. Separate blockers from nice-to-have optimizations.
 5. Prefer implementation-ready recommendations: exact metadata, route rules, schema type, redirect map, content section, internal link, or test command.
 6. Avoid manipulative tactics: keyword stuffing, doorway pages, mass query-variant pages, fake reviews, inauthentic mentions, hidden text, or claims without evidence.
 
-## SEO Standards
+## Reference Map
 
-- Make important pages crawlable, indexable, canonical, internally linked, and rendered with their primary content available.
-- Use one clear title, meta description, canonical URL, language/locale signal when relevant, and descriptive URL per indexable page.
-- Keep robots.txt for crawl management, not privacy or deindexing. Use noindex, auth, or removal controls when content must not appear in search.
-- Use structured data only when it matches visible page content and a relevant schema type. Validate it with an appropriate rich-result or schema validator when practical.
-- Preserve useful old URLs during migrations with explicit redirect maps, canonical intent, sitemap updates, and post-launch checks.
-- Treat JavaScript SEO as rendered-output work: inspect what crawlers and users can actually see, not only source files.
-- Check page experience when it affects users or crawl/rendering: mobile fit, latency, intrusive overlays, broken media, and accessible semantic structure.
+Load [references/technical-seo.md](references/technical-seo.md) for crawl/indexing, metadata, canonicals, robots, sitemaps, structured data, JavaScript SEO, migrations, local/ecommerce/docs visibility, launch audits, and post-release checks.
 
-## GEO Standards
+Load [references/generative-search.md](references/generative-search.md) for AI Overviews, AEO/GEO, answer inclusion, entity clarity, citation readiness, freshness, evidence, and brand visibility in answer engines.
 
-- Treat GEO as search visibility plus answer usefulness, not a separate bag of tricks. Start with strong SEO, crawlability, and helpful content.
-- Make pages entity-clear: name the company, product, category, audience, location, dates, authors, credentials, and source of claims where relevant.
-- Add original evidence where possible: first-hand observations, benchmarks, pricing facts, case details, quotes, tables, FAQs, methodology, screenshots, or examples.
-- Structure content for extraction without fragmenting it unnaturally: concise answer blocks, descriptive headings, comparison tables, definitions, pros/cons, and source-backed claims.
-- Keep facts fresh and timestamped when freshness matters. Do not invent statistics or authority signals.
-- Use `llms.txt` only when a target platform or team explicitly wants it. Do not present it as required for Google Search or as a substitute for crawlable HTML.
-- For brand visibility in AI answers, prefer authoritative owned pages plus real third-party proof over inauthentic mentions.
+## Honest Opinion
 
-## Audit Checklist
-
-- Can search engines discover and render the important content?
-- Are the right pages indexable and the wrong pages excluded with the right mechanism?
-- Are titles, descriptions, headings, canonicals, hreflang, and social previews unique and coherent?
-- Do sitemaps, internal links, breadcrumbs, redirects, and pagination reflect the real site structure?
-- Does visible content answer a real query better than commodity summaries?
-- Are claims attributable, current, and supported by visible evidence?
-- Does structured data match visible content and pass validation?
-- Would an answer engine extract the correct entity, answer, source, and next action from the page?
-- Are launch or migration risks covered by monitoring, rollback, and post-release checks?
+End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
 
 ## Output Shape
 

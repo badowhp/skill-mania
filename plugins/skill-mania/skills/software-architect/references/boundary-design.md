@@ -2,13 +2,6 @@
 
 Use this for service, module, package, ownership, deployability, and failure-boundary decisions.
 
-## Table Of Contents
-
-1. Boundary inputs
-2. Good boundaries
-3. Bad boundaries
-4. Boundary matrix
-
 ## Boundary Inputs
 
 Consider:

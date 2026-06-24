@@ -2,14 +2,6 @@
 
 Use this for nonfiction, business, educational, argument-driven, prescriptive, and self-help manuscripts.
 
-## Table Of Contents
-
-1. Reader promise
-2. Argument and evidence
-3. Chapter utility
-4. Self-help and practical books
-5. Review template
-
 ## Reader Promise
 
 Identify:

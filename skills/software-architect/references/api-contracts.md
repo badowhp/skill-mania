@@ -2,13 +2,6 @@
 
 Use this for HTTP APIs, events, schemas, versioning, compatibility, idempotency, pagination, and error contracts.
 
-## Table Of Contents
-
-1. Contract basics
-2. Compatibility
-3. Reliability
-4. Review checklist
-
 ## Contract Basics
 
 Define:

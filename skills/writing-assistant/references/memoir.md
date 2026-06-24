@@ -2,14 +2,6 @@
 
 Use this for memoir, personal essay, autobiographical nonfiction, and emotionally driven true-story material.
 
-## Table Of Contents
-
-1. Memoir spine
-2. Scene and reflection
-3. Voice and ethics
-4. Structure
-5. Review template
-
 ## Memoir Spine
 
 Identify:

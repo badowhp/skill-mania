@@ -1,11 +1,11 @@
 ---
 name: design-engineer
-description: Design, build, review, or de-genericize websites, landing pages, web apps, dashboards, and frontend components with deliberate visual direction, strong UX judgment, and checks against AI-generated or vibe-coded design tells. Use for UI design, product design, frontend styling, design audits, shadcn/Tailwind cleanup, design systems, responsive layout, accessibility, and making an interface look specific rather than default.
+description: "Design, build, review, or de-genericize UI: websites, apps, dashboards, landing pages, components, design systems, and frontend styling. Use for UX/product design, responsive and accessibility checks, shadcn/Tailwind cleanup, visual QA, and making interfaces specific instead of AI-looking or default."
 ---
 
 # Design Engineer
 
-Create interfaces that look chosen, usable, and fitted to the product rather than generated from a median template.
+Create interfaces that look chosen, usable, and fitted to the product.
 
 ## Workflow
 
@@ -28,33 +28,17 @@ Create interfaces that look chosen, usable, and fitted to the product rather tha
 
 ## Company Context
 
-When working in a repository, check for `company.md` at the workspace root if the task involves UI, brand, product positioning, public pages, accessibility, or content conventions. Treat it as company-level guidance for audience, brand voice, visual constraints, component preferences, analytics, localization, and accessibility standards. Follow it unless it conflicts with higher-priority instructions, usability, accessibility, or the user's explicit current request.
+When repo work touches UI, brand, product positioning, public pages, accessibility, or content conventions, read root `company.md` if present. Follow its audience, voice, visual, component, analytics, localization, and accessibility guidance unless higher-priority instructions or usability conflict.
 
 ## Reference Map
 
-Load [references/vibecoded-design-tells.md](references/vibecoded-design-tells.md) when:
+Load [references/vibecoded-design-tells.md](references/vibecoded-design-tells.md) for AI-looking, generic, shadcn/Tailwind-default, purple-gradient, or polished public UI work where sameness matters.
 
-- the user mentions AI-looking, vibe-coded, generic, slop, de-slop, shadcn defaults, Tailwind defaults, purple gradients, or "make it look custom"
-- auditing an existing UI for design tells
-- building a public site, landing page, marketing page, or polished web app where visual sameness matters
+Load [references/deliberate-design-process.md](references/deliberate-design-process.md) when brand direction is missing, you must choose color/type/density/layout/motion, or you need distinct design directions.
 
-Load [references/deliberate-design-process.md](references/deliberate-design-process.md) when:
+Load [references/ui-audit-examples.md](references/ui-audit-examples.md) to turn audit findings into concrete UI replacements or before/after recommendations.
 
-- there is no brand direction or reference
-- choosing color, type, density, layout, or motion from scratch
-- you need to offer two or three distinct design directions instead of one median result
-
-Load [references/ui-audit-examples.md](references/ui-audit-examples.md) when:
-
-- turning an audit finding into a concrete UI improvement
-- explaining why a tell is generic without banning a tool, color, or component
-- preparing before/after recommendations for Tailwind, shadcn, dashboards, or landing pages
-
-Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) when:
-
-- designing, critiquing, or implementing a logo, wordmark, brand mark, favicon, identity lockup, or branded hero
-- preparing final review for a public UI, landing page, polished app, portfolio, marketing page, or screenshot-based design audit
-- a screenshot or rendered UI shows overlap, occlusion, cropped focal points, weak logo craft, or text that visually fights with media
+Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for logos, marks, branded heroes, final public UI review, screenshot audits, overlap, occlusion, cropped focal points, or weak brand craft.
 
 ## Design Standards
 
@@ -65,12 +49,12 @@ Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) when
 - Prefer icons from an existing icon library over emoji-as-UI or hand-drawn ad hoc icons.
 - Use cards for repeated items, modals, and genuinely framed tools. Do not put page sections inside decorative cards.
 - Do not hide weak structure behind glow, gradients, blur, animation, or empty whitespace.
-- Treat logos and brand marks as identity-system work, not decoration: check concept fit, silhouette, balance, spacing, small-size legibility, monochrome use, and surrounding UI context.
+- Treat logos and marks as identity-system work: check concept fit, silhouette, balance, spacing, small-size legibility, monochrome use, and UI context.
 - Respect accessibility: semantic structure, keyboard focus, visible states, contrast, reduced motion, and readable mobile layouts.
 
 ## Bundled Helpers
 
-- Use `scripts/scan-design-tells.mjs` for a deterministic static scan of source files for common visual defaults.
+- Use `scripts/scan-design-tells.mjs` for a deterministic static scan of common visual defaults.
 - Use `--json` when another tool or CI job should consume findings.
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that those tells are release-blocking for the surface under review.
 - Treat scanner output as a prioritization input. Final design decisions still require product context, screenshots, and responsive inspection.
@@ -101,7 +85,7 @@ When reviewing an existing UI:
 
 ## Honest Opinion
 
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
 
 ## Output Shape
 

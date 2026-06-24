@@ -2,14 +2,6 @@
 
 Use this when identity, sessions, roles, tenant boundaries, or privilege escalation are central.
 
-## Table Of Contents
-
-1. Authentication
-2. Authorization
-3. Tenant and object boundaries
-4. Session lifecycle
-5. Review template
-
 ## Authentication
 
 Check:
