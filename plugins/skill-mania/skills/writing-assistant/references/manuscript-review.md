@@ -29,10 +29,10 @@ Review in this order unless the user asks for line editing only:
 
 Apply genre-appropriate review criteria. When genre is unstated, infer it from the manuscript and name the assumption at the start of the review.
 
-- **Fiction:** Check scene-level tension, character arc continuity, pacing, and show-vs-tell balance.
-- **Nonfiction / Business:** Check argument coherence, evidence quality, chapter-level actionability, and credibility signals.
-- **Memoir:** Check voice authenticity, scene-vs-summary balance, emotional honesty, and narrative arc.
-- **Self-help:** Check promise-to-delivery ratio, exercise or tool design, transformation arc, and reader activation.
+- Fiction: check scene-level tension, character arc continuity, pacing, and show-vs-tell balance.
+- Nonfiction / business: check argument coherence, evidence quality, chapter-level actionability, and credibility signals.
+- Memoir: check voice authenticity, scene-vs-summary balance, emotional honesty, and narrative arc.
+- Self-help: check promise-to-delivery ratio, exercise or tool design, transformation arc, and reader activation.
 
 ## Reader Promise
 
@@ -44,7 +44,7 @@ Look for:
 - a believable promise of value, entertainment, insight, or transformation
 - mismatch between title, subtitle, opening, and actual content
 
-Recommend: identify the first sentence where genre and tone lock in clearly, and propose moving it — or its construction — earlier. If no such sentence exists, name what the opening promises and what it actually delivers.
+Recommend: identify the first sentence where genre and tone lock in clearly, and propose moving it, or its construction, earlier. If no such sentence exists, name what the opening promises and what it actually delivers.
 
 ## Structure
 
@@ -67,7 +67,7 @@ For each chapter ask:
 - Does the middle develop one coherent movement?
 - Does the ending propel the reader onward?
 
-Recommend: for chapters that fail these tests, name the specific failure (e.g., "the opening describes setting before establishing stakes") and propose the minimum intervention — a reordering, a cut, or a single sentence addition.
+Recommend: for chapters that fail these tests, name the specific failure (e.g., "the opening describes setting before establishing stakes") and propose the minimum intervention: a reordering, a cut, or a single sentence addition.
 
 ## Scene Or Section Flow
 
@@ -89,7 +89,7 @@ Flag:
 - filler transitions
 - passive or drained wording in places that should have force
 
-Recommend: quote the specific passage, name the problem type (abstract, overwritten, repeated, etc.), then provide a one-line revision or the pattern for fixing it. Do not list every instance — prioritize the five highest-impact prose issues.
+Recommend: quote the specific passage, name the problem type (abstract, overwritten, repeated, etc.), then provide a one-line revision or the pattern for fixing it. Do not list every instance. Prioritize the five highest-impact prose issues.
 
 ## Commercial And Publishing Review
 
@@ -102,7 +102,7 @@ When the user wants a "book reviewer" or "consultant" mode, also check:
 - whether the opening pages earn trust
 - whether the book feels niche in a good way or merely confusing
 
-Recommend: for each packaging weakness, provide a concrete alternative or specify what is missing (e.g., "the subtitle describes the subject but not the transformation — add what the reader will be able to do after reading").
+Recommend: for each packaging weakness, provide a concrete alternative or specify what is missing (e.g., "the subtitle describes the subject but not the transformation, so add what the reader will be able to do after reading").
 
 ## Kindle And KDP Readiness
 

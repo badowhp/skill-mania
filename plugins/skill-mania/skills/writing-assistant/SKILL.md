@@ -1,6 +1,6 @@
 ---
 name: writing-assistant
-description: Help draft, revise, critique, and review long-form writing such as novels, chapters, nonfiction manuscripts, blurbs, publishing copy, and Kindle/KDP-ready content. Use when Codex should act as a writing assistant, fiction consultant, editorial reviewer, manuscript doctor, book consultant, or publishing helper for structure, pacing, voice, worldbuilding, dialogue, chapter-by-chapter feedback, reader impact, and commercial readiness.
+description: Help draft, revise, critique, de-slop, and review prose such as novels, chapters, nonfiction manuscripts, articles, emails, README text, blurbs, publishing copy, and Kindle/KDP-ready content. Use when Codex should act as a writing assistant, fiction consultant, editorial reviewer, manuscript doctor, book consultant, publishing helper, or AI-slop text auditor for structure, pacing, voice, dialogue, reader impact, and commercial readiness.
 ---
 
 # Writing Assistant
@@ -8,6 +8,8 @@ description: Help draft, revise, critique, and review long-form writing such as 
 Help with two main jobs: producing stronger prose and giving editorial review that leads to concrete revisions.
 
 Default to preserving the author's intent, language, and tonal identity. The job is to increase force, clarity, emotional precision, and reader pull without sanding off the work's character.
+
+Always check reader-facing text for AI-slop tells before considering the work done. Remove unchosen default phrasing, assistant residue, hollow structure, and mechanical cadence while preserving deliberate voice.
 
 ## Workflow
 
@@ -26,14 +28,15 @@ Default to preserving the author's intent, language, and tonal identity. The job
 3. Load only the matching files from the Reference Map when the task needs deeper critique, fiction craft, or publishing guidance.
 4. If any context is missing and truly blocks the work, ask for only the blocking field. Otherwise proceed with the smallest reasonable assumption and state it briefly.
 5. Preserve the user's intent, voice, audience, and language unless the user asks for a change.
-6. Prefer concrete edits over abstract advice.
-7. When reviewing, separate diagnosis from rewrite:
+6. Run an AI-slop pass on all text you draft, revise, review, or prepare for publication. Use the scanner when prose exists in local files; otherwise do the manual pass from the Reference Map.
+7. Prefer concrete edits over abstract advice.
+8. When reviewing, separate diagnosis from rewrite:
    - explain what is weak
    - explain why it weakens the text
    - propose the smallest effective fix
-8. When revising, do not flatten the voice into generic prose.
-9. When the user asks for "review," default to an editorial review rather than line editing only.
-10. For fiction, optimize first for reader momentum, tension, payoff, emotional truth, and memorability.
+9. When revising, do not flatten the voice into generic prose.
+10. When the user asks for "review," default to an editorial review rather than line editing only.
+11. For fiction, optimize first for reader momentum, tension, payoff, emotional truth, and memorability.
 
 ## Core Priorities
 
@@ -79,6 +82,19 @@ Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
 
 - Kindle/KDP readiness, front matter, Look Inside, categories, pricing, metadata, and platform-sensitive publishing checks
 
+Load [references/ai-slop-text.md](references/ai-slop-text.md) for:
+
+- any drafting, rewriting, copy review, README/docs prose, email, article, blurb, manuscript, or publishing text that will be read by a person
+- requests mentioning AI-written, ChatGPT-ish, robotic, generic, slop, de-slop, too polished, too corporate, too formal, "make it sound human," or "make it sound like me"
+- final quality checks before shipping prose, especially when the text was generated or heavily assisted
+
+## Bundled Helpers
+
+- Use `scripts/scan-ai-slop-text.py` for a deterministic lexical scan of local prose files.
+- Use `--json` when another tool or CI job should consume findings.
+- Use `--fail-on medium` or `--fail-on high` only when the team has agreed that AI-slop tells are release-blocking for the text under review.
+- Treat scanner output as the first pass only. Structural tells still need a human read for rhythm, claim, specificity, and voice.
+
 ## Modes
 
 ### Drafting
@@ -86,12 +102,15 @@ Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
 - Produce clean prose that matches the requested tone, genre, and audience.
 - When the brief is underspecified, make the smallest reasonable assumptions.
 - Offer variants only when they materially help.
+- Pin the register, speaker, claim, and structure before drafting prose for readers.
+- Avoid assistant boilerplate, hollow openers, generic hype, listicle scaffolding, and a signposted recap unless the form truly calls for them.
 - Build around movement, not just description. In scenes, prefer:
   - desire
   - obstacle
   - turn
   - consequence
 - Make each paragraph earn its space through tension, surprise, image, humor, revelation, or emotional deepening.
+- Finish with an AI-slop pass and revise any unchosen default phrasing.
 
 ### Revision
 
@@ -100,6 +119,7 @@ Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
 - Remove repetition, vagueness, accidental tone shifts, and filler.
 - Preserve strange or memorable language when it is doing useful work.
 - Repair weak passages before replacing them wholesale.
+- Remove AI-slop tells without replacing them with forced casualness, fake typos, conspicuous anti-AI phrasing, or a different default register.
 
 ### Editorial Review
 
@@ -114,6 +134,7 @@ Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
 - Quote only short excerpts from the manuscript when needed to anchor feedback.
 - End with an actionable revision plan.
 - Structure output using the Review Output Shape below.
+- Include AI-slop findings when they affect trust, voice, cadence, or market readiness.
 - For fiction, also inspect:
   - scene goals and reversals
   - mystery/question management
@@ -128,6 +149,7 @@ Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
 - Optimize for clarity and conversion, not hype without substance.
 - Check opening pages: do they establish voice and deliver on the book's promise quickly?
 - Distinguish editorial quality issues (prose, structure) from file-formatting issues (metadata, TOC, front matter). Address them in order.
+- Strip generic marketing claims and assistant-shaped phrasing from reader-facing copy.
 
 ### Creative Writing / Fiction Consultant
 
@@ -157,7 +179,8 @@ Use this structure whenever the user asks for critique, chapter review, or manus
 2. Top issues, ordered by impact
 3. Specific fixes
 4. Optional rewrite sample when it helps
-5. Next-step recommendation
+5. AI-slop pass: verdict, strongest tell, and top fixes when relevant
+6. Next-step recommendation
 
 ## Chapter Review Checklist
 
@@ -171,6 +194,7 @@ Check for:
 - tonal inconsistency
 - weak endings
 - places where the prose sounds translated, stiff, or generic
+- AI-slop tells: assistant residue, hollow openers, uniform rhythm, generic diction, sycophancy, listicle scaffolding, and a conclusion that only recaps
 - opportunities to sharpen specificity, tension, humor, authority, or emotional weight
 - whether the chapter changes the story, not just reports it
 - whether scene turns create new problems instead of just resolving old ones

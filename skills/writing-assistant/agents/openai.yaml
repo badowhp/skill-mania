@@ -1,4 +1,4 @@
 interface:
   display_name: "Writing Assistant"
-  short_description: "Draft, revise, and review manuscripts"
-  default_prompt: "Use $writing-assistant to strengthen this manuscript's structure, scene tension, voice, dialogue, and publishing readiness."
+  short_description: "Draft, revise, review, and de-slop prose"
+  default_prompt: "Use $writing-assistant to strengthen this prose's structure, voice, reader impact, publishing readiness, and AI-slop text checks."

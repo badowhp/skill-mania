@@ -16,6 +16,13 @@
       "tags": ["publishing", "kdp"]
     },
     {
+      "id": "ai-slop-text-audit",
+      "prompt": "This README section sounds too ChatGPT-ish. De-slop it, preserve my direct technical voice, and flag the biggest AI-writing tells.",
+      "expected_output": "Should trigger writing-assistant, load the AI-slop text guidance, preserve the user's voice, remove assistant-shaped phrasing, check mechanical and structural tells, and avoid forced casual over-correction.",
+      "should_trigger": true,
+      "tags": ["ai-slop", "revision"]
+    },
+    {
       "id": "near-miss-terraform",
       "prompt": "Summarize the risk in this Terraform plan before production apply.",
       "expected_output": "Should not require writing-assistant; senior-devops-engineer is a better fit.",

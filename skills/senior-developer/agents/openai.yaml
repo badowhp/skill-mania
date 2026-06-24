@@ -1,4 +1,4 @@
 interface:
   display_name: "Senior Developer"
-  short_description: "Scoped coding work with senior judgment"
-  default_prompt: "Use $senior-developer to implement or review this change with explicit assumptions, scoped edits, uncertainty flags, and practical verification."
+  short_description: "Professional scoped coding work"
+  default_prompt: "Use $senior-developer to implement, debug, or review this change with explicit assumptions, scoped edits, regression awareness, and practical verification."
