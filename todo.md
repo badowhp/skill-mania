@@ -1,2 +1,1 @@
-add SEO/GEO skill,
-tested design skill and is cool, but logo is shit, add proper logos to design
+Add caveman or headlamp and implement proper token handling, hooks also for context handling and release, also an skill which handles how to make skills not use up more tokens if needed.
