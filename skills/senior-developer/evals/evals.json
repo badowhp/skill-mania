@@ -16,6 +16,13 @@
       "tags": ["implementation", "refactor"]
     },
     {
+      "id": "professional-debugging",
+      "prompt": "Debug a failing pagination regression, reproduce it locally if possible, patch the smallest affected code path, and add a targeted test.",
+      "expected_output": "Should inspect callers and contracts before editing, distinguish symptom from root cause, keep the fix localized, add regression coverage, and report verification evidence plus remaining gaps.",
+      "should_trigger": true,
+      "tags": ["debugging", "regression"]
+    },
+    {
       "id": "near-miss-threat-model",
       "prompt": "Threat-model a new webhook endpoint and decide whether replay protection is sufficient.",
       "expected_output": "Should route to security-engineer because attacker behavior and trust boundaries are central.",
