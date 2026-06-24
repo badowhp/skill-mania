@@ -1,0 +1,26 @@
+{
+  "skill_name": "software-architect",
+  "evals": [
+    {
+      "id": "service-boundary-review",
+      "prompt": "Review whether billing, invoicing, and subscription lifecycle should be one service or split into three services.",
+      "expected_output": "Evaluates ownership, data source of truth, API/contracts, deployability, failure boundaries, rejected alternatives, and the simplest maintainable recommendation.",
+      "should_trigger": true,
+      "tags": ["boundaries", "tradeoffs"]
+    },
+    {
+      "id": "migration-plan",
+      "prompt": "Plan a strangler migration from a monolith order module to a new order service without a big-bang cutover.",
+      "expected_output": "Proposes incremental phases, data ownership, compatibility, validation per phase, rollback, observability, and cleanup.",
+      "should_trigger": true,
+      "tags": ["migration", "architecture"]
+    },
+    {
+      "id": "near-miss-css-audit",
+      "prompt": "Audit our Tailwind landing page for generic AI-looking design.",
+      "expected_output": "Should not require software-architect; design-engineer is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

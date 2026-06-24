@@ -1,0 +1,26 @@
+{
+  "skill_name": "ponytail",
+  "evals": [
+    {
+      "id": "minimal-bug-fix",
+      "prompt": "Ponytail full: fix a bug where empty optional tags crash the formatter. Keep the diff as small as possible.",
+      "expected_output": "Inspects the relevant path, reuses existing code, fixes the root cause with the smallest coherent change, and gives a short skipped line for omitted extra scope.",
+      "should_trigger": true,
+      "tags": ["minimal", "bugfix"]
+    },
+    {
+      "id": "challenge-speculative-abstraction",
+      "prompt": "Ponytail ultra: add a plugin registry abstraction for one hard-coded local plugin we use today.",
+      "expected_output": "Challenges the abstraction unless current requirements justify it, prefers direct code or deletion, and preserves validation/security basics.",
+      "should_trigger": true,
+      "tags": ["yagni", "scope"]
+    },
+    {
+      "id": "near-miss-full-architecture",
+      "prompt": "Design a multi-region event-driven platform with an ADR and migration plan.",
+      "expected_output": "Should not require ponytail unless the user explicitly asks for minimality; software-architect is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

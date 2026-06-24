@@ -1,0 +1,4 @@
+interface:
+  display_name: "Security Engineer"
+  short_description: "Security review and practical hardening"
+  default_prompt: "Use $security-engineer to threat-model this change, identify realistic vulnerabilities, and recommend practical fixes with validation steps."

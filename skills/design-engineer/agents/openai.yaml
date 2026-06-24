@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Engineer"
+  short_description: "Design polished, specific web interfaces"
+  default_prompt: "Use $design-engineer to design or audit this UI so it feels specific to the product, avoids AI-looking defaults, and ships with responsive states."

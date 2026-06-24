@@ -48,19 +48,36 @@ Use this priority order unless the user asks for line-level work only:
 
 ## Reference Map
 
-Load `references/manuscript-review.md` for:
+Load [references/manuscript-review.md](references/manuscript-review.md) for:
 
 - chapter critique, full-manuscript review, and commercial strength
 - reader promise, structure, pacing, prose diagnosis, and publishing readiness
 - title, subtitle, blurb, metadata, chapter-title, and opening-page review
 - genre-specific review lenses for fiction, nonfiction, memoir, and self-help
 
-Load `references/creative-writing.md` for:
+Load [references/creative-writing.md](references/creative-writing.md) for:
 
 - fiction scene craft, story engine, tension, reversals, and payoff design
 - character pressure, dialogue, action scenes, worldbuilding, theme, and voice
 - revision passes, continuity checks, and production-ready novel review
 - failure modes that weaken fiction or produce generic prose
+
+Load [references/nonfiction.md](references/nonfiction.md) for:
+
+- nonfiction, business, educational, argument-driven, and self-help manuscripts
+- promise-to-delivery review, reader activation, credibility, evidence, and chapter utility
+
+Load [references/memoir.md](references/memoir.md) for:
+
+- memoir, personal essay, autobiographical nonfiction, emotional truth, scene-vs-reflection balance, and ethical framing
+
+Load [references/publishing-copy.md](references/publishing-copy.md) for:
+
+- titles, subtitles, blurbs, back-cover copy, taglines, author bios, metadata-facing copy, and launch text
+
+Load [references/kdp-readiness.md](references/kdp-readiness.md) for:
+
+- Kindle/KDP readiness, front matter, Look Inside, categories, pricing, metadata, and platform-sensitive publishing checks
 
 ## Modes
 
@@ -109,11 +126,7 @@ Load `references/creative-writing.md` for:
 
 - Evaluate title, subtitle, blurb, hooks, table of contents, chapter names, and reader promise.
 - Optimize for clarity and conversion, not hype without substance.
-- Blurb structure: hook (first sentence creates curiosity or stakes), body (genre signal, main premise, one sentence of tension or transformation), close (leave the reader wanting more).
-- KDP metadata checklist: subtitle as the primary keyword surface; BISAC codes must match actual genre; category selection affects discoverability more than rank position.
-- Check opening pages (Look Inside): do they establish voice and deliver on the book's promise within the first two pages?
-- Series naming: consistent, searchable, and clear on sequence position.
-- Flag pricing mismatches relative to category norms; outlier pricing signals a positioning error or an ebook/print length mismatch.
+- Check opening pages: do they establish voice and deliver on the book's promise quickly?
 - Distinguish editorial quality issues (prose, structure) from file-formatting issues (metadata, TOC, front matter). Address them in order.
 
 ### Creative Writing / Fiction Consultant

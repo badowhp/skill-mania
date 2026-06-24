@@ -2,6 +2,18 @@
 
 Use this reference when the request is about chapter critique, full-manuscript review, publishing readiness, or commercial strength.
 
+## Table Of Contents
+
+1. Review order
+2. Genre lens
+3. Reader promise
+4. Structure
+5. Chapter-level effectiveness
+6. Scene or section flow
+7. Prose diagnosis
+8. Commercial and publishing review
+9. Kindle and KDP readiness
+
 ## Review Order
 
 Review in this order unless the user asks for line editing only:

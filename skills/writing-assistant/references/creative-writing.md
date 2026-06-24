@@ -2,6 +2,22 @@
 
 Use this reference when the job is fiction writing, developmental editing, chapter expansion, scene repair, dialogue improvement, worldbuilding integration, or climax design.
 
+## Table Of Contents
+
+1. Priority order
+2. Story engine
+3. Character pressure
+4. Scene design
+5. Pacing and reveal control
+6. Dialogue
+7. Worldbuilding
+8. Action and fight scenes
+9. Theme and philosophical material
+10. Voice and prose
+11. Revision passes
+12. Production-ready novel checklist
+13. Failure modes to avoid
+
 ## Priority Order
 
 Diagnose and revise in this order unless the user explicitly asks for line editing only:

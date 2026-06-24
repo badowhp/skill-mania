@@ -51,7 +51,7 @@
 ## Quality Controls
 
 - Prefer reusable CI checks: `fmt`, `validate`, linting, security scanning, and policy checks.
-- Use `tflint`, `tfsec` or `checkov`, and provider-specific linters where they add signal.
+- Use `tflint` plus `trivy config` or `checkov`, and provider-specific linters where they add signal. Keep `tfsec` only for legacy repos already standardized on it; Aqua now directs tfsec users toward Trivy for IaC and misconfiguration scanning.
 - Generate docs if the repo already standardizes on it, but do not let generated docs replace real review.
 - Keep secrets out of variables files committed to git. Use CI secret stores, Vault, or cloud-native secret systems.
 - Avoid shelling out from Terraform unless there is no better integration point.

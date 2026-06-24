@@ -8,7 +8,13 @@ Skill Mania is a portable Agent Skills repository for Codex and Claude Code. It 
 
 ## Included Skills
 
+- `design-engineer` - frontend, product design, UX, design-system, and vibe-coded UI audit guidance.
+- `hip0-mania` - draft personal workstyle, personality, and weakness guardrail template.
+- `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
+- `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
+- `senior-developer` - scoped implementation, debugging, refactoring, review, and maintainability guidance.
 - `senior-devops-engineer` - senior platform, DevOps, SRE, cloud infrastructure, delivery, operations, and production-readiness guidance.
+- `software-architect` - system design, service boundaries, tradeoff analysis, and migration planning.
 - `writing-assistant` - drafting, revision, editorial review, fiction craft, manuscript critique, publishing copy, and Kindle/KDP readiness.
 
 Bundled Codex system skills are intentionally excluded. This repository only stores user-maintained portable skills.
@@ -76,7 +82,7 @@ When running marketplace-add commands from inside this repository, use `.` inste
 ## Authoring Standards
 
 - Keep each skill focused on one coherent workflow or domain role.
-- Keep shared `SKILL.md` frontmatter portable; only `name` and `description` are required.
+- Keep shared `SKILL.md` frontmatter portable; this repository allows only `name` and `description` in shared skill frontmatter.
 - Ensure the skill `name` matches its directory and uses lowercase letters, digits, and hyphens.
 - Put trigger wording in `description`; keep it specific and front-loaded.
 - Keep `SKILL.md` concise. Move detailed provider, framework, or domain material into `references/`.
@@ -95,7 +101,13 @@ Run validation before committing:
 python3 scripts/validate-skills.py skills plugins/skill-mania/skills
 ```
 
-The validator checks skill frontmatter, naming, `SKILL.md` length, relative links, reference routing, `agents/openai.yaml`, plugin manifests, and marketplace metadata.
+Run the complete local release gate before publishing:
+
+```bash
+./scripts/check-release-ready.sh
+```
+
+The validator checks the repository's portable skill contract: `name` and `description` frontmatter only, naming, `SKILL.md` length, relative links, reference routing, `agents/openai.yaml`, eval manifests for production skills, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks package sync, unit tests, shell syntax, placeholder text outside draft skills, bundled helper smoke tests, design scanner behavior, and local installer copy mode.
 
 After changing top-level `skills/`, refresh the packaged plugin copy:
 
@@ -103,10 +115,19 @@ After changing top-level `skills/`, refresh the packaged plugin copy:
 ./scripts/sync-plugin-package.sh
 ```
 
+Before publishing a plugin release:
+
+- Fill or intentionally leave draft skills out of starter prompts.
+- Run `./scripts/check-release-ready.sh`.
+- Bump both Codex and Claude plugin manifest versions together.
+- Record any manual skill-eval results that influenced description or behavior changes.
+
 ## References
 
 - Agent Skills specification: https://agentskills.io/specification
 - Agent Skills best practices: https://agentskills.io/skill-creation/best-practices
-- Codex skills catalog: https://github.com/openai/skills
+- Codex skills docs: https://developers.openai.com/codex/skills
+- Codex plugin build docs: https://developers.openai.com/codex/plugins/build
+- OpenAI plugins examples: https://github.com/openai/plugins
 - Claude Code skills docs: https://code.claude.com/docs/en/skills
 - Claude Code plugin marketplace docs: https://code.claude.com/docs/en/plugin-marketplaces
