@@ -10,6 +10,7 @@ This repository stores portable Agent Skills for Codex and Claude Code.
 - Put Codex-specific UI metadata in `agents/openai.yaml`.
 - Put Claude Code plugin configuration in `.claude-plugin/`.
 - Put Codex plugin configuration in `.codex-plugin/` and `.agents/plugins/`.
+- Do not use emojis unless the user explicitly requests them.
 - Run `./scripts/sync-plugin-package.sh --check` and `python3 scripts/validate-skills.py skills plugins/skill-mania/skills` after editing skills.
 
 ## Skill Quality
