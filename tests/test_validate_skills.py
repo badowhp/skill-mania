@@ -40,6 +40,25 @@ version: 1.0.0
 
             self.assertIn("unsupported frontmatter key", str(ctx.exception))
 
+    def test_frontmatter_rejects_unquoted_colon_space_values(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_file = Path(tmp) / "demo" / "SKILL.md"
+            write(
+                skill_file,
+                """---
+name: demo
+description: Demo skill: invalid for portable YAML.
+---
+
+# Demo
+""",
+            )
+
+            with self.assertRaises(ValueError) as ctx:
+                validator.parse_frontmatter(skill_file)
+
+            self.assertIn("quote frontmatter values containing colon-space", str(ctx.exception))
+
     def test_reference_routing_requires_markdown_links(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             skill_dir = Path(tmp) / "demo"
@@ -235,6 +254,42 @@ description: Demo skill.
 
             self.assertEqual(len(errors), 1)
             self.assertIn("plugin versions must match", errors[0])
+
+    def test_codex_default_prompt_limits_match_ui_contract(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo_root = Path(tmp)
+            (repo_root / "plugins" / "skill-mania" / "skills").mkdir(parents=True)
+            write(
+                repo_root / "plugins" / "skill-mania" / ".codex-plugin" / "plugin.json",
+                """{
+  "name": "skill-mania",
+  "version": "0.1.0",
+  "description": "Personal Agent Skills collection.",
+  "keywords": ["skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Skill Mania",
+    "shortDescription": "Personal reusable skills.",
+    "longDescription": "Personal reusable skills for Codex.",
+    "developerName": "Hipolit Badowski",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": [
+      "This prompt is intentionally longer than one hundred twenty eight characters so the validator catches UI truncation before release.",
+      "Second prompt.",
+      "Third prompt.",
+      "Fourth prompt."
+    ]
+  }
+}
+""",
+            )
+
+            errors = validator.validate_codex_plugin_manifest(repo_root)
+
+            joined_errors = "\n".join(errors)
+            self.assertIn("interface.defaultPrompt includes 4 entries; maximum is 3", joined_errors)
+            self.assertIn("interface.defaultPrompt[0] must be 128 characters or less", joined_errors)
 
 
 if __name__ == "__main__":

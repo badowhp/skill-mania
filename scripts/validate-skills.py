@@ -70,10 +70,15 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
             current_block = []
             continue
 
-        if (value.startswith('"') and value.endswith('"')) or (
+        is_quoted = (value.startswith('"') and value.endswith('"')) or (
             value.startswith("'") and value.endswith("'")
-        ):
+        )
+        if is_quoted:
             value = value[1:-1]
+        elif re.search(r":\s+\S", value):
+            raise ValueError(
+                f"line {line_no}: quote frontmatter values containing colon-space"
+            )
         data[key] = value
 
     flush_block()
@@ -450,6 +455,17 @@ def validate_codex_plugin_manifest(repo_root: Path) -> list[str]:
             errors.extend(require_string(interface, key, path))
         errors.extend(require_string_list(interface, "capabilities", path))
         errors.extend(require_string_list(interface, "defaultPrompt", path))
+        default_prompts = interface.get("defaultPrompt")
+        if isinstance(default_prompts, list):
+            if len(default_prompts) > 3:
+                errors.append(
+                    f"{path}: interface.defaultPrompt includes {len(default_prompts)} entries; maximum is 3"
+                )
+            for index, prompt in enumerate(default_prompts):
+                if isinstance(prompt, str) and len(prompt) > 128:
+                    errors.append(
+                        f"{path}: interface.defaultPrompt[{index}] must be 128 characters or less"
+                    )
 
     skills_path = data.get("skills")
     plugin_root = path.parent.parent

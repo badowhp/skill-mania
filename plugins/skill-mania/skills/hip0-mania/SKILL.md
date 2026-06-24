@@ -43,6 +43,10 @@ Suggested structure:
 
 Keep durable details in the reference files and keep this `SKILL.md` concise.
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Output Shape
 
 When this skill materially changes the response, include:

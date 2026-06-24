@@ -63,6 +63,10 @@ Use [assets/architecture-review-template.md](assets/architecture-review-template
 - Can the system be deployed, observed, migrated, and rolled back?
 - What will be hardest to change later?
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Output Shape
 
 For a proposal:

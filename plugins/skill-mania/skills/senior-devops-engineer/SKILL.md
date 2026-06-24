@@ -114,6 +114,10 @@ Load [references/operations.md](references/operations.md) for:
 - Use `scripts/devops-context.sh` for a quick read-only inventory of repo tooling, CI files, Dockerfiles, Terraform stacks, and Ansible content.
 - Use `assets/rollback-plan.md`, `assets/incident-timeline.md`, and `assets/runbook-template.md` when the user asks for rollout, incident, or runbook artifacts.
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Output Shape
 
 When producing an implementation plan or recommendation, use this order:

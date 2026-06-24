@@ -65,6 +65,10 @@ Use [assets/security-review-template.md](assets/security-review-template.md) whe
 - Are dependencies, containers, and CI steps trusted and pinned?
 - Can a fix be verified with a targeted test?
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Output Shape
 
 For a security review:

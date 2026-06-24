@@ -89,6 +89,10 @@ When reviewing, lead with correctness, behavioral regressions, missing tests, se
 
 For every finding, include the affected file or line when available, the user impact, why the current behavior is risky, and the smallest credible remediation. Do not pad reviews with harmless preferences.
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Output Shape
 
 For implementation work:

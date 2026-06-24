@@ -171,6 +171,10 @@ Use this mode when the user wants stronger storytelling rather than generic pros
 - Avoid hedging praise that obscures diagnosis. If a passage has a problem, say so plainly.
 - When the passage is strong, identify why it works so the author can replicate the effect elsewhere.
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Review Output Shape
 
 Use this structure whenever the user asks for critique, chapter review, or manuscript evaluation:

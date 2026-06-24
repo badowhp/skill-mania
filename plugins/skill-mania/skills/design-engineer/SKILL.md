@@ -87,6 +87,10 @@ When reviewing an existing UI:
 4. Treat intentional brand decisions as allowed; the problem is an unspecified default, not a banned color or font.
 5. End with the top three changes that would most improve specificity and usability.
 
+## Honest Opinion
+
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+
 ## Output Shape
 
 For a design recommendation:

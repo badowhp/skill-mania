@@ -17,11 +17,7 @@
     "defaultPrompt": [
       "Use the laziest correct implementation that avoids unnecessary code.",
       "Design or audit this UI with deliberate product-specific direction.",
-      "Implement or review this code change with senior developer judgment.",
-      "Review this architecture and recommend the simplest maintainable design.",
-      "Threat-model this change and prioritize realistic security risks.",
-      "Review this infrastructure plan with senior DevOps judgment.",
-      "Review this manuscript and suggest concrete revisions."
+      "Implement or review this code change with senior developer judgment."
     ]
   }
 }
