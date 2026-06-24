@@ -16,6 +16,13 @@
       "tags": ["build", "dashboard", "workflow"]
     },
     {
+      "id": "logo-and-hero-overlap-review",
+      "prompt": "Review this portfolio hero screenshot where the logo feels amateur and a translucent skill card overlaps the portrait. Recommend final design adjustments.",
+      "expected_output": "Should trigger design-engineer, run logo consultant and final visual QA checks, treat overlap/occlusion as high priority, and ask for rendered screenshot review if final inspection cannot be performed.",
+      "should_trigger": true,
+      "tags": ["logo", "visual-qa", "responsive"]
+    },
+    {
       "id": "near-miss-api-refactor",
       "prompt": "Refactor this API client to retry 429 responses with exponential backoff.",
       "expected_output": "Should not require design-engineer; this is ordinary implementation or DevOps/runtime behavior.",

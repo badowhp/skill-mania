@@ -38,6 +38,10 @@ Always check reader-facing text for AI-slop tells before considering the work do
 10. When the user asks for "review," default to an editorial review rather than line editing only.
 11. For fiction, optimize first for reader momentum, tension, payoff, emotional truth, and memorability.
 
+## Company Context
+
+When working in a repository, check for `company.md` at the workspace root if the task involves docs, README text, product copy, emails, release notes, marketing copy, support text, or public content. Treat it as company-level guidance for voice, terminology, audience, claims, compliance, and publishing constraints. Follow it unless it conflicts with higher-priority instructions, truthfulness, reader clarity, or the user's explicit current request.
+
 ## Core Priorities
 
 Use this priority order unless the user asks for line-level work only:

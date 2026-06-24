@@ -12,6 +12,7 @@ Skill Mania is a portable Agent Skills repository for Codex and Claude Code. It 
 - `hip0-mania` - draft personal workstyle, personality, and weakness guardrail template.
 - `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
 - `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
+- `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
 - `senior-developer` - scoped implementation, debugging, refactoring, review, and maintainability guidance.
 - `senior-devops-engineer` - senior platform, DevOps, SRE, cloud infrastructure, delivery, operations, and production-readiness guidance.
 - `software-architect` - system design, service boundaries, tradeoff analysis, and migration planning.
@@ -24,6 +25,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ```text
 .
 ├── assets/                         # Repository media used by documentation
+├── templates/                       # Optional templates such as company.md
 ├── skills/                         # Canonical skill source
 │   └── <skill-name>/SKILL.md
 ├── plugins/skill-mania/            # Packaged plugin copy
@@ -82,6 +84,7 @@ When running marketplace-add commands from inside this repository, use `.` inste
 ## Authoring Standards
 
 - Keep each skill focused on one coherent workflow or domain role.
+- Use `templates/company.md` when a team needs durable company, infrastructure, development, brand, or content guidance that role skills should respect during repository work.
 - Keep shared `SKILL.md` frontmatter portable; this repository allows only `name` and `description` in shared skill frontmatter.
 - Ensure the skill `name` matches its directory and uses lowercase letters, digits, and hyphens.
 - Put trigger wording in `description`; keep it specific and front-loaded.

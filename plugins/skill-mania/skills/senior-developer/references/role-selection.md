@@ -15,6 +15,7 @@ Use this when a request could trigger multiple broad skills.
 - Attacker behavior, trust boundaries, sensitive data, exploitability, or security controls: use `security-engineer`.
 - Infrastructure, runtime operations, CI/CD, release, observability, incident, backup, or cost work: use `senior-devops-engineer`.
 - UI/UX, visual design, frontend polish, responsive states, or vibe-coded design tells: use `design-engineer`.
+- Technical SEO, on-page SEO, crawl/indexing, metadata, structured data, Search Console, AI Overviews, AEO, GEO, answer inclusion, or search visibility: use `seo-geo`.
 - Manuscript, prose, docs, README text, publishing copy, KDP review, or AI-slop text checks: use `writing-assistant`.
 - Explicit "be lazy", YAGNI, minimal solution, or Ponytail mode: use `ponytail` as a minimality overlay, but do not let it override explicit requirements or safety controls.
 
@@ -24,6 +25,7 @@ Use this when a request could trigger multiple broad skills.
 - If the work changes code but the main decision is service shape, ownership, or migration, architecture wins.
 - If the work changes code but deployment, rollback, runtime, or observability dominates risk, DevOps wins.
 - If the work touches frontend code but the user is asking about product feel, layout, states, or polish, design wins.
+- If the work touches frontend or content code but the main goal is crawlability, indexability, metadata, snippets, structured data, AI-search visibility, or content discoverability, SEO/GEO wins.
 - If the work changes code but the main request is reader-facing wording, docs, release notes, or AI-slop cleanup, writing wins.
 - If the work is mostly code but includes user-visible copy, senior-developer leads and applies a writing lens to the text.
 - If the user asks for code review without a domain, senior-developer leads and calls out when a specialist review is needed.
@@ -35,5 +37,8 @@ When two roles are genuinely needed, keep one lead role and one lens:
 - senior-developer + security lens: implementation with targeted security checks
 - software-architect + DevOps lens: architecture with rollout and operability
 - design-engineer + senior-developer lens: UI direction implemented in code
+- seo-geo + design lens: discoverable public page with visual and responsive quality
+- seo-geo + writing lens: search-intent and answer-ready content without generic copy
+- senior-developer + seo-geo lens: code change for metadata, schema, sitemap, redirects, or rendered crawlability
 - senior-devops-engineer + security lens: runtime hardening and exposure review
 - senior-developer + writing lens: code change with docs, messages, prompts, release notes, or AI-slop text cleanup

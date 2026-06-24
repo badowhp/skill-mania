@@ -1,0 +1,33 @@
+{
+  "skill_name": "seo-geo",
+  "evals": [
+    {
+      "id": "technical-seo-launch-audit",
+      "prompt": "Audit this Next.js marketing site before launch for titles, meta descriptions, canonical URLs, sitemap, robots.txt, structured data, and crawl/indexing risks.",
+      "expected_output": "Prioritizes crawlability, indexability, metadata, canonicals, sitemap, robots rules, structured data validation, rendered output, and launch monitoring with exact fixes.",
+      "should_trigger": true,
+      "tags": ["technical-seo", "launch"]
+    },
+    {
+      "id": "geo-content-review",
+      "prompt": "Improve this product page so it is clearer for Google AI Overviews and other answer engines without keyword stuffing or fake authority.",
+      "expected_output": "Treats GEO as search visibility plus answer usefulness, improves entity clarity, answer-ready structure, original evidence, supported claims, and warns against hacks like mass query pages or unsupported llms.txt requirements.",
+      "should_trigger": true,
+      "tags": ["geo", "content"]
+    },
+    {
+      "id": "migration-redirect-risk",
+      "prompt": "We are migrating /docs routes to /guides. Review the redirect, canonical, sitemap, and Search Console risk before release.",
+      "expected_output": "Covers redirect map, canonical intent, sitemap updates, old URL preservation, crawl/indexing validation, monitoring, and rollback or post-launch checks.",
+      "should_trigger": true,
+      "tags": ["migration", "redirects"]
+    },
+    {
+      "id": "near-miss-logo-design",
+      "prompt": "Make this app icon and landing page hero look less generic and fix the overlapping card on mobile.",
+      "expected_output": "Should not require seo-geo; design-engineer is a better fit unless search visibility or metadata is central.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

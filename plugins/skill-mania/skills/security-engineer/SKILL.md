@@ -23,6 +23,10 @@ Find realistic security risks, explain exploitability, and recommend practical c
 6. Recommend the smallest control that materially reduces risk.
 7. Include validation steps so the fix can be tested.
 
+## Company Context
+
+When working in a repository, check for `company.md` at the workspace root if the task involves security review, threat modeling, release readiness, privacy, compliance, cloud/CI exposure, or risk acceptance. Treat it as company-level guidance for data sensitivity, regulatory constraints, control baselines, incident policy, and exception ownership. Follow it unless it conflicts with higher-priority instructions, user safety, or stronger security evidence.
+
 ## Reference Map
 
 Load [references/threat-modeling.md](references/threat-modeling.md) for assets, actors, trust boundaries, entry points, sensitive data, abuse cases, and mitigation planning.

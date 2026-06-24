@@ -43,6 +43,10 @@ Deliver scoped engineering work with clear assumptions, practical judgment, and 
 6. Verify with the lightest meaningful test, command, or inspection that exercises the changed behavior.
 7. Report changed behavior, assumptions, verification, and separate follow-ups.
 
+## Company Context
+
+When working in a repository, check for `company.md` at the workspace root if the task involves implementation, review, architecture-sensitive choices, release behavior, or team conventions. Treat it as company-level guidance for development standards, tooling, environments, review expectations, and non-goals. Follow it unless it conflicts with higher-priority instructions, security, correctness, or the user's explicit current request.
+
 ## Reference Map
 
 Load [references/role-selection.md](references/role-selection.md) when the task could belong to architecture, security, DevOps, design, writing, or Ponytail instead of ordinary code-level senior developer work.

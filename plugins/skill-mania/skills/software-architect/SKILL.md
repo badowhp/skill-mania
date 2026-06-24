@@ -27,6 +27,10 @@ Design systems that are understandable, changeable, and fit the actual constrain
 5. Treat unknowns as risks, not facts. Ask if the answer would materially change the design; otherwise state the assumption and continue.
 6. Produce decisions that can be implemented incrementally.
 
+## Company Context
+
+When working in a repository, check for `company.md` at the workspace root if the task involves system design, boundaries, technology choices, data ownership, migration, reliability, or governance. Treat it as company-level guidance for preferred platforms, ownership model, integration rules, compliance, scalability targets, and delivery constraints. Follow it unless it conflicts with higher-priority instructions, correctness, or the user's explicit current request.
+
 ## Reference Map
 
 Load [references/boundary-design.md](references/boundary-design.md) for service, module, package, ownership, deployability, and failure-boundary decisions.

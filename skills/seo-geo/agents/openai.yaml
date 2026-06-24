@@ -1,0 +1,4 @@
+interface:
+  display_name: "SEO/GEO"
+  short_description: "SEO and generative search visibility"
+  default_prompt: "Use $seo-geo to audit this website for technical SEO, content structure, and generative search visibility."

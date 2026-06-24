@@ -24,7 +24,11 @@ Create interfaces that look chosen, usable, and fitted to the product rather tha
 4. Prefer real product evidence over abstract feature cards. Use screenshots, tables, data, forms, previews, maps, timelines, or operational states when they are available.
 5. Build controls and states a real user expects: empty, loading, error, disabled, selected, hover, focus, validation, mobile, and overflow.
 6. Keep layout tied to the user's task. Structure follows the workflow, not the default landing-page skeleton.
-7. Before finishing, inspect for responsive fit, text overflow, incoherent overlap, missing hierarchy, and unintentional default visual tells.
+7. Before finishing, run the Final Visual QA Gate: inspect rendered desktop and mobile states for responsive fit, text overflow, clipping, incoherent overlap, focal-point collisions, hidden actions, missing hierarchy, and unintentional default visual tells. If you cannot inspect a rendered UI, ask for a screenshot or user review for final adjustments, or clearly mark visual QA as unverified.
+
+## Company Context
+
+When working in a repository, check for `company.md` at the workspace root if the task involves UI, brand, product positioning, public pages, accessibility, or content conventions. Treat it as company-level guidance for audience, brand voice, visual constraints, component preferences, analytics, localization, and accessibility standards. Follow it unless it conflicts with higher-priority instructions, usability, accessibility, or the user's explicit current request.
 
 ## Reference Map
 
@@ -46,6 +50,12 @@ Load [references/ui-audit-examples.md](references/ui-audit-examples.md) when:
 - explaining why a tell is generic without banning a tool, color, or component
 - preparing before/after recommendations for Tailwind, shadcn, dashboards, or landing pages
 
+Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) when:
+
+- designing, critiquing, or implementing a logo, wordmark, brand mark, favicon, identity lockup, or branded hero
+- preparing final review for a public UI, landing page, polished app, portfolio, marketing page, or screenshot-based design audit
+- a screenshot or rendered UI shows overlap, occlusion, cropped focal points, weak logo craft, or text that visually fights with media
+
 ## Design Standards
 
 - Start from the user, product, and content. Generic aesthetics are a failure mode, not a neutral baseline.
@@ -55,6 +65,7 @@ Load [references/ui-audit-examples.md](references/ui-audit-examples.md) when:
 - Prefer icons from an existing icon library over emoji-as-UI or hand-drawn ad hoc icons.
 - Use cards for repeated items, modals, and genuinely framed tools. Do not put page sections inside decorative cards.
 - Do not hide weak structure behind glow, gradients, blur, animation, or empty whitespace.
+- Treat logos and brand marks as identity-system work, not decoration: check concept fit, silhouette, balance, spacing, small-size legibility, monochrome use, and surrounding UI context.
 - Respect accessibility: semantic structure, keyboard focus, visible states, contrast, reduced motion, and readable mobile layouts.
 
 ## Bundled Helpers
@@ -75,7 +86,7 @@ For frontend implementation:
 - make text wrap safely; test long labels and real content lengths
 - use responsive constraints rather than viewport-scaled font sizes
 - show the actual product or state in the first viewport when the page is product, venue, portfolio, or object focused
-- verify with screenshots or browser inspection when a dev server is needed
+- verify with screenshots or browser inspection when a dev server is needed, including at least one desktop and one narrow mobile viewport
 
 ## Audit Mode
 
@@ -85,7 +96,8 @@ When reviewing an existing UI:
 2. Report findings by priority, with file and line when available.
 3. Separate mechanical tells from deeper UX problems.
 4. Treat intentional brand decisions as allowed; the problem is an unspecified default, not a banned color or font.
-5. End with the top three changes that would most improve specificity and usability.
+5. Treat overlap, clipping, hidden actions, unreadable media overlays, and weak brand marks as high-priority findings when they affect comprehension or trust.
+6. End with the top three changes that would most improve specificity and usability.
 
 ## Honest Opinion
 

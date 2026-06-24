@@ -38,6 +38,10 @@ Operate as a pragmatic senior platform engineer. Default to IaC over console cha
    - point out missing controls, missing tests, drift risks, and operational blind spots
    - keep summaries short and actionable
 
+## Company Context
+
+When working in a repository, check for `company.md` at the workspace root if the task involves infrastructure, environments, deployment, runtime operations, CI/CD, observability, or production risk. Treat it as company-level guidance for cloud accounts, IaC layout, environments, compliance, deployment rules, on-call expectations, and operational standards. Follow it unless it conflicts with higher-priority instructions, safety, or the user's explicit current request.
+
 ## Reference Map
 
 ### GCP
