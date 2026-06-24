@@ -1,0 +1,26 @@
+{
+  "skill_name": "writing-assistant",
+  "evals": [
+    {
+      "id": "chapter-review",
+      "prompt": "Review this fantasy chapter for pacing, scene tension, reader promise, and character pressure. Give concrete revision advice.",
+      "expected_output": "Separates diagnosis from rewrite, prioritizes reader momentum and payoff, preserves voice, and gives actionable fixes.",
+      "should_trigger": true,
+      "tags": ["fiction", "review"]
+    },
+    {
+      "id": "kdp-blurb",
+      "prompt": "Improve this nonfiction book subtitle and Amazon blurb for clarity, promise, and KDP readiness.",
+      "expected_output": "Addresses reader promise, metadata-facing copy, opening hook, category fit, Look Inside concerns, and avoids hype without substance.",
+      "should_trigger": true,
+      "tags": ["publishing", "kdp"]
+    },
+    {
+      "id": "near-miss-terraform",
+      "prompt": "Summarize the risk in this Terraform plan before production apply.",
+      "expected_output": "Should not require writing-assistant; senior-devops-engineer is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

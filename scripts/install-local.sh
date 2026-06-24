@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: scripts/install-local.sh [--all|--codex|--claude] [--link|--copy] [--force]
+Usage: scripts/install-local.sh [--all|--codex|--claude] [--link|--copy] [--force] [--no-validate]
 
 Options:
   --all      Install for Codex and Claude Code. Default when no target is set.
@@ -12,6 +12,8 @@ Options:
   --link     Symlink skills from this repo. Default.
   --copy     Copy skills into the target directory.
   --force    Replace existing destination skill directories or symlinks.
+  --no-validate
+            Skip repository validation before installing.
 
 Environment:
   CODEX_SKILLS_DIR   Override Codex target directory.
@@ -24,6 +26,7 @@ mode="link"
 install_codex=0
 install_claude=0
 force=0
+validate_before_install=1
 
 resolve_path() {
   local path="$1"
@@ -90,6 +93,9 @@ while [[ $# -gt 0 ]]; do
     --force)
       force=1
       ;;
+    --no-validate)
+      validate_before_install=0
+      ;;
     -h|--help)
       usage
       exit 0
@@ -106,6 +112,10 @@ done
 if [[ "$install_codex" -eq 0 && "$install_claude" -eq 0 ]]; then
   install_codex=1
   install_claude=1
+fi
+
+if [[ "$validate_before_install" -eq 1 ]]; then
+  python3 "$repo_root/scripts/validate-skills.py" "$repo_root/skills" >/dev/null
 fi
 
 default_codex_dir="$HOME/.agents/skills"

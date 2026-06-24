@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ponytail"
+  short_description: "Minimal YAGNI implementation mode"
+  default_prompt: "Use $ponytail to solve this with the laziest correct implementation: reuse existing code, prefer standard tools, avoid new abstractions, and keep the diff minimal."

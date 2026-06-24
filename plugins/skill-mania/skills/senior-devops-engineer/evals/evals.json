@@ -1,0 +1,26 @@
+{
+  "skill_name": "senior-devops-engineer",
+  "evals": [
+    {
+      "id": "terraform-plan-review",
+      "prompt": "Review a Terraform plan that replaces a Cloud SQL instance, changes IAM bindings, and opens a firewall rule. Give release safety advice.",
+      "expected_output": "Identifies destructive/high-risk changes, blast radius, prerequisites, rollout sequence, rollback path, validation, and missing operational controls.",
+      "should_trigger": true,
+      "tags": ["terraform", "review"]
+    },
+    {
+      "id": "php-nginx-502",
+      "prompt": "Troubleshoot intermittent PHP/Nginx 502s after deployment and propose the smallest safe operational fix.",
+      "expected_output": "Checks PHP-FPM/Nginx/runtime causes, logs/metrics, rollback options, validation commands, and avoids console-only snowflake changes.",
+      "should_trigger": true,
+      "tags": ["php-nginx", "incident"]
+    },
+    {
+      "id": "near-miss-manuscript",
+      "prompt": "Review this manuscript chapter for pacing and reader promise.",
+      "expected_output": "Should not require senior-devops-engineer; writing-assistant is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "design-engineer",
+  "evals": [
+    {
+      "id": "audit-generic-saas-dashboard",
+      "prompt": "Audit a React/Tailwind SaaS dashboard that uses purple gradients, shadcn Cards for every section, and generic marketing copy. Give prioritized design findings and concrete replacements.",
+      "expected_output": "Reports a verdict, separates mechanical vibe-coded tells from deeper UX issues, recommends product-specific layout/content changes, and includes responsive/accessibility checks.",
+      "should_trigger": true,
+      "tags": ["audit", "tailwind", "vibecoded"]
+    },
+    {
+      "id": "build-operational-form",
+      "prompt": "Design the first screen of an internal refund-review tool for support agents with filters, queue state, selected item detail, and error/loading/empty states.",
+      "expected_output": "Chooses a work-focused operational layout, avoids decorative landing-page structure, names key UI states, and includes implementation/verification notes.",
+      "should_trigger": true,
+      "tags": ["build", "dashboard", "workflow"]
+    },
+    {
+      "id": "near-miss-api-refactor",
+      "prompt": "Refactor this API client to retry 429 responses with exponential backoff.",
+      "expected_output": "Should not require design-engineer; this is ordinary implementation or DevOps/runtime behavior.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

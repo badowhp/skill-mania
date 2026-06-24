@@ -1,0 +1,4 @@
+interface:
+  display_name: "Software Architect"
+  short_description: "Pragmatic system design and tradeoffs"
+  default_prompt: "Use $software-architect to review this architecture, clarify service boundaries, and recommend the simplest maintainable design with tradeoffs."

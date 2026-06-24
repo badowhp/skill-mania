@@ -1,0 +1,26 @@
+{
+  "skill_name": "security-engineer",
+  "evals": [
+    {
+      "id": "idor-review",
+      "prompt": "Review a change that adds GET /api/invoices/{id}/download for authenticated users. Identify realistic security risks and validation tests.",
+      "expected_output": "Focuses on object-level authorization, tenant boundary evidence, sensitive document exposure, negative tests, logging, and a ship/hold-style readiness decision when appropriate.",
+      "should_trigger": true,
+      "tags": ["authz", "web-appsec"]
+    },
+    {
+      "id": "release-secrets-gate",
+      "prompt": "Before launch, check whether our GitHub Actions deploy job and container image handling are safe for production secrets.",
+      "expected_output": "Covers CI identity, secret storage, log/artifact leakage, least privilege, scan evidence, exceptions, and validation steps.",
+      "should_trigger": true,
+      "tags": ["ci", "secrets", "release"]
+    },
+    {
+      "id": "near-miss-ui-layout",
+      "prompt": "Make this billing settings page feel less generic and improve the responsive layout.",
+      "expected_output": "Should not require security-engineer unless sensitive data/security controls are central; design-engineer is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}
