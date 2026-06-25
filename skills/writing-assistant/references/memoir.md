@@ -1,9 +1,6 @@
 # Memoir Reference
-
 Use this for memoir, personal essay, autobiographical nonfiction, and emotionally driven true-story material.
-
 ## Memoir Spine
-
 Identify:
 
 - what changed in the narrator
@@ -12,9 +9,7 @@ Identify:
 - why this story matters beyond sequence of events
 
 Memoir is not chronology alone. It needs an interpretive spine.
-
 ## Scene And Reflection
-
 Balance:
 
 - dramatized scenes that let readers experience the moment
@@ -22,9 +17,7 @@ Balance:
 - summary that moves time efficiently
 
 If reflection explains what a scene already proves, cut it. If scenes accumulate without meaning, add reflection at the turn.
-
 ## Voice And Ethics
-
 Protect:
 
 - emotional specificity
@@ -38,9 +31,7 @@ Flag:
 - flattening other people into functions
 - trauma presented only as spectacle
 - conclusions that arrive without earned self-interrogation
-
 ## Structure
-
 Useful structures:
 
 - chronological with thematic callbacks
@@ -50,9 +41,7 @@ Useful structures:
 - place-based or object-based sequence
 
 Choose the structure that best reveals change, not the one that merely preserves life order.
-
 ## Review Template
-
 ```markdown
 Narrative spine:
 Strongest scene:

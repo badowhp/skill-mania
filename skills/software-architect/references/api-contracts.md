@@ -1,9 +1,6 @@
 # API Contracts Reference
-
 Use this for HTTP APIs, events, schemas, versioning, compatibility, idempotency, pagination, and error contracts.
-
 ## Contract Basics
-
 Define:
 
 - operation purpose
@@ -15,9 +12,7 @@ Define:
 - idempotency behavior
 - rate limits
 - audit events
-
 ## Compatibility
-
 Prefer additive changes. Avoid:
 
 - renaming fields without migration
@@ -27,9 +22,7 @@ Prefer additive changes. Avoid:
 - removing fields before consumers migrate
 
 For events, version schemas and preserve replay behavior.
-
 ## Reliability
-
 Specify:
 
 - timeout expectations
@@ -38,9 +31,7 @@ Specify:
 - eventual consistency windows
 - duplicate event handling
 - dead-letter or compensation path
-
 ## Review Checklist
-
 - Can a consumer implement against the contract without reading internals?
 - Are auth and tenancy rules explicit?
 - Are errors stable and non-leaky?

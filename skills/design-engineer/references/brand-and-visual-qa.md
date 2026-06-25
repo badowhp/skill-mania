@@ -1,9 +1,6 @@
 # Brand And Visual QA
-
 Use this for logo work and the final visual review pass before shipping polished UI.
-
 ## Logo Consultant Pass
-
 Treat the logo as a small identity system, not a generated icon.
 
 - Start from the brand brief: name, audience, category, positioning, personality, usage contexts, and nearby competitors.
@@ -14,9 +11,7 @@ Treat the logo as a small identity system, not a generated icon.
 - Test the mark as favicon/app icon, header lockup, social avatar, monochrome, reversed, and on light/dark backgrounds.
 - Do not rely on shadows, gradients, blur, tiny interior details, or color alone for recognition.
 - Flag obvious resemblance to major brands or category cliches. Do not claim legal trademark clearance.
-
 ## Final Visual QA Gate
-
 Inspect the rendered surface, not just isolated components.
 
 - Check at least one desktop and one narrow mobile viewport. Add tablet and 320px/200% zoom checks when the surface is public, complex, or likely to wrap.

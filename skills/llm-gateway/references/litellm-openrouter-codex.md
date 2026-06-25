@@ -1,18 +1,13 @@
 # LiteLLM, OpenRouter, And Codex
-
 Use this for LiteLLM/OpenRouter planning, setup review, or Codex custom provider routing.
-
 ## Source Anchors
-
 - LiteLLM OpenRouter provider: https://docs.litellm.ai/docs/providers/openrouter
 - LiteLLM proxy config: https://docs.litellm.ai/docs/proxy/configs
 - LiteLLM supported endpoints: https://docs.litellm.ai/docs/supported_endpoints
 - OpenRouter quickstart: https://openrouter.ai/docs/quickstart
 - OpenRouter API reference: https://openrouter.ai/docs/api/reference/overview
 - Codex custom providers: https://developers.openai.com/codex/config-advanced#custom-model-providers
-
 ## Placement Decision
-
 Use direct OpenRouter when:
 
 - the client can call an OpenAI-compatible endpoint directly
@@ -41,9 +36,7 @@ Use user-level runtime config for:
 - personal or machine-local profile selection
 
 Do not put active provider redirects in project `.codex/config.toml`. Codex ignores project-local provider/auth redirect keys, and the repo should not decide a developer's model provider.
-
 ## Minimal LiteLLM OpenRouter Shape
-
 Use the template at [../assets/litellm-openrouter.config.example.yaml](../assets/litellm-openrouter.config.example.yaml).
 
 Runtime environment:
@@ -55,9 +48,7 @@ litellm --config ./litellm-openrouter.config.yaml
 ```
 
 The config should use `api_key: "os.environ/OPENROUTER_API_KEY"` so the provider key stays out of YAML. Prefer `LITELLM_MASTER_KEY` or generated virtual keys for client auth.
-
 ## Codex User Config Shape
-
 Put active provider config in user-level Codex config, not this repo:
 
 ```toml
@@ -74,9 +65,7 @@ wire_api = "responses"
 For local-only smoke tests without LiteLLM key management, `env_key` can point at `LITELLM_MASTER_KEY`. For shared use, generate a scoped LiteLLM virtual key for Codex and store it as `LITELLM_CODEX_KEY`.
 
 Only set `wire_api = "responses"` after verifying the proxy/model path handles `/v1/responses`. If Responses API behavior fails, do not route Codex through that provider until the proxy/model path is fixed.
-
 ## Verification
-
 Check LiteLLM is reachable:
 
 ```bash
@@ -100,9 +89,7 @@ curl -sS http://localhost:4000/v1/responses \
   -H "Content-Type: application/json" \
   -d '{"model":"codex-openrouter","input":"Reply with ok."}'
 ```
-
 ## Security Review
-
 Block release or shared use when:
 
 - OpenRouter keys, LiteLLM master keys, virtual keys, or `.env` files are committed

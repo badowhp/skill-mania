@@ -1,9 +1,6 @@
 # Publishing Copy Reference
-
 Use this for title, subtitle, blurb, back-cover copy, taglines, author bio, launch copy, and metadata-facing copy.
-
 ## Positioning
-
 Before writing copy, identify:
 
 - category or genre
@@ -13,9 +10,7 @@ Before writing copy, identify:
 - concrete transformation, conflict, or payoff
 
 Copy should make the book easier to place and easier to want.
-
 ## Title And Subtitle
-
 Title should be memorable and category-fit. Subtitle should carry clarity and search surface when the title is poetic or broad.
 
 Check:
@@ -24,9 +19,7 @@ Check:
 - Does the subtitle state reader value?
 - Are keywords natural rather than stuffed?
 - Does the pair overpromise?
-
 ## Blurb
-
 Structure:
 
 1. Hook: curiosity, stakes, problem, or voice.
@@ -40,15 +33,11 @@ Avoid:
 - too many proper nouns
 - claims like "life-changing" without proof
 - ending with a flat feature list
-
 ## Metadata-Facing Copy
-
 For nonfiction, make the outcome explicit. For fiction, make genre, protagonist pressure, and stakes legible.
 
 Author bio should establish relevant authority or voice, not resume everything.
-
 ## Output Templates
-
 ```markdown
 Title diagnosis:
 Subtitle diagnosis:

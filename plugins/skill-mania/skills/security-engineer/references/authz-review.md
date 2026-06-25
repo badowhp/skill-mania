@@ -1,9 +1,6 @@
 # Authentication And Authorization Review
-
 Use this when identity, sessions, roles, tenant boundaries, or privilege escalation are central.
-
 ## Authentication
-
 Check:
 
 - password, SSO, MFA, magic-link, or API-token flows
@@ -11,9 +8,7 @@ Check:
 - token storage and expiration
 - replay protection and one-time-token invalidation
 - login throttling and credential stuffing controls
-
 ## Authorization
-
 Authorization must be checked where the protected action happens, not only in UI or route grouping.
 
 Look for:
@@ -23,9 +18,7 @@ Look for:
 - privilege changes requiring explicit authorization
 - service-to-service calls using scoped identities
 - default-deny behavior when role or tenant is missing
-
 ## Tenant And Object Boundaries
-
 Test:
 
 - low-privilege user reads another user's object by ID
@@ -33,9 +26,7 @@ Test:
 - background job processes a forged object ID
 - export endpoint leaks filtered-out data
 - admin-like endpoint is reachable through alternate route or API version
-
 ## Session Lifecycle
-
 Check:
 
 - session rotation after login and privilege elevation
@@ -43,9 +34,7 @@ Check:
 - revocation after password, email, MFA, or role changes
 - idle and absolute timeouts
 - secure cookie flags
-
 ## Review Template
-
 ```markdown
 Boundary:
 Actor:

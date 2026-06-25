@@ -1,9 +1,6 @@
 # Threat Modeling Reference
-
 Use this when the task needs assets, trust boundaries, abuse cases, or mitigation planning.
-
 ## Inputs
-
 Collect only what changes the model:
 
 - assets and sensitive data
@@ -14,9 +11,7 @@ Collect only what changes the model:
 - deployment and ownership constraints
 
 If a diagram exists, use it. If not, build a short textual data-flow model.
-
 ## Model Structure
-
 For each flow, identify:
 
 - source actor or system
@@ -26,9 +21,7 @@ For each flow, identify:
 - authorization check
 - validation and encoding boundaries
 - logging and audit trail
-
 ## Abuse Cases
-
 Prioritize realistic abuse:
 
 - unauthenticated access to sensitive behavior
@@ -38,9 +31,7 @@ Prioritize realistic abuse:
 - SSRF, path traversal, command execution, template injection, or unsafe upload paths
 - credential theft or replay
 - dependency or CI compromise reaching production
-
 ## Mitigations
-
 Prefer controls that match the boundary:
 
 - deny-by-default authorization
@@ -52,9 +43,7 @@ Prefer controls that match the boundary:
 - least-privilege service identities
 - audit logs for sensitive actions
 - alerting on high-risk behavior
-
 ## Output Template
-
 ```markdown
 Assets:
 - ...

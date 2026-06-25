@@ -1,9 +1,6 @@
 # Data Ownership Reference
-
 Use this for source-of-truth decisions, shared data, migrations, consistency, retention, and reporting.
-
 ## Ownership
-
 Every important entity needs one source of truth. State:
 
 - owning service or module
@@ -12,9 +9,7 @@ Every important entity needs one source of truth. State:
 - identifier semantics
 - lifecycle states
 - audit and retention requirements
-
 ## Sharing Patterns
-
 Prefer:
 
 - API reads for transactional needs
@@ -28,9 +23,7 @@ Avoid:
 - hidden shared mutable state
 - reporting queries that become production contracts
 - duplicating sensitive data without retention controls
-
 ## Consistency
-
 Define:
 
 - strong vs eventual consistency needs
@@ -38,9 +31,7 @@ Define:
 - conflict behavior
 - retry and replay behavior
 - backfill process
-
 ## Retention And Deletion
-
 Include:
 
 - PII and sensitive-data classification
@@ -48,9 +39,7 @@ Include:
 - legal hold behavior
 - backups and restore implications
 - downstream projection cleanup
-
 ## Review Template
-
 ```markdown
 Entity:
 Owner:

@@ -1,9 +1,6 @@
 # Nonfiction Reference
-
 Use this for nonfiction, business, educational, argument-driven, prescriptive, and self-help manuscripts.
-
 ## Reader Promise
-
 Identify:
 
 - the reader's starting problem
@@ -12,9 +9,7 @@ Identify:
 - what the reader can do, understand, or decide after reading
 
 If the manuscript has insight but no clear promise, recommend a sharper subtitle, introduction, or chapter opening.
-
 ## Argument And Evidence
-
 Check:
 
 - claims are specific enough to evaluate
@@ -25,9 +20,7 @@ Check:
 - examples represent the audience's real situation
 
 Do not let confident tone substitute for proof.
-
 ## Chapter Utility
-
 Each chapter should have:
 
 - one job
@@ -37,9 +30,7 @@ Each chapter should have:
 - a takeaway, exercise, checklist, or decision point when appropriate
 
 Flag chapters that repeat the premise without advancing the reader.
-
 ## Self-Help And Practical Books
-
 Check:
 
 - promise-to-delivery ratio
@@ -47,9 +38,7 @@ Check:
 - advice accounts for constraints, not only ideal conditions
 - examples show failure modes and recovery
 - the transformation arc has measurable steps
-
 ## Review Template
-
 ```markdown
 Reader promise:
 Strongest claim:

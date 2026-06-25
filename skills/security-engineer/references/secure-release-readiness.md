@@ -1,9 +1,6 @@
 # Secure Release Readiness Reference
-
 Use this when security review affects production launch, risk acceptance, or operational sign-off.
-
 ## Release Inputs
-
 Capture:
 
 - release scope and changed trust boundaries
@@ -12,9 +9,7 @@ Capture:
 - identities, roles, service accounts, tokens, and secrets
 - dependencies, containers, CI jobs, and third-party integrations
 - rollback, monitoring, and incident ownership
-
 ## Security Gates
-
 Require evidence for:
 
 - authentication and authorization on sensitive behavior
@@ -25,9 +20,7 @@ Require evidence for:
 - security headers, cookie flags, CSRF, CORS, and upload controls where relevant
 - audit logging for privileged or sensitive actions
 - rate limits or abuse controls for authentication, export, search, and expensive paths
-
 ## Evidence
-
 Prefer concrete evidence:
 
 - test names, command output, or CI job links
@@ -37,9 +30,7 @@ Prefer concrete evidence:
 - monitoring queries or alert names
 
 Do not treat "reviewed manually" as enough for a critical control unless the artifact cannot be automated.
-
 ## Exceptions
-
 Risk acceptance must include:
 
 ```markdown
@@ -53,9 +44,7 @@ Follow-up ticket:
 ```
 
 Open-ended exceptions are not production-ready.
-
 ## Privacy Basics
-
 Check:
 
 - data minimization
@@ -64,9 +53,7 @@ Check:
 - consent or notice when user data use changes
 - export, deletion, or audit obligations where the product promises them
 - third-party data sharing and processor/subprocessor impact
-
 ## Decision Rubric
-
 - `ship`: no critical or high unresolved risk, required evidence is present
 - `ship with conditions`: risk is bounded, owner accepts it, and compensating controls are active
 - `hold`: critical risk, unknown data exposure, missing authz evidence, unowned exception, or no rollback/incident owner

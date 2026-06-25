@@ -1,9 +1,6 @@
 # Migration Planning Reference
-
 Use this for decomposition, modernization, strangler migrations, data moves, backfills, and incremental rollout.
-
 ## Strategy
-
 Prefer incremental migration when the current system is live:
 
 - wrap existing behavior before replacing it
@@ -11,9 +8,7 @@ Prefer incremental migration when the current system is live:
 - preserve old and new paths during verification
 - avoid big-bang data cutovers unless downtime is acceptable
 - make rollback a first-class path
-
 ## Rollout
-
 Use:
 
 - feature flags
@@ -22,9 +17,7 @@ Use:
 - canary traffic
 - per-tenant rollout
 - read-only preview mode
-
 ## Data Movement
-
 Plan:
 
 - schema compatibility
@@ -35,9 +28,7 @@ Plan:
 - cleanup of old data and old code
 
 Dual writes are risky. If unavoidable, define ordering, retry, conflict, and reconciliation behavior.
-
 ## Validation And Rollback
-
 Validate:
 
 - business invariants
@@ -48,9 +39,7 @@ Validate:
 - user-visible behavior
 
 Rollback must specify code, traffic, data, jobs, and queued messages.
-
 ## Migration Plan Template
-
 ```markdown
 Goal:
 Non-goals:
