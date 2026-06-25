@@ -171,15 +171,6 @@ description: Demo skill.
 
             self.assertEqual(errors, ["evals/evals.json is required for production skills"])
 
-    def test_eval_exempt_skill_does_not_require_evals(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            skill_dir = Path(tmp) / "hip0-mania"
-            skill_dir.mkdir(parents=True)
-
-            errors = validator.validate_skill_evals(skill_dir)
-
-            self.assertEqual(errors, [])
-
     def test_eval_schema_requires_positive_and_near_miss_cases(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             skill_dir = Path(tmp) / "demo"
@@ -216,6 +207,31 @@ description: Demo skill.
             self.assertIn(
                 "evals/evals.json: include at least 1 should_trigger=false near-miss case",
                 errors,
+            )
+
+    def test_honest_opinion_block_is_required_for_production_skills(self) -> None:
+        errors = validator.validate_honest_opinion(Path("demo"), ["# Demo"])
+
+        self.assertEqual(
+            errors,
+            ["standard ## Honest Opinion block is required for production skills"],
+        )
+
+    def test_caveman_is_exempt_from_honest_opinion_block(self) -> None:
+        errors = validator.validate_honest_opinion(Path("caveman"), ["# Caveman"])
+
+        self.assertEqual(errors, [])
+
+    def test_role_selection_reference_is_required(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_dir = Path(tmp) / "demo"
+            skill_dir.mkdir(parents=True)
+
+            errors = validator.validate_role_selection(skill_dir, ["# Demo"])
+
+            self.assertEqual(
+                errors,
+                ["references/role-selection.md must be linked from SKILL.md"],
             )
 
     def test_readme_references_reject_deprecated_openai_skills_repo(self) -> None:

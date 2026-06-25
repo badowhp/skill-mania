@@ -4,14 +4,12 @@
 
 # Skill Mania
 
-Skill Mania is a portable Agent Skills repository for Codex and Claude Code. It keeps reusable agent workflows in a tool-neutral `skills/` source tree, then packages the same skills for local plugin and marketplace use.
+Skill Mania is a portable Agent Skills repository for Codex and Claude Code. It keeps reusable agent workflows in a tool-neutral `skills/` source tree, then packages the same production skills for local plugin and marketplace use.
 
 ## Included Skills
 
 - `caveman` - terse, factual, low-prose response mode that preserves blockers and verification gaps.
 - `design-engineer` - frontend, product design, UX, design-system, and vibe-coded UI audit guidance.
-- `hip0-mania` - fillable personal workstyle profile and weakness guardrails.
-- `llm-gateway` - LiteLLM, OpenRouter, LLM proxy, and Codex model-provider setup guidance.
 - `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
 - `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
 - `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
@@ -22,12 +20,20 @@ Skill Mania is a portable Agent Skills repository for Codex and Claude Code. It 
 
 Bundled Codex system skills are intentionally excluded. This repository only stores user-maintained portable skills.
 
+## Docs And Templates
+
+- `docs/litellm.md` - non-secret LiteLLM gateway setup, Codex provider placement, verification, and security review notes.
+- `docs/openrouter.md` - direct OpenRouter setup, smoke tests, and review checklist.
+- `templates/company.md` - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
+- `templates/hip0-mania/` - private persona-review profile template. It is intentionally not shipped as a production skill because unfilled personal profiles are confusing in marketplace packages.
+
 ## Repository Layout
 
 ```text
 .
 ├── assets/                         # Repository media used by documentation
-├── templates/                       # Optional templates such as company.md
+├── docs/                           # Non-skill setup and operations notes
+├── templates/                      # Optional templates such as company.md
 ├── skills/                         # Canonical skill source
 │   └── <skill-name>/SKILL.md
 ├── plugins/skill-mania/            # Packaged plugin copy
@@ -86,12 +92,15 @@ When running marketplace-add commands from inside this repository, use `.` inste
 ## Authoring Standards
 
 - Keep each skill focused on one coherent workflow or domain role.
-- Use `templates/company.md` when a team needs durable company, infrastructure, development, brand, or content guidance that role skills should respect during repository work.
+- Keep `skills/` limited to production-ready portable skills. Put personal profiles, local setup guides, and non-role documentation in `templates/` or `docs/`.
+- Use `templates/company.md` when a team needs durable company, product, infrastructure, security, design, SEO, content, or agent-preference guidance that role skills should respect during repository work. Copy it to the target repository root as `company.md`; do not leave secrets or credentials in it.
 - Keep shared `SKILL.md` frontmatter portable; this repository allows only `name` and `description` in shared skill frontmatter.
 - Ensure the skill `name` matches its directory and uses lowercase letters, digits, and hyphens.
 - Put trigger wording in `description`; keep it specific and front-loaded.
 - Keep `SKILL.md` concise. Move detailed provider, framework, or domain material into `references/`.
 - Link every reference file from `SKILL.md` with clear guidance on when to load it.
+- Make routing available from each production skill with a local `references/role-selection.md` link when the skill can overlap with peers or overlays.
+- Use the exact shared `## Honest Opinion` block for every production skill except `caveman`, which is an output-shape overlay and must preserve the lead role's risk line rather than create its own.
 - Put deterministic or repetitive execution in `scripts/`.
 - Put reusable templates, artifacts, examples, static files, and repo media in `assets/`.
 - Put Codex UI metadata in `agents/openai.yaml`.
@@ -112,7 +121,7 @@ Run the complete local release gate before publishing:
 ./scripts/check-release-ready.sh
 ```
 
-The validator checks the repository's portable skill contract: `name` and `description` frontmatter only, naming, `SKILL.md` length, relative links, reference routing, `agents/openai.yaml`, eval manifests for production skills, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks package sync, unit tests, shell syntax, placeholder text outside explicitly fillable profile skills, bundled helper smoke tests, design scanner behavior, and local installer copy mode.
+The validator checks the repository's portable skill contract: `name` and `description` frontmatter only, naming, `SKILL.md` length, relative links, reference routing, `agents/openai.yaml`, eval manifests for production skills, the shared honest-opinion block, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks package sync, unit tests, shell syntax, placeholder text in shipped skills, bundled helper smoke tests, design scanner behavior, and local installer copy mode.
 
 After changing top-level `skills/`, refresh the packaged plugin copy:
 
@@ -122,7 +131,7 @@ After changing top-level `skills/`, refresh the packaged plugin copy:
 
 Before publishing a plugin release:
 
-- Keep fillable personal-profile skills out of starter prompts unless intentionally configured.
+- Keep fillable personal-profile skills out of shipped `skills/` and starter prompts unless they are intentionally filled and production-ready.
 - Run `./scripts/check-release-ready.sh`.
 - Bump both Codex and Claude plugin manifest versions together.
 - Record any manual skill-eval results that influenced description or behavior changes.

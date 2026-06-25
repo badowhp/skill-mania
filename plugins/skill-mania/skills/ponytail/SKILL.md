@@ -1,6 +1,6 @@
 ---
 name: ponytail
-description: "Force the laziest solution that actually works: simplest, shortest, minimal. Use when the user says ponytail, be lazy, lazy mode, simplest solution, minimal solution, YAGNI, do less, shortest path, or complains about over-engineering, bloat, boilerplate, or unnecessary dependencies. Supports lite, full (default), and ultra."
+description: "Implementation-scope overlay for the laziest solution that actually works: simplest, shortest, minimal, YAGNI. Use when the user says ponytail, be lazy, lazy mode, simplest solution, minimal solution, YAGNI, do less, shortest path, or complains about over-engineering, bloat, boilerplate, or unnecessary dependencies. Do not use for terse output alone; use caveman for that. Supports lite, full (default), and ultra."
 ---
 # Ponytail
 Based on the MIT-licensed Ponytail skill by Dietrich Gebert: https://github.com/DietrichGebert/ponytail/blob/main/skills/ponytail/SKILL.md. See `LICENSE.txt`.
@@ -14,6 +14,8 @@ Switch levels when the user asks for:
 - `ponytail lite`
 - `ponytail full`
 - `ponytail ultra`
+## Reference Map
+Load [references/role-selection.md](references/role-selection.md) when Ponytail overlaps with a domain role, Caveman, or another broad skill.
 ## The Ladder
 Stop at the first rung that holds:
 
@@ -42,13 +44,12 @@ For bug fixes, fix the root cause, not the named symptom. Before editing a share
 Put code first. Then use at most three short lines:
 
 ```text
-honest opinion: <weakest implementation concern, omitted risk, or no material implementation concern found>
 skipped: <what you did not build>, add when <condition>
 ```
 
 Do not add essays, feature tours, or design notes unless the user explicitly asks for explanation.
 ## Honest Opinion
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, unnecessary complexity, or likely failure mode. If nothing material stands out, say `honest opinion: no material implementation concern found`.
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 ## Intensity
 - `lite`: Build what was asked, but name the lazier alternative in one line.
 - `full`: Enforce the ladder. Standard library and native features first. Shortest working diff, shortest useful explanation.

@@ -1,6 +1,8 @@
-# Company Guidelines
+# Company Guidelines Template
 
-Use this file for durable team and company context that agents should respect during repository work. Keep it short, current, and free of secrets.
+Copy this file to a repository root as `company.md` when agents need durable team, product, infrastructure, security, design, SEO, content, or workflow context. Keep it short, current, factual, and free of secrets.
+
+Agents should read the root `company.md` only when the active skill says company context could affect the work. Put stable defaults here; keep task-specific instructions in the user request.
 
 ## Scope
 
@@ -9,6 +11,7 @@ Use this file for durable team and company context that agents should respect du
 - Primary users:
 - Markets and languages:
 - Environments:
+- Business non-goals:
 
 ## Development
 
@@ -18,6 +21,7 @@ Use this file for durable team and company context that agents should respect du
 - Review expectations:
 - Documentation expectations:
 - Dependency policy:
+- Release branches or versioning:
 
 ## Infrastructure
 
@@ -27,6 +31,7 @@ Use this file for durable team and company context that agents should respect du
 - CI/CD and release rules:
 - Observability expectations:
 - Backup and rollback expectations:
+- Runtime ownership:
 
 ## Security And Compliance
 
@@ -35,6 +40,7 @@ Use this file for durable team and company context that agents should respect du
 - Compliance or policy constraints:
 - Secret handling:
 - Risk acceptance owner:
+- Incident contact or escalation:
 
 ## Product, Design, And Content
 
@@ -43,6 +49,7 @@ Use this file for durable team and company context that agents should respect du
 - Analytics and SEO requirements:
 - Localization rules:
 - Claims or terminology to avoid:
+- Public proof, citations, or evidence rules:
 
 ## Agent Preferences
 
@@ -50,3 +57,4 @@ Use this file for durable team and company context that agents should respect du
 - Commands to prefer or avoid:
 - Validation gates before final answers:
 - Non-goals:
+- Communication style:

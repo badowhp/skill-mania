@@ -10,11 +10,11 @@ python3 -m unittest discover -s tests
 bash -n scripts/*.sh
 
 placeholder_hits="$(
-  find skills plugins/skill-mania/skills -path '*/hip0-mania/*' -prune -o -type f -print0 \
+  find skills plugins/skill-mania/skills -type f -print0 \
     | xargs -0 grep -En '(^|[^[:alnum:]_])TODO([^[:alnum:]_]|$)|^## Fill In' || true
 )"
 if [[ -n "$placeholder_hits" ]]; then
-  echo "placeholder text found outside explicitly fillable profile skills:" >&2
+  echo "placeholder text found in shipped skills:" >&2
   printf '%s\n' "$placeholder_hits" >&2
   exit 1
 fi

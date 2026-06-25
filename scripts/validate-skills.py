@@ -17,8 +17,16 @@ SEMVER_RE = re.compile(
 FRONTMATTER_KEYS = {"name", "description"}
 OPENAI_INTERFACE_KEYS = ("display_name", "short_description", "default_prompt")
 ALLOWED_URI_SCHEMES = {"http", "https", "mailto", "data"}
-EVAL_EXEMPT_SKILLS = {"hip0-mania"}
 EVAL_REQUIRED_KEYS = ("id", "prompt", "expected_output", "should_trigger")
+HONEST_OPINION_EXEMPT_SKILLS = {"caveman"}
+HONEST_OPINION_BLOCK = (
+    "## Honest Opinion\n"
+    "Before finishing, add one concise `honest opinion:` line. Be brutally honest but "
+    "evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or "
+    "likely failure mode. If nothing material stands out, say `honest opinion: no "
+    "material concern found`."
+)
+ROLE_SELECTION_LINK = "[references/role-selection.md](references/role-selection.md)"
 
 
 def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
@@ -255,9 +263,6 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
     errors: list[str] = []
     evals_file = skill_dir / "evals" / "evals.json"
 
-    if skill_dir.name in EVAL_EXEMPT_SKILLS:
-        return errors
-
     if not evals_file.is_file():
         return ["evals/evals.json is required for production skills"]
 
@@ -323,6 +328,26 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
     return errors
 
 
+def validate_honest_opinion(skill_dir: Path, lines: list[str]) -> list[str]:
+    if skill_dir.name in HONEST_OPINION_EXEMPT_SKILLS:
+        return []
+
+    body = "\n".join(lines)
+    if "## Honest Risk Line" in body:
+        return ["use standard heading '## Honest Opinion', not '## Honest Risk Line'"]
+    if HONEST_OPINION_BLOCK not in body:
+        return ["standard ## Honest Opinion block is required for production skills"]
+    return []
+
+
+def validate_role_selection(skill_dir: Path, lines: list[str]) -> list[str]:
+    if ROLE_SELECTION_LINK not in "\n".join(lines):
+        return ["references/role-selection.md must be linked from SKILL.md"]
+    if not (skill_dir / "references" / "role-selection.md").is_file():
+        return ["references/role-selection.md is required for production skills"]
+    return []
+
+
 def validate_skill(skill_dir: Path) -> list[str]:
     errors: list[str] = []
     skill_file = skill_dir / "SKILL.md"
@@ -363,6 +388,8 @@ def validate_skill(skill_dir: Path) -> list[str]:
     errors.extend(validate_reference_routing(skill_dir, lines))
     errors.extend(validate_agents_metadata(skill_dir))
     errors.extend(validate_skill_evals(skill_dir))
+    errors.extend(validate_honest_opinion(skill_dir, lines))
+    errors.extend(validate_role_selection(skill_dir, lines))
     return errors
 
 

@@ -1,6 +1,6 @@
 ---
 name: caveman
-description: Make the agent answer with terse, factual, low-prose output without dropping blockers, verification gaps, safety caveats, or required citations. Use when the user says caveman, be terse, be brief, keep it short, no fluff, knapp, kurz, less prose, minimize answer tokens, or asks for compact responses.
+description: "Output-shape overlay for terse, factual, low-prose answers without dropping blockers, verification gaps, safety caveats, or required citations. Use when the user says caveman, be terse, be brief, keep it short, no fluff, knapp, kurz, less prose, minimize answer tokens, or asks for compact responses. Do not use for minimal implementation scope alone; use ponytail for that."
 ---
 # Caveman
 Caveman is an output overlay. Keep reasoning, implementation quality, verification, and safety standards normal; compress only the prose shown to the user.
@@ -19,3 +19,5 @@ Caveman is an output overlay. Keep reasoning, implementation quality, verificati
 Caveman controls answer shape, not task scope. If another role skill applies, let that skill decide what work to do and use Caveman only to shorten what is shown.
 
 Do not claim fixed token savings. Savings depend on task type, tool output, and how much explanation the user actually needed.
+## Reference Map
+Load [references/role-selection.md](references/role-selection.md) when Caveman overlaps with a domain role, Ponytail, or another broad skill.

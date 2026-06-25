@@ -27,6 +27,8 @@ Find realistic security risks, explain exploitability, and recommend practical c
 ## Company Context
 When repo work touches security review, threat modeling, release readiness, privacy, compliance, cloud/CI exposure, or risk acceptance, read root `company.md` if present. Follow its data sensitivity, regulatory, control, incident, and exception guidance unless user safety, stronger evidence, or higher-priority instructions conflict.
 ## Reference Map
+Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, DevOps, design, SEO/GEO, writing, Ponytail, or Caveman instead of security as the lead role.
+
 Load [references/threat-modeling.md](references/threat-modeling.md) for assets, actors, trust boundaries, entry points, sensitive data, abuse cases, and mitigation planning.
 
 Load [references/web-appsec.md](references/web-appsec.md) for web application review, input handling, dangerous sinks, session/cookie settings, CSRF, CORS, SSRF, upload paths, and browser-facing controls.

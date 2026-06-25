@@ -9,11 +9,11 @@
       "tags": ["terraform", "review"]
     },
     {
-      "id": "php-nginx-502",
-      "prompt": "Troubleshoot intermittent PHP/Nginx 502s after deployment and propose the smallest safe operational fix.",
-      "expected_output": "Checks PHP-FPM/Nginx/runtime causes, logs/metrics, rollback options, validation commands, and avoids console-only snowflake changes.",
+      "id": "runtime-incident-after-deploy",
+      "prompt": "Troubleshoot intermittent 502s after deployment in our web runtime and propose the smallest safe operational fix.",
+      "expected_output": "Checks runtime, web server, deploy, logs, metrics, rollback options, and validation commands; loads stack-specific guidance when the stack is known and avoids console-only snowflake changes.",
       "should_trigger": true,
-      "tags": ["php-nginx", "incident"]
+      "tags": ["runtime", "incident"]
     },
     {
       "id": "near-miss-manuscript",

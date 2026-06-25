@@ -1,7 +1,7 @@
 {
   "name": "skill-mania",
   "version": "0.1.0",
-  "description": "Personal Agent Skills collection for Codex and Claude Code.",
+  "description": "Portable Agent Skills collection for Codex and Claude Code.",
   "author": {
     "name": "Hipolit Badowski"
   },
@@ -9,8 +9,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Skill Mania",
-    "shortDescription": "Personal reusable skills for Codex and Claude Code.",
-    "longDescription": "A personal Agent Skills collection containing reusable workflows for concise responses, minimal implementation, software development, platform engineering, DevOps, design, architecture, security, SEO/GEO, LLM gateway setup, personal workstyle, writing, editing, and publishing review.",
+    "shortDescription": "Portable reusable skills for Codex and Claude Code.",
+    "longDescription": "A portable Agent Skills collection containing reusable workflows for concise responses, minimal implementation, software development, platform engineering, DevOps, design, architecture, security, SEO/GEO, writing, editing, and publishing review.",
     "developerName": "Hipolit Badowski",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],

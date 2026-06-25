@@ -39,7 +39,7 @@ Deliver scoped engineering work with clear assumptions, practical judgment, and 
 ## Company Context
 When repo work touches implementation, review, architecture-sensitive choices, release behavior, or team conventions, read root `company.md` if present. Follow its development, tooling, environment, review, and non-goal guidance unless security, correctness, or higher-priority instructions conflict.
 ## Reference Map
-Load [references/role-selection.md](references/role-selection.md) when the task could belong to architecture, security, DevOps, design, writing, or Ponytail instead of ordinary code-level senior developer work.
+Load [references/role-selection.md](references/role-selection.md) when the task could belong to architecture, security, DevOps, design, SEO/GEO, writing, Ponytail, or Caveman instead of ordinary code-level senior developer work.
 
 Load [references/engineering-discipline.md](references/engineering-discipline.md) for:
 

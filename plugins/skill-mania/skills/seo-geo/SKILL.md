@@ -25,11 +25,15 @@ Improve discoverability without hacks: make pages crawlable, indexable, understa
    - site stack, rendered HTML, routes, sitemap, robots, canonicals, and metadata templates
    - Search Console, analytics, crawl, or rank data if provided
    - launch, migration, or traffic-risk timeline
-3. If root `company.md` exists or the user provides company guidelines, read it before recommending changes. Apply brand, content, compliance, localization, platform, analytics, and release constraints unless higher-priority instructions or search quality conflict.
+3. Read Company Context when repository or brand guidance may change the recommendation.
 4. Prioritize fixes by impact, confidence, and risk. Separate blockers from nice-to-have optimizations.
 5. Prefer implementation-ready recommendations: exact metadata, route rules, schema type, redirect map, content section, internal link, or test command.
 6. Avoid manipulative tactics: keyword stuffing, doorway pages, mass query-variant pages, fake reviews, inauthentic mentions, hidden text, or claims without evidence.
+## Company Context
+When repo work touches public content, search visibility, launch behavior, migrations, analytics, brand claims, localization, or compliance-sensitive wording, read root `company.md` if present. Follow its brand, content, compliance, localization, platform, analytics, and release constraints unless higher-priority instructions or search quality conflict.
 ## Reference Map
+Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, security, DevOps, design, writing, Ponytail, or Caveman instead of SEO/GEO as the lead role.
+
 Load [references/technical-seo.md](references/technical-seo.md) for crawl/indexing, metadata, canonicals, robots, sitemaps, structured data, JavaScript SEO, migrations, local/ecommerce/docs visibility, launch audits, and post-release checks.
 
 Load [references/generative-search.md](references/generative-search.md) for AI Overviews, AEO/GEO, answer inclusion, entity clarity, citation readiness, freshness, evidence, and brand visibility in answer engines.

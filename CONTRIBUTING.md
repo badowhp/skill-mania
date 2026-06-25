@@ -40,12 +40,22 @@ Descriptions are the main trigger surface. Prefer:
 
 Avoid vague descriptions like "helps with infrastructure" or "writing helper".
 
+## Production Skill Standards
+
+- Keep shipped skills reusable for marketplace users. Move personal profiles to `templates/` and local setup notes to `docs/`.
+- Link `references/role-selection.md` from each production skill that can overlap with another role or overlay.
+- Use the repository-standard `## Honest Opinion` block for every production skill except `caveman`.
+- Keep stack-specific guidance in references, not in long frontmatter descriptions.
+- Treat `caveman` as an output-shape overlay and `ponytail` as an implementation-scope overlay.
+
 ## Review Checklist
 
 - [ ] Skill name matches its directory.
 - [ ] Description is specific and below 1024 characters.
+- [ ] Description has clear trigger wording and near-miss boundaries.
 - [ ] `SKILL.md` is below 500 lines.
 - [ ] References are linked from `SKILL.md` with clear "when to read" guidance.
+- [ ] Shared routing and honest-opinion conventions are present where required.
 - [ ] Provider metadata and marketplace manifests validate successfully.
 - [ ] Scripts are executable, deterministic, and tested.
 - [ ] No secrets, tokens, credentials, private URLs, or machine-specific paths are committed.

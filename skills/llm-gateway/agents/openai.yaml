@@ -1,4 +1,0 @@
-interface:
-  display_name: "LLM Gateway"
-  short_description: "LiteLLM and OpenRouter setup guidance"
-  default_prompt: "Use $llm-gateway to plan or validate a LiteLLM/OpenRouter model gateway setup without committing secrets."

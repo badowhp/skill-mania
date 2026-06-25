@@ -49,6 +49,8 @@ Use this priority order unless the user asks for line-level work only:
 5. Voice and prose
 6. Packaging and publishing readiness
 ## Reference Map
+Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, security, DevOps, design, SEO/GEO, Ponytail, or Caveman instead of writing as the lead role.
+
 Load [references/manuscript-review.md](references/manuscript-review.md) for chapter/full-manuscript critique, commercial strength, reader promise, structure, pacing, prose diagnosis, publishing readiness, packaging, and genre lenses.
 
 Load [references/creative-writing.md](references/creative-writing.md) for fiction craft: story engine, scene tension, reversals, payoff, character pressure, dialogue, action, worldbuilding, theme, voice, revision passes, and novel readiness.

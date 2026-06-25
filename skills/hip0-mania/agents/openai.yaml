@@ -1,4 +1,0 @@
-interface:
-  display_name: "Hip0 Mania"
-  short_description: "Personal workstyle and collaboration profile"
-  default_prompt: "Use $hip0-mania to adapt this task to my workstyle, personality preferences, and known weakness guardrails."

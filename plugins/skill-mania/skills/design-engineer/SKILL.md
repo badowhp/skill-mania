@@ -35,6 +35,8 @@ Create interfaces that are chosen, usable, specific to the product, and verifiab
 ## Company Context
 When repo work touches UI, brand, product positioning, public pages, accessibility, or content conventions, read root `company.md` if present. Follow its audience, voice, visual, component, analytics, localization, and accessibility guidance unless higher-priority instructions or usability conflict.
 ## Reference Map
+Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, security, DevOps, SEO/GEO, writing, Ponytail, or Caveman instead of design as the lead role.
+
 Load [references/production-design-system.md](references/production-design-system.md) for design-system, token, component library, shadcn/Tailwind theming, production-readiness, or handoff work.
 
 Load [references/vibecoded-design-tells.md](references/vibecoded-design-tells.md) for AI-looking, generic, shadcn/Tailwind-default, purple-gradient, or polished public UI work where sameness matters.
@@ -92,8 +94,8 @@ For production UI work, do not rely on static code review alone when a rendered 
 - Inspect at least one desktop and one narrow mobile viewport. Add 320px and 200% zoom checks for public pages, dense tools, and likely wrapping risk.
 - Use real, worst-case, empty, loading, error, and long-content states when they are cheap to create.
 - If a check cannot run, name the missing check and the exact residual risk.
-## Honest Risk Line
-For design recommendations and audits, include one concise `honest opinion:` line naming the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. For implementation close-outs, include it only when a material design risk remains.
+## Honest Opinion
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 ## Output Shape
 For a design recommendation:
 

@@ -3,13 +3,13 @@
   "owner": {
     "name": "Hipolit Badowski"
   },
-  "description": "Personal Agent Skills marketplace.",
+  "description": "Portable Agent Skills marketplace.",
   "plugins": [
     {
       "name": "skill-mania",
       "displayName": "Skill Mania",
       "source": "./plugins/skill-mania",
-      "description": "Personal Agent Skills collection for Claude Code and Codex.",
+      "description": "Portable Agent Skills collection for Claude Code and Codex.",
       "category": "productivity",
       "tags": ["agent-skills", "codex", "claude-code"]
     }
