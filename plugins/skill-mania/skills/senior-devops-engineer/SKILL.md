@@ -83,6 +83,11 @@ Load [references/operations.md](references/operations.md) for CI/CD, releases, o
 - Use `scripts/devops-context.sh` for a quick read-only inventory of repo tooling, CI files, Dockerfiles, Terraform stacks, and Ansible content.
 - Use `assets/rollback-plan.md`, `assets/incident-timeline.md`, and `assets/runbook-template.md` when the user asks for rollout, incident, or runbook artifacts.
 
+## Tool Output
+
+- Use RTK when available for verbose read-only, status, log, build, lint, or test commands such as `rtk docker logs`, `rtk kubectl logs`, `rtk err <cmd>`, or `rtk test <cmd>`.
+- Treat RTK output as triage. Preserve or inspect raw output before production decisions, destructive changes, Terraform plan conclusions, incident evidence, or security-sensitive claims.
+
 ## Honest Opinion
 
 Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.

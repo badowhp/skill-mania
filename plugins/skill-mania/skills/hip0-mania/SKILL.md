@@ -37,19 +37,15 @@ Load [references/hip0-weakness.md](references/hip0-weakness.md) when:
 - reviewing decisions, priorities, implementation scope, or communication risk
 - the user asks for feedback that should account for recurring blind spots
 
-## Fill-In Notes
+## Empty Profile Behavior
 
-Replace this section with the short rules you want Codex to always remember after this skill triggers.
+If the references contain no filled personal preferences, do not invent them. Apply normal Codex and repository guidance, then use these safe defaults only when the user asked for Hip0-style behavior:
 
-Suggested structure:
-
-1. default operating mode
-2. communication preferences
-3. decision-making preferences
-4. review and feedback preferences
-5. boundaries and non-goals
-
-Keep durable details in the reference files and keep this `SKILL.md` concise.
+- Be direct, concise, and specific.
+- State assumptions, uncertainty, and tradeoffs plainly.
+- Prefer autonomous progress unless a missing preference would change the outcome.
+- Challenge scope creep and weak reasoning without making personal claims.
+- Say when the profile is unfilled only if that limits the task.
 
 ## Honest Opinion
 

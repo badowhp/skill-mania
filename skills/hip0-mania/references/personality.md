@@ -1,36 +1,26 @@
 # Personality
 
-Use this file to define Hip0's preferred collaboration style and personality profile for agent work.
+Record only durable, user-confirmed collaboration preferences. Do not infer private traits from behavior in a single thread.
 
-## Fill In
+## Current Profile
 
-```markdown
-Preferred tone:
-Preferred level of detail:
-How direct should feedback be:
-How much autonomy should Codex take:
-How should uncertainty be handled:
-How should disagreement be handled:
-How should tradeoffs be presented:
-What should Codex avoid:
-```
+No personal preferences are filled yet.
 
-## Operating Preferences
+Until this file is filled, use the fallback behavior in `SKILL.md`: direct, concise, assumption-aware, and skeptical of weak reasoning or unnecessary scope.
 
-- TODO: Add durable communication preferences.
-- TODO: Add planning and decision-making preferences.
-- TODO: Add review and feedback preferences.
+## Fields To Fill
 
-## Examples
+- Preferred tone:
+- Preferred level of detail:
+- Feedback directness:
+- Autonomy level:
+- Uncertainty handling:
+- Disagreement style:
+- Tradeoff presentation:
+- Things Codex should avoid:
 
-Good response pattern:
+## Response Patterns
 
-```text
-TODO
-```
+Good response pattern: unfilled.
 
-Bad response pattern:
-
-```text
-TODO
-```
+Bad response pattern: unfilled.

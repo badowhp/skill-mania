@@ -1,0 +1,26 @@
+{
+  "skill_name": "llm-gateway",
+  "evals": [
+    {
+      "id": "litellm-openrouter-codex",
+      "prompt": "Set up LiteLLM with OpenRouter so Codex can use it through a custom model provider. Show where config belongs and how to verify it.",
+      "expected_output": "Routes to llm-gateway, separates repo skill guidance from user-level Codex config, uses env vars for keys, validates LiteLLM/OpenRouter and /v1/responses compatibility before Codex routing.",
+      "should_trigger": true,
+      "tags": ["litellm", "openrouter", "codex"]
+    },
+    {
+      "id": "gateway-security-review",
+      "prompt": "Review this LiteLLM proxy config before we share it with the team. Check OpenRouter key handling, virtual keys, logs, budgets, and fallbacks.",
+      "expected_output": "Focuses on gateway security, secret placement, scoped keys, logging/redaction, provider/model allowlists, budgets, rate limits, fallback privacy, and rollback.",
+      "should_trigger": true,
+      "tags": ["security", "review", "gateway"]
+    },
+    {
+      "id": "near-miss-ordinary-bugfix",
+      "prompt": "Fix this failing unit test in the date parser and keep the diff small.",
+      "expected_output": "Should not require llm-gateway; senior-developer or ponytail is a better fit unless model proxy setup is central.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

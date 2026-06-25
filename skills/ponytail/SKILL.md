@@ -44,6 +44,7 @@ For bug fixes, fix the root cause, not the named symptom. Before editing a share
 - Keep the diff to the fewest files that solve the real problem.
 - For a complex request, ship the lazy version and question the extra scope in the same response.
 - If two standard options are the same size, choose the one that is correct on edge cases.
+- Use RTK for noisy command output when available, but do not let filtered output justify skipping evidence.
 - Mark deliberate simplifications with a `ponytail:` comment only when the shortcut has a real ceiling and future maintainers need to know the upgrade path.
 
 ## Output

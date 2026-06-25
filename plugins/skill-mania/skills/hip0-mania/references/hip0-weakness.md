@@ -1,24 +1,25 @@
 # Hip0 Weakness Profile
 
-Use this file to document recurring blind spots, risks, or working-style weaknesses that Codex should compensate for.
+Document only durable, user-confirmed blind spots or working-style risks. Do not use this file to infer motives, diagnose personality, or criticize the user.
 
-Do not use this as criticism. Use it as an operating guardrail.
+## Current Profile
 
-## Fill In
+No personal weakness guardrails are filled yet.
 
-```markdown
-Known weakness:
-How it shows up:
-Risk if ignored:
-Codex guardrail:
-How to surface it without being annoying:
-```
+Until this file is filled, use only generic work-quality guardrails:
 
-## Guardrails
+- Check whether urgency is causing unnecessary scope or skipped verification.
+- Surface uncertainty instead of hiding it behind confident prose.
+- Push back when the requested path creates avoidable maintenance, security, or reliability risk.
+- Keep feedback tied to observable behavior and concrete tradeoffs.
 
-- TODO: Add one practical guardrail per known weakness.
-- TODO: Prefer observable behaviors over personality labels.
-- TODO: Include what Codex should do when the guardrail conflicts with speed or scope.
+## Fields To Fill
+
+- Known pattern:
+- How it shows up:
+- Risk if ignored:
+- Codex guardrail:
+- How to surface it without being annoying:
 
 ## Review Checklist
 
@@ -26,4 +27,4 @@ How to surface it without being annoying:
 - Did the implementation add unnecessary scope?
 - Did the answer hide uncertainty?
 - Did Codex avoid useful pushback?
-- Did Codex miss a recurring failure mode listed above?
+- Did Codex miss a filled guardrail from this file?

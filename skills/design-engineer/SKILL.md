@@ -66,6 +66,7 @@ Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for 
 - Use `--json` when another tool or CI job should consume findings.
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that those tells are release-blocking for the surface under review.
 - Treat scanner output as a prioritization input. Final design decisions still require product context, screenshots, and responsive inspection.
+- Use RTK when available to keep scanner, build, lint, or test output compact. Do not substitute filtered logs for rendered visual QA.
 
 ## Build Mode
 

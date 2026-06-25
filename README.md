@@ -8,8 +8,10 @@ Skill Mania is a portable Agent Skills repository for Codex and Claude Code. It 
 
 ## Included Skills
 
+- `caveman` - terse, factual, low-prose response mode that preserves blockers and verification gaps.
 - `design-engineer` - frontend, product design, UX, design-system, and vibe-coded UI audit guidance.
-- `hip0-mania` - draft personal workstyle, personality, and weakness guardrail template.
+- `hip0-mania` - fillable personal workstyle profile and weakness guardrails.
+- `llm-gateway` - LiteLLM, OpenRouter, LLM proxy, and Codex model-provider setup guidance.
 - `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
 - `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
 - `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
@@ -110,7 +112,7 @@ Run the complete local release gate before publishing:
 ./scripts/check-release-ready.sh
 ```
 
-The validator checks the repository's portable skill contract: `name` and `description` frontmatter only, naming, `SKILL.md` length, relative links, reference routing, `agents/openai.yaml`, eval manifests for production skills, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks package sync, unit tests, shell syntax, placeholder text outside draft skills, bundled helper smoke tests, design scanner behavior, and local installer copy mode.
+The validator checks the repository's portable skill contract: `name` and `description` frontmatter only, naming, `SKILL.md` length, relative links, reference routing, `agents/openai.yaml`, eval manifests for production skills, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks package sync, unit tests, shell syntax, placeholder text outside explicitly fillable profile skills, bundled helper smoke tests, design scanner behavior, and local installer copy mode.
 
 After changing top-level `skills/`, refresh the packaged plugin copy:
 
@@ -120,7 +122,7 @@ After changing top-level `skills/`, refresh the packaged plugin copy:
 
 Before publishing a plugin release:
 
-- Fill or intentionally leave draft skills out of starter prompts.
+- Keep fillable personal-profile skills out of starter prompts unless intentionally configured.
 - Run `./scripts/check-release-ready.sh`.
 - Bump both Codex and Claude plugin manifest versions together.
 - Record any manual skill-eval results that influenced description or behavior changes.

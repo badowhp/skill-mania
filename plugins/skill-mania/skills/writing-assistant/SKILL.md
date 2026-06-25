@@ -81,6 +81,7 @@ Load [references/ai-slop-text.md](references/ai-slop-text.md) for human-read pro
 - Use `--json` when another tool or CI job should consume findings.
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that AI-slop tells are release-blocking for the text under review.
 - Treat scanner output as the first pass only. Structural tells still need a human read for rhythm, claim, specificity, and voice.
+- Use RTK when available for scanner output on large local prose sets. Do not replace editorial reading with filtered command output.
 
 ## Modes
 

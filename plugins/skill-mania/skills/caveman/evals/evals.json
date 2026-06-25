@@ -1,0 +1,26 @@
+{
+  "skill_name": "caveman",
+  "evals": [
+    {
+      "id": "explicit-caveman-summary",
+      "prompt": "Caveman: summarize the changes from this branch and tell me what still needs verification.",
+      "expected_output": "Responds tersely with result first, minimal bullets or a short paragraph, and keeps any verification gaps visible.",
+      "should_trigger": true,
+      "tags": ["brevity", "summary"]
+    },
+    {
+      "id": "german-brief-answer",
+      "prompt": "Bitte kurz und knapp: was ist der Unterschied zwischen unit tests und integration tests?",
+      "expected_output": "Uses a compact German answer without filler while preserving the core distinction and any necessary caveat.",
+      "should_trigger": true,
+      "tags": ["brevity", "german"]
+    },
+    {
+      "id": "near-miss-minimal-implementation",
+      "prompt": "Ponytail ultra: implement the smallest parser that handles this input format.",
+      "expected_output": "Should not require caveman unless the user asks for terse output; ponytail is a better fit for minimal implementation scope.",
+      "should_trigger": false,
+      "tags": ["near-miss"]
+    }
+  ]
+}

@@ -82,6 +82,8 @@ Load [references/engineering-discipline.md](references/engineering-discipline.md
 ## Verification Standards
 
 - Run the narrowest meaningful test first, then broaden only when shared behavior or integration risk justifies it.
+- Use RTK for noisy command triage when available, such as `rtk git status`, `rtk test <cmd>`, or command-specific wrappers.
+- Use raw command output when exact diffs, stack traces, assertions, line numbers, or review evidence matter.
 - Prefer tests that assert behavior over tests that lock incidental implementation.
 - For refactors, show that behavior stayed the same.
 - For user-visible changes, inspect the rendered or runtime path when possible.

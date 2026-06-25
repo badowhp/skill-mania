@@ -1,6 +1,8 @@
 # Agent Guidance
 
-This repository stores portable Agent Skills for Codex and Claude Code.
+Store portable Agent Skills for Codex and Claude Code.
+
+Keep this file lean: only durable repo-specific rules, commands, gotchas, and release paths. Delete stale guidance quickly.
 
 ## Repo Rules
 
@@ -12,6 +14,12 @@ This repository stores portable Agent Skills for Codex and Claude Code.
 - Put Codex plugin configuration in `.codex-plugin/` and `.agents/plugins/`.
 - Do not use emojis unless the user explicitly requests them.
 - Run `./scripts/sync-plugin-package.sh --check` and `python3 scripts/validate-skills.py skills plugins/skill-mania/skills` after editing skills.
+
+## Tooling
+
+- If `rtk` is on PATH, prefer explicit RTK wrappers for verbose, non-destructive command output such as `rtk git status`, `rtk test <cmd>`, and `rtk err <cmd>`.
+- Rerun the raw command or inspect the RTK tee full-output log when filtered output omits details needed for a fix, review, security decision, or release decision.
+- Do not require RTK; fall back to normal commands when it is unavailable.
 
 ## Skill Quality
 

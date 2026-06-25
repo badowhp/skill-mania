@@ -42,6 +42,11 @@ Load [references/technical-seo.md](references/technical-seo.md) for crawl/indexi
 
 Load [references/generative-search.md](references/generative-search.md) for AI Overviews, AEO/GEO, answer inclusion, entity clarity, citation readiness, freshness, evidence, and brand visibility in answer engines.
 
+## Tool Output
+
+- Use RTK when available for verbose crawl, build, lint, test, or log output.
+- Inspect raw rendered HTML, headers, robots, sitemap, schema, and Search Console or analytics exports when exact tags, URLs, or evidence matter.
+
 ## Honest Opinion
 
 Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.

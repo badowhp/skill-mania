@@ -66,6 +66,11 @@ Use [assets/security-review-template.md](assets/security-review-template.md) whe
 - Log security-relevant events without leaking secrets or sensitive personal data.
 - Make remediation observable: tests, alerts, audit logs, or configuration checks.
 
+## Tool Output
+
+- Use RTK when available for noisy scanner, dependency, CI, test, and log output only as triage.
+- Inspect raw output or the RTK tee full-output log before making exploitability, secret exposure, evidence preservation, or ship/hold claims.
+
 ## Review Checklist
 
 - What can an unauthenticated user reach?

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Caveman"
+  short_description: "Terse factual response mode"
+  default_prompt: "Use $caveman to keep this answer terse, factual, and low-prose while preserving critical caveats."
