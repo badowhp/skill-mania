@@ -15,10 +15,12 @@ Treat the logo as a small identity system, not a generated icon.
 Inspect the rendered surface, not just isolated components.
 
 - Check at least one desktop and one narrow mobile viewport. Add tablet and 320px/200% zoom checks when the surface is public, complex, or likely to wrap.
+- Capture or inspect the actual changed route, story, or component state. Do not treat a passing build as visual QA.
 - Verify that text, cards, headers, CTAs, menus, media, and sticky elements do not overlap, clip, hide each other, or cover the image focal point.
 - Test real or worst-case content: long names, long nav labels, multiline headings, empty/error/loading states, and translated or narrow words when relevant.
 - Confirm the first viewport has a clear subject, hierarchy, primary action, and a visible path into the next section when the page is public-facing.
 - Check that interactive states have stable dimensions and do not cause layout shift.
 - Check that focus rings, keyboard navigation, reduced motion, contrast, and tap targets still work after visual changes.
 - When media sits behind text or cards, confirm the focal point remains visible and the foreground remains readable at every tested viewport.
+- Check that token and component changes did not regress other common states: dialog, menu, toast, form validation, destructive action, and disabled action.
 - If a browser or screenshot is unavailable, ask the user for a screenshot or final review pass and name the exact issues to inspect before making last adjustments.

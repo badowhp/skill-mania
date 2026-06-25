@@ -1,15 +1,16 @@
 ---
 name: design-engineer
-description: "Design, build, review, or de-genericize UI: websites, apps, dashboards, landing pages, components, design systems, and frontend styling. Use for UX/product design, responsive and accessibility checks, shadcn/Tailwind cleanup, visual QA, and making interfaces specific instead of AI-looking or default."
+description: "Design, build, review, or de-genericize production UI: websites, apps, dashboards, components, frontend styling, design systems, tokens, shadcn/Tailwind cleanup, visual QA, responsive/accessibility checks, and UI that must feel specific instead of AI-looking or default."
 ---
 # Design Engineer
-Create interfaces that look chosen, usable, and fitted to the product.
+Create interfaces that are chosen, usable, specific to the product, and verifiable in a browser.
 ## Core Rules
 1. Ask only when missing context would change the brand direction, user flow, or implementation architecture.
 2. Inspect the existing product, components, tokens, content, and rendered state before redesigning.
 3. Match design effort to risk: use the simplest direction that solves the user's real workflow.
 4. Preserve existing design-system contracts unless the request intentionally changes them.
-5. Flag uncertainty and verify rendered desktop/mobile behavior when possible.
+5. Turn design decisions into concrete systems: tokens, layout primitives, components, states, content rules, and verification checks.
+6. Flag uncertainty and verify rendered desktop/mobile behavior when possible.
 ## Workflow
 1. Classify the request:
    - new UI or component design
@@ -23,13 +24,19 @@ Create interfaces that look chosen, usable, and fitted to the product.
    - one design reference, brand, screenshot, product, or named direction
    - color, type, density, motion, and accessibility constraints
 3. If context is missing but work can continue, state the assumptions and make deliberate choices. Ask only when a missing answer would change the architecture, brand direction, or user flow.
-4. Prefer real product evidence over abstract feature cards. Use screenshots, tables, data, forms, previews, maps, timelines, or operational states when they are available.
-5. Build controls and states a real user expects: empty, loading, error, disabled, selected, hover, focus, validation, mobile, and overflow.
-6. Keep layout tied to the user's task. Structure follows the workflow, not the default landing-page skeleton.
-7. Before finishing, run the Final Visual QA Gate: inspect rendered desktop and mobile states for responsive fit, text overflow, clipping, incoherent overlap, focal-point collisions, hidden actions, missing hierarchy, and unintentional default visual tells. If you cannot inspect a rendered UI, ask for a screenshot or user review for final adjustments, or clearly mark visual QA as unverified.
+4. Choose the production artifact before styling:
+   - Build: implement the UI and verify it.
+   - Spec: define direction, foundations, component contracts, states, and handoff notes.
+   - Audit: report prioritized findings with concrete replacements and checks.
+5. Prefer real product evidence over abstract feature cards. Use screenshots, tables, data, forms, previews, maps, timelines, or operational states when they are available.
+6. Build controls and states a real user expects: empty, loading, error, disabled, selected, hover, focus, validation, mobile, and overflow.
+7. Keep layout tied to the user's task. Structure follows the workflow, not the default landing-page skeleton.
+8. Before finishing, run the Final Visual QA Gate: inspect rendered desktop and mobile states for responsive fit, text overflow, clipping, incoherent overlap, focal-point collisions, hidden actions, missing hierarchy, and unintentional default visual tells. If you cannot inspect a rendered UI, ask for a screenshot or user review for final adjustments, or clearly mark visual QA as unverified.
 ## Company Context
 When repo work touches UI, brand, product positioning, public pages, accessibility, or content conventions, read root `company.md` if present. Follow its audience, voice, visual, component, analytics, localization, and accessibility guidance unless higher-priority instructions or usability conflict.
 ## Reference Map
+Load [references/production-design-system.md](references/production-design-system.md) for design-system, token, component library, shadcn/Tailwind theming, production-readiness, or handoff work.
+
 Load [references/vibecoded-design-tells.md](references/vibecoded-design-tells.md) for AI-looking, generic, shadcn/Tailwind-default, purple-gradient, or polished public UI work where sameness matters.
 
 Load [references/deliberate-design-process.md](references/deliberate-design-process.md) when brand direction is missing, you must choose color/type/density/layout/motion, or you need distinct design directions.
@@ -39,12 +46,14 @@ Load [references/ui-audit-examples.md](references/ui-audit-examples.md) to turn 
 Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for logos, marks, branded heroes, final public UI review, screenshot audits, overlap, occlusion, cropped focal points, or weak brand craft.
 ## Design Standards
 - Start from the user, product, and content. Generic aesthetics are a failure mode, not a neutral baseline.
-- Use an explicit type system, color system, spacing scale, radius scale, and component state model.
+- Use an explicit type system, color system, spacing scale, radius scale, elevation/shadow model, icon style, motion rules, and component state model.
 - Avoid one-note palettes. A mature interface has hierarchy, restraint, and enough contrast between surfaces, actions, and data.
 - Avoid oversized type inside compact tools, dashboards, cards, sidebars, and controls.
 - Prefer icons from an existing icon library over emoji-as-UI or hand-drawn ad hoc icons.
 - Use cards for repeated items, modals, and genuinely framed tools. Do not put page sections inside decorative cards.
 - Do not hide weak structure behind glow, gradients, blur, animation, or empty whitespace.
+- Use semantic color roles instead of scattered hard-coded swatches: surface, text, border, primary, secondary, success, warning, danger, info, focus, and data/category colors.
+- Define responsive behavior with stable dimensions, wrapping rules, min/max widths, and overflow handling for worst-case content.
 - Treat logos and marks as identity-system work: check concept fit, silhouette, balance, spacing, small-size legibility, monochrome use, and UI context.
 - Respect accessibility: semantic structure, keyboard focus, visible states, contrast, reduced motion, and readable mobile layouts.
 ## Bundled Helpers
@@ -59,11 +68,13 @@ When building a UI, state the chosen direction briefly if the user did not provi
 For frontend implementation:
 
 - follow the existing app's component library, tokens, routing, and state patterns
+- define or extend tokens before styling one-off components
+- create component contracts for reusable UI: variants, sizes, states, content limits, responsive behavior, and accessibility expectations
 - define stable dimensions for boards, grids, toolbars, icon buttons, counters, media frames, and tiles
 - make text wrap safely; test long labels and real content lengths
 - use responsive constraints rather than viewport-scaled font sizes
 - show the actual product or state in the first viewport when the page is product, venue, portfolio, or object focused
-- verify with screenshots or browser inspection when a dev server is needed, including at least one desktop and one narrow mobile viewport
+- verify with screenshots or browser inspection when a dev server is needed, including at least one desktop and one narrow mobile viewport; include the commands or evidence in the final response
 ## Audit Mode
 When reviewing an existing UI:
 
@@ -73,16 +84,25 @@ When reviewing an existing UI:
 4. Treat intentional brand decisions as allowed; the problem is an unspecified default, not a banned color or font.
 5. Treat overlap, clipping, hidden actions, unreadable media overlays, and weak brand marks as high-priority findings when they affect comprehension or trust.
 6. End with the top three changes that would most improve specificity and usability.
-## Honest Opinion
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+## Evidence Gate
+For production UI work, do not rely on static code review alone when a rendered check is possible.
+
+- Run the relevant build, lint, typecheck, storybook, or app-specific command when available.
+- Run the design scanner on changed UI files or the surface under review when the project uses Tailwind, shadcn, generated CSS, or public marketing UI.
+- Inspect at least one desktop and one narrow mobile viewport. Add 320px and 200% zoom checks for public pages, dense tools, and likely wrapping risk.
+- Use real, worst-case, empty, loading, error, and long-content states when they are cheap to create.
+- If a check cannot run, name the missing check and the exact residual risk.
+## Honest Risk Line
+For design recommendations and audits, include one concise `honest opinion:` line naming the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. For implementation close-outs, include it only when a material design risk remains.
 ## Output Shape
 For a design recommendation:
 
 1. direction
 2. rationale
-3. key UI decisions
-4. implementation notes
-5. checks before shipping
+3. foundations and component decisions
+4. states and responsive behavior
+5. implementation notes
+6. checks before shipping
 
 For an audit:
 
@@ -90,3 +110,10 @@ For an audit:
 2. highest-impact fix
 3. findings by priority
 4. top three changes
+
+For an implementation close-out:
+
+1. direction used
+2. files changed
+3. verification run
+4. remaining risks, only if material

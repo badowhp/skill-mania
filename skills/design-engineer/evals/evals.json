@@ -23,11 +23,39 @@
       "tags": ["logo", "visual-qa", "responsive"]
     },
     {
+      "id": "production-token-hardening",
+      "prompt": "Our Next/Tailwind app still feels like default shadcn. Make the design system production ready for a B2B billing operations dashboard: tokens, components, states, and verification plan.",
+      "expected_output": "Defines semantic token roles, component contracts, state inventory, responsive/content limits, shadcn/Tailwind hardening steps, and concrete verification gates rather than only aesthetic advice.",
+      "should_trigger": true,
+      "tags": ["design-system", "tokens", "shadcn", "production"]
+    },
+    {
+      "id": "build-public-product-page",
+      "prompt": "Build a landing page for a hardware product using the existing React app. The first viewport must show the actual product, avoid generic feature cards, and pass mobile visual QA.",
+      "expected_output": "Chooses a product-specific direction, uses real or generated product media, avoids default marketing structure, defines responsive behavior and states, and verifies desktop/mobile renderings.",
+      "should_trigger": true,
+      "tags": ["build", "landing-page", "visual-qa"]
+    },
+    {
+      "id": "component-contract-review",
+      "prompt": "Review this button/input/dialog component set for production readiness. I care about focus, disabled, loading, validation, long labels, and mobile overflow.",
+      "expected_output": "Reviews component contracts, accessibility, state coverage, content limits, responsive behavior, token usage, and verification steps with prioritized findings.",
+      "should_trigger": true,
+      "tags": ["components", "accessibility", "states"]
+    },
+    {
       "id": "near-miss-api-refactor",
       "prompt": "Refactor this API client to retry 429 responses with exponential backoff.",
       "expected_output": "Should not require design-engineer; this is ordinary implementation or DevOps/runtime behavior.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-database-schema",
+      "prompt": "Design a normalized database schema for subscription invoices and payment attempts.",
+      "expected_output": "Should not require design-engineer; this is data modeling or software architecture unless a UI surface is requested.",
+      "should_trigger": false,
+      "tags": ["near-miss", "architecture"]
     }
   ]
 }

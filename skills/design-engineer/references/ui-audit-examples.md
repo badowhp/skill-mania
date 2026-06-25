@@ -9,6 +9,8 @@ Use these examples to turn heuristic design tells into product-specific recommen
 | Emoji icons in buttons or feature grids | Emoji looks casual, inconsistent, and detached from the design system. | Use the existing icon library, align stroke weight, and reserve expressive illustration for intentional brand moments. |
 | Default gray/slate Tailwind ramp everywhere | Neutral ramps without contrast decisions make hierarchy feel generated. | Define surfaces, borders, muted text, accent, warning, success, and destructive tokens with real contrast targets. |
 | Empty whitespace around tiny content | It reads as padding used to create a false premium feel. | Increase useful density: show filters, state, metadata, preview content, or next actions. |
+| Token names without component behavior | The system looks documented but still breaks on real states. | Define component variants, state inventory, content limits, responsive rules, and accessibility expectations. |
+| One polished happy path | The screen demos well but fails in production data and edge cases. | Add empty, loading, error, disabled, selected, focus, long-content, and mobile states before calling the design done. |
 ## Before/After Framing
 When writing an audit finding, use this shape:
 
@@ -36,3 +38,5 @@ The pricing cards use the same purple gradient and oversized radius as the hero,
 - Keep shadcn components if they are the existing system; theme them intentionally instead of replacing them reflexively.
 - Audit radius, border, shadow, typography, and density tokens together. Changing only color usually leaves the default feel intact.
 - Replace repeated `CardHeader` and `CardContent` layouts with domain layouts when the content is operational: row groups, forms, tables, sidebars, inspectors, or timeline items.
+- Convert repeated utility chains into explicit component variants when the pattern appears across surfaces.
+- Treat focus, disabled, validation, loading, and destructive states as part of the component contract, not polish to add later.

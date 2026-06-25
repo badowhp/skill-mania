@@ -70,6 +70,35 @@ class DesignScannerTests(unittest.TestCase):
             self.assertEqual(payload["findings"][0]["file"], "Hero.tsx")
             self.assertEqual(payload["findings"][0]["id"], "generic-copy")
 
+    def test_production_ui_tells_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture = Path(tmp) / "Landing.tsx"
+            fixture.write_text(
+                "\n".join(
+                    [
+                        "export const hero = 'next-generation hardware';",
+                        "export const className = 'bg-amber-50 font-serif bg-clip-text text-[8vw]';",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                ["node", str(SCANNER), "--json", tmp],
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            ids = {finding["id"] for finding in payload["findings"]}
+            self.assertIn("cream-default", ids)
+            self.assertIn("default-display-serif", ids)
+            self.assertIn("gradient-text", ids)
+            self.assertIn("viewport-scaled-type", ids)
+            self.assertIn("generic-copy", ids)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -47,6 +47,20 @@ Fix:
 - do not replace purple-gradient defaults with cream-serif-sage defaults
 - anchor color and type to a real brand, product, place, image, or reference
 - if this look is intentional, keep it and document the choice
+### Design-system theater
+Signals:
+
+- many named tokens but no state model, content limits, or component contracts
+- one polished hero or dashboard screen while empty, loading, error, focus, and mobile states remain untouched
+- hard-coded colors scattered through components after a token system was introduced
+- a component library that is mostly wrappers adding shadows, gradients, and large radii
+
+Fix:
+
+- define token roles and component contracts before expanding surface area
+- verify states and worst-case content, not only the happy path
+- promote repeated utility chains into variants or layout primitives
+- remove wrappers that do not encode behavior, accessibility, or a reusable design decision
 ## Medium Priority Tells
 ### Centered hero plus three feature cards
 Signals:
@@ -93,7 +107,7 @@ Fix:
 - use no icon when the icon adds no meaning
 ## Lower Priority Tells
 - Generic font defaults: Inter, Geist, Roboto, Arial, or plain system fonts used without a type decision.
-- Generic AI marketing copy: "Transform your...", "Supercharge...", "Unleash...", "Effortlessly...", "reimagined."
+- Generic AI marketing copy: "Transform your...", "Supercharge...", "Unleash...", "Effortlessly...", "reimagined.", "all-in-one", "next-generation", "seamless experience."
 - Stock illustration sources such as undraw-style blobs when a real screenshot or domain image would be stronger.
 - Centered everything with oversized whitespace and no information hierarchy.
 

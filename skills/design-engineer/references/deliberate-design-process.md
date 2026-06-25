@@ -70,3 +70,13 @@ Decide consciously:
 - empty-state tone
 
 If the decision cannot be explained in relation to the product, user, or brand, simplify it.
+## Turn Direction Into A System
+Before implementing, write the smallest useful design contract:
+
+- direction: named reference or chosen direction, with why it fits the audience
+- foundations: color roles, type, spacing, radius, elevation, icon, and motion choices
+- layout: first user action, evidence to show, navigation pattern, and responsive behavior
+- components: controls, data displays, feedback, empty/error/loading states, and content limits
+- verification: desktop/mobile screenshots, long-content checks, accessibility checks, and build/static checks
+
+If the request is only a quick audit, include these as recommendations. If the request is to build, encode them in tokens/components where the repo structure supports it.
