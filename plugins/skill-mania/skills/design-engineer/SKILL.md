@@ -7,6 +7,14 @@ description: "Design, build, review, or de-genericize UI: websites, apps, dashbo
 
 Create interfaces that look chosen, usable, and fitted to the product.
 
+## Core Rules
+
+1. Ask only when missing context would change the brand direction, user flow, or implementation architecture.
+2. Inspect the existing product, components, tokens, content, and rendered state before redesigning.
+3. Match design effort to risk: use the simplest direction that solves the user's real workflow.
+4. Preserve existing design-system contracts unless the request intentionally changes them.
+5. Flag uncertainty and verify rendered desktop/mobile behavior when possible.
+
 ## Workflow
 
 1. Classify the request:
@@ -85,7 +93,7 @@ When reviewing an existing UI:
 
 ## Honest Opinion
 
-End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 
 ## Output Shape
 

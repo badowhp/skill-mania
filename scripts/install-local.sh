@@ -27,6 +27,14 @@ install_codex=0
 install_claude=0
 force=0
 validate_before_install=1
+rsync_options=(
+  --exclude '.DS_Store'
+  --exclude '__pycache__/'
+  --exclude '*.pyc'
+  --exclude '.tmp/'
+  --exclude '.cache/'
+  --exclude 'node_modules/'
+)
 
 resolve_path() {
   local path="$1"
@@ -114,6 +122,11 @@ if [[ "$install_codex" -eq 0 && "$install_claude" -eq 0 ]]; then
   install_claude=1
 fi
 
+if [[ "$mode" == "copy" ]] && ! command -v rsync >/dev/null 2>&1; then
+  echo "rsync is required for copy installs" >&2
+  exit 1
+fi
+
 if [[ "$validate_before_install" -eq 1 ]]; then
   python3 "$repo_root/scripts/validate-skills.py" "$repo_root/skills" >/dev/null
 fi
@@ -150,7 +163,7 @@ install_to() {
     if [[ "$mode" == "link" ]]; then
       ln -s "$skill_src" "$skill_dest"
     else
-      cp -R "$skill_src" "$skill_dest"
+      rsync -a "${rsync_options[@]}" "$skill_src"/ "$skill_dest"/
     fi
 
     echo "installed $label:$skill_name -> $skill_dest"

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-import { readFileSync, statSync } from "node:fs";
-import { extname, relative, resolve } from "node:path";
+import { readFileSync, readdirSync, statSync } from "node:fs";
+import { dirname, extname, relative, resolve } from "node:path";
 import { argv, exit } from "node:process";
-import { readdirSync } from "node:fs";
 
 const severityRank = {
   off: 99,
@@ -150,27 +149,36 @@ const checks = [
   },
 ];
 
-function* walk(dir) {
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+function* walk(target) {
+  const stats = statSync(target);
+  if (stats.isFile()) {
+    if (allowedExt.has(extname(target))) yield target;
+    return;
+  }
+  if (!stats.isDirectory()) return;
+
+  for (const entry of readdirSync(target, { withFileTypes: true })) {
     if (entry.isDirectory()) {
       if (!ignoredDirs.has(entry.name)) {
-        yield* walk(resolve(dir, entry.name));
+        yield* walk(resolve(target, entry.name));
       }
       continue;
     }
     if (!entry.isFile()) continue;
-    const path = resolve(dir, entry.name);
+    const path = resolve(target, entry.name);
     if (allowedExt.has(extname(path))) yield path;
   }
 }
 
 const findings = [];
+let rootStats;
 try {
-  statSync(root);
+  rootStats = statSync(root);
 } catch {
   console.error(`path not found: ${root}`);
   exit(2);
 }
+const reportRoot = rootStats.isDirectory() ? root : dirname(root);
 
 for (const file of walk(root)) {
   const text = readFileSync(file, "utf8");
@@ -179,7 +187,7 @@ for (const file of walk(root)) {
     for (const check of checks) {
       if (check.pattern.test(line)) {
         findings.push({
-          file: relative(root, file),
+          file: relative(reportRoot, file),
           line: index + 1,
           id: check.id,
           severity: check.severity,

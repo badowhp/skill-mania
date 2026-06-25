@@ -20,6 +20,7 @@ if [[ -n "$placeholder_hits" ]]; then
 fi
 
 node skills/design-engineer/scripts/scan-design-tells.mjs --fail-on high skills/design-engineer
+python3 skills/writing-assistant/scripts/scan-ai-slop-text.py --json README.md >/dev/null
 
 plan_json="$(mktemp)"
 trap 'rm -f "$plan_json"' EXIT
@@ -29,7 +30,20 @@ python3 skills/senior-devops-engineer/scripts/summarize-terraform-plan.py "$plan
 install_tmp="$(mktemp -d)"
 trap 'rm -rf "$install_tmp" "$plan_json"' EXIT
 CODEX_SKILLS_DIR="$install_tmp/codex" CLAUDE_SKILLS_DIR="$install_tmp/claude" ./scripts/install-local.sh --all --copy >/dev/null
-test -f "$install_tmp/codex/ponytail/SKILL.md"
-test -f "$install_tmp/claude/ponytail/SKILL.md"
+for skill_dir in skills/*; do
+  [[ -d "$skill_dir" && -f "$skill_dir/SKILL.md" ]] || continue
+  skill_name="$(basename "$skill_dir")"
+  test -f "$install_tmp/codex/$skill_name/SKILL.md"
+  test -f "$install_tmp/claude/$skill_name/SKILL.md"
+done
+
+generated_hits="$(
+  find "$install_tmp" \( -name '__pycache__' -o -name '*.pyc' -o -name '.DS_Store' -o -name '.tmp' -o -name '.cache' \) -print
+)"
+if [[ -n "$generated_hits" ]]; then
+  echo "generated files found in copied local install:" >&2
+  printf '%s\n' "$generated_hits" >&2
+  exit 1
+fi
 
 echo "release readiness checks passed"

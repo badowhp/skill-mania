@@ -91,7 +91,7 @@ When running marketplace-add commands from inside this repository, use `.` inste
 - Keep `SKILL.md` concise. Move detailed provider, framework, or domain material into `references/`.
 - Link every reference file from `SKILL.md` with clear guidance on when to load it.
 - Put deterministic or repetitive execution in `scripts/`.
-- Put reusable static files and repo media in `assets/`.
+- Put reusable templates, artifacts, examples, static files, and repo media in `assets/`.
 - Put Codex UI metadata in `agents/openai.yaml`.
 - Avoid secrets, credentials, destructive defaults, hidden network behavior, and machine-specific absolute paths.
 

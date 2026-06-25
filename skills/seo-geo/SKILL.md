@@ -7,6 +7,14 @@ description: Improve visibility in search engines and generative answer surfaces
 
 Improve discoverability without hacks: make pages crawlable, indexable, understandable, useful to humans, and easy for answer engines to cite accurately.
 
+## Core Rules
+
+1. Ask only when missing context changes the market, audience, crawl/indexing risk, migration plan, or claims.
+2. Inspect rendered output, templates, routes, metadata, canonicals, robots, and sitemaps before recommending changes when available.
+3. Match solution weight to search risk. Prefer exact, low-risk fixes over speculative visibility work.
+4. Preserve URL, canonical, metadata, and content contracts unless a migration or cleanup intentionally changes them.
+5. Flag freshness, evidence, and platform uncertainty; verify current rules when exact external requirements matter.
+
 ## Workflow
 
 1. Classify the request:
@@ -36,7 +44,7 @@ Load [references/generative-search.md](references/generative-search.md) for AI O
 
 ## Honest Opinion
 
-End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 
 ## Output Shape
 

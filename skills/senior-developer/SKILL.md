@@ -95,7 +95,7 @@ For every finding, include the affected file or line when available, the user im
 
 ## Honest Opinion
 
-End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 
 ## Output Shape
 

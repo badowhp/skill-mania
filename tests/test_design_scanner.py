@@ -50,6 +50,26 @@ class DesignScannerTests(unittest.TestCase):
             self.assertEqual(result.returncode, 1)
             self.assertIn("generic-copy", result.stdout)
 
+    def test_single_file_input_is_supported(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture = Path(tmp) / "Hero.tsx"
+            fixture.write_text(
+                "export const copy = 'Supercharge your team';\n",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                ["node", str(SCANNER), "--json", str(fixture)],
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual(payload["findings"][0]["file"], "Hero.tsx")
+            self.assertEqual(payload["findings"][0]["id"], "generic-copy")
+
 
 if __name__ == "__main__":
     unittest.main()

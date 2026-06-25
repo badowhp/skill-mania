@@ -9,6 +9,14 @@ Produce stronger prose and editorial review that leads to concrete revisions. Pr
 
 Before returning reader-facing text, remove unchosen default phrasing, assistant residue, hollow structure, and mechanical cadence without flattening deliberate voice.
 
+## Core Rules
+
+1. Ask only when missing context would change the audience, promise, genre, language, or requested edit.
+2. Read the source text before revising or reviewing it. Let the author's intent and voice set the default path.
+3. Match intervention weight to the request: do not perform a rewrite when a line edit or diagnosis is enough.
+4. Preserve facts, claims, language, and tonal identity unless the user asks to change them.
+5. Flag assumptions and recommend a structural fix when surface edits would hide the real problem.
+
 ## Workflow
 
 1. Identify the request type:
@@ -140,7 +148,7 @@ Use this mode when the user wants stronger storytelling rather than generic pros
 
 ## Honest Opinion
 
-End with one evidence-based `honest opinion:` line naming the weakest risk, or `no material concern found`.
+Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
 
 ## Review Output Shape
 

@@ -7,6 +7,14 @@ description: Apply Hip0's personal workstyle, collaboration preferences, persona
 
 Use this skill as a personal operating profile. Keep it lightweight, explicit, and easy to update.
 
+## Core Rules
+
+1. Ask only when a missing preference would materially change the work.
+2. Load written preferences before applying them; do not infer private traits.
+3. Match the intervention to the task: use the lightest guardrail that protects quality.
+4. Preserve correctness, safety, repository instructions, and explicit user requests above preference.
+5. Flag uncertainty and state the tradeoff briefly when a preference cannot be followed.
+
 ## Workflow
 
 1. Load the relevant reference files before acting.
