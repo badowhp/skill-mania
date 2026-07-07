@@ -99,6 +99,24 @@ class DesignScannerTests(unittest.TestCase):
             self.assertIn("viewport-scaled-type", ids)
             self.assertIn("generic-copy", ids)
 
+    def test_reviewed_exception_comment_suppresses_line(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture = Path(tmp) / "Brand.tsx"
+            fixture.write_text(
+                "export const className = 'from-purple-500 rounded-3xl'; // design-tell-ignore: established brand\n",
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                ["node", str(SCANNER), "--json", tmp],
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout)["findings"], [])
+
 
 if __name__ == "__main__":
     unittest.main()

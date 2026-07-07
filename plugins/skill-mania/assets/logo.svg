@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="240" viewBox="0 0 640 240" role="img" aria-labelledby="title desc">
+  <title id="title">Skill Mania</title>
+  <desc id="desc">Skill Mania portable Agent Skills plugin</desc>
+  <rect width="640" height="240" rx="32" fill="#101826"/>
+  <g transform="translate(54 56)">
+    <rect width="128" height="128" rx="28" fill="#14323d" stroke="#ffffff" stroke-opacity="0.18"/>
+    <path d="M34 40h60M34 64h43M34 88h64" fill="none" stroke="#35d0ba" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="96" cy="39" r="12" fill="#f2b84b"/>
+    <circle cx="88" cy="88" r="9" fill="#8f7dff"/>
+  </g>
+  <text x="220" y="111" fill="#f8fbff" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="800">Skill Mania</text>
+  <text x="224" y="153" fill="#d7e4f2" font-family="Segoe UI, Arial, sans-serif" font-size="23" font-weight="600">Portable Agent Skills</text>
+</svg>

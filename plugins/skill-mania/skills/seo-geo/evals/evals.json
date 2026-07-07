@@ -6,6 +6,10 @@
       "prompt": "Audit this Next.js marketing site before launch for titles, meta descriptions, canonical URLs, sitemap, robots.txt, structured data, and crawl/indexing risks.",
       "expected_output": "Prioritizes crawlability, indexability, metadata, canonicals, sitemap, robots rules, structured data validation, rendered output, and launch monitoring with exact fixes.",
       "should_trigger": true,
+      "assertions": [
+        "The audit distinguishes crawl, index, canonical, and structured-data risks",
+        "The release plan includes rendered validation and post-launch monitoring"
+      ],
       "tags": ["technical-seo", "launch"]
     },
     {
@@ -13,6 +17,10 @@
       "prompt": "Improve this product page so it is clearer for Google AI Overviews and other answer engines without keyword stuffing or fake authority.",
       "expected_output": "Treats GEO as search visibility plus answer usefulness, improves entity clarity, answer-ready structure, original evidence, supported claims, and warns against hacks like mass query pages or unsupported llms.txt requirements.",
       "should_trigger": true,
+      "assertions": [
+        "The recommendation keeps ordinary SEO eligibility as the foundation",
+        "Unsupported AI-specific files, schema, or authority claims are not prescribed"
+      ],
       "tags": ["geo", "content"]
     },
     {
@@ -20,6 +28,10 @@
       "prompt": "We are migrating /docs routes to /guides. Review the redirect, canonical, sitemap, and Search Console risk before release.",
       "expected_output": "Covers redirect map, canonical intent, sitemap updates, old URL preservation, crawl/indexing validation, monitoring, and rollback or post-launch checks.",
       "should_trigger": true,
+      "assertions": [
+        "The plan preserves old URLs through an explicit redirect map",
+        "Canonical, sitemap, monitoring, and rollback checks are included"
+      ],
       "tags": ["migration", "redirects"]
     },
     {
@@ -28,6 +40,13 @@
       "expected_output": "Should not require seo-geo; design-engineer is a better fit unless search visibility or metadata is central.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-copy-edit",
+      "prompt": "Rewrite this personal essay for stronger voice and rhythm without considering search intent.",
+      "expected_output": "Should route to writing-assistant because this is prose editing without a discoverability goal.",
+      "should_trigger": false,
+      "tags": ["near-miss", "writing"]
     }
   ]
 }

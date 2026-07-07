@@ -59,6 +59,30 @@ description: Demo skill: invalid for portable YAML.
 
             self.assertIn("quote frontmatter values containing colon-space", str(ctx.exception))
 
+    def test_frontmatter_accepts_standard_optional_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_file = Path(tmp) / "demo" / "SKILL.md"
+            write(
+                skill_file,
+                """---
+name: demo
+description: Demo skill.
+license: MIT
+compatibility: Requires git.
+metadata:
+  owner: platform
+  maturity: stable
+---
+
+# Demo
+""",
+            )
+
+            frontmatter, _ = validator.parse_frontmatter(skill_file)
+
+            self.assertEqual(frontmatter["license"], "MIT")
+            self.assertEqual(frontmatter["metadata"], {"owner": "platform", "maturity": "stable"})
+
     def test_reference_routing_requires_markdown_links(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             skill_dir = Path(tmp) / "demo"
@@ -122,6 +146,30 @@ description: Demo skill.
 
             self.assertIn("interface.default_prompt must include $demo", errors)
 
+    def test_openai_metadata_accepts_policy_and_tool_dependencies(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_dir = Path(tmp) / "demo"
+            metadata_file = skill_dir / "agents" / "openai.yaml"
+            write(
+                metadata_file,
+                """interface:
+  display_name: "Demo"
+  short_description: "A valid short description"
+  default_prompt: "Use $demo for this task."
+policy:
+  allow_implicit_invocation: false
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "docs"
+      description: "Documentation server"
+""",
+            )
+
+            errors = validator.validate_openai_yaml(metadata_file, "demo")
+
+            self.assertEqual(errors, [])
+
     def test_skill_root_flags_stray_directories(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / "skills"
@@ -183,19 +231,35 @@ description: Demo skill.
       "id": "one",
       "prompt": "This prompt is long enough to be descriptive.",
       "expected_output": "This expected output is also descriptive enough.",
-      "should_trigger": true
+      "should_trigger": true,
+      "assertions": ["The first behavior is present", "The first output is valid"]
     },
     {
       "id": "two",
       "prompt": "This second prompt is long enough to be descriptive.",
       "expected_output": "This second expected output is descriptive enough.",
-      "should_trigger": true
+      "should_trigger": true,
+      "assertions": ["The second behavior is present", "The second output is valid"]
     },
     {
       "id": "three",
       "prompt": "This third prompt is long enough to be descriptive.",
       "expected_output": "This third expected output is descriptive enough.",
-      "should_trigger": true
+      "should_trigger": true,
+      "assertions": ["The third behavior is present", "The third output is valid"]
+    },
+    {
+      "id": "four",
+      "prompt": "This fourth prompt is long enough to be descriptive.",
+      "expected_output": "This fourth expected output is descriptive enough.",
+      "should_trigger": true,
+      "assertions": ["The fourth behavior is present", "The fourth output is valid"]
+    },
+    {
+      "id": "five",
+      "prompt": "This near miss prompt is long enough to be descriptive.",
+      "expected_output": "This near miss should not trigger the skill at all.",
+      "should_trigger": false
     }
   ]
 }
@@ -205,7 +269,7 @@ description: Demo skill.
             errors = validator.validate_skill_evals(skill_dir)
 
             self.assertIn(
-                "evals/evals.json: include at least 1 should_trigger=false near-miss case",
+                "evals/evals.json: include at least 2 should_trigger=false near-miss cases",
                 errors,
             )
 
@@ -217,22 +281,20 @@ description: Demo skill.
             ["standard ## Honest Opinion block is required for production skills"],
         )
 
-    def test_caveman_is_exempt_from_honest_opinion_block(self) -> None:
+    def test_caveman_requires_honest_opinion_block(self) -> None:
         errors = validator.validate_honest_opinion(Path("caveman"), ["# Caveman"])
 
+        self.assertEqual(
+            errors,
+            ["standard ## Honest Opinion block is required for production skills"],
+        )
+
+    def test_standard_honest_opinion_block_is_accepted(self) -> None:
+        errors = validator.validate_honest_opinion(
+            Path("demo"), validator.HONEST_OPINION_BLOCK.splitlines()
+        )
+
         self.assertEqual(errors, [])
-
-    def test_role_selection_reference_is_required(self) -> None:
-        with tempfile.TemporaryDirectory() as tmp:
-            skill_dir = Path(tmp) / "demo"
-            skill_dir.mkdir(parents=True)
-
-            errors = validator.validate_role_selection(skill_dir, ["# Demo"])
-
-            self.assertEqual(
-                errors,
-                ["references/role-selection.md must be linked from SKILL.md"],
-            )
 
     def test_readme_references_reject_deprecated_openai_skills_repo(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -242,7 +304,8 @@ description: Demo skill.
                 "https://github.com/openai/skills\n"
                 "https://developers.openai.com/codex/skills\n"
                 "https://developers.openai.com/codex/plugins/build\n"
-                "https://github.com/openai/plugins\n",
+                "https://github.com/openai/plugins\n"
+                "https://docs.github.com/en/copilot/concepts/agents/about-agent-skills\n",
             )
 
             errors = validator.validate_readme_references(repo_root)

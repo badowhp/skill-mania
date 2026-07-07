@@ -3,11 +3,12 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: scripts/install-local.sh [--all|--codex|--claude] [--link|--copy] [--force] [--no-validate]
+Usage: scripts/install-local.sh [--all|--agents|--codex|--claude] [--link|--copy] [--force] [--no-validate]
 
 Options:
   --all      Install for Codex and Claude Code. Default when no target is set.
-  --codex    Install into Codex skills directory.
+  --agents   Install into the shared Codex and GitHub Copilot skills directory.
+  --codex    Alias for --agents for backward compatibility.
   --claude   Install into Claude Code skills directory.
   --link     Symlink skills from this repo. Default.
   --copy     Copy skills into the target directory.
@@ -16,7 +17,8 @@ Options:
             Skip repository validation before installing.
 
 Environment:
-  CODEX_SKILLS_DIR   Override Codex target directory.
+  AGENT_SKILLS_DIR   Override shared Codex and GitHub Copilot target directory.
+  CODEX_SKILLS_DIR   Backward-compatible alias when AGENT_SKILLS_DIR is unset.
   CLAUDE_SKILLS_DIR  Override Claude Code target directory.
 USAGE
 }
@@ -86,7 +88,7 @@ while [[ $# -gt 0 ]]; do
       install_codex=1
       install_claude=1
       ;;
-    --codex)
+    --agents|--codex)
       install_codex=1
       ;;
     --claude)
@@ -132,11 +134,11 @@ if [[ "$validate_before_install" -eq 1 ]]; then
 fi
 
 default_codex_dir="$HOME/.agents/skills"
-if [[ -z "${CODEX_SKILLS_DIR:-}" && -d "$HOME/.codex/skills" && ! -d "$HOME/.agents/skills" ]]; then
+if [[ -z "${AGENT_SKILLS_DIR:-}" && -z "${CODEX_SKILLS_DIR:-}" && -d "$HOME/.codex/skills" && ! -d "$HOME/.agents/skills" ]]; then
   default_codex_dir="$HOME/.codex/skills"
 fi
 
-codex_dir="${CODEX_SKILLS_DIR:-$default_codex_dir}"
+codex_dir="${AGENT_SKILLS_DIR:-${CODEX_SKILLS_DIR:-$default_codex_dir}}"
 claude_dir="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
 
 install_to() {
@@ -171,7 +173,7 @@ install_to() {
 }
 
 if [[ "$install_codex" -eq 1 ]]; then
-  install_to "codex" "$codex_dir"
+  install_to "agents" "$codex_dir"
 fi
 
 if [[ "$install_claude" -eq 1 ]]; then

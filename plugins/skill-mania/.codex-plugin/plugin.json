@@ -1,19 +1,25 @@
 {
   "name": "skill-mania",
-  "version": "0.1.0",
-  "description": "Portable Agent Skills collection for Codex and Claude Code.",
+  "version": "0.2.0",
+  "description": "Portable Agent Skills collection for Codex, Claude Code, and GitHub Copilot.",
   "author": {
     "name": "Hipolit Badowski"
   },
+  "homepage": "https://github.com/badowhp/skill-mania",
+  "repository": "https://github.com/badowhp/skill-mania",
+  "license": "LicenseRef-Proprietary",
   "keywords": ["agent-skills", "codex", "claude-code"],
   "skills": "./skills/",
   "interface": {
     "displayName": "Skill Mania",
-    "shortDescription": "Portable reusable skills for Codex and Claude Code.",
-    "longDescription": "A portable Agent Skills collection containing reusable workflows for concise responses, minimal implementation, software development, platform engineering, DevOps, design, architecture, security, SEO/GEO, writing, editing, and publishing review.",
+    "shortDescription": "Portable reusable workflows for coding agents.",
+    "longDescription": "A portable Agent Skills collection for Codex, Claude Code, GitHub Copilot, and compatible clients, covering concise responses, minimal implementation, software development, platform engineering, DevOps, design, architecture, security, SEO/GEO, writing, editing, and publishing review.",
     "developerName": "Hipolit Badowski",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
+    "brandColor": "#14323D",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/logo.svg",
     "defaultPrompt": [
       "Use the laziest correct implementation that avoids unnecessary code.",
       "Design or audit this UI with deliberate product-specific direction.",

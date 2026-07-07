@@ -6,6 +6,10 @@
       "prompt": "Review this fantasy chapter for pacing, scene tension, reader promise, and character pressure. Give concrete revision advice.",
       "expected_output": "Separates diagnosis from rewrite, prioritizes reader momentum and payoff, preserves voice, and gives actionable fixes.",
       "should_trigger": true,
+      "assertions": [
+        "The critique prioritizes pacing, scene pressure, and reader promise",
+        "Recommendations preserve the author's voice and give actionable revisions"
+      ],
       "tags": ["fiction", "review"]
     },
     {
@@ -13,6 +17,10 @@
       "prompt": "Improve this nonfiction book subtitle and Amazon blurb for clarity, promise, and KDP readiness.",
       "expected_output": "Addresses reader promise, metadata-facing copy, opening hook, category fit, Look Inside concerns, and avoids hype without substance.",
       "should_trigger": true,
+      "assertions": [
+        "The revised copy states a concrete reader promise without unsupported hype",
+        "Platform-sensitive KDP details are separated for current verification"
+      ],
       "tags": ["publishing", "kdp"]
     },
     {
@@ -20,6 +28,10 @@
       "prompt": "This README section sounds too ChatGPT-ish. De-slop it, preserve my direct technical voice, and flag the biggest AI-writing tells.",
       "expected_output": "Should trigger writing-assistant, load the AI-slop text guidance, preserve the user's voice, remove assistant-shaped phrasing, check mechanical and structural tells, and avoid forced casual over-correction.",
       "should_trigger": true,
+      "assertions": [
+        "The revision removes assistant-shaped phrasing without changing technical meaning",
+        "The reported AI-writing tells are contextual rather than automatic punctuation bans"
+      ],
       "tags": ["ai-slop", "revision"]
     },
     {
@@ -28,6 +40,13 @@
       "expected_output": "Should not require writing-assistant; senior-devops-engineer is a better fit.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-search-audit",
+      "prompt": "Audit our product pages for canonicals, structured data, sitemap coverage, and AI Overview visibility.",
+      "expected_output": "Should route to seo-geo because crawlability, structured data, and search visibility are central.",
+      "should_trigger": false,
+      "tags": ["near-miss", "seo"]
     }
   ]
 }

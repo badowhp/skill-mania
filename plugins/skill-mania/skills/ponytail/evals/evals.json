@@ -6,6 +6,10 @@
       "prompt": "Ponytail full: fix a bug where empty optional tags crash the formatter. Keep the diff as small as possible.",
       "expected_output": "Inspects the relevant path, reuses existing code, fixes the root cause with the smallest coherent change, and gives a short skipped line for omitted extra scope.",
       "should_trigger": true,
+      "assertions": [
+        "The proposed change addresses the shared root cause rather than one caller",
+        "Unrequested abstraction or dependency work is explicitly avoided"
+      ],
       "tags": ["minimal", "bugfix"]
     },
     {
@@ -13,7 +17,22 @@
       "prompt": "Ponytail ultra: add a plugin registry abstraction for one hard-coded local plugin we use today.",
       "expected_output": "Challenges the abstraction unless current requirements justify it, prefers direct code or deletion, and preserves validation/security basics.",
       "should_trigger": true,
+      "assertions": [
+        "The speculative registry abstraction is rejected or materially justified",
+        "The recommendation preserves required validation and security behavior"
+      ],
       "tags": ["yagni", "scope"]
+    },
+    {
+      "id": "reuse-installed-capability",
+      "prompt": "Ponytail full: add UUID validation, but first check whether the project or standard library already provides it.",
+      "expected_output": "Inspects existing capabilities, reuses the smallest correct option, and avoids adding a new package for trivial validation.",
+      "should_trigger": true,
+      "assertions": [
+        "Existing project or standard-library validation is considered before custom code",
+        "No new dependency is recommended without a concrete gap"
+      ],
+      "tags": ["reuse", "dependencies"]
     },
     {
       "id": "near-miss-full-architecture",
@@ -21,6 +40,13 @@
       "expected_output": "Should not require ponytail unless the user explicitly asks for minimality; software-architect is a better fit.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-brief-output",
+      "prompt": "Give me a terse two-sentence explanation of what this function does.",
+      "expected_output": "Should not require ponytail because this asks for concise output, not minimal implementation scope.",
+      "should_trigger": false,
+      "tags": ["near-miss", "brevity"]
     }
   ]
 }

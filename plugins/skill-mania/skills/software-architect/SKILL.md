@@ -31,8 +31,6 @@ Design systems that are understandable, changeable, and fit the actual constrain
 ## Company Context
 When repo work touches system design, boundaries, technology choices, data ownership, migration, reliability, or governance, read root `company.md` if present. Follow its platform, ownership, integration, compliance, scale, and delivery guidance unless correctness or higher-priority instructions conflict.
 ## Reference Map
-Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, security, DevOps, design, SEO/GEO, writing, Ponytail, or Caveman instead of architecture as the lead role.
-
 Load [references/boundary-design.md](references/boundary-design.md) for service, module, package, ownership, deployability, and failure-boundary decisions.
 
 Load [references/api-contracts.md](references/api-contracts.md) for HTTP APIs, events, schemas, backward compatibility, idempotency, pagination, errors, and versioning.
@@ -66,7 +64,7 @@ Use [assets/architecture-review-template.md](assets/architecture-review-template
 - Use RTK when available for verbose read-only, build, lint, test, log, or review commands.
 - Inspect raw output or the RTK tee full-output log before making architecture, migration, production-readiness, or ship/hold claims that depend on exact evidence.
 ## Honest Opinion
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 ## Output Shape
 For a proposal:
 

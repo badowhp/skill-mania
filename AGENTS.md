@@ -1,6 +1,6 @@
 # Agent Guidance
 
-Store portable Agent Skills for Codex and Claude Code.
+Store portable Agent Skills for Codex, Claude Code, and GitHub Copilot.
 
 Keep this file lean: only durable repo-specific rules, commands, gotchas, and release paths. Delete stale guidance quickly.
 
@@ -9,6 +9,7 @@ Keep this file lean: only durable repo-specific rules, commands, gotchas, and re
 - Treat `skills/` as the canonical source. Do not duplicate skill contents under tool-specific directories.
 - Treat `plugins/skill-mania/skills` as the packaged distribution copy. Refresh it with `./scripts/sync-plugin-package.sh`.
 - Keep shared `SKILL.md` frontmatter portable: `name` and `description` are required.
+- Keep the shared `## Honest Opinion` block in every production skill; use it only where it adds decision value and keep it outside requested artifacts.
 - Put Codex-specific UI metadata in `agents/openai.yaml`.
 - Put Claude Code plugin configuration in `.claude-plugin/`.
 - Put Codex plugin configuration in `.codex-plugin/` and `.agents/plugins/`.
@@ -27,5 +28,6 @@ Keep this file lean: only durable repo-specific rules, commands, gotchas, and re
 - Prefer concise imperative instructions.
 - Use progressive disclosure: keep core workflow in `SKILL.md`, detailed material in `references/`.
 - Add scripts only for deterministic, repetitive, or fragile operations.
+- Add realistic positive and near-miss evals with observable assertions; benchmark material behavior changes against a baseline.
 - Avoid machine-specific absolute paths inside skills.
 - Never add secrets or credentials.

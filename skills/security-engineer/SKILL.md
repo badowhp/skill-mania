@@ -27,8 +27,6 @@ Find realistic security risks, explain exploitability, and recommend practical c
 ## Company Context
 When repo work touches security review, threat modeling, release readiness, privacy, compliance, cloud/CI exposure, or risk acceptance, read root `company.md` if present. Follow its data sensitivity, regulatory, control, incident, and exception guidance unless user safety, stronger evidence, or higher-priority instructions conflict.
 ## Reference Map
-Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, DevOps, design, SEO/GEO, writing, Ponytail, or Caveman instead of security as the lead role.
-
 Load [references/threat-modeling.md](references/threat-modeling.md) for assets, actors, trust boundaries, entry points, sensitive data, abuse cases, and mitigation planning.
 
 Load [references/web-appsec.md](references/web-appsec.md) for web application review, input handling, dangerous sinks, session/cookie settings, CSRF, CORS, SSRF, upload paths, and browser-facing controls.
@@ -68,7 +66,7 @@ Use [assets/security-review-template.md](assets/security-review-template.md) whe
 - Are dependencies, containers, and CI steps trusted and pinned?
 - Can a fix be verified with a targeted test?
 ## Honest Opinion
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 ## Output Shape
 For a security review:
 

@@ -6,6 +6,10 @@
       "prompt": "Review a small diff that changes request validation and adds a new unit test. Lead with correctness and missing-test risks.",
       "expected_output": "Reports findings first with file/line evidence, distinguishes correctness from style, and names residual test gaps.",
       "should_trigger": true,
+      "assertions": [
+        "Correctness and regression findings appear before style preferences",
+        "Each material finding includes evidence and a remediation direction"
+      ],
       "tags": ["review", "testing"]
     },
     {
@@ -13,6 +17,10 @@
       "prompt": "Implement a small refactor to reuse the existing date parser in two call sites without touching unrelated modules.",
       "expected_output": "Inspects existing patterns, keeps scope local, states assumptions, verifies with the lightest meaningful command, and surfaces unrelated smells separately.",
       "should_trigger": true,
+      "assertions": [
+        "The existing date parser is reused without an unnecessary abstraction",
+        "Verification targets the changed behavior and reports remaining gaps"
+      ],
       "tags": ["implementation", "refactor"]
     },
     {
@@ -20,6 +28,10 @@
       "prompt": "Debug a failing pagination regression, reproduce it locally if possible, patch the smallest affected code path, and add a targeted test.",
       "expected_output": "Should inspect callers and contracts before editing, distinguish symptom from root cause, keep the fix localized, add regression coverage, and report verification evidence plus remaining gaps.",
       "should_trigger": true,
+      "assertions": [
+        "The pagination failure is reproduced or the missing reproduction is stated",
+        "The fix includes targeted regression coverage for the root cause"
+      ],
       "tags": ["debugging", "regression"]
     },
     {
@@ -28,6 +40,13 @@
       "expected_output": "Should route to security-engineer because attacker behavior and trust boundaries are central.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-production-rollout",
+      "prompt": "Plan the production rollout, rollback, alerts, and on-call response for this Kubernetes migration.",
+      "expected_output": "Should route to senior-devops-engineer because rollout, rollback, observability, and production operations dominate the risk.",
+      "should_trigger": false,
+      "tags": ["near-miss", "devops"]
     }
   ]
 }

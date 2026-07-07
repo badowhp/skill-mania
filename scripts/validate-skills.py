@@ -14,22 +14,26 @@ LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 SEMVER_RE = re.compile(
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:[-+][0-9A-Za-z.-]+)?$"
 )
-FRONTMATTER_KEYS = {"name", "description"}
-OPENAI_INTERFACE_KEYS = ("display_name", "short_description", "default_prompt")
+FRONTMATTER_KEYS = {"name", "description", "license", "compatibility", "metadata"}
+FRONTMATTER_SCALAR_KEYS = FRONTMATTER_KEYS - {"metadata"}
+OPENAI_REQUIRED_INTERFACE_KEYS = ("display_name", "short_description", "default_prompt")
+OPENAI_OPTIONAL_INTERFACE_KEYS = ("icon_small", "icon_large", "brand_color")
+OPENAI_INTERFACE_KEYS = OPENAI_REQUIRED_INTERFACE_KEYS + OPENAI_OPTIONAL_INTERFACE_KEYS
 ALLOWED_URI_SCHEMES = {"http", "https", "mailto", "data"}
 EVAL_REQUIRED_KEYS = ("id", "prompt", "expected_output", "should_trigger")
-HONEST_OPINION_EXEMPT_SKILLS = {"caveman"}
 HONEST_OPINION_BLOCK = (
     "## Honest Opinion\n"
-    "Before finishing, add one concise `honest opinion:` line. Be brutally honest but "
-    "evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or "
-    "likely failure mode. If nothing material stands out, say `honest opinion: no "
-    "material concern found`."
+    "Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, "
+    "plans, tradeoffs, or implementation close-outs with a material risk or gap. Be "
+    "brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing "
+    "evidence, or likely failure mode. Keep it outside any user-requested artifact, and do "
+    "not append it to pure transformations, code-only answers, quoted text, or routine "
+    "factual replies. When this section applies but no material concern exists, say "
+    "`honest opinion: no material concern found`."
 )
-ROLE_SELECTION_LINK = "[references/role-selection.md](references/role-selection.md)"
 
 
-def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
+def parse_frontmatter(path: Path) -> tuple[dict[str, object], list[str]]:
     lines = path.read_text(encoding="utf-8").splitlines()
     if not lines or lines[0].strip() != "---":
         raise ValueError("missing opening YAML frontmatter marker")
@@ -42,9 +46,11 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
     if end is None:
         raise ValueError("missing closing YAML frontmatter marker")
 
-    data: dict[str, str] = {}
+    data: dict[str, object] = {}
     current_block_key: str | None = None
     current_block: list[str] = []
+    current_map_key: str | None = None
+    current_map: dict[str, str] = {}
 
     def flush_block() -> None:
         nonlocal current_block_key, current_block
@@ -52,6 +58,13 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
             data[current_block_key] = "\n".join(current_block).strip()
         current_block_key = None
         current_block = []
+
+    def flush_map() -> None:
+        nonlocal current_map_key, current_map
+        if current_map_key is not None:
+            data[current_map_key] = current_map
+        current_map_key = None
+        current_map = {}
 
     for line_no, raw_line in enumerate(lines[1:end], start=2):
         if not raw_line.strip() or raw_line.lstrip().startswith("#"):
@@ -61,7 +74,20 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
             current_block.append(raw_line.strip())
             continue
 
+        if current_map_key and raw_line.startswith((" ", "\t")):
+            match = re.match(r"^\s{2}([A-Za-z0-9_.-]+):\s*(.*)$", raw_line)
+            if not match:
+                raise ValueError(f"line {line_no}: metadata entries need two-space indentation")
+            map_key, map_value = match.group(1), match.group(2).strip()
+            if not map_value:
+                raise ValueError(f"line {line_no}: metadata values must be strings")
+            if map_key in current_map:
+                raise ValueError(f"line {line_no}: duplicate metadata key {map_key!r}")
+            current_map[map_key] = strip_yaml_quotes(map_value)
+            continue
+
         flush_block()
+        flush_map()
         match = re.match(r"^([A-Za-z0-9_-]+):\s*(.*)$", raw_line)
         if not match:
             raise ValueError(f"line {line_no}: invalid frontmatter line")
@@ -73,10 +99,20 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
         if key in data:
             raise ValueError(f"line {line_no}: duplicate frontmatter key {key!r}")
 
+        if key == "metadata":
+            if value:
+                raise ValueError(f"line {line_no}: metadata must be a YAML mapping")
+            current_map_key = key
+            current_map = {}
+            continue
+
         if value in {"|", ">"}:
             current_block_key = key
             current_block = []
             continue
+
+        if key not in FRONTMATTER_SCALAR_KEYS:
+            raise ValueError(f"line {line_no}: {key!r} must be a scalar value")
 
         is_quoted = (value.startswith('"') and value.endswith('"')) or (
             value.startswith("'") and value.endswith("'")
@@ -90,6 +126,7 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, str], list[str]]:
         data[key] = value
 
     flush_block()
+    flush_map()
     return data, lines
 
 
@@ -198,6 +235,8 @@ def strip_yaml_quotes(value: str) -> str:
 def validate_openai_yaml(path: Path, skill_name: str) -> list[str]:
     errors: list[str] = []
     interface: dict[str, str] = {}
+    policy: dict[str, str] = {}
+    dependency_tools: list[dict[str, str]] = []
     current_section: str | None = None
     seen_sections: set[str] = set()
 
@@ -213,12 +252,26 @@ def validate_openai_yaml(path: Path, skill_name: str) -> list[str]:
             if current_section in seen_sections:
                 errors.append(f"line {line_no}: duplicate top-level key {current_section!r}")
             seen_sections.add(current_section)
-            if current_section != "interface":
+            if current_section not in {"interface", "policy", "dependencies"}:
                 errors.append(f"line {line_no}: unsupported top-level key {current_section!r}")
             continue
 
-        if current_section != "interface":
-            errors.append(f"line {line_no}: metadata must be under interface")
+        if current_section == "dependencies":
+            if raw_line == "  tools:":
+                continue
+            list_match = re.match(r"^\s{4}-\s+([A-Za-z0-9_-]+):\s*(.*)$", raw_line)
+            value_match = re.match(r"^\s{6}([A-Za-z0-9_-]+):\s*(.*)$", raw_line)
+            if list_match:
+                key, value = list_match.group(1), strip_yaml_quotes(list_match.group(2).strip())
+                dependency_tools.append({key: value})
+                continue
+            if value_match and dependency_tools:
+                key, value = value_match.group(1), strip_yaml_quotes(value_match.group(2).strip())
+                if key in dependency_tools[-1]:
+                    errors.append(f"line {line_no}: duplicate dependency key {key!r}")
+                dependency_tools[-1][key] = value
+                continue
+            errors.append(f"line {line_no}: invalid dependencies.tools entry")
             continue
 
         match = re.match(r"^\s{2}([A-Za-z0-9_-]+):\s*(.*)$", raw_line)
@@ -227,6 +280,19 @@ def validate_openai_yaml(path: Path, skill_name: str) -> list[str]:
             continue
 
         key, value = match.group(1), strip_yaml_quotes(match.group(2).strip())
+        if current_section == "policy":
+            if key != "allow_implicit_invocation":
+                errors.append(f"line {line_no}: unsupported policy key {key!r}")
+            elif value not in {"true", "false"}:
+                errors.append(f"line {line_no}: policy.{key} must be true or false")
+            elif key in policy:
+                errors.append(f"line {line_no}: duplicate policy key {key!r}")
+            else:
+                policy[key] = value
+            continue
+        if current_section != "interface":
+            errors.append(f"line {line_no}: key is not under a supported section")
+            continue
         if key not in OPENAI_INTERFACE_KEYS:
             errors.append(f"line {line_no}: unsupported interface key {key!r}")
             continue
@@ -235,7 +301,7 @@ def validate_openai_yaml(path: Path, skill_name: str) -> list[str]:
             continue
         interface[key] = value
 
-    for key in OPENAI_INTERFACE_KEYS:
+    for key in OPENAI_REQUIRED_INTERFACE_KEYS:
         if not interface.get(key):
             errors.append(f"interface.{key} is required")
 
@@ -246,6 +312,24 @@ def validate_openai_yaml(path: Path, skill_name: str) -> list[str]:
     default_prompt = interface.get("default_prompt", "")
     if default_prompt and f"${skill_name}" not in default_prompt:
         errors.append(f"interface.default_prompt must include ${skill_name}")
+
+    brand_color = interface.get("brand_color", "")
+    if brand_color and not re.fullmatch(r"#[0-9A-Fa-f]{6}", brand_color):
+        errors.append("interface.brand_color must use #RRGGBB")
+
+    skill_root = path.parent.parent
+    for key in ("icon_small", "icon_large"):
+        icon_path = interface.get(key, "")
+        if icon_path:
+            if icon_path.startswith(("/", "~")):
+                errors.append(f"interface.{key} must be relative to the skill root")
+            elif not (skill_root / icon_path).is_file():
+                errors.append(f"interface.{key} path {icon_path!r} does not exist")
+
+    for index, tool in enumerate(dependency_tools):
+        for key in ("type", "value"):
+            if not tool.get(key):
+                errors.append(f"dependencies.tools[{index}].{key} is required")
 
     return errors
 
@@ -275,8 +359,8 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
         errors.append("evals/evals.json: skill_name must match skill directory")
 
     evals = data.get("evals")
-    if not isinstance(evals, list) or len(evals) < 3:
-        errors.append("evals/evals.json: evals must contain at least 3 cases")
+    if not isinstance(evals, list) or len(evals) < 5:
+        errors.append("evals/evals.json: evals must contain at least 5 cases")
         return errors
 
     seen_ids: set[str] = set()
@@ -313,6 +397,37 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
         else:
             should_not_trigger_count += 1
 
+        assertions = item.get("assertions")
+        if should_trigger is True:
+            if not isinstance(assertions, list) or len(assertions) < 2:
+                errors.append(f"{prefix}.assertions must contain at least 2 checks")
+            elif not all(
+                isinstance(assertion, str) and len(assertion.strip()) >= 10
+                for assertion in assertions
+            ):
+                errors.append(
+                    f"{prefix}.assertions must contain descriptive non-empty strings"
+                )
+        elif assertions is not None and (
+            not isinstance(assertions, list)
+            or not all(isinstance(assertion, str) and assertion.strip() for assertion in assertions)
+        ):
+            errors.append(f"{prefix}.assertions must contain non-empty strings when present")
+
+        files = item.get("files")
+        if files is not None:
+            if not isinstance(files, list) or not all(
+                isinstance(file_name, str) and file_name.strip() for file_name in files
+            ):
+                errors.append(f"{prefix}.files must contain non-empty relative paths")
+            else:
+                for file_name in files:
+                    file_path = (skill_dir / file_name).resolve()
+                    if not path_is_within(file_path, skill_dir.resolve()):
+                        errors.append(f"{prefix}.files path escapes the skill directory")
+                    elif not file_path.is_file():
+                        errors.append(f"{prefix}.files path {file_name!r} does not exist")
+
         tags = item.get("tags")
         if tags is not None:
             if not isinstance(tags, list) or not tags:
@@ -320,31 +435,20 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
             elif not all(isinstance(tag, str) and tag.strip() for tag in tags):
                 errors.append(f"{prefix}.tags must contain only non-empty strings")
 
-    if should_trigger_count < 2:
-        errors.append("evals/evals.json: include at least 2 should_trigger=true cases")
-    if should_not_trigger_count < 1:
-        errors.append("evals/evals.json: include at least 1 should_trigger=false near-miss case")
+    if should_trigger_count < 3:
+        errors.append("evals/evals.json: include at least 3 should_trigger=true cases")
+    if should_not_trigger_count < 2:
+        errors.append("evals/evals.json: include at least 2 should_trigger=false near-miss cases")
 
     return errors
 
 
 def validate_honest_opinion(skill_dir: Path, lines: list[str]) -> list[str]:
-    if skill_dir.name in HONEST_OPINION_EXEMPT_SKILLS:
-        return []
-
     body = "\n".join(lines)
     if "## Honest Risk Line" in body:
         return ["use standard heading '## Honest Opinion', not '## Honest Risk Line'"]
     if HONEST_OPINION_BLOCK not in body:
         return ["standard ## Honest Opinion block is required for production skills"]
-    return []
-
-
-def validate_role_selection(skill_dir: Path, lines: list[str]) -> list[str]:
-    if ROLE_SELECTION_LINK not in "\n".join(lines):
-        return ["references/role-selection.md must be linked from SKILL.md"]
-    if not (skill_dir / "references" / "role-selection.md").is_file():
-        return ["references/role-selection.md is required for production skills"]
     return []
 
 
@@ -357,8 +461,10 @@ def validate_skill(skill_dir: Path) -> list[str]:
     except ValueError as exc:
         return [str(exc)]
 
-    name = frontmatter.get("name", "").strip()
-    description = frontmatter.get("description", "").strip()
+    raw_name = frontmatter.get("name", "")
+    raw_description = frontmatter.get("description", "")
+    name = raw_name.strip() if isinstance(raw_name, str) else ""
+    description = raw_description.strip() if isinstance(raw_description, str) else ""
 
     if not name:
         errors.append("frontmatter.name is required")
@@ -377,6 +483,31 @@ def validate_skill(skill_dir: Path) -> list[str]:
     if len(lines) > 500:
         errors.append(f"SKILL.md is {len(lines)} lines; keep it below 500 lines")
 
+    license_value = frontmatter.get("license")
+    if license_value is not None and (
+        not isinstance(license_value, str) or not license_value.strip()
+    ):
+        errors.append("frontmatter.license must be a non-empty string")
+
+    compatibility = frontmatter.get("compatibility")
+    if compatibility is not None and (
+        not isinstance(compatibility, str) or not 1 <= len(compatibility.strip()) <= 500
+    ):
+        errors.append("frontmatter.compatibility must be 1-500 characters")
+
+    metadata = frontmatter.get("metadata")
+    if metadata is not None and (
+        not isinstance(metadata, dict)
+        or not all(
+            isinstance(key, str)
+            and key.strip()
+            and isinstance(value, str)
+            and value.strip()
+            for key, value in metadata.items()
+        )
+    ):
+        errors.append("frontmatter.metadata must contain non-empty string keys and values")
+
     errors.extend(validate_links(skill_dir, skill_file, lines))
 
     for markdown_file in sorted(skill_dir.rglob("*.md")):
@@ -389,7 +520,6 @@ def validate_skill(skill_dir: Path) -> list[str]:
     errors.extend(validate_agents_metadata(skill_dir))
     errors.extend(validate_skill_evals(skill_dir))
     errors.extend(validate_honest_opinion(skill_dir, lines))
-    errors.extend(validate_role_selection(skill_dir, lines))
     return errors
 
 
@@ -470,7 +600,7 @@ def validate_codex_plugin_manifest(repo_root: Path) -> list[str]:
     if data is None:
         return errors
 
-    for key in ("name", "description", "skills"):
+    for key in ("name", "description", "homepage", "repository", "license", "skills"):
         errors.extend(require_string(data, key, path))
     errors.extend(require_semver(data, "version", path))
     errors.extend(require_string_list(data, "keywords", path))
@@ -494,6 +624,41 @@ def validate_codex_plugin_manifest(repo_root: Path) -> list[str]:
                         f"{path}: interface.defaultPrompt[{index}] must be 128 characters or less"
                     )
 
+        brand_color = interface.get("brandColor")
+        if brand_color is not None and (
+            not isinstance(brand_color, str)
+            or not re.fullmatch(r"#[0-9A-Fa-f]{6}", brand_color)
+        ):
+            errors.append(f"{path}: interface.brandColor must use #RRGGBB")
+
+        plugin_root = path.parent.parent
+        for key in ("composerIcon", "logo"):
+            value = interface.get(key)
+            if value is not None:
+                errors.extend(
+                    validate_repo_relative_path(
+                        repo_root, plugin_root, path, value, f"interface.{key}"
+                    )
+                )
+
+        screenshots = interface.get("screenshots")
+        if screenshots is not None:
+            if not isinstance(screenshots, list) or not all(
+                isinstance(item, str) and item.strip() for item in screenshots
+            ):
+                errors.append(f"{path}: interface.screenshots must contain relative paths")
+            else:
+                for index, screenshot in enumerate(screenshots):
+                    errors.extend(
+                        validate_repo_relative_path(
+                            repo_root,
+                            plugin_root,
+                            path,
+                            screenshot,
+                            f"interface.screenshots[{index}]",
+                        )
+                    )
+
     skills_path = data.get("skills")
     plugin_root = path.parent.parent
     errors.extend(validate_repo_relative_path(repo_root, plugin_root, path, skills_path, "skills"))
@@ -507,7 +672,7 @@ def validate_claude_plugin_manifest(repo_root: Path) -> list[str]:
     if data is None:
         return errors
 
-    for key in ("name", "description"):
+    for key in ("name", "description", "homepage", "repository", "license"):
         errors.extend(require_string(data, key, path))
     errors.extend(require_semver(data, "version", path))
 
@@ -515,6 +680,10 @@ def validate_claude_plugin_manifest(repo_root: Path) -> list[str]:
     errors.extend(author_errors)
     if author is not None:
         errors.extend(require_string(author, "name", path))
+
+    license_path = path.parent.parent / "LICENSE.md"
+    if not license_path.is_file():
+        errors.append(f"{license_path}: packaged plugin license notice is required")
 
     return errors
 
@@ -579,7 +748,7 @@ def validate_claude_marketplace(repo_root: Path) -> list[str]:
         if not isinstance(plugin, dict):
             errors.append(f"{path}: plugins[{index}] must be an object")
             continue
-        for key in ("name", "displayName", "source", "description", "category"):
+        for key in ("name", "displayName", "source", "description", "category", "homepage"):
             errors.extend(require_string(plugin, key, path))
         source_path = plugin.get("source")
         errors.extend(
@@ -630,6 +799,7 @@ def validate_readme_references(repo_root: Path) -> list[str]:
         "https://developers.openai.com/codex/skills",
         "https://developers.openai.com/codex/plugins/build",
         "https://github.com/openai/plugins",
+        "https://docs.github.com/en/copilot/concepts/agents/about-agent-skills",
     ):
         if required_url not in body:
             errors.append(f"{path}: missing current reference {required_url}")

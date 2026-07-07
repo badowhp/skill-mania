@@ -6,6 +6,10 @@
       "prompt": "Review a Terraform plan that replaces a Cloud SQL instance, changes IAM bindings, and opens a firewall rule. Give release safety advice.",
       "expected_output": "Identifies destructive/high-risk changes, blast radius, prerequisites, rollout sequence, rollback path, validation, and missing operational controls.",
       "should_trigger": true,
+      "assertions": [
+        "The Cloud SQL replacement and firewall exposure are identified as material risks",
+        "The recommendation includes blast radius, validation, and rollback steps"
+      ],
       "tags": ["terraform", "review"]
     },
     {
@@ -13,7 +17,22 @@
       "prompt": "Troubleshoot intermittent 502s after deployment in our web runtime and propose the smallest safe operational fix.",
       "expected_output": "Checks runtime, web server, deploy, logs, metrics, rollback options, and validation commands; loads stack-specific guidance when the stack is known and avoids console-only snowflake changes.",
       "should_trigger": true,
+      "assertions": [
+        "The diagnosis considers deployment changes, runtime evidence, and rollback",
+        "The proposed fix is reproducible and includes a validation signal"
+      ],
       "tags": ["runtime", "incident"]
+    },
+    {
+      "id": "ci-release-design",
+      "prompt": "Design a CI/CD release path with artifact promotion, production approval, canary rollout, observability, and rollback.",
+      "expected_output": "Separates build from release, defines immutable artifact promotion, owners and prerequisites, canary validation, and rollback behavior.",
+      "should_trigger": true,
+      "assertions": [
+        "Build, release, and runtime responsibilities are separated",
+        "The rollout includes observable canary gates and a concrete rollback path"
+      ],
+      "tags": ["ci-cd", "release"]
     },
     {
       "id": "near-miss-manuscript",
@@ -21,6 +40,13 @@
       "expected_output": "Should not require senior-devops-engineer; writing-assistant is a better fit.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-service-boundary",
+      "prompt": "Decide whether billing and subscriptions should be separate services with independent data ownership.",
+      "expected_output": "Should route to software-architect because service boundaries and data ownership are central rather than runtime operations.",
+      "should_trigger": false,
+      "tags": ["near-miss", "architecture"]
     }
   ]
 }

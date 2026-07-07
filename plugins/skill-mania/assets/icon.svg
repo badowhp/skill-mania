@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Skill Mania</title>
+  <desc id="desc">Skill Mania plugin icon</desc>
+  <defs>
+    <linearGradient id="background" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14323d"/>
+      <stop offset="1" stop-color="#2d2647"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#background)"/>
+  <path d="M35 41h58M35 64h42M35 87h61" fill="none" stroke="#35d0ba" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="94" cy="40" r="12" fill="#f2b84b"/>
+  <circle cx="86" cy="87" r="9" fill="#8f7dff"/>
+</svg>

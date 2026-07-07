@@ -6,8 +6,18 @@ cd "$repo_root"
 
 python3 scripts/validate-skills.py skills plugins/skill-mania/skills
 ./scripts/sync-plugin-package.sh --check
+python3 scripts/report-skill-budgets.py --check
+python3 scripts/check-release-version.py
+python3 scripts/check-external-links.py --list >/dev/null
 python3 -m unittest discover -s tests
 bash -n scripts/*.sh
+
+non_executable_helpers="$({ find scripts -maxdepth 1 -type f; find skills -path '*/scripts/*' -type f; } | while IFS= read -r helper; do [[ -x "$helper" ]] || printf '%s\n' "$helper"; done)"
+if [[ -n "$non_executable_helpers" ]]; then
+  echo "non-executable helper scripts found:" >&2
+  printf '%s\n' "$non_executable_helpers" >&2
+  exit 1
+fi
 
 placeholder_hits="$(
   find skills plugins/skill-mania/skills -type f -print0 \

@@ -6,6 +6,10 @@
       "prompt": "Audit a React/Tailwind SaaS dashboard that uses purple gradients, shadcn Cards for every section, and generic marketing copy. Give prioritized design findings and concrete replacements.",
       "expected_output": "Reports a verdict, separates mechanical vibe-coded tells from deeper UX issues, recommends product-specific layout/content changes, and includes responsive/accessibility checks.",
       "should_trigger": true,
+      "assertions": [
+        "The audit separates visual-default tells from workflow or usability problems",
+        "Recommendations include product-specific replacements and responsive checks"
+      ],
       "tags": ["audit", "tailwind", "vibecoded"]
     },
     {
@@ -13,6 +17,10 @@
       "prompt": "Design the first screen of an internal refund-review tool for support agents with filters, queue state, selected item detail, and error/loading/empty states.",
       "expected_output": "Chooses a work-focused operational layout, avoids decorative landing-page structure, names key UI states, and includes implementation/verification notes.",
       "should_trigger": true,
+      "assertions": [
+        "The layout supports queue triage and selected-item review as the primary job",
+        "Loading, empty, error, selected, and responsive states are addressed"
+      ],
       "tags": ["build", "dashboard", "workflow"]
     },
     {
@@ -20,6 +28,10 @@
       "prompt": "Review this portfolio hero screenshot where the logo feels amateur and a translucent skill card overlaps the portrait. Recommend final design adjustments.",
       "expected_output": "Should trigger design-engineer, run logo consultant and final visual QA checks, treat overlap/occlusion as high priority, and ask for rendered screenshot review if final inspection cannot be performed.",
       "should_trigger": true,
+      "assertions": [
+        "Portrait occlusion and logo legibility are treated as material visual risks",
+        "The response asks for or reports rendered mobile and desktop evidence"
+      ],
       "tags": ["logo", "visual-qa", "responsive"]
     },
     {
@@ -27,6 +39,10 @@
       "prompt": "Our Next/Tailwind app still feels like default shadcn. Make the design system production ready for a B2B billing operations dashboard: tokens, components, states, and verification plan.",
       "expected_output": "Defines semantic token roles, component contracts, state inventory, responsive/content limits, shadcn/Tailwind hardening steps, and concrete verification gates rather than only aesthetic advice.",
       "should_trigger": true,
+      "assertions": [
+        "Semantic tokens and component behavior are defined beyond color changes",
+        "The plan includes content limits, state coverage, and visual verification"
+      ],
       "tags": ["design-system", "tokens", "shadcn", "production"]
     },
     {
@@ -34,6 +50,10 @@
       "prompt": "Build a landing page for a hardware product using the existing React app. The first viewport must show the actual product, avoid generic feature cards, and pass mobile visual QA.",
       "expected_output": "Chooses a product-specific direction, uses real or generated product media, avoids default marketing structure, defines responsive behavior and states, and verifies desktop/mobile renderings.",
       "should_trigger": true,
+      "assertions": [
+        "The first viewport presents the actual product or a credible product artifact",
+        "Desktop and mobile rendering checks are part of completion"
+      ],
       "tags": ["build", "landing-page", "visual-qa"]
     },
     {
@@ -41,6 +61,10 @@
       "prompt": "Review this button/input/dialog component set for production readiness. I care about focus, disabled, loading, validation, long labels, and mobile overflow.",
       "expected_output": "Reviews component contracts, accessibility, state coverage, content limits, responsive behavior, token usage, and verification steps with prioritized findings.",
       "should_trigger": true,
+      "assertions": [
+        "Focus, disabled, loading, validation, and overflow states are reviewed",
+        "Findings include content limits and accessible verification steps"
+      ],
       "tags": ["components", "accessibility", "states"]
     },
     {

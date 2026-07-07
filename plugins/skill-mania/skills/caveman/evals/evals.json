@@ -6,6 +6,10 @@
       "prompt": "Caveman: summarize the changes from this branch and tell me what still needs verification.",
       "expected_output": "Responds tersely with result first, minimal bullets or a short paragraph, and keeps any verification gaps visible.",
       "should_trigger": true,
+      "assertions": [
+        "The result or branch status appears before supporting explanation",
+        "Any unresolved verification gap remains explicit"
+      ],
       "tags": ["brevity", "summary"]
     },
     {
@@ -13,7 +17,22 @@
       "prompt": "Bitte kurz und knapp: was ist der Unterschied zwischen unit tests und integration tests?",
       "expected_output": "Uses a compact German answer without filler while preserving the core distinction and any necessary caveat.",
       "should_trigger": true,
+      "assertions": [
+        "The response is written in concise German",
+        "The core distinction between unit and integration tests is preserved"
+      ],
       "tags": ["brevity", "german"]
+    },
+    {
+      "id": "compact-review-findings",
+      "prompt": "Be brief: review these three findings and tell me only which one blocks release and why.",
+      "expected_output": "Names the blocking finding first, gives one short reason, and omits nonessential review narration.",
+      "should_trigger": true,
+      "assertions": [
+        "The blocking finding is identified before secondary information",
+        "The response preserves the reason the finding blocks release"
+      ],
+      "tags": ["brevity", "review"]
     },
     {
       "id": "near-miss-minimal-implementation",
@@ -21,6 +40,13 @@
       "expected_output": "Should not require caveman unless the user asks for terse output; ponytail is a better fit for minimal implementation scope.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-detailed-explanation",
+      "prompt": "Explain dependency injection carefully with examples, tradeoffs, and common failure modes.",
+      "expected_output": "Should not require caveman because the user explicitly asks for a detailed explanation.",
+      "should_trigger": false,
+      "tags": ["near-miss", "detail"]
     }
   ]
 }

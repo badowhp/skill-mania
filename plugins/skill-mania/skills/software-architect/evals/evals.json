@@ -6,6 +6,10 @@
       "prompt": "Review whether billing, invoicing, and subscription lifecycle should be one service or split into three services.",
       "expected_output": "Evaluates ownership, data source of truth, API/contracts, deployability, failure boundaries, rejected alternatives, and the simplest maintainable recommendation.",
       "should_trigger": true,
+      "assertions": [
+        "The recommendation identifies one source of truth and ownership boundary",
+        "Rejected service splits are explained using deployability or failure tradeoffs"
+      ],
       "tags": ["boundaries", "tradeoffs"]
     },
     {
@@ -13,7 +17,22 @@
       "prompt": "Plan a strangler migration from a monolith order module to a new order service without a big-bang cutover.",
       "expected_output": "Proposes incremental phases, data ownership, compatibility, validation per phase, rollback, observability, and cleanup.",
       "should_trigger": true,
+      "assertions": [
+        "The migration is phased without a mandatory big-bang cutover",
+        "Every material phase includes validation and rollback behavior"
+      ],
       "tags": ["migration", "architecture"]
+    },
+    {
+      "id": "api-contract-design",
+      "prompt": "Design the API and ownership contract between checkout and fulfillment, including retries, idempotency, and failure handling.",
+      "expected_output": "Defines service responsibilities, data ownership, stable request/error contracts, idempotency, retry behavior, and operability tradeoffs.",
+      "should_trigger": true,
+      "assertions": [
+        "Checkout and fulfillment ownership responsibilities are explicit",
+        "The contract defines idempotency and retry-safe failure behavior"
+      ],
+      "tags": ["api", "contracts"]
     },
     {
       "id": "near-miss-css-audit",
@@ -21,6 +40,13 @@
       "expected_output": "Should not require software-architect; design-engineer is a better fit.",
       "should_trigger": false,
       "tags": ["near-miss"]
+    },
+    {
+      "id": "near-miss-local-bugfix",
+      "prompt": "Fix a null check in one formatter and add a regression test.",
+      "expected_output": "Should not require software-architect because this is a scoped implementation task without a cross-system decision.",
+      "should_trigger": false,
+      "tags": ["near-miss", "bugfix"]
     }
   ]
 }

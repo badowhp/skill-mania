@@ -1,6 +1,6 @@
 ---
 name: design-engineer
-description: "Design, build, review, or de-genericize production UI: websites, apps, dashboards, components, frontend styling, design systems, tokens, shadcn/Tailwind cleanup, visual QA, responsive/accessibility checks, and UI that must feel specific instead of AI-looking or default."
+description: "Design, build, review, or de-genericize production UI: websites, apps, dashboards, components, frontend styling, design systems, tokens, shadcn/Tailwind cleanup, visual QA, responsive/accessibility checks, and UI that must feel specific instead of AI-looking or default. Prefer senior-developer for non-visual frontend logic and seo-geo when search visibility is the main goal."
 ---
 # Design Engineer
 Create interfaces that are chosen, usable, specific to the product, and verifiable in a browser.
@@ -35,8 +35,6 @@ Create interfaces that are chosen, usable, specific to the product, and verifiab
 ## Company Context
 When repo work touches UI, brand, product positioning, public pages, accessibility, or content conventions, read root `company.md` if present. Follow its audience, voice, visual, component, analytics, localization, and accessibility guidance unless higher-priority instructions or usability conflict.
 ## Reference Map
-Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, security, DevOps, SEO/GEO, writing, Ponytail, or Caveman instead of design as the lead role.
-
 Load [references/production-design-system.md](references/production-design-system.md) for design-system, token, component library, shadcn/Tailwind theming, production-readiness, or handoff work.
 
 Load [references/vibecoded-design-tells.md](references/vibecoded-design-tells.md) for AI-looking, generic, shadcn/Tailwind-default, purple-gradient, or polished public UI work where sameness matters.
@@ -62,6 +60,7 @@ Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for 
 - Use `scripts/scan-design-tells.mjs` for a deterministic static scan of common visual defaults.
 - Use `--json` when another tool or CI job should consume findings.
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that those tells are release-blocking for the surface under review.
+- Add `design-tell-ignore` on a source line only for a reviewed, intentional exception; the comment should make the product or brand reason clear.
 - Treat scanner output as a prioritization input. Final design decisions still require product context, screenshots, and responsive inspection.
 - Use RTK when available to keep scanner, build, lint, or test output compact. Do not substitute filtered logs for rendered visual QA.
 ## Build Mode
@@ -95,7 +94,7 @@ For production UI work, do not rely on static code review alone when a rendered 
 - Use real, worst-case, empty, loading, error, and long-content states when they are cheap to create.
 - If a check cannot run, name the missing check and the exact residual risk.
 ## Honest Opinion
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 ## Output Shape
 For a design recommendation:
 

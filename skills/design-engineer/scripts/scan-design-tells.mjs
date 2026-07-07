@@ -212,6 +212,7 @@ for (const file of walk(root)) {
   const text = readFileSync(file, "utf8");
   const lines = text.split(/\r?\n/);
   for (const [index, line] of lines.entries()) {
+    if (line.includes("design-tell-ignore")) continue;
     for (const check of checks) {
       if (check.pattern.test(line)) {
         findings.push({

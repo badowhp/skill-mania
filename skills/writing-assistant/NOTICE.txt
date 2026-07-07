@@ -5,7 +5,8 @@ This skill includes summarized guidance and a local scanner inspired by:
 - JCarterJohnson/vibecoded-design-tells
 - Source: https://github.com/JCarterJohnson/vibecoded-design-tells
 - Referenced path: unslop-ai-text/skill and related repository materials
-- Accessed: 2026-06-24
+- Upstream commit: f7c4aefc2c797a66e55b49354a93917ab60d33ac
+- Reviewed: 2026-07-07
 
 The upstream repository license states:
 

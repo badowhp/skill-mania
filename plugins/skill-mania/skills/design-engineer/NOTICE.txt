@@ -4,8 +4,9 @@ This skill includes summarized guidance based on:
 
 - JCarterJohnson/vibecoded-design-tells
 - Source: https://github.com/JCarterJohnson/vibecoded-design-tells
-- Referenced file: skills/unslop-ui/SKILL.md and related repository materials
-- Accessed: 2026-06-24
+- Referenced path: unslop-ai-ui/skill and related repository materials
+- Upstream commit: f7c4aefc2c797a66e55b49354a93917ab60d33ac
+- Reviewed: 2026-07-07
 
 The upstream repository license states:
 

@@ -1,6 +1,6 @@
 ---
 name: seo-geo
-description: Improve visibility in search engines and generative answer surfaces. Use for technical/on-page SEO, content audits, metadata, structured data, crawl/indexing, canonicals, sitemaps, robots, internal links, local/ecommerce search, AI Overviews, AEO/GEO, entity clarity, citation readiness, and launch or migration review.
+description: Improve visibility in search engines and generative answer surfaces. Use for technical/on-page SEO, content audits, metadata, structured data, crawl/indexing, canonicals, sitemaps, robots, internal links, local/ecommerce search, AI Overviews, AEO/GEO, entity clarity, citation readiness, measurement, and launch or migration review. Prefer writing-assistant for prose-only editing and design-engineer for visual-only work.
 ---
 # SEO/GEO
 Improve discoverability without hacks: make pages crawlable, indexable, understandable, useful to humans, and easy for answer engines to cite accurately.
@@ -32,16 +32,18 @@ Improve discoverability without hacks: make pages crawlable, indexable, understa
 ## Company Context
 When repo work touches public content, search visibility, launch behavior, migrations, analytics, brand claims, localization, or compliance-sensitive wording, read root `company.md` if present. Follow its brand, content, compliance, localization, platform, analytics, and release constraints unless higher-priority instructions or search quality conflict.
 ## Reference Map
-Load [references/role-selection.md](references/role-selection.md) when the task could belong to development, architecture, security, DevOps, design, writing, Ponytail, or Caveman instead of SEO/GEO as the lead role.
-
 Load [references/technical-seo.md](references/technical-seo.md) for crawl/indexing, metadata, canonicals, robots, sitemaps, structured data, JavaScript SEO, migrations, local/ecommerce/docs visibility, launch audits, and post-release checks.
 
 Load [references/generative-search.md](references/generative-search.md) for AI Overviews, AEO/GEO, answer inclusion, entity clarity, citation readiness, freshness, evidence, and brand visibility in answer engines.
+
+Load [references/local-ecommerce.md](references/local-ecommerce.md) for local business, ecommerce, merchant feeds, product variants, business profiles, reviews, store/location pages, and structured-data parity.
+
+Load [references/measurement.md](references/measurement.md) for Search Console, analytics, baselines, launch annotations, migration monitoring, traffic-loss diagnosis, and experiment reporting.
 ## Tool Output
 - Use RTK when available for verbose crawl, build, lint, test, or log output.
 - Inspect raw rendered HTML, headers, robots, sitemap, schema, and Search Console or analytics exports when exact tags, URLs, or evidence matter.
 ## Honest Opinion
-Before finishing, add one concise `honest opinion:` line. Be brutally honest but evidence-based: name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. If nothing material stands out, say `honest opinion: no material concern found`.
+Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 ## Output Shape
 For audits:
 

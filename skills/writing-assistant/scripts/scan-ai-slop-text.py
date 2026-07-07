@@ -46,9 +46,9 @@ def compile_patterns(*patterns: str) -> tuple[re.Pattern[str], ...]:
 RULES = (
     Rule(
         id="dash-punctuation",
-        severity="high",
-        message="real em dash or spaced en dash",
-        remediation="Use a comma, period, or parentheses unless the mark is an intentional voice choice.",
+        severity="low",
+        message="dash punctuation worth checking in context",
+        remediation="Review repeated dash cadence, but keep intentional punctuation that belongs to the author or form.",
         patterns=compile_patterns(r"\u2014", r"\s\u2013\s", r"\u2013\u2013"),
         raw=True,
     ),
