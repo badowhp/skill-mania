@@ -1,12 +1,12 @@
 ---
 name: design-reviewer
-description: "Senior design consultant for UI/UX, DESIGN.md, plan, implementation, visual QA, design-system, and AI-looking UI review. Use for independent pass/fail verdicts, scorecards, release-blocking findings, or loop decisions after design-engineer output. Prefer design-engineer for creating DESIGN.md, planning, and implementing UI."
+description: "Give evidence-based PASS, PASS WITH FIXES, or FAIL reviews for UI/UX, DESIGN.md, plans, implementation, design systems, and AI-looking UI. Use for independent critique or release gates. Prefer design-engineer for creation and visual-qa for reproducible browser evidence."
 ---
 # Design Reviewer
 Review design work like a senior consultant: direct, evidence-based, and willing to fail work that is not ready.
 
 ## Core Rules
-1. Review the artifact in front of you before advising. Use `DESIGN.md`, screenshots, rendered pages, source files, scanner output, and product context as evidence.
+1. Review the artifact in front of you before advising. Use `DESIGN.md`, visual-qa reports or screenshots, rendered pages, source files, scanner output, and product context as evidence.
 2. Give a verdict: `PASS`, `PASS WITH FIXES`, or `FAIL`.
 3. Do not let taste language replace diagnosis. Tie findings to user comprehension, trust, usability, accessibility, brand fit, production resilience, or design-system drift.
 4. Separate strategy failures from execution failures.
@@ -70,6 +70,7 @@ Check:
 - no unreviewed AI-looking defaults: gradient text, side accent borders, nested cards, identical card grids, huge icon tiles, placeholder screenshots, reflexive purple or cream/serif palettes, generic SaaS copy, decorative motion
 - accessibility basics are intact: semantic structure, labels, keyboard, focus, contrast, reduced motion, touch targets
 - scanner or equivalent static checks were run when relevant
+- visual-qa or equivalent browser evidence was captured when a running UI was available
 
 Fail final implementation review when:
 

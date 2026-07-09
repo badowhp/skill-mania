@@ -19,7 +19,7 @@
 ## Service Selection
 - Use Cloud Run for stateless HTTP services, moderate background jobs, fast delivery, and low ops burden.
 - Use GKE when the platform needs Kubernetes-native scheduling, sidecars, custom networking policies, or broad multi-service platform control.
-- Use Compute Engine or managed instance groups when the workload needs VM-level control, custom agents, stateful local behavior, or legacy PHP/Nginx stacks.
+- Use Compute Engine or managed instance groups when the workload needs VM-level control, custom agents, or stateful local behavior.
 - Use Cloud SQL for relational workloads unless scale, sharding, or engine constraints require another managed database.
 - Use Memorystore for Redis-backed cache, session, or queue needs when an application should not self-manage Redis.
 - Prefer managed load balancing, Cloud DNS, Certificate Manager, Secret Manager, Cloud Armor, and Cloud NAT over self-hosted equivalents.

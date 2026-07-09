@@ -14,7 +14,7 @@
   - **Cloud Build:** prefer when the workload is GCP-native and tight Workload Identity, Artifact Registry push, or Cloud Deploy integration is the core requirement.
   - **GitLab CI:** for repos on GitLab. Supports GCP OIDC similarly to GitHub Actions.
   - **Jenkins:** only when an existing managed cluster is already in place and migration cost is not justified by platform gains. Avoid introducing Jenkins into greenfield projects.
-- Use Renovate or Dependabot to keep infrastructure, OS packages, PHP dependencies, and action versions current.
+- Use Renovate or Dependabot to keep infrastructure, OS packages, application dependencies, and action versions current.
 - Use Prometheus and Grafana or managed cloud monitoring for metrics, Loki or ELK for logs, and Sentry or equivalent for application error tracking when the stack justifies them.
 - Use Vault or a cloud-native secret manager rather than distributing secrets through repo files or ad hoc shell history.
 - Use systemd for long-running workers and scheduled timers on Linux VMs unless there is a strong reason to add another supervisor.

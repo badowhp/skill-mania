@@ -36,5 +36,5 @@ find . -path './.git' -prune -o -path './node_modules' -prune -o \
 
 section "Runtime Hints"
 find . -maxdepth 3 \( -path './.git' -o -path './node_modules' \) -prune -o -type f \
-  \( -name 'composer.json' -o -name 'package.json' -o -name 'requirements*.txt' -o -name 'pyproject.toml' -o -name 'go.mod' \) \
+  \( -name 'package.json' -o -name 'requirements*.txt' -o -name 'pyproject.toml' -o -name 'go.mod' -o -name 'go.work' -o -name 'pom.xml' -o -name 'build.gradle' -o -name 'build.gradle.kts' -o -name 'settings.gradle' -o -name 'settings.gradle.kts' -o -name 'gradlew' -o -name 'mvnw' -o -name 'Cargo.toml' \) \
   -print | sort

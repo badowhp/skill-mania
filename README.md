@@ -12,6 +12,7 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 - `agent-context-maintainer` - durable agent context, metadata, manifest, and packaged-copy hygiene.
 - `design-engineer` - context-first UI design workflow for DESIGN.md, planning, implementation, and review loops.
 - `design-reviewer` - senior UI/design review, pass/fail gates, scorecards, and visual QA critique.
+- `visual-qa` - reproducible browser evidence for responsive UI, runtime errors, overflow, and focus.
 - `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
 - `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
 - `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
@@ -30,6 +31,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - `docs/openrouter.md` - direct OpenRouter setup, smoke tests, and review checklist.
 - `docs/evaluation.md` - trigger testing, with-skill/baseline comparison, assertions, token/time capture, and release evidence.
 - `templates/company.md` - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
+- `templates/agent-automation/` - opt-in Claude Code and GitHub Copilot hook templates with a narrowly scoped destructive-command guard.
 - `templates/hip0-mania/` - private persona-review profile template. It is intentionally not shipped as a production skill because unfilled personal profiles are confusing in marketplace packages.
 
 ## Repository Layout

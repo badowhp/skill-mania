@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 .agent-automation/guard-agent-command.py",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}

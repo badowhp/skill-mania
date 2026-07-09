@@ -1,7 +1,7 @@
 # Ansible Reference
 ## Structure
 - Prefer roles with clear defaults, tasks, handlers, templates, and vars over one large playbook.
-- Keep roles cohesive: base OS, nginx, php-fpm, app deploy, monitoring agent, and hardening are separate concerns.
+- Keep roles cohesive: base OS, reverse proxy, application runtime, deploy, monitoring agent, and hardening are separate concerns.
 - Put environment or host-specific data in inventory, not buried in role logic.
 - Use templates for files that must remain synchronized with variables and service restarts.
 - Name tasks clearly enough that a failed run identifies the broken operation immediately.

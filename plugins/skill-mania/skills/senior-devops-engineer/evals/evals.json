@@ -57,6 +57,28 @@
       "tags": ["kubernetes", "debugging", "rollback"]
     },
     {
+      "id": "edge-cache-release-review",
+      "prompt": "Review this CDN cache-key and redirect change for a public application before release. Include purge, origin, WAF, and rollback risks.",
+      "expected_output": "Defines cache scope and variation, checks edge-versus-origin behavior, names invalidation and origin-protection controls, and provides validation plus rollback.",
+      "should_trigger": true,
+      "assertions": [
+        "The response treats cache keys, Vary dimensions, invalidation, and personalized content as release risks",
+        "The response includes edge validation, origin protection, and a reversible rollback path"
+      ],
+      "tags": ["cdn", "caching", "release"]
+    },
+    {
+      "id": "otel-collector-review",
+      "prompt": "Review our OpenTelemetry Collector rollout for trace, log, and metric correlation, cardinality, privacy, and incident usefulness.",
+      "expected_output": "Reviews shared resource identity, Collector reliability, telemetry privacy, cardinality, sampling, alert ownership, and failure-path validation.",
+      "should_trigger": true,
+      "assertions": [
+        "The response covers correlation and cardinality without putting sensitive data into telemetry",
+        "The response treats the Collector and alert runbooks as production components to validate"
+      ],
+      "tags": ["opentelemetry", "observability", "operations"]
+    },
+    {
       "id": "near-miss-manuscript",
       "prompt": "Review this manuscript chapter for pacing and reader promise.",
       "expected_output": "Should not require senior-devops-engineer; writing-assistant is a better fit.",

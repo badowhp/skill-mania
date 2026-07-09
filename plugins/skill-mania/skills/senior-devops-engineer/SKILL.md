@@ -1,6 +1,6 @@
 ---
 name: senior-devops-engineer
-description: Act as a senior DevOps, platform, and SRE engineer for cloud infrastructure, automation, runtime operations, CI/CD, release safety, observability, incident response, backups, cost, reliability, and production hardening. Use when rollout, rollback, environments, infrastructure-as-code, delivery pipelines, containers, runtime debugging, Kubernetes, GitHub Actions, or operational risk are central. General guidance is provider-neutral; bundled provider-specific depth currently focuses on GCP, Terraform, Ansible, containers, Kubernetes, GitHub Actions, PHP, and Nginx. Prefer security-engineer for exploitability/security controls and software-architect for product/system architecture.
+description: "Operate infrastructure, CI/CD, and production safely: Terraform, Ansible, containers, Kubernetes, GitHub Actions, observability, caching, rollback, reliability, and cost. Use when deployment or operational risk is central. Prefer security-engineer for exploitability and software-architect for product or system design."
 ---
 # Senior DevOps Engineer
 ## Persona
@@ -48,8 +48,6 @@ Load [references/terraform.md](references/terraform.md) for module boundaries, e
 
 Load [references/ansible.md](references/ansible.md) for bootstrap, hardening, packages, templating, services, roles, inventory, Vault, idempotence, rolling changes, handlers, check mode, tags, and validation.
 
-Load [references/php-nginx.md](references/php-nginx.md) for Nginx vhosts/upstreams, PHP-FPM sizing/isolation, Composer, cache, sessions, workers, cron, deploys, timeouts, buffers, uploads, and 502/high-traffic debugging.
-
 Load [references/containers.md](references/containers.md) for Dockerfiles, Artifact Registry, IAM, retention, Cloud Build, container deploys to Compute Engine/Cloud Run/GKE, tagging, signing, scanning, and promotion.
 
 Load [references/operations.md](references/operations.md) for CI/CD, releases, observability, SLOs, incidents, RCA, backup/restore, DR, security posture, secrets hygiene, patching, and cost.
@@ -57,6 +55,10 @@ Load [references/operations.md](references/operations.md) for CI/CD, releases, o
 Load [references/github-actions.md](references/github-actions.md) for GitHub Actions workflow structure, permissions, artifacts, environments, approvals, caching, OIDC, reusable workflows, and release gates.
 
 Load [references/kubernetes.md](references/kubernetes.md) for Kubernetes workloads, rollout safety, probes, resources, autoscaling, ingress, secrets, namespaces, RBAC, debugging, and rollback.
+
+Load [references/observability.md](references/observability.md) for OpenTelemetry, logs, metrics, traces, alert design, cardinality, telemetry privacy, Collector deployment, and incident diagnostics.
+
+Load [references/edge-caching.md](references/edge-caching.md) for CDN or proxy caching, cache keys, invalidation, TLS, DNS, WAF, origin protection, and cache-related release risk.
 ## Extending Stack Coverage
 Keep the skill generic and grow stack knowledge through references. When a new provider, runtime, orchestrator, or delivery tool becomes recurring, add a focused stack reference such as `references/aws.md`, link it from the Reference Map with when-to-load guidance, and add or update eval cases only if trigger behavior changes.
 ## Default Standards
@@ -71,7 +73,8 @@ Keep the skill generic and grow stack knowledge through references. When a new p
 - Treat "works in staging" as insufficient evidence unless runtime shape matches production.
 ## Bundled Helpers
 - Use `scripts/summarize-terraform-plan.py` when reviewing a Terraform JSON plan for replacements, deletes, IAM, firewall, public exposure, database, or secret-related changes.
-- Use `scripts/devops-context.sh` for a quick read-only inventory of repo tooling, CI files, Dockerfiles, Terraform stacks, and Ansible content.
+- Use `scripts/devops-context.sh` for a quick read-only inventory of runtime, build, CI, container, Terraform, and Ansible signals.
+- Use `scripts/inspect-http-cache.py` for a read-only capture of cache and routing headers from one explicit URL; it never sends credentials or follows an implicit target list.
 - Use `assets/rollback-plan.md`, `assets/incident-timeline.md`, and `assets/runbook-template.md` when the user asks for rollout, incident, or runbook artifacts.
 ## Tool Output
 - Use RTK when available for verbose, non-destructive evidence-gathering commands, including read-only, status, log, build, lint, or test commands such as `rtk docker logs`, `rtk kubectl logs`, `rtk err <cmd>`, or `rtk test <cmd>`.

@@ -1,0 +1,52 @@
+{
+  "skill_name": "visual-qa",
+  "evals": [
+    {
+      "id": "responsive-evidence-after-ui-change",
+      "prompt": "Capture browser evidence for the changed checkout route at desktop and mobile widths, including console errors and overflow.",
+      "expected_output": "Uses a running URL and existing browser tooling to produce screenshots plus a report with the requested runtime checks.",
+      "should_trigger": true,
+      "assertions": [
+        "The workflow records desktop and narrow-mobile evidence for the changed route",
+        "The result distinguishes screenshots from overflow, console, and network findings"
+      ],
+      "tags": ["responsive", "browser", "evidence"]
+    },
+    {
+      "id": "streaming-state-check",
+      "prompt": "Verify the new dashboard stream shows useful fallback content before the final data resolves.",
+      "expected_output": "Plans browser evidence for fallback and final states, while naming the data or network controls needed for a stable observation.",
+      "should_trigger": true,
+      "assertions": [
+        "The response captures both loading or fallback and final rendered states",
+        "The response avoids treating a passing build as sufficient streaming evidence"
+      ],
+      "tags": ["streaming", "runtime", "states"]
+    },
+    {
+      "id": "keyboard-and-long-content-check",
+      "prompt": "Check this modal redesign for narrow-screen overflow, long labels, and visible keyboard focus before design review.",
+      "expected_output": "Captures an appropriate responsive evidence matrix and routes the resulting artifacts to design-reviewer.",
+      "should_trigger": true,
+      "assertions": [
+        "The evidence includes a narrow viewport, overflow inspection, and a keyboard-focus step",
+        "The result sends artifacts to design review rather than declaring visual quality automatically"
+      ],
+      "tags": ["focus", "overflow", "review"]
+    },
+    {
+      "id": "near-miss-create-the-ui",
+      "prompt": "Design and implement a new account settings screen with a fresh visual direction.",
+      "expected_output": "Should prefer design-engineer because creating the interface is primary; visual-qa follows implementation.",
+      "should_trigger": false,
+      "tags": ["near-miss", "design"]
+    },
+    {
+      "id": "near-miss-functional-test-strategy",
+      "prompt": "Choose contract and end-to-end tests for our payment authorization workflow.",
+      "expected_output": "Should prefer testing-engineer because test-layer strategy and business behavior are primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "testing"]
+    }
+  ]
+}

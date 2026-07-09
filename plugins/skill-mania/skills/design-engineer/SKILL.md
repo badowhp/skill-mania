@@ -1,6 +1,6 @@
 ---
 name: design-engineer
-description: "Context-first UI design workflow for websites, apps, dashboards, components, design systems, redesigns, and styling. Use to interview for design context, create or update DESIGN.md, plan and implement UI, de-genericize AI-looking design, inspect colors/technology/examples, or route work through design-reviewer gates. Prefer design-reviewer for standalone critique, senior-developer for non-visual frontend logic, and seo-geo for search visibility."
+description: "Design and implement websites, apps, dashboards, components, and design systems from durable context. Use for DESIGN.md, visual direction, UI plans, redesigns, and styling. Prefer design-reviewer for critique, visual-qa for browser evidence, senior-developer for non-visual frontend work, and seo-geo for search visibility."
 ---
 # Design Engineer
 Design through durable context, then build. Do not guess a visual system when the repository can carry one in `DESIGN.md`.
@@ -14,7 +14,7 @@ Design through durable context, then build. Do not guess a visual system when th
 6. Use real product evidence: rendered pages, screenshots, existing components, product data, states, user flows, reference sites, brand assets, and actual copy.
 7. Distinguish brand surfaces from product surfaces before choosing style. Brand surfaces can be expressive; product surfaces must serve repeated task completion.
 8. Preserve existing design-system contracts unless the request intentionally changes them.
-9. Verify rendered desktop and mobile behavior when possible. A passing build is not visual QA.
+9. Use `visual-qa` or existing browser automation to capture rendered desktop and mobile evidence when possible. A passing build is not visual QA.
 
 ## Phase 1: Interview
 Ask only for missing answers that would change the design direction. Otherwise inspect and infer, then state assumptions.
@@ -82,7 +82,7 @@ Run review after implementation:
 
 1. Run local quality commands available in the repo.
 2. Run the bundled `scripts/scan-design-tells.mjs` from the loaded `design-engineer` skill directory when the changed surface is static UI, Tailwind, shadcn, public UI, or likely AI-looking.
-3. Inspect rendered desktop and narrow mobile states with browser automation or screenshots when possible.
+3. Capture rendered desktop and narrow mobile evidence with `visual-qa` or existing browser automation when possible.
 4. Self-audit the rendered result against `DESIGN.md`, the plan, and the original user ask before asking for final review. Fix obvious weak hierarchy, generic AI defaults, broken mobile layout, missing states, unreadable text, and visual direction drift first.
 5. Ask `design-reviewer` for a final implementation review and provide evidence: changed surfaces, screenshot paths or live page notes, scanner output, quality-command results, states inspected, and evidence that could not be gathered.
 6. If review returns `FAIL`, return to implementation for execution defects. Return to plan or `DESIGN.md` when the failure is strategic, generic, off-brand, or structurally wrong.
@@ -93,6 +93,7 @@ Do not claim a pass when rendered inspection, scanner output, or review could no
 ## Routing Notes
 - `design-engineer` owns creation: interview, `DESIGN.md`, plan, and implementation.
 - `design-reviewer` owns critique: pass/fail, consultant review, scorecards, and loop decisions.
+- `visual-qa` owns reproducible browser evidence: screenshots, overflow, runtime findings, and focus checks.
 - Keep this portable. Do not depend on slash commands, plugin-only hooks, or one vendor's skill format in `SKILL.md`.
 - Codex can often use browser automation, screenshots, and image generation for visual work. Claude Code may have stronger plugin command routing. The shared skill should still express the same phases and gates in plain Markdown.
 

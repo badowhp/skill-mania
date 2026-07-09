@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visual QA"
+  short_description: "Rendered browser evidence"
+  default_prompt: "Use $visual-qa to capture responsive browser evidence for this changed UI."

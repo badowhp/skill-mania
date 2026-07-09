@@ -3,8 +3,10 @@ from __future__ import annotations
 import json
 import subprocess
 import tempfile
+import types
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -20,6 +22,15 @@ TERRAFORM_SUMMARIZER = (
 )
 DEVOPS_CONTEXT = (
     REPO_ROOT / "skills" / "senior-devops-engineer" / "scripts" / "devops-context.sh"
+)
+HTTP_CACHE_INSPECTOR = (
+    REPO_ROOT / "skills" / "senior-devops-engineer" / "scripts" / "inspect-http-cache.py"
+)
+http_cache = types.ModuleType("inspect_http_cache")
+http_cache.__file__ = str(HTTP_CACHE_INSPECTOR)
+exec(
+    compile(HTTP_CACHE_INSPECTOR.read_text(encoding="utf-8"), str(HTTP_CACHE_INSPECTOR), "exec"),
+    http_cache.__dict__,
 )
 
 
@@ -95,6 +106,7 @@ class DevOpsHelperTests(unittest.TestCase):
             workflow = root / ".github" / "workflows" / "validate.yml"
             workflow.parent.mkdir(parents=True)
             workflow.write_text("name: test\n", encoding="utf-8")
+            (root / "pom.xml").write_text("<project/>\n", encoding="utf-8")
             result = subprocess.run(
                 ["bash", str(DEVOPS_CONTEXT), str(root)],
                 check=False,
@@ -104,6 +116,30 @@ class DevOpsHelperTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn(".github/workflows/validate.yml", result.stdout)
+        self.assertIn("./pom.xml", result.stdout)
+
+    def test_http_cache_inspector_reports_cache_and_routing_headers(self) -> None:
+        class Response:
+            status = 200
+            url = "https://example.test/catalog"
+            headers = {
+                "Cache-Control": "public, max-age=60",
+                "Vary": "Accept-Language",
+                "ETag": '"catalog-v1"',
+            }
+
+            def __enter__(self) -> "Response":
+                return self
+
+            def __exit__(self, *args: object) -> None:
+                return None
+
+        with patch.object(http_cache.urllib.request, "urlopen", return_value=Response()):
+            report = http_cache.inspect("https://example.test/catalog", "GET", 5)
+
+        self.assertEqual(report["status"], 200)
+        self.assertEqual(report["headers"]["cache-control"], "public, max-age=60")
+        self.assertEqual(report["headers"]["vary"], "Accept-Language")
 
 
 if __name__ == "__main__":

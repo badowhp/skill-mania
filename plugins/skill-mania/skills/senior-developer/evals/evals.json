@@ -57,6 +57,39 @@
       "tags": ["migration", "compatibility"]
     },
     {
+      "id": "go-context-and-race-fix",
+      "prompt": "Fix a Go worker that leaks goroutines when a request is cancelled, then run the smallest meaningful race-aware verification.",
+      "expected_output": "Inspects context ownership and goroutine lifecycle, keeps cancellation explicit, avoids speculative rewrites, and selects targeted Go verification.",
+      "should_trigger": true,
+      "assertions": [
+        "The response identifies context cancellation and goroutine ownership as the relevant contract",
+        "Verification includes a focused Go test strategy with race coverage when shared access is involved"
+      ],
+      "tags": ["go", "concurrency", "verification"]
+    },
+    {
+      "id": "next-cache-routing-change",
+      "prompt": "Change this Next.js App Router route to cache the public catalog without leaking authenticated header content through the CDN.",
+      "expected_output": "Defines the cache boundary and representation dimensions, preserves private request data outside the shared cache, and requires browser evidence after the route change.",
+      "should_trigger": true,
+      "assertions": [
+        "The response separates public cached data from authorization-dependent request content",
+        "The response verifies browser and edge behavior rather than relying only on a build"
+      ],
+      "tags": ["nextjs", "caching", "routing"]
+    },
+    {
+      "id": "java-virtual-thread-diagnosis",
+      "prompt": "Investigate a Java service that slows down under blocking fan-out, decide whether virtual threads fit, and keep the Maven change scoped.",
+      "expected_output": "Checks the current runtime and concurrency model, uses JFR or thread diagnostics before changing architecture, and avoids treating virtual threads as a drop-in thread-pool replacement.",
+      "should_trigger": true,
+      "assertions": [
+        "The response treats virtual threads as conditional on the workload and existing concurrency model",
+        "The response proposes scoped build and diagnostic verification before a broad rewrite"
+      ],
+      "tags": ["java", "concurrency", "diagnostics"]
+    },
+    {
       "id": "near-miss-threat-model",
       "prompt": "Threat-model a new webhook endpoint and decide whether replay protection is sufficient.",
       "expected_output": "Should route to security-engineer because attacker behavior and trust boundaries are central.",

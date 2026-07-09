@@ -13,7 +13,7 @@
   "interface": {
     "displayName": "Skill Mania",
     "shortDescription": "Portable reusable workflows for coding agents.",
-    "longDescription": "A portable Agent Skills collection for Codex, Claude Code, GitHub Copilot, and compatible clients, covering concise responses, minimal implementation, software development, testing, platform engineering, DevOps, design, design review, architecture, security, SEO/GEO, writing, editing, publishing review, skill curation, and agent context maintenance.",
+    "longDescription": "A portable Agent Skills collection for Codex, Claude Code, GitHub Copilot, and compatible clients, covering concise responses, minimal implementation, software development, testing, visual QA, platform engineering, DevOps, design, design review, architecture, security, SEO/GEO, writing, editing, publishing review, skill curation, and agent context maintenance.",
     "developerName": "Hipolit Badowski",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
@@ -22,7 +22,7 @@
     "logo": "./assets/logo.svg",
     "defaultPrompt": [
       "Use the laziest correct implementation that avoids unnecessary code.",
-      "Create DESIGN.md, plan/build UI, and run senior design review gates.",
+      "Create DESIGN.md, plan/build UI, capture browser evidence, and run senior design review gates.",
       "Implement, test, review, curate skills, or maintain agent context with the matching Skill Mania role."
     ]
   }

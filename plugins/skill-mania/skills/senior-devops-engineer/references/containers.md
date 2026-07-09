@@ -1,13 +1,11 @@
 # Containers And Artifact Registry Reference
-## Dockerfile Patterns For PHP Applications
-- Use multi-stage builds: a build stage for Composer installs and asset compilation, a runtime stage with only production dependencies.
-- Pin the base PHP image to a specific minor version and rebuild on a predictable cadence.
+## Dockerfile Patterns
+- Use multi-stage builds: a build stage for compilation or dependency resolution, and a runtime stage with only production artifacts.
+- Pin the base image to a specific supported release and rebuild on a predictable cadence.
 - Run the application as a non-root user. Set `USER` explicitly in the final stage.
 - Keep the runtime image lean: no dev tools, no build cache, no test dependencies.
-- Install OPcache in the image and configure it via environment variables or an entrypoint script.
 - Use `.dockerignore` to exclude `.git`, `tests/`, local env files, and CI artifacts from the build context.
-- Keep Nginx and PHP-FPM in separate containers when using orchestration. Use a sidecar or init container pattern.
-- When both Nginx and PHP-FPM must run in a single container, use a process supervisor such as s6-overlay or supervisord and configure health checks that cover both processes.
+- Keep one primary process per container unless a tightly coupled sidecar or supervisor is a documented operational requirement.
 ## Artifact Registry Setup And IAM
 - Create one Artifact Registry repository per technology type (Docker, npm, Maven) and per environment boundary if image promotion is explicit.
 - Grant `roles/artifactregistry.writer` to CI service accounts. Grant `roles/artifactregistry.reader` to runtime service accounts and Compute Engine default service accounts.
@@ -26,7 +24,7 @@
 ### Compute Engine
 - **Pull-on-deploy:** startup script or Ansible task pulls the latest tagged image and restarts the container. Simple; requires image accessibility from the VM at boot.
 - **Baked image:** Cloud Build produces a VM image with the container pre-pulled. Faster boot; requires a disciplined image pipeline.
-- For PHP/Nginx on VMs: prefer pull-on-deploy with a pinned image tag so rollback is a one-line tag change and service restart.
+- Prefer pull-on-deploy with a pinned image tag when a VM runs a containerized application; make rollback a tag change plus a validated restart.
 ### Cloud Run
 - Use image tags (not `latest`) for production deploys. Tag with Git SHA or semantic version.
 - Use traffic splitting for canary releases: deploy a new revision at 0% traffic, run smoke tests, then shift traffic incrementally.

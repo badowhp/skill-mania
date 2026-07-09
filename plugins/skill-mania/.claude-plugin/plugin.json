@@ -1,6 +1,6 @@
 {
   "name": "skill-mania",
-  "description": "Portable Agent Skills collection for Claude Code, Codex, and GitHub Copilot, including engineering, testing, design, design review, security, SEO/GEO, writing, skill curation, and agent context maintenance.",
+  "description": "Portable Agent Skills collection for Claude Code, Codex, and GitHub Copilot, including engineering, testing, visual QA, design, design review, security, SEO/GEO, writing, skill curation, and agent context maintenance.",
   "version": "0.2.0",
   "author": {
     "name": "Hipolit Badowski"
