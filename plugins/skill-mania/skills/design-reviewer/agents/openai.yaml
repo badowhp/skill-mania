@@ -1,0 +1,4 @@
+interface:
+  display_name: "Design Reviewer"
+  short_description: "Senior UI review and pass gates"
+  default_prompt: "Use $design-reviewer to review this UI, DESIGN.md, plan, or implementation with senior design-consultant gates and pass/fail evidence."

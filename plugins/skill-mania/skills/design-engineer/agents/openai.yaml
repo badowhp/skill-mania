@@ -1,4 +1,4 @@
 interface:
   display_name: "Design Engineer"
-  short_description: "Design production-ready UI systems"
-  default_prompt: "Use $design-engineer to build or audit this UI as a production-ready system: product-specific direction, tokens, component contracts, responsive states, accessibility, and visual QA evidence."
+  short_description: "Context-first UI design workflow"
+  default_prompt: "Use $design-engineer to interview for design context, create or update DESIGN.md, plan the UI, implement it, and pass design-reviewer gates."

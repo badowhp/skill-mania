@@ -10,7 +10,8 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 
 - `caveman` - terse, factual, low-prose response mode that preserves blockers and verification gaps.
 - `agent-context-maintainer` - durable agent context, metadata, manifest, and packaged-copy hygiene.
-- `design-engineer` - frontend, product design, UX, design-system, and vibe-coded UI audit guidance.
+- `design-engineer` - context-first UI design workflow for DESIGN.md, planning, implementation, and review loops.
+- `design-reviewer` - senior UI/design review, pass/fail gates, scorecards, and visual QA critique.
 - `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
 - `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
 - `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
