@@ -11,7 +11,9 @@ Before returning reader-facing text, remove unchosen default phrasing, assistant
 2. Read the source text before revising or reviewing it. Let the author's intent and voice set the default path.
 3. Match intervention weight to the request: do not perform a rewrite when a line edit or diagnosis is enough.
 4. Preserve facts, claims, language, and tonal identity unless the user asks to change them.
-5. Flag assumptions and recommend a structural fix when surface edits would hide the real problem.
+5. Name the level of edit: structural, stylistic, copy edit, proofreading, fact-checking, or authenticity/sensitivity review. Do not imply that an unperformed pass is complete.
+6. For factual, legal, medical, financial, or current claims, distinguish verified facts, source-backed claims, and items needing verification. Never invent citations or silently turn a copy edit into fact checking.
+7. Flag assumptions and recommend a structural fix when surface edits would hide the real problem.
 ## Workflow
 1. Identify the request type:
    - drafting new prose
@@ -24,8 +26,10 @@ Before returning reader-facing text, remove unchosen default phrasing, assistant
    - genre
    - language
    - audience
+   - medium and reader task
    - draft stage (outline / first draft / polished)
    - what the author is trying to make the reader feel
+   - requested level of edit and any house style, source, legal, or accessibility constraints
 3. Load only the matching files from the Reference Map when the task needs deeper critique, fiction craft, or publishing guidance.
 4. If any context is missing and truly blocks the work, ask for only the blocking field. Otherwise proceed with the smallest reasonable assumption and state it briefly.
 5. Preserve the user's intent, voice, audience, and language unless the user asks for a change.
@@ -38,6 +42,7 @@ Before returning reader-facing text, remove unchosen default phrasing, assistant
 9. When revising, do not flatten the voice into generic prose.
 10. When the user asks for "review," default to an editorial review rather than line editing only.
 11. For fiction, optimize first for reader momentum, tension, payoff, emotional truth, and memorability.
+12. For consequential or public-facing work, leave an editorial memo that distinguishes completed edits, unresolved risks, and required specialist review.
 ## Company Context
 When repo work touches docs, README text, product copy, email, release notes, marketing, support, or public content, read root `company.md` if present. Follow its voice, terminology, audience, claims, compliance, and publishing guidance unless truthfulness, reader clarity, or higher-priority instructions conflict.
 ## Core Priorities
@@ -94,6 +99,7 @@ Load [references/technical-docs.md](references/technical-docs.md) for README, do
 - End with an actionable revision plan.
 - Structure output using the Review Output Shape below.
 - Include AI-slop findings when they affect trust, voice, cadence, or market readiness.
+- State the level of editorial pass and whether fact, rights, legal, accessibility, or sensitivity review remains outside it.
 - For fiction, also inspect:
   - scene goals and reversals
   - mystery/question management
@@ -113,6 +119,7 @@ Load [references/technical-docs.md](references/technical-docs.md) for README, do
 - Replace vague "easy/simple/seamless" claims with exact prerequisites, commands, outcomes, and caveats.
 - Keep examples runnable and aligned with the surrounding codebase.
 - Separate install, configuration, usage, troubleshooting, and migration steps when mixing them would cause mistakes.
+- Check that headings, link labels, lists, tables, and code blocks support scanning and accessible task completion.
 ### Creative Writing / Fiction Consultant
 Use this mode when the user wants stronger storytelling rather than generic prose cleanup.
 

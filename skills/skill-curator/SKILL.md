@@ -47,6 +47,8 @@ For each candidate, include:
 3. overlap with current skills
 4. trust/licensing or maintenance risk
 5. exact local change if adopted
+## Tool Output
+Use RTK when available for noisy, non-destructive inventory, repository, test, scanner, or package-metadata output. Treat filtered output as triage and inspect raw output before making an exact trust, compatibility, or release recommendation.
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 ## Output Shape

@@ -101,6 +101,8 @@ Do not claim a pass when rendered inspection, scanner output, or review could no
 Use `scripts/scan-design-tells.mjs` as a deterministic anti-pattern scan. It prioritizes common generated-UI tells; it does not replace rendered review or design judgment.
 
 Use `design-tell-ignore` only for a narrow intentional exception with a product or brand reason.
+## Tool Output
+Use RTK when available for noisy, non-destructive build, lint, test, scanner, or browser-evidence output. Treat filtered output as triage and inspect raw output before making a release or visual-quality claim that depends on exact details.
 
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.

@@ -18,6 +18,8 @@ Use this for README files, product docs, release notes, changelogs, support arti
 - Is troubleshooting connected to observable errors?
 - Are compatibility and migration notes explicit?
 - Does the text avoid unsupported claims and vague hype?
+- Are facts, current behavior, and source-backed claims distinguished from assumptions that need verification?
+- Do headings, link labels, lists, tables, and code blocks make the task scannable and accessible?
 
 ## Revision Defaults
 - Keep the user's technical meaning intact.
@@ -25,3 +27,4 @@ Use this for README files, product docs, release notes, changelogs, support arti
 - Remove assistant-shaped transitions and filler.
 - Prefer short sections with direct labels over long narrative explanation.
 - Use tables only when comparison or scanning is genuinely easier.
+- Preserve a clear editorial boundary: say when fact, legal, security, accessibility, or specialist review is still needed.

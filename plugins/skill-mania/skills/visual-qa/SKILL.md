@@ -25,6 +25,9 @@ Prove rendered behavior with small, reviewable evidence. Do not turn screenshots
 
 Use `--dry-run` first when checking command shape. Use `--fail-on` only for checks the team agrees should block the task; screenshots still need review.
 
+## Tool Output
+Use RTK when available for noisy, non-destructive browser, Playwright, build, lint, or test output. Treat filtered output as triage and inspect raw output before reporting an exact runtime or release-gate finding.
+
 ## Evidence To Report
 - URL, routes, viewports, browser tool, and data/auth assumptions
 - screenshot paths and `report.json`

@@ -12,6 +12,7 @@ from pathlib import Path
 STARTUP_DESCRIPTION_CHARS = 6500
 SKILL_MD_CHARS = 17500
 REFERENCE_CHARS = 40000
+SKILL_REFERENCE_TOTAL_CHARS = 50000
 
 
 def estimate_tokens(characters: int) -> tuple[int, int]:
@@ -39,7 +40,7 @@ def collect(root: Path) -> dict[str, object]:
         startup_parts.append(f"{name}: {description} ({skill_path})")
         low, high = estimate_tokens(len(text))
         references = []
-        for reference in sorted((skill_file.parent / "references").glob("*.md")):
+        for reference in sorted((skill_file.parent / "references").rglob("*.md")):
             reference_text = reference.read_text(encoding="utf-8")
             ref_low, ref_high = estimate_tokens(len(reference_text))
             references.append(
@@ -50,6 +51,8 @@ def collect(root: Path) -> dict[str, object]:
                     "within_budget": len(reference_text) <= REFERENCE_CHARS,
                 }
             )
+        reference_characters = sum(reference["characters"] for reference in references)
+        reference_low, reference_high = estimate_tokens(reference_characters)
         skills.append(
             {
                 "name": name,
@@ -58,6 +61,11 @@ def collect(root: Path) -> dict[str, object]:
                 "estimated_tokens": [low, high],
                 "within_budget": len(text) <= SKILL_MD_CHARS,
                 "references": references,
+                "reference_total": {
+                    "characters": reference_characters,
+                    "estimated_tokens": [reference_low, reference_high],
+                    "within_budget": reference_characters <= SKILL_REFERENCE_TOTAL_CHARS,
+                },
             }
         )
 
@@ -68,6 +76,7 @@ def collect(root: Path) -> dict[str, object]:
             "startup_description_characters": STARTUP_DESCRIPTION_CHARS,
             "skill_md_characters": SKILL_MD_CHARS,
             "reference_characters": REFERENCE_CHARS,
+            "skill_reference_total_characters": SKILL_REFERENCE_TOTAL_CHARS,
         },
         "startup": {
             "characters": len(startup_text),
@@ -86,6 +95,9 @@ def failures(report: dict[str, object]) -> list[str]:
     for skill in report["skills"]:
         if not skill["within_budget"]:
             errors.append(f"{skill['path']} exceeds the SKILL.md budget")
+        reference_total = skill["reference_total"]
+        if not reference_total["within_budget"]:
+            errors.append(f"{skill['path']} references exceed the total reference budget")
         for reference in skill["references"]:
             if not reference["within_budget"]:
                 errors.append(f"{reference['path']} exceeds the reference budget")
@@ -113,7 +125,9 @@ def main() -> int:
             estimate = skill["estimated_tokens"]
             print(
                 f"{skill['name']}: {skill['characters']} chars, "
-                f"~{estimate[0]}-{estimate[1]} tokens, {len(skill['references'])} references"
+                f"~{estimate[0]}-{estimate[1]} tokens, {len(skill['references'])} references, "
+                f"~{skill['reference_total']['estimated_tokens'][0]}-"
+                f"{skill['reference_total']['estimated_tokens'][1]} reference tokens"
             )
         for error in errors:
             print(f"budget error: {error}")

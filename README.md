@@ -6,6 +6,12 @@
 
 Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and GitHub Copilot. It keeps reusable agent workflows in a tool-neutral `skills/` source tree, then packages the same production skills for plugin and marketplace use.
 
+## Start Here
+
+- Browse `skills/<name>/SKILL.md` to understand a workflow before installing it.
+- Install every portable skill locally with `./scripts/install-local.sh --all --link`.
+- Before publishing a change, run `./scripts/check-release-ready.sh`; the tag-driven GitHub workflow creates the release.
+
 ## Included Skills
 
 - `caveman` - terse, factual, low-prose response mode that preserves blockers and verification gaps.
@@ -29,7 +35,8 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 
 - `docs/litellm.md` - non-secret LiteLLM gateway setup, Codex provider placement, verification, and security review notes.
 - `docs/openrouter.md` - direct OpenRouter setup, smoke tests, and review checklist.
-- `docs/evaluation.md` - trigger testing, with-skill/baseline comparison, assertions, token/time capture, and release evidence.
+- `docs/evaluation.md` - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
+- `docs/writing-assistant-baseline-evaluation/README.md` - reproducible old-versus-current benchmark procedure for material writing-assistant changes.
 - `templates/company.md` - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
 - `templates/agent-automation/` - opt-in Claude Code and GitHub Copilot hook templates with a narrowly scoped destructive-command guard.
 - `templates/hip0-mania/` - private persona-review profile template. It is intentionally not shipped as a production skill because unfilled personal profiles are confusing in marketplace packages.
@@ -149,7 +156,7 @@ Run the complete local release gate before publishing:
 ./scripts/check-release-ready.sh
 ```
 
-The validator checks the repository's portable skill contract: standard frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, the shared honest-opinion block, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
+The validator checks the repository's portable skill contract: standard frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
 
 Use `python3 scripts/report-skill-budgets.py` to inspect startup metadata and per-skill context estimates. These are static estimates; actual token and duration decisions should come from with-skill/baseline runs described in `docs/evaluation.md`.
 
@@ -166,6 +173,21 @@ Before publishing a plugin release:
 - Bump both Codex and Claude plugin manifest versions together.
 - Run material behavior changes through the evaluation workflow and record the benchmark result in the pull request or release notes.
 - Create a matching `v<version>` tag; the release workflow verifies the tag and publishes generated release notes.
+
+## Publish The First GitHub Release
+
+This repository releases from an annotated `v<version>` tag. The workflow reruns the complete release gate, verifies the tag matches both plugin manifests, and creates GitHub release notes automatically. GitHub Actions must be enabled for the repository.
+
+```bash
+./scripts/check-release-ready.sh
+git add .
+git commit -m "chore: prepare v0.2.0 release"
+git push origin main
+git tag -a v0.2.0 -m "Skill Mania v0.2.0"
+git push origin v0.2.0
+```
+
+Watch the `Release` workflow. When it succeeds, open GitHub's Releases page and review the generated notes. Use `1.0.0` instead of `0.2.0` only if you are making a stable public compatibility commitment; both manifest versions and the tag must then be changed together before the checks run.
 
 ## References
 

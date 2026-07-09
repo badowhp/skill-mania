@@ -452,6 +452,14 @@ def validate_honest_opinion(skill_dir: Path, lines: list[str]) -> list[str]:
     return []
 
 
+def validate_rtk_guidance(lines: list[str]) -> list[str]:
+    if "RTK" not in "\n".join(lines):
+        return [
+            "include optional RTK guidance for noisy, non-destructive command output"
+        ]
+    return []
+
+
 def validate_skill(skill_dir: Path) -> list[str]:
     errors: list[str] = []
     skill_file = skill_dir / "SKILL.md"
@@ -520,6 +528,7 @@ def validate_skill(skill_dir: Path) -> list[str]:
     errors.extend(validate_agents_metadata(skill_dir))
     errors.extend(validate_skill_evals(skill_dir))
     errors.extend(validate_honest_opinion(skill_dir, lines))
+    errors.extend(validate_rtk_guidance(lines))
     return errors
 
 

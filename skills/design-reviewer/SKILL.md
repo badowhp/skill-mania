@@ -116,6 +116,9 @@ After the verdict, name the next step:
 
 Use `PASS WITH FIXES` only when every remaining issue is small, local, and unambiguous, and the current evidence already proves the direction and layout work. It is not final sign-off for substantial visual rework; require the fixes and another targeted review before closure unless the user explicitly accepts the named defects. Use `FAIL` when the next agent must rethink direction, plan, layout, state coverage, accessibility, distinctiveness, or rendered behavior.
 
+## Tool Output
+Use RTK when available for noisy, non-destructive build, scanner, test, or browser-evidence output. Treat filtered output as triage and inspect raw output before basing a verdict on an exact failure or release gate.
+
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 

@@ -24,6 +24,7 @@ links = load_module("check_external_links", REPO_ROOT / "scripts" / "check-exter
 eval_summary = load_module(
     "summarize_eval_workspace", REPO_ROOT / "scripts" / "summarize-eval-workspace.py"
 )
+validator = load_module("validate_skills", REPO_ROOT / "scripts" / "validate-skills.py")
 
 
 class SkillBudgetTests(unittest.TestCase):
@@ -46,6 +47,34 @@ class SkillBudgetTests(unittest.TestCase):
             report = budgets.collect(Path(tmp))
 
         self.assertIn("exceeds the SKILL.md budget", budgets.failures(report)[0])
+
+    def test_oversized_nested_references_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill = Path(tmp) / "demo"
+            reference = skill / "references" / "nested"
+            reference.mkdir(parents=True)
+            (skill / "SKILL.md").write_text(
+                "---\nname: demo\ndescription: Demo.\n---\n",
+                encoding="utf-8",
+            )
+            (reference / "large.md").write_text("x" * 50001, encoding="utf-8")
+
+            report = budgets.collect(Path(tmp))
+
+        self.assertIn("references exceed the total reference budget", budgets.failures(report)[0])
+
+
+class RtkGuidanceTests(unittest.TestCase):
+    def test_current_skills_include_rtk_guidance(self) -> None:
+        for skill_file in REPO_ROOT.glob("skills/*/SKILL.md"):
+            lines = skill_file.read_text(encoding="utf-8").splitlines()
+            self.assertEqual(validator.validate_rtk_guidance(lines), [], skill_file)
+
+    def test_missing_rtk_guidance_is_reported(self) -> None:
+        self.assertEqual(
+            validator.validate_rtk_guidance(["# Demo"]),
+            ["include optional RTK guidance for noisy, non-destructive command output"],
+        )
 
 
 class ExternalLinkTests(unittest.TestCase):

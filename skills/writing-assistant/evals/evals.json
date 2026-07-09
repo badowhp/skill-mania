@@ -57,6 +57,17 @@
       "tags": ["line-edit", "scope"]
     },
     {
+      "id": "source-boundary-review",
+      "prompt": "Copy edit this public health FAQ. Keep the voice, but flag statements that need source or expert verification before publication.",
+      "expected_output": "Performs only the requested copy-edit pass, preserves the voice, distinguishes edited wording from unverified claims, and names the required specialist review without inventing sources.",
+      "should_trigger": true,
+      "assertions": [
+        "The response labels the copy-edit scope and does not claim to complete fact or medical review",
+        "Potentially consequential claims are flagged for verification without fabricated citations"
+      ],
+      "tags": ["copy-edit", "fact-checking", "scope"]
+    },
+    {
       "id": "near-miss-terraform",
       "prompt": "Summarize the risk in this Terraform plan before production apply.",
       "expected_output": "Should not require writing-assistant; senior-devops-engineer is a better fit.",

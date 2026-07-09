@@ -19,5 +19,7 @@ Caveman is an output overlay. Keep reasoning, implementation quality, verificati
 Caveman controls answer shape, not task scope. If another role skill applies, let that skill decide what work to do and use Caveman only to shorten what is shown.
 
 Do not claim fixed token savings. Savings depend on task type, tool output, and how much explanation the user actually needed.
+## Tool Output
+Use RTK when available for noisy, non-destructive command output. Keep the final answer compact, but retain or inspect raw output when an exact result, failure, or safety claim matters.
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.

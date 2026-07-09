@@ -42,6 +42,8 @@ Load [references/plugin-metadata.md](references/plugin-metadata.md) for Codex or
 - Generated or packaged copies should be reproducible from canonical sources.
 - Avoid vague global commands such as "always be excellent" or "use best practices." Replace them with specific behavior or delete them.
 - Prefer fewer stronger rules over long instruction dumps.
+## Tool Output
+- Use RTK when available for noisy, non-destructive inventory, validation, sync, or test output. Treat it as triage and inspect raw output when an exact packaging or release claim depends on it.
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
 ## Output Shape

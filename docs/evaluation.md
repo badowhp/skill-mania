@@ -70,6 +70,12 @@ Decision:
 
 Do not merge a more expensive skill revision merely because it is longer or more comprehensive. Keep it when the quality gain is observable and worth the token/time cost.
 
+## Token And Prompt-Cache Discipline
+
+Keep skill descriptions focused, keep the core workflow in `SKILL.md`, and load references only when they match the task. The release gate enforces startup, `SKILL.md`, individual-reference, and per-skill total-reference budgets; inspect them with `python3 scripts/report-skill-budgets.py --check`.
+
+For API-based agents, place stable instructions, tool definitions, and shared examples first; append task- or user-specific content last. OpenAI prompt caching requires an exact shared prefix and starts at 1,024 prompt tokens. Reuse a stable cache key only for requests with the same shared prefix, measure `cached_tokens`, and do not assume this API behavior applies to a Codex plugin or another client. See [OpenAI prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching).
+
 ## Available Evaluation Paths
 
 - Claude Code: use the official `skill-creator` plugin evaluation flow for isolated runs, grading, benchmark output, blind comparison, and description tuning.
