@@ -174,21 +174,6 @@ Before publishing a plugin release:
 - Run material behavior changes through the evaluation workflow and record the benchmark result in the pull request or release notes.
 - Create a matching `v<version>` tag; the release workflow verifies the tag and publishes generated release notes.
 
-## Publish The First GitHub Release
-
-This repository releases from an annotated `v<version>` tag. The workflow reruns the complete release gate, verifies the tag matches both plugin manifests, and creates GitHub release notes automatically. GitHub Actions must be enabled for the repository.
-
-```bash
-./scripts/check-release-ready.sh
-git add .
-git commit -m "chore: prepare v0.2.0 release"
-git push origin main
-git tag -a v0.2.0 -m "Skill Mania v0.2.0"
-git push origin v0.2.0
-```
-
-Watch the `Release` workflow. When it succeeds, open GitHub's Releases page and review the generated notes. Use `1.0.0` instead of `0.2.0` only if you are making a stable public compatibility commitment; both manifest versions and the tag must then be changed together before the checks run.
-
 ## References
 
 - Agent Skills specification: https://agentskills.io/specification
