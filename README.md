@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme-header.svg" alt="Skill Mania - portable Agent Skills for Codex, Claude Code, and GitHub Copilot" width="100%">
+  <img src="assets/readme-header.svg" alt="Skill Mania" width="100%">
 </p>
 
 # Skill Mania
@@ -12,24 +12,62 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 - Install every portable skill locally with `./scripts/install-local.sh --all --link`.
 - Before publishing a change, run `./scripts/check-release-ready.sh`; the tag-driven GitHub workflow creates the release.
 
+## Choose a Skill
+
+| If you need to… | Start with… |
+| --- | --- |
+| Implement, debug, refactor, or review application behavior | `senior-developer` |
+| Design tests, reproduce a regression, or stabilize CI | `testing-engineer` |
+| Create UI, review UI, or collect browser evidence | `design-engineer`, `design-reviewer`, `visual-qa` |
+| Design a game loop or implement a Godot feature | `gameplay-consultant`, `godot-game-creation-engineer` |
+| Assess security, production operations, or system boundaries | `security-engineer`, `senior-devops-engineer`, `software-architect` |
+| Improve search visibility, prose, or Austrian/Vienna correspondence | `seo-geo`, `writing-assistant`, `austrian-law-helper` |
+| Maintain local skill metadata or vet an external package | `agent-context-maintainer`, `skill-curator` |
+| Change output length or implementation scope | `caveman`, `ponytail` |
+
+Use the first matching domain role. Add an overlay only when the user explicitly asks for terse output or a deliberately minimal implementation.
+
 ## Included Skills
 
-- `caveman` - terse, factual, low-prose response mode that preserves blockers and verification gaps.
-- `agent-context-maintainer` - durable agent context, metadata, manifest, and packaged-copy hygiene.
-- `design-engineer` - context-first UI design workflow for DESIGN.md, planning, implementation, and review loops.
-- `design-reviewer` - senior UI/design review, pass/fail gates, scorecards, and visual QA critique.
-- `visual-qa` - reproducible browser evidence for responsive UI, runtime errors, overflow, and focus.
-- `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
-- `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
-- `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
-- `senior-developer` - scoped implementation, debugging, refactoring, review, and maintainability guidance.
-- `senior-devops-engineer` - senior platform, DevOps, SRE, cloud infrastructure, delivery, operations, and production-readiness guidance.
-- `skill-curator` - discovery, comparison, and trust review for external skills and plugins.
-- `software-architect` - system design, service boundaries, tradeoff analysis, and migration planning.
+### Build and test
+
+- `senior-developer` - scoped application implementation, debugging, refactoring, and review.
 - `testing-engineer` - test strategy, regression coverage, Playwright/UI tests, and flaky-test triage.
-- `writing-assistant` - drafting, revision, editorial review, fiction craft, manuscript critique, publishing copy, and Kindle/KDP readiness.
+- `software-architect` - system boundaries, tradeoffs, contracts, and migration planning.
+
+### Design and game work
+
+- `design-engineer` - context-first UI design, planning, implementation, and review loops.
+- `design-reviewer` - evidence-based UI/design critique and pass/fail gates.
+- `visual-qa` - reproducible browser evidence for responsive UI and runtime findings.
+- `gameplay-consultant` - player experience, mechanics, balance, accessibility, and playtest guidance.
+- `godot-game-creation-engineer` - Godot scenes, scripts, input, physics, UI, debugging, and export work.
+
+### Operate, secure, and discover
+
+- `security-engineer` - threat modeling, vulnerability triage, and practical hardening.
+- `senior-devops-engineer` - infrastructure, CI/CD, production operations, rollback, and reliability.
+- `seo-geo` - technical SEO, discoverability, structured data, and answer-engine visibility.
+- `skill-curator` - external skill/plugin discovery, comparison, and trust review.
+
+### Write and govern
+
+- `agent-context-maintainer` - local agent context, metadata, manifests, and packaged-copy hygiene.
+- `austrian-law-helper` - Austrian/Vienna legal issue spotting and careful German correspondence.
+- `writing-assistant` - drafting, revision, editorial review, publishing copy, and AI-slop checks.
+
+### Overlays
+
+- `caveman` - terse, factual output that preserves blockers and verification gaps.
+- `ponytail` - minimal YAGNI implementation scope based on Dietrich Gebert's Ponytail skill.
 
 Bundled Codex system skills are intentionally excluded. This repository only stores user-maintained portable skills.
+
+## Trust and Portability
+
+- `skills/` is the canonical source; `plugins/skill-mania/skills/` is a reproducible packaged copy.
+- Production skills avoid credentials, destructive defaults, machine-specific paths, and hidden network behavior.
+- Package manifests describe only the shipped skill set. Inspect external plugins before adoption with `skill-curator`.
 
 ## Docs And Templates
 
@@ -47,6 +85,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 .
 ├── assets/                         # Repository media used by documentation
 ├── docs/                           # Non-skill setup and operations notes
+├── evals/                          # Cross-skill routing evaluation matrix
 ├── templates/                      # Optional templates such as company.md
 ├── skills/                         # Canonical skill source
 │   └── <skill-name>/SKILL.md
@@ -156,7 +195,7 @@ Run the complete local release gate before publishing:
 ./scripts/check-release-ready.sh
 ```
 
-The validator checks the repository's portable skill contract: standard frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
+The validator checks the repository's portable skill contract: standard frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also validates the cross-skill routing matrix, then checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
 
 Use `python3 scripts/report-skill-budgets.py` to inspect startup metadata and per-skill context estimates. These are static estimates; actual token and duration decisions should come from with-skill/baseline runs described in `docs/evaluation.md`.
 

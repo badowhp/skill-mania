@@ -1,0 +1,123 @@
+{
+  "cases": [
+    {
+      "id": "context-local-marketplace-metadata",
+      "prompt": "Update our local marketplace description and plugin default prompts after adding three skills, then sync the packaged copy.",
+      "lead_skill": "agent-context-maintainer",
+      "near_miss_skills": ["skill-curator"],
+      "why": "Local manifests, prompts, marketplace metadata, and package synchronization have one canonical owner."
+    },
+    {
+      "id": "legal-consequential-letter",
+      "prompt": "A Vienna authority notice has a short deadline. Identify what to preserve and draft a careful German request for file access.",
+      "lead_skill": "austrian-law-helper",
+      "near_miss_skills": ["writing-assistant"],
+      "why": "The correspondence is legally consequential and needs source, deadline, and jurisdiction safeguards."
+    },
+    {
+      "id": "terse-security-review",
+      "prompt": "Keep this security-review result brief and factual while preserving every critical risk and validation gap.",
+      "lead_skill": "caveman",
+      "near_miss_skills": ["security-engineer"],
+      "why": "Caveman is the output overlay; security-engineer remains the lead domain role for the underlying review."
+    },
+    {
+      "id": "create-responsive-settings-ui",
+      "prompt": "Create a visual direction, DESIGN.md, responsive account-settings UI, and implementation plan for this product.",
+      "lead_skill": "design-engineer",
+      "near_miss_skills": ["design-reviewer", "visual-qa"],
+      "why": "Creation and durable visual direction come before independent critique or browser evidence."
+    },
+    {
+      "id": "review-rendered-checkout",
+      "prompt": "Review these checkout screenshots and implementation notes. Give a pass/fail verdict with the next step.",
+      "lead_skill": "design-reviewer",
+      "near_miss_skills": ["design-engineer", "visual-qa"],
+      "why": "The primary task is independent evidence-based critique, not implementation or evidence capture."
+    },
+    {
+      "id": "roguelite-loop-diagnosis",
+      "prompt": "Players call our roguelite repetitive after twenty minutes. Diagnose the loop and propose a playtestable change before implementation.",
+      "lead_skill": "gameplay-consultant",
+      "near_miss_skills": ["godot-game-creation-engineer"],
+      "why": "The task concerns player decisions and experiment design, not engine-specific implementation."
+    },
+    {
+      "id": "godot-export-regression",
+      "prompt": "Our Godot game finds dialogue JSON in the editor but not in a Windows export. Diagnose and verify the smallest fix.",
+      "lead_skill": "godot-game-creation-engineer",
+      "near_miss_skills": ["gameplay-consultant", "senior-developer"],
+      "why": "Godot export configuration and runtime resource behavior are the central evidence boundary."
+    },
+    {
+      "id": "minimal-bug-fix",
+      "prompt": "Use the smallest correct fix for this formatter crash; do not add abstractions or dependencies.",
+      "lead_skill": "ponytail",
+      "near_miss_skills": ["senior-developer", "caveman"],
+      "why": "The user explicitly requests an implementation-scope overlay, not a generic code role or terse output."
+    },
+    {
+      "id": "ssrf-threat-model",
+      "prompt": "Threat-model this URL fetch endpoint for SSRF and recommend controls with negative tests.",
+      "lead_skill": "security-engineer",
+      "near_miss_skills": ["senior-devops-engineer", "senior-developer"],
+      "why": "Attacker behavior and exploitability are central, ahead of runtime operations or local implementation."
+    },
+    {
+      "id": "application-cache-bug",
+      "prompt": "Fix stale in-process application-cache invalidation after a user profile update and add a regression test.",
+      "lead_skill": "senior-developer",
+      "near_miss_skills": ["senior-devops-engineer", "testing-engineer"],
+      "why": "The core work is application behavior; DevOps owns edge/runtime caching and testing owns test strategy."
+    },
+    {
+      "id": "cdn-cache-rollout",
+      "prompt": "Change the CDN cache key and invalidation rollout for this production API, including rollback and observability.",
+      "lead_skill": "senior-devops-engineer",
+      "near_miss_skills": ["senior-developer", "security-engineer"],
+      "why": "The task is an operational edge-cache change with deployment risk, not application-local caching or threat analysis."
+    },
+    {
+      "id": "search-migration-audit",
+      "prompt": "Audit the canonicals, redirects, sitemap, and structured data before this multilingual site migration launches.",
+      "lead_skill": "seo-geo",
+      "near_miss_skills": ["writing-assistant", "design-engineer"],
+      "why": "Search signals and migration risk are primary; prose and visual changes are supporting concerns."
+    },
+    {
+      "id": "external-plugin-vetting",
+      "prompt": "Compare this external browser-automation plugin against its source, license, permissions, releases, and our existing skills before adoption.",
+      "lead_skill": "skill-curator",
+      "near_miss_skills": ["agent-context-maintainer", "security-engineer"],
+      "why": "The task is external discovery and adoption judgment, not local metadata maintenance or exploit investigation."
+    },
+    {
+      "id": "service-boundary-decision",
+      "prompt": "Decide whether checkout and fulfillment should remain modules or become separate services, including ownership and migration tradeoffs.",
+      "lead_skill": "software-architect",
+      "near_miss_skills": ["senior-developer", "senior-devops-engineer"],
+      "why": "Cross-system boundaries and ownership drive the decision, ahead of implementation or runtime operations."
+    },
+    {
+      "id": "flaky-test-triage",
+      "prompt": "This payment test fails one in twenty CI runs around midnight. Reproduce the nondeterminism and choose the smallest stabilization path.",
+      "lead_skill": "testing-engineer",
+      "near_miss_skills": ["senior-developer", "visual-qa"],
+      "why": "Failure isolation and test-layer stability are primary, not application implementation or browser evidence."
+    },
+    {
+      "id": "browser-evidence-capture",
+      "prompt": "Capture desktop and mobile browser evidence for this changed checkout route, including overflow, console errors, requests, and keyboard focus.",
+      "lead_skill": "visual-qa",
+      "near_miss_skills": ["design-reviewer", "testing-engineer"],
+      "why": "The requested deliverable is reproducible browser evidence, not critique or functional-test strategy."
+    },
+    {
+      "id": "technical-docs-revision",
+      "prompt": "Rewrite this README installation section for clarity while preserving commands, warnings, and the direct technical voice.",
+      "lead_skill": "writing-assistant",
+      "near_miss_skills": ["seo-geo", "austrian-law-helper"],
+      "why": "The task is prose revision without search or legal consequences as the primary goal."
+    }
+  ]
+}

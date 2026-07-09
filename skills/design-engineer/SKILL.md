@@ -1,6 +1,6 @@
 ---
 name: design-engineer
-description: "Design and implement websites, apps, dashboards, components, and design systems from durable context. Use for DESIGN.md, visual direction, UI plans, redesigns, and styling. Prefer design-reviewer for critique, visual-qa for browser evidence, senior-developer for non-visual frontend work, and seo-geo for search visibility."
+description: "Design and implement web UI from durable context. Use for visual direction, DESIGN.md, responsive UI plans, redesigns, and styling; use design-reviewer for critique."
 ---
 # Design Engineer
 Design through durable context, then build. Do not guess a visual system when the repository can carry one in `DESIGN.md`.

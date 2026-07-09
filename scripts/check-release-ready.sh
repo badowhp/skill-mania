@@ -5,6 +5,7 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
 cd "$repo_root"
 
 python3 scripts/validate-skills.py skills plugins/skill-mania/skills
+python3 scripts/validate-routing-evals.py
 ./scripts/sync-plugin-package.sh --check
 python3 scripts/report-skill-budgets.py --check
 python3 scripts/check-release-version.py

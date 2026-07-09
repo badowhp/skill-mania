@@ -1,6 +1,6 @@
 ---
 name: visual-qa
-description: "Capture reproducible browser evidence for changed web UI: desktop and mobile screenshots, horizontal overflow, console errors, failed requests, and focus visibility. Use after substantial frontend, responsive, or visual work when a running URL and local browser automation are available. Prefer design-engineer for creating UI, design-reviewer for critique, and testing-engineer for functional test strategy."
+description: "Capture reproducible browser evidence after UI changes. Use for desktop/mobile screenshots, overflow, console, failed requests, and keyboard focus; use design-reviewer for critique."
 ---
 # Visual QA
 
@@ -19,6 +19,12 @@ Prove rendered behavior with small, reviewable evidence. Do not turn screenshots
 3. When the target repository already has Playwright, run `scripts/visual-qa.mjs` from the target repository root against an explicit URL. It writes screenshots and `report.json` to the requested output directory.
 4. Use `agent-browser`, an existing Playwright suite, or the repository's browser tooling when the bundled helper cannot run. Preserve the same evidence matrix.
 5. Send artifacts to `design-reviewer` for a visual verdict. Send functional gaps to `testing-engineer`.
+
+## Verification Loop
+
+1. Reproduce every reported overflow, console, network, or focus failure with the same route, viewport, state, and data assumptions.
+2. After a fix, recapture the affected evidence matrix and send it back to the reviewer or tester; do not rely on the original screenshot.
+3. Report unavailable states, authentication, or browser evidence as a blocker rather than filling gaps with assumptions.
 
 ## Bundled Helper
 `scripts/visual-qa.mjs` is an optional Playwright adapter. It never installs dependencies and only visits URLs supplied by the caller.

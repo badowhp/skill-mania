@@ -1,0 +1,81 @@
+{
+  "skill_name": "gameplay-consultant",
+  "evals": [
+    {
+      "id": "roguelite-loop-audit",
+      "prompt": "Players enjoy the first ten minutes of our roguelite but call runs repetitive after twenty. Audit the loop and propose the smallest playtestable change.",
+      "expected_output": "Maps the player loop and decision pressure, separates the hypothesis from player evidence, and proposes a narrow experiment with a rejection criterion.",
+      "should_trigger": true,
+      "assertions": [
+        "The review identifies a concrete loop failure rather than adding generic content",
+        "The recommendation includes an observable playtest hypothesis and stop condition"
+      ],
+      "tags": ["gameplay", "roguelite", "playtest"]
+    },
+    {
+      "id": "strategy-economy-balance",
+      "prompt": "Our strategy game lets expert players snowball by turn five while new players cannot recover. Diagnose the economy and progression problem.",
+      "expected_output": "Models sources, sinks, pacing, exploit paths, and recovery instead of recommending arbitrary number changes.",
+      "should_trigger": true,
+      "assertions": [
+        "The analysis connects economy changes to intended player behavior",
+        "Expert snowballing and new-player recovery are evaluated separately"
+      ],
+      "tags": ["balance", "economy", "strategy"]
+    },
+    {
+      "id": "boss-accessibility-review",
+      "prompt": "Review this action-game boss fight for readable difficulty and accessibility without making the intended challenge trivial.",
+      "expected_output": "Separates clarity, fairness, execution challenge, and accessibility, then proposes testable changes that preserve the game's identity.",
+      "should_trigger": true,
+      "assertions": [
+        "Difficulty and accessibility are not treated as opposite goals",
+        "Feedback, timing, and recovery are assessed as part of fairness"
+      ],
+      "tags": ["difficulty", "accessibility", "boss"]
+    },
+    {
+      "id": "onboarding-playtest",
+      "prompt": "New players leave our puzzle game after the tutorial. Design a playtest that identifies whether the problem is comprehension, feedback, or the first meaningful decision.",
+      "expected_output": "Defines a player hypothesis, observation plan, success threshold, and rejection criterion before proposing a tutorial rewrite.",
+      "should_trigger": true,
+      "assertions": [
+        "The playtest observes player behavior before explaining the intended design",
+        "The recommendation separates comprehension, feedback, and choice quality"
+      ],
+      "tags": ["gameplay", "onboarding", "playtest"]
+    },
+    {
+      "id": "extraction-economy-loop",
+      "prompt": "Our extraction game rewards safe farming more than risky objectives. Diagnose the core-loop and economy incentives before we change reward numbers.",
+      "expected_output": "Maps player goals, risks, sources, sinks, recovery, and intended behavior before recommending a measurable experiment.",
+      "should_trigger": true,
+      "assertions": [
+        "Risk and reward are evaluated as player decisions rather than isolated values",
+        "The proposal includes a measurable experiment instead of arbitrary tuning"
+      ],
+      "tags": ["gameplay", "economy", "core-loop"]
+    },
+    {
+      "id": "near-miss-godot-controller",
+      "prompt": "Implement a kinematic character controller with coyote time in our Godot 4 platformer.",
+      "expected_output": "Should prefer godot-game-creation-engineer because engine-specific implementation is the primary task.",
+      "should_trigger": false,
+      "tags": ["near-miss", "godot"]
+    },
+    {
+      "id": "near-miss-code-regression",
+      "prompt": "Fix a null-pointer crash in the matchmaking service and add a focused regression test.",
+      "expected_output": "Should prefer senior-developer because this is scoped application implementation without a gameplay-design decision.",
+      "should_trigger": false,
+      "tags": ["near-miss", "implementation"]
+    },
+    {
+      "id": "near-miss-ui-brand-system",
+      "prompt": "Create a visual system and responsive component rules for our game launcher marketing site.",
+      "expected_output": "Should prefer design-engineer because visual direction and reusable UI rules are the primary task.",
+      "should_trigger": false,
+      "tags": ["near-miss", "design"]
+    }
+  ]
+}

@@ -22,6 +22,16 @@ For description tuning, expand to 10-20 realistic queries spanning:
 - plausible false positives
 - requests that should combine a lead role with an overlay
 
+## Cross-Skill Routing Matrix
+
+Keep high-confusion prompts in `evals/routing-matrix.json`. The matrix gives every production skill one lead case and covers the repository's known routing collisions. Validate it locally and in the release gate:
+
+```bash
+python3 scripts/validate-routing-evals.py
+```
+
+The validator proves that every lead and near-miss skill exists and that required overlap pairs remain covered. It does not prove model selection. Run the matrix in fresh contexts for every supported host/model, record the selected lead and overlay skills, then add ambiguous prompts to the relevant skill eval manifests.
+
 ## Comparison Run
 
 Run each output case in fresh context:

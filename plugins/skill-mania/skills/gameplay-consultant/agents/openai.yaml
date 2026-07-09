@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gameplay Consultant"
+  short_description: "Design and audit player experience"
+  default_prompt: "Use $gameplay-consultant to improve this game mechanic, loop, and player experience."

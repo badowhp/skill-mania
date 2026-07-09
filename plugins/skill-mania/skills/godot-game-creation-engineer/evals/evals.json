@@ -1,0 +1,81 @@
+{
+  "skill_name": "godot-game-creation-engineer",
+  "evals": [
+    {
+      "id": "godot-4-dash-feature",
+      "prompt": "In this Godot 4 project, add a player dash that respects the existing Input Map, collision behavior, cooldown UI, and pause state.",
+      "expected_output": "Inspects the project and player scene before editing, uses the existing input action and state boundaries, and verifies dash behavior in the running game.",
+      "should_trigger": true,
+      "assertions": [
+        "Godot version, player ownership, and input actions are inspected before implementation",
+        "Pause, cooldown, and collision behavior are included in verification"
+      ],
+      "tags": ["godot", "input", "physics"]
+    },
+    {
+      "id": "export-missing-json",
+      "prompt": "Our Godot game loads dialogue JSON in the editor but fails after a Windows export. Diagnose the packaging issue and give the smallest fix.",
+      "expected_output": "Checks resource versus non-resource export handling, path casing, export presets, and confirms the exported build rather than assuming editor behavior is enough.",
+      "should_trigger": true,
+      "assertions": [
+        "The diagnosis distinguishes editor behavior from exported-build behavior",
+        "Export configuration and runtime asset inclusion are inspected"
+      ],
+      "tags": ["godot", "export", "debugging"]
+    },
+    {
+      "id": "godot-save-slot-menu",
+      "prompt": "Implement three save slots and a load screen in an existing Godot project without breaking the current scene transitions.",
+      "expected_output": "Maps scene ownership, persistent data, resource paths, and transitions before proposing the smallest save/load and UI changes.",
+      "should_trigger": true,
+      "assertions": [
+        "Persistent state and scene-transition contracts are examined",
+        "The proposed verification covers save, reload, and missing or corrupt slot behavior"
+      ],
+      "tags": ["godot", "save-load", "ui"]
+    },
+    {
+      "id": "godot-csharp-frame-spike",
+      "prompt": "Our Godot C# combat scene hitches whenever enemies spawn. Profile the project, identify the smallest likely source, and verify the fix without guessing at the engine version.",
+      "expected_output": "Confirms the Godot version and C# setup, uses profiler evidence, changes the responsible path, and reruns the same measurement.",
+      "should_trigger": true,
+      "assertions": [
+        "The diagnosis is based on profiler or reproduction evidence rather than a generic optimization list",
+        "Version and language compatibility are checked before engine-specific advice"
+      ],
+      "tags": ["godot", "csharp", "performance"]
+    },
+    {
+      "id": "godot-input-rebinding",
+      "prompt": "Add keyboard and controller rebinding to our Godot 4 settings screen while preserving the existing Input Map and pause behavior.",
+      "expected_output": "Uses named input actions, checks device and pause behavior, and verifies the settings flow in the running game.",
+      "should_trigger": true,
+      "assertions": [
+        "Bindings are changed through the Input Map rather than scattered raw events",
+        "The verification covers controller, keyboard, and pause-state behavior"
+      ],
+      "tags": ["godot", "input", "settings"]
+    },
+    {
+      "id": "near-miss-game-loop-design",
+      "prompt": "Our roguelite starts to feel repetitive after twenty minutes. Redesign the run loop, rewards, and risk choices before we build anything.",
+      "expected_output": "Should prefer gameplay-consultant because the primary task is player experience and game design, not Godot implementation.",
+      "should_trigger": false,
+      "tags": ["near-miss", "gameplay"]
+    },
+    {
+      "id": "near-miss-unity-bug",
+      "prompt": "Fix our Unity Addressables loading race and add a regression test.",
+      "expected_output": "Should not require this skill because the request is Unity-specific rather than a Godot project task.",
+      "should_trigger": false,
+      "tags": ["near-miss", "unity"]
+    },
+    {
+      "id": "near-miss-game-balance",
+      "prompt": "Our roguelite reward choices have become predictable. Redesign the risk, progression, and player decision before implementation.",
+      "expected_output": "Should prefer gameplay-consultant because the primary work is game-design diagnosis and playtesting, not Godot implementation.",
+      "should_trigger": false,
+      "tags": ["near-miss", "gameplay"]
+    }
+  ]
+}

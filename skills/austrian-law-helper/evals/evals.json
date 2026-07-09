@@ -1,0 +1,81 @@
+{
+  "skill_name": "austrian-law-helper",
+  "evals": [
+    {
+      "id": "vienna-tenancy-letter",
+      "prompt": "My Vienna landlord retained my deposit after I moved out. Help me identify what documents and current Austrian or Vienna rules matter, then draft a factual German request for an itemized explanation.",
+      "expected_output": "Triages dates and evidence, distinguishes the governing law from Vienna-specific procedure, uses official current sources, and drafts a neutral letter without promising an outcome.",
+      "should_trigger": true,
+      "assertions": [
+        "The response separates verified facts, possible issues, and missing evidence",
+        "The correspondence draft avoids admissions and marks facts for user review"
+      ],
+      "tags": ["austria", "vienna", "tenancy", "communication"]
+    },
+    {
+      "id": "magistrate-notice-deadline",
+      "prompt": "I received a Bescheid from a Vienna Magistrat yesterday. Analyze the notice, identify what deadline or procedure needs official verification, and prepare a German request for file access.",
+      "expected_output": "Treats the notice and service date as urgent evidence, does not calculate a deadline without the document, researches official procedure, and drafts only a cautious factual request.",
+      "should_trigger": true,
+      "assertions": [
+        "Potential authority deadlines are escalated instead of guessed",
+        "Official legal and procedure sources are required before legal claims are made"
+      ],
+      "tags": ["austria", "vienna", "authority", "deadline"]
+    },
+    {
+      "id": "employment-termination-review",
+      "prompt": "My employer in Austria sent me a termination email. What facts, documents, and current rules should I check before I answer, and can you draft a short German acknowledgement that preserves my position?",
+      "expected_output": "Prioritizes the date, contract, delivery, and short-deadline risk, names the limits of issue spotting, and drafts a non-admitting acknowledgement only from verified facts.",
+      "should_trigger": true,
+      "assertions": [
+        "The response does not guarantee rights, deadlines, or the outcome of a dispute",
+        "Urgent professional confirmation and document preservation are clearly recommended"
+      ],
+      "tags": ["austria", "employment", "communication"]
+    },
+    {
+      "id": "consumer-notice-in-vienna",
+      "prompt": "A Vienna retailer rejected my written cancellation request. Identify the documents and current Austrian consumer-law sources I should verify, then draft a factual German request for a written explanation.",
+      "expected_output": "Confirms the contract, dates, delivery evidence, and jurisdiction, uses official current sources, and drafts a non-admitting request without predicting the outcome.",
+      "should_trigger": true,
+      "assertions": [
+        "Contract terms, delivery evidence, and current law are distinguished",
+        "The draft keeps disputed facts and remedies subject to user review"
+      ],
+      "tags": ["austria", "consumer", "vienna"]
+    },
+    {
+      "id": "urgent-residence-notice",
+      "prompt": "I received an Austrian residence notice with a short deadline. Tell me the immediate safe steps and what to preserve before I answer.",
+      "expected_output": "Escalates the short deadline and residence risk, avoids calculating a deadline from incomplete facts, and directs the user to timely official or professional help.",
+      "should_trigger": true,
+      "assertions": [
+        "Urgency and document preservation are placed before legal analysis",
+        "The response does not provide unsupported procedural certainty"
+      ],
+      "tags": ["austria", "residence", "urgent"]
+    },
+    {
+      "id": "near-miss-routine-email",
+      "prompt": "Make this friendly German email to my colleague clearer and shorter. It has no dispute, authority, contract, or legal consequence.",
+      "expected_output": "Should prefer writing-assistant because this is ordinary prose editing rather than legal issue spotting or consequential correspondence.",
+      "should_trigger": false,
+      "tags": ["near-miss", "writing"]
+    },
+    {
+      "id": "near-miss-german-tenancy",
+      "prompt": "Analyze a Berlin tenancy dispute and tell me the exact German filing deadline.",
+      "expected_output": "Should not require this skill because the jurisdiction is Germany, not Austria or Vienna, and an exact deadline needs the relevant German legal source.",
+      "should_trigger": false,
+      "tags": ["near-miss", "jurisdiction"]
+    },
+    {
+      "id": "near-miss-security-breach",
+      "prompt": "Threat-model a customer-data breach and recommend the technical containment steps for our SaaS app.",
+      "expected_output": "Should prefer security-engineer because technical containment and attacker behavior are central before legal consequences are assessed.",
+      "should_trigger": false,
+      "tags": ["near-miss", "security"]
+    }
+  ]
+}

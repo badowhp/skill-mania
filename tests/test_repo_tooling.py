@@ -25,6 +25,7 @@ eval_summary = load_module(
     "summarize_eval_workspace", REPO_ROOT / "scripts" / "summarize-eval-workspace.py"
 )
 validator = load_module("validate_skills", REPO_ROOT / "scripts" / "validate-skills.py")
+routing = load_module("validate_routing_evals", REPO_ROOT / "scripts" / "validate-routing-evals.py")
 
 
 class SkillBudgetTests(unittest.TestCase):
@@ -33,7 +34,7 @@ class SkillBudgetTests(unittest.TestCase):
 
         self.assertEqual(budgets.failures(report), [])
         self.assertTrue(report["startup"]["within_budget"])
-        self.assertEqual(len(report["skills"]), 14)
+        self.assertEqual(len(report["skills"]), 17)
 
     def test_oversized_skill_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -129,6 +130,35 @@ class EvalWorkspaceTests(unittest.TestCase):
         self.assertEqual(report["summary"]["pass_rate_delta"], 0.5)
         self.assertEqual(report["summary"]["median_token_delta"], 400)
         self.assertEqual(report["summary"]["median_duration_delta_ms"], 300)
+
+
+class RoutingEvalTests(unittest.TestCase):
+    def test_current_routing_matrix_covers_the_skill_inventory(self) -> None:
+        matrix, errors = routing.load_matrix(REPO_ROOT / "evals" / "routing-matrix.json")
+
+        self.assertEqual(errors, [])
+        assert matrix is not None
+        self.assertEqual(
+            routing.validate_matrix(matrix, routing.skill_names(REPO_ROOT / "skills")),
+            [],
+        )
+
+    def test_unknown_routing_skill_is_rejected(self) -> None:
+        data = {
+            "cases": [
+                {
+                    "id": "bad-case",
+                    "prompt": "This is a sufficiently descriptive routing prompt.",
+                    "lead_skill": "missing-skill",
+                    "near_miss_skills": ["senior-developer"],
+                    "why": "This must be rejected because the lead does not exist.",
+                }
+            ]
+        }
+
+        errors = routing.validate_matrix(data, {"senior-developer"})
+
+        self.assertIn("lead_skill must name a production skill", errors[0])
 
 
 if __name__ == "__main__":

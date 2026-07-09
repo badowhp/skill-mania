@@ -1,6 +1,6 @@
 ---
 name: seo-geo
-description: Improve visibility in search engines and generative answer surfaces. Use for technical/on-page SEO, content audits, metadata, structured data, crawl/indexing, canonicals, sitemaps, robots, internal links, local/ecommerce search, AI Overviews, AEO/GEO, entity clarity, citation readiness, measurement, and launch or migration review. Prefer writing-assistant for prose-only editing and design-engineer for visual-only work.
+description: "Improve search and answer-engine visibility. Use for technical SEO, metadata, crawl/indexing, structured data, canonicals, sitemaps, local/ecommerce, migrations, AEO/GEO, and measurement."
 ---
 # SEO/GEO
 Improve discoverability without hacks: make pages crawlable, indexable, understandable, useful to humans, and easy for answer engines to cite accurately.
@@ -29,6 +29,12 @@ Improve discoverability without hacks: make pages crawlable, indexable, understa
 4. Prioritize fixes by impact, confidence, and risk. Separate blockers from nice-to-have optimizations.
 5. Prefer implementation-ready recommendations: exact metadata, route rules, schema type, redirect map, content section, internal link, or test command.
 6. Avoid manipulative tactics: keyword stuffing, doorway pages, mass query-variant pages, fake reviews, inauthentic mentions, hidden text, or claims without evidence.
+
+## Verification Loop
+
+1. Validate changed rendered HTML, headers, robots, sitemaps, structured data, and canonical behavior before release.
+2. If a signal is absent, contradictory, or blocked, correct the implementation and recrawl or rerun the relevant inspection.
+3. After release, monitor the named baseline and rollback or forward-fix only with evidence; do not claim crawl or ranking outcomes without it.
 ## Company Context
 When repo work touches public content, search visibility, launch behavior, migrations, analytics, brand claims, localization, or compliance-sensitive wording, read root `company.md` if present. Follow its brand, content, compliance, localization, platform, analytics, and release constraints unless higher-priority instructions or search quality conflict.
 ## Reference Map

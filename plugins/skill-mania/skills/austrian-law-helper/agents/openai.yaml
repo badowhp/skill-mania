@@ -1,0 +1,4 @@
+interface:
+  display_name: "Austrian Law Helper"
+  short_description: "Vienna legal issue spotting and drafts"
+  default_prompt: "Use $austrian-law-helper to research this Vienna legal issue and draft a careful German reply."

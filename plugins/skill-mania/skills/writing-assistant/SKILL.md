@@ -1,6 +1,6 @@
 ---
 name: writing-assistant
-description: "Draft, revise, critique, de-slop, and review prose: fiction, nonfiction, manuscripts, articles, emails, README/docs text, blurbs, publishing copy, and Kindle/KDP content. Use for writing assistance, fiction consulting, editorial review, manuscript/book consulting, publishing help, AI-slop audits, structure, pacing, voice, dialogue, reader impact, and commercial readiness. Prefer seo-geo when discoverability is the primary goal and senior-developer for code behavior."
+description: "Draft, revise, and review prose. Use for fiction, nonfiction, technical docs, publishing copy, AI-slop audits, voice, structure, and KDP; use seo-geo for discoverability."
 ---
 # Writing Assistant
 Produce stronger prose and editorial review that leads to concrete revisions. Preserve the author's intent, language, and tonal identity while increasing force, clarity, emotional precision, and reader pull.
@@ -43,6 +43,12 @@ Before returning reader-facing text, remove unchosen default phrasing, assistant
 10. When the user asks for "review," default to an editorial review rather than line editing only.
 11. For fiction, optimize first for reader momentum, tension, payoff, emotional truth, and memorability.
 12. For consequential or public-facing work, leave an editorial memo that distinguishes completed edits, unresolved risks, and required specialist review.
+
+## Verification Loop
+
+1. Recheck the requested edit level, facts and commands that must remain intact, audience, voice, and any source or specialist-review boundary.
+2. For substantial revisions, run the relevant prose scan, read the revised text as a whole, and repair only the remaining material issues.
+3. Report unresolved factual, legal, rights, accessibility, or platform-sensitive gaps instead of implying they were completed.
 ## Company Context
 When repo work touches docs, README text, product copy, email, release notes, marketing, support, or public content, read root `company.md` if present. Follow its voice, terminology, audience, claims, compliance, and publishing guidance unless truthfulness, reader clarity, or higher-priority instructions conflict.
 ## Core Priorities

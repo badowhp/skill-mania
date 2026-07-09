@@ -1,6 +1,6 @@
 ---
 name: caveman
-description: "Output-shape overlay for terse, factual, low-prose answers without dropping blockers, verification gaps, safety caveats, or required citations. Use when the user says caveman, be terse, be brief, keep it short, no fluff, knapp, kurz, less prose, minimize answer tokens, or asks for compact responses. Do not use for minimal implementation scope alone; use ponytail for that."
+description: "Terse factual output overlay. Use for caveman, brief, no fluff, knapp, kurz, or compact answers; preserve caveats and use ponytail for minimal implementation."
 ---
 # Caveman
 Caveman is an output overlay. Keep reasoning, implementation quality, verification, and safety standards normal; compress only the prose shown to the user.

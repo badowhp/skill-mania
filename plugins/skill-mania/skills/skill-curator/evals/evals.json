@@ -35,15 +35,22 @@
       "tags": ["audit", "skill-quality"]
     },
     {
-      "id": "marketplace-metadata",
-      "prompt": "Improve the marketplace metadata for our skill collection so users understand which skills are included and when to use them.",
-      "expected_output": "Reviews display metadata, default prompts, coverage claims, capability descriptions, and avoids claiming unsupported behavior.",
+      "id": "external-marketplace-claim",
+      "prompt": "Compare this marketplace listing for a browser-automation plugin against its repository, manifest, license, release activity, and requested permissions before we adopt it.",
+      "expected_output": "Inspects the external package source and claims, identifies authority and maintenance risk, and recommends adopt, adapt, borrow, reject, or monitor.",
       "should_trigger": true,
       "assertions": [
-        "Metadata is aligned with actual local skill inventory",
-        "Unsupported or overly broad capability claims are avoided"
+        "The marketplace listing is checked against the actual external package",
+        "The outcome distinguishes capability fit from permission and maintenance risk"
       ],
-      "tags": ["metadata", "marketplace"]
+      "tags": ["external", "marketplace", "trust"]
+    },
+    {
+      "id": "near-miss-local-marketplace-metadata",
+      "prompt": "Improve the marketplace metadata for our local skill collection so users understand which skills are included and when to use them.",
+      "expected_output": "Should prefer agent-context-maintainer because local manifests, marketplace metadata, prompts, and package consistency are its canonical ownership.",
+      "should_trigger": false,
+      "tags": ["near-miss", "local-metadata"]
     },
     {
       "id": "near-miss-create-one-skill",

@@ -1,6 +1,6 @@
 ---
 name: skill-curator
-description: "Find, compare, vet, and recommend agent skills, plugins, MCP servers, and marketplace packages. Use for top-skill reviews, plugin selection, install/adapt/reject decisions, skill quality audits, trust/licensing checks, and comparisons against external skill repositories. Prefer skill-creator for authoring one skill and security-engineer when exploitability is the main question."
+description: "Compare and vet external agent skills, plugins, MCP servers, and marketplaces. Use for discovery, adoption, trust/licensing, and external skill audits; use agent-context-maintainer for local metadata."
 ---
 # Skill Curator
 Choose agent extensions deliberately: useful capability, clear instructions, acceptable trust, and no unnecessary overlap.
@@ -18,16 +18,23 @@ Choose agent extensions deliberately: useful capability, clear instructions, acc
    - compare local skills against external repositories
    - audit a skill for quality and gaps
    - decide whether to install, copy, adapt, or reject a plugin
-   - improve a skill catalog or marketplace metadata
+   - assess an external marketplace listing or package claim before adoption
 2. Gather evidence:
    - local skill names, descriptions, references, evals, scripts, and metadata
    - external README, `SKILL.md`, manifest, license, tool permissions, release history, and issue signals
    - overlap with existing local skills
-3. Load the matching files from the Reference Map.
-4. Score candidates by usefulness, specificity, instruction quality, verification support, maintenance, licensing, and risk.
-5. Produce a recommendation that names what to add, what to improve, and what to reject.
+3. Route local manifests, marketplace metadata, default prompts, or package synchronization to `agent-context-maintainer`.
+4. Load the matching files from the Reference Map.
+5. Score candidates by usefulness, specificity, instruction quality, verification support, maintenance, licensing, and risk.
+6. Produce a recommendation that names what to add, what to improve, and what to reject.
+
+## Verification Loop
+
+1. Recheck the candidate's source, license, release activity, permissions, and claimed capabilities before making an adoption decision.
+2. If evidence is incomplete or the candidate overlaps local coverage, downgrade to monitor, borrow a pattern, or reject it.
+3. After adoption, require an isolated local test and a baseline comparison before recommending broad use.
 ## Company Context
-When repo work touches skill inventory, plugin manifests, marketplace metadata, distribution packages, or durable agent behavior, read root `company.md` if present. Follow its ownership, packaging, licensing, canonical-source, and release guidance unless higher-priority instructions conflict.
+When external skill, plugin, marketplace, or package work touches company policy, read root `company.md` if present. Follow its ownership, packaging, licensing, canonical-source, and release guidance unless higher-priority instructions conflict.
 ## Reference Map
 Load [references/external-skill-review.md](references/external-skill-review.md) for ranking, comparing, and adapting skills from GitHub, marketplaces, or public lists.
 

@@ -1,6 +1,6 @@
 ---
 name: agent-context-maintainer
-description: "Audit, update, deduplicate, and organize durable agent context: AGENTS.md, CLAUDE.md, company.md, Copilot/Cursor rules, skill metadata, plugin manifests, marketplace entries, default prompts, and packaged copies. Use when instructions are stale, duplicated, conflicting, too broad, or need cross-agent consistency."
+description: "Maintain local agent context and package metadata. Use for AGENTS.md, skill UI metadata, manifests, marketplace entries, default prompts, or package sync; use skill-curator for external discovery."
 ---
 # Agent Context Maintainer
 Keep agent context small, durable, consistent, and easy to trust.
@@ -24,10 +24,12 @@ Keep agent context small, durable, consistent, and easy to trust.
    - skill `SKILL.md` and `agents/openai.yaml`
    - plugin manifests and marketplace metadata
    - generated distribution copies
+   - local marketplace metadata, manifests, and default prompts; these belong here, not to `skill-curator`
 3. Load the matching files from the Reference Map.
 4. Edit the smallest canonical file set that fixes the problem.
 5. Run the repo's sync and validation commands when packaged copies or skill metadata are affected.
 6. Report changed rules, removed stale instructions, and validation gaps.
+7. If validation fails, repair the canonical source, rerun validation and sync, then report only unresolved owner decisions.
 ## Company Context
 When repo work touches durable context, user-facing agent behavior, plugin metadata, marketplace descriptions, or distribution packaging, read root `company.md` if present. Follow its terminology, product positioning, governance, privacy, and release guidance unless higher-priority instructions conflict.
 ## Reference Map

@@ -1,6 +1,6 @@
 ---
 name: ponytail
-description: "Implementation-scope overlay for the laziest solution that actually works: simplest, shortest, minimal, YAGNI. Use when the user says ponytail, be lazy, lazy mode, simplest solution, minimal solution, YAGNI, do less, shortest path, or complains about over-engineering, bloat, boilerplate, or unnecessary dependencies. Do not use for terse output alone; use caveman for that. Supports lite, full (default), and ultra."
+description: "Minimal implementation-scope overlay. Use for ponytail, simplest solution, YAGNI, bloat, boilerplate, or over-engineering; use caveman for terse answers."
 ---
 # Ponytail
 Based on the MIT-licensed Ponytail skill by Dietrich Gebert at upstream commit `1b2760d384c44e573a9d8c7a729fac616e5c3a76`: https://github.com/DietrichGebert/ponytail/blob/1b2760d384c44e573a9d8c7a729fac616e5c3a76/skills/ponytail/SKILL.md. See `LICENSE.txt`.
