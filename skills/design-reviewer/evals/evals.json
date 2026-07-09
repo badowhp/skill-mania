@@ -1,0 +1,96 @@
+{
+  "skill_name": "design-reviewer",
+  "evals": [
+    {
+      "id": "review-design-md",
+      "prompt": "Review this DESIGN.md for a billing dashboard and tell me if it is good enough for another agent to implement from.",
+      "expected_output": "Gives PASS/PASS WITH FIXES/FAIL, checks register, audience, semantic colors, typography, components, states, technology notes, and names whether DESIGN.md or interview must be repeated.",
+      "should_trigger": true,
+      "assertions": [
+        "The review uses an explicit pass/fail-style verdict",
+        "The review checks whether DESIGN.md is concrete enough to guide another agent"
+      ],
+      "tags": ["design-md", "review"]
+    },
+    {
+      "id": "review-ui-plan",
+      "prompt": "Review this implementation plan for a mobile-first onboarding redesign before we let the agent build it.",
+      "expected_output": "Evaluates whether the plan follows DESIGN.md, covers IA, states, responsive behavior, accessibility, content limits, verification, and returns a loop decision.",
+      "should_trigger": true,
+      "assertions": [
+        "The plan review checks state, responsive, accessibility, and verification coverage",
+        "The output names whether to revise DESIGN.md, revise plan, or proceed"
+      ],
+      "tags": ["plan", "gate"]
+    },
+    {
+      "id": "review-implementation",
+      "prompt": "Review the completed React/Tailwind homepage implementation with screenshots and scanner output. Decide if it passes.",
+      "expected_output": "Reviews rendered desktop/mobile evidence, scanner findings, AI-looking defaults, hierarchy, overflow, accessibility, and returns a verdict with blocking findings first.",
+      "should_trigger": true,
+      "assertions": [
+        "Rendered evidence and scanner output are treated as review inputs",
+        "Blocking findings are separated from non-blocking polish"
+      ],
+      "tags": ["implementation", "visual-qa"]
+    },
+    {
+      "id": "consultant-screenshot-critique",
+      "prompt": "Act as a senior design consultant and critique this dashboard screenshot. I want the honest pass/fail, not implementation.",
+      "expected_output": "Gives a consultant-style verdict, identifies strategic and execution issues, scores relevant dimensions when useful, and avoids turning into a build plan.",
+      "should_trigger": true,
+      "assertions": [
+        "The review gives an honest senior-consultant verdict",
+        "The response does not take over implementation work"
+      ],
+      "tags": ["screenshot", "consultant"]
+    },
+    {
+      "id": "ai-slop-verdict",
+      "prompt": "Does this landing page still look AI-generated? It has gradient text, side accent cards, identical feature grids, and generic SaaS copy.",
+      "expected_output": "Fails or passes with fixes based on concrete AI-looking tells, explains why they hurt trust or specificity, and recommends the repeat step.",
+      "should_trigger": true,
+      "assertions": [
+        "The verdict names concrete generated-UI tells",
+        "The loop decision tells whether to revise design direction, plan, or implementation"
+      ],
+      "tags": ["ai-slop", "verdict"]
+    },
+    {
+      "id": "missing-evidence-risk",
+      "prompt": "Give final design sign-off for this checkout flow, but I only have code snippets and no rendered screenshots.",
+      "expected_output": "Refuses to claim a clean pass when rendered evidence is missing, names residual risk, and states the evidence required for final sign-off.",
+      "should_trigger": true,
+      "assertions": [
+        "Missing rendered evidence prevents an unconditional pass",
+        "The review names the exact evidence required for sign-off"
+      ],
+      "tags": ["evidence", "signoff"]
+    },
+    {
+      "id": "pass-with-fixes-semantics",
+      "prompt": "Review this nearly finished settings form. Only two button labels wrap awkwardly on mobile; otherwise the UI matches DESIGN.md and screenshots look good.",
+      "expected_output": "Uses PASS WITH FIXES only for small local issues, lists the exact fixes, and states that substantial work should not close until those fixes are applied or the user accepts them.",
+      "should_trigger": true,
+      "assertions": [
+        "PASS WITH FIXES is defined as small, local, and unambiguous",
+        "The loop decision requires applying the fixes before final pass or explicit acceptance"
+      ],
+      "tags": ["verdict", "loop"]
+    },
+    {
+      "id": "near-miss-create-design",
+      "prompt": "Interview me and create a DESIGN.md for our new portfolio site, then implement the homepage.",
+      "expected_output": "Should prefer design-engineer because the user asks for interview, DESIGN.md creation, and implementation, not standalone review.",
+      "should_trigger": false,
+      "tags": ["near-miss", "creation"]
+    },
+    {
+      "id": "near-miss-security-review",
+      "prompt": "Review whether our OAuth callback and session refresh design are secure.",
+      "expected_output": "Should route to security-engineer because attacker behavior and security controls are central.",
+      "should_trigger": false,
+      "tags": ["near-miss", "security"]
+    }
+  ]
+}

@@ -32,7 +32,7 @@ class SkillBudgetTests(unittest.TestCase):
 
         self.assertEqual(budgets.failures(report), [])
         self.assertTrue(report["startup"]["within_budget"])
-        self.assertEqual(len(report["skills"]), 12)
+        self.assertEqual(len(report["skills"]), 13)
 
     def test_oversized_skill_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -34,13 +34,3 @@ SOFTWARE.
 
 Upstream data caveat: the MIT license applies to upstream code, not to harvested
 Reddit text in upstream data files. This skill does not package those data files.
-
-Workflow influence reviewed:
-
-- pbakaus/impeccable
-- Source: https://github.com/pbakaus/impeccable and https://impeccable.style/
-- License: Apache-2.0
-- Reviewed: 2026-07-09
-- Used as process inspiration for context-first DESIGN.md workflow, brand/product
-  register separation, detector-plus-review loops, and agent-specific routing.
-  No Impeccable source code or packaged skill files are bundled here.

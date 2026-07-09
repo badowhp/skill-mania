@@ -1,129 +1,128 @@
 ---
 name: design-engineer
-description: "Design, build, review, or de-genericize production UI: websites, apps, dashboards, components, frontend styling, design systems, tokens, shadcn/Tailwind cleanup, visual QA, responsive/accessibility checks, and UI that must feel specific instead of AI-looking or default. Prefer senior-developer for non-visual frontend logic and seo-geo when search visibility is the main goal."
+description: "Context-first UI design workflow for websites, apps, dashboards, components, design systems, redesigns, and styling. Use to interview for design context, create or update DESIGN.md, plan and implement UI, de-genericize AI-looking design, inspect colors/technology/examples, or route work through design-reviewer gates. Prefer design-reviewer for standalone critique, senior-developer for non-visual frontend logic, and seo-geo for search visibility."
 ---
 # Design Engineer
-Create interfaces that are chosen, usable, specific to the product, and verifiable in a browser.
+Design through durable context, then build. Do not guess a visual system when the repository can carry one in `DESIGN.md`.
+
 ## Core Rules
-1. Ask only when missing context would change the brand direction, user flow, or implementation architecture.
-2. Inspect the existing product, components, tokens, content, durable design context, and rendered state before redesigning.
-3. Match design effort to risk: use the simplest direction that solves the user's real workflow.
-4. Preserve existing design-system contracts unless the request intentionally changes them.
-5. Turn design decisions into concrete systems: tokens, layout primitives, components, states, content rules, and verification checks.
-6. Flag uncertainty and verify rendered desktop/mobile behavior when possible.
-## Workflow
-1. Classify the request:
-   - new UI or component design
-   - redesign or visual direction
-   - product, brand, landing, portfolio, or public page design
-   - design-system or token work
-   - UX flow, dashboard, form, or information architecture
-   - audit for generic, AI-looking, or vibe-coded design
-2. Establish the minimum brief before styling:
-   - target user and primary job
-   - real product, content, data, or state to show
-   - one design reference, brand, screenshot, product, or named direction
-   - color, type, density, motion, and accessibility constraints
-3. Classify the interface register before styling: operational, editorial, product-inspection, creative portfolio, consumer commerce, game, internal tool, or another concrete fit.
-4. If context is missing but work can continue, state the assumptions and make deliberate choices. Ask only when a missing answer would change the architecture, brand direction, or user flow.
-5. Choose the production artifact before styling:
-   - Build: implement the UI and verify it.
-   - Spec: define direction, foundations, component contracts, states, and handoff notes.
-   - Audit: report prioritized findings with concrete replacements and checks.
-6. Prefer real product evidence over abstract feature cards. Use screenshots, tables, data, forms, previews, maps, timelines, or operational states when they are available.
-7. Build controls and states a real user expects: empty, loading, error, disabled, selected, hover, focus, validation, mobile, and overflow.
-8. Keep layout tied to the user's task. Structure follows the workflow, not the default landing-page skeleton.
-9. Before finishing, run the Final Visual QA Gate: inspect rendered desktop and mobile states for responsive fit, text overflow, clipping, incoherent overlap, focal-point collisions, hidden actions, missing hierarchy, and unintentional default visual tells. If you cannot inspect a rendered UI, ask for a screenshot or user review for final adjustments, or clearly mark visual QA as unverified.
-## Company Context
-When repo work touches UI, brand, product positioning, public pages, accessibility, or content conventions, read root `company.md` if present. Follow its audience, voice, visual, component, analytics, localization, and accessibility guidance unless higher-priority instructions or usability conflict.
+1. Start with context: inspect the product, tech stack, existing UI, routes, tokens, components, assets, screenshots, `company.md`, `PRODUCT.md`, and `DESIGN.md` when present.
+2. Run the interview phase before substantial design work when `DESIGN.md` is missing, stale, or too vague.
+3. Write or update `DESIGN.md` as the first artifact for new design direction. Keep it concrete enough that another agent can continue the work.
+4. Separate phases: interview, `DESIGN.md`, plan, implementation, review. Do not collapse them unless the user asks for a tiny local change and `DESIGN.md` is already fit.
+5. Route every substantial `DESIGN.md`, plan, and implementation through `design-reviewer`. If review fails, return to the step before the failed artifact and iterate.
+6. Use real product evidence: rendered pages, screenshots, existing components, product data, states, user flows, reference sites, brand assets, and actual copy.
+7. Distinguish brand surfaces from product surfaces before choosing style. Brand surfaces can be expressive; product surfaces must serve repeated task completion.
+8. Preserve existing design-system contracts unless the request intentionally changes them.
+9. Verify rendered desktop and mobile behavior when possible. A passing build is not visual QA.
 
-Also read root `PRODUCT.md`, `DESIGN.md`, brand guidelines, or screenshot notes when present and directly relevant. Use them as evidence, not as permission to ignore rendered usability problems.
-## Reference Map
-Load [references/production-design-system.md](references/production-design-system.md) for design-system, token, component library, shadcn/Tailwind theming, production-readiness, or handoff work.
+## Phase 1: Interview
+Ask only for missing answers that would change the design direction. Otherwise inspect and infer, then state assumptions.
 
-Load [references/vibecoded-design-tells.md](references/vibecoded-design-tells.md) for AI-looking, generic, shadcn/Tailwind-default, purple-gradient, or polished public UI work where sameness matters.
+Gather:
 
-Load [references/deliberate-design-process.md](references/deliberate-design-process.md) when brand direction is missing, you must choose color/type/density/layout/motion, or you need distinct design directions.
+- audience, job to be done, primary workflow, and emotional posture
+- register: `brand` for marketing, editorial, portfolio, campaign, or showcase; `product` for apps, dashboards, admin, tools, forms, and settings
+- target surfaces, routes, components, states, and success criteria
+- examples, competitors, screenshots, references, and anti-references
+- color, typography, density, motion, accessibility, localization, and content constraints
+- technology: framework, router, styling system, component library, tokens, icon library, image pipeline, test/browser tooling
+- assets: logos, photos, generated images, product screenshots, fonts, charts, maps, videos, and sample data
 
-Load [references/ui-audit-examples.md](references/ui-audit-examples.md) to turn audit findings into concrete UI replacements or before/after recommendations.
+When useful references are missing, ask for one real product/site/screenshot or choose a named direction and explain why it fits. Do not use empty words such as "modern", "clean", or "professional" as a direction.
 
-Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for logos, marks, branded heroes, final public UI review, screenshot audits, overlap, occlusion, cropped focal points, or weak brand craft.
+## Phase 2: DESIGN.md
+Create or update root `DESIGN.md` before the plan when the work changes visual direction, tokens, component rules, register, or design-system behavior. Load [references/design-md-format.md](references/design-md-format.md) for the exact compact format.
 
-Load [references/final-preflight.md](references/final-preflight.md) before closing substantial UI implementation, redesign, public-page work, or screenshot-driven review.
-## Design Standards
-- Start from the user, product, and content. Generic aesthetics are a failure mode, not a neutral baseline.
-- State the interface register in product terms before making strong visual choices.
-- Use an explicit type system, color system, spacing scale, radius scale, elevation/shadow model, icon style, motion rules, and component state model.
-- Avoid one-note palettes. A mature interface has hierarchy, restraint, and enough contrast between surfaces, actions, and data.
-- Avoid oversized type inside compact tools, dashboards, cards, sidebars, and controls.
-- Prefer icons from an existing icon library over emoji-as-UI or hand-drawn ad hoc icons.
-- Use cards for repeated items, modals, and genuinely framed tools. Do not put page sections inside decorative cards.
-- Do not hide weak structure behind glow, gradients, blur, animation, or empty whitespace.
-- Use semantic color roles instead of scattered hard-coded swatches: surface, text, border, primary, secondary, success, warning, danger, info, focus, and data/category colors.
-- Define responsive behavior with stable dimensions, wrapping rules, min/max widths, and overflow handling for worst-case content.
-- Treat logos and marks as identity-system work: check concept fit, silhouette, balance, spacing, small-size legibility, monochrome use, and UI context.
-- Respect accessibility: semantic structure, keyboard focus, visible states, contrast, reduced motion, and readable mobile layouts.
-## Bundled Helpers
-- Use `scripts/scan-design-tells.mjs` for a deterministic static scan of common visual defaults.
-- Use `--json` when another tool or CI job should consume findings.
-- Use `--fail-on medium` or `--fail-on high` only when the team has agreed that those tells are release-blocking for the surface under review.
-- Add `design-tell-ignore` on a source line only for a reviewed, intentional exception; the comment should make the product or brand reason clear.
-- Treat scanner output as a prioritization input. Final design decisions still require product context, screenshots, and responsive inspection.
-- Use RTK when available to keep noisy, non-destructive scanner, build, lint, or test output compact. Do not substitute filtered logs for rendered visual QA.
-## Build Mode
-When building a UI, state the chosen direction briefly if the user did not provide one. Include the reason in terms of product and audience, not taste words like "modern" or "clean."
+`DESIGN.md` must include:
 
-When redesigning an existing surface, preserve working information architecture, data density, and learned user paths unless the request or evidence justifies changing them. Name the deliberate departures.
+- creative north star and register
+- audience, surface, and task priorities
+- colors with semantic roles and rationale
+- typography with hierarchy and usage rules
+- spacing, radius, elevation, border, icon, media, and motion rules
+- component rules for buttons, cards, forms, tables, nav, dialogs, feedback, empty/loading/error states, and content limits
+- examples and anti-references
+- technology notes and source-of-truth files
+- review date or freshness signal
 
-For frontend implementation:
+After writing `DESIGN.md`, review it with `design-reviewer`. If it fails, revise the interview assumptions or `DESIGN.md` before planning.
 
-- follow the existing app's component library, tokens, routing, and state patterns
-- define or extend tokens before styling one-off components
-- create component contracts for reusable UI: variants, sizes, states, content limits, responsive behavior, and accessibility expectations
-- define stable dimensions for boards, grids, toolbars, icon buttons, counters, media frames, and tiles
-- make text wrap safely; test long labels and real content lengths
-- use responsive constraints rather than viewport-scaled font sizes
-- show the actual product or state in the first viewport when the page is product, venue, portfolio, or object focused
-- verify with screenshots or browser inspection when a dev server is needed, including at least one desktop and one narrow mobile viewport; include the commands or evidence in the final response
-## Audit Mode
-When reviewing an existing UI:
+## Phase 3: Plan
+Plan from `DESIGN.md`, not from vibes.
 
-1. Lead with the verdict and the single highest-impact fix.
-2. Report findings by priority, with file and line when available.
-3. Separate mechanical tells from deeper UX problems.
-4. Treat intentional brand decisions as allowed; the problem is an unspecified default, not a banned color or font.
-5. Treat overlap, clipping, hidden actions, unreadable media overlays, and weak brand marks as high-priority findings when they affect comprehension or trust.
-6. End with the top three changes that would most improve specificity and usability.
-## Evidence Gate
-For production UI work, do not rely on static code review alone when a rendered check is possible.
+Include:
 
-- Run the relevant build, lint, typecheck, storybook, or app-specific command when available.
-- Run the design scanner on changed UI files or the surface under review when the project uses Tailwind, shadcn, generated CSS, or public marketing UI.
-- Inspect at least one desktop and one narrow mobile viewport with browser automation or screenshots when possible. Add 320px and 200% zoom checks for public pages, dense tools, and likely wrapping risk.
-- Use real, worst-case, empty, loading, error, and long-content states when they are cheap to create.
-- If a check cannot run, name the missing check and the exact residual risk.
+- information architecture and first viewport intent
+- token and component changes
+- layout grid, spacing rhythm, responsive behavior, and overflow rules
+- state inventory: loading, empty, error, disabled, selected, hover, focus, validation, long content, and permission-limited states
+- media and data requirements
+- accessibility requirements: semantic structure, contrast, focus, keyboard, reduced motion, touch targets
+- implementation sequence and smallest reviewable edits
+- verification: build/lint/typecheck, design scanner, browser screenshots or inspection, mobile width, long-content checks
+
+Review the plan with `design-reviewer`. If review fails, return to `DESIGN.md` when direction is wrong, or rewrite the plan when execution detail is missing.
+
+## Phase 4: Implement
+Implement only after the plan passes, unless the user explicitly asks for exploration or a quick local fix.
+
+- Follow the existing framework, routing, component library, tokens, and state patterns.
+- Extend tokens and primitives before scattering one-off styles.
+- Use the existing icon library, usually lucide or the local design-system icons.
+- Use real or generated bitmap imagery for websites, product pages, portfolios, venues, objects, games, or visual experiences where assets matter.
+- Keep dashboards and operational tools dense, scannable, and quiet. Avoid landing-page composition for repeated workflows.
+- Keep cards for repeated items, modals, and genuinely framed tools. Do not nest cards.
+- Use stable dimensions for boards, grids, toolbars, icon buttons, counters, media frames, and tiles.
+- Make text wrap, clamp, or scroll intentionally with worst-case content.
+- Avoid reflexive AI tells unless documented in `DESIGN.md`: purple gradients, cream/serif/sage defaults, gradient text, side accent borders, huge rounded icon tiles, identical card grids, nested cards, full-screen hero traps, fake screenshots, vague SaaS copy, and decorative motion.
+
+## Phase 5: Review Loop
+Run review after implementation:
+
+1. Run local quality commands available in the repo.
+2. Run the bundled `scripts/scan-design-tells.mjs` from the loaded `design-engineer` skill directory when the changed surface is static UI, Tailwind, shadcn, public UI, or likely AI-looking.
+3. Inspect rendered desktop and narrow mobile states with browser automation or screenshots when possible.
+4. Ask `design-reviewer` for a final implementation review.
+5. If review returns `FAIL`, return to implementation for execution defects. Return to plan or `DESIGN.md` when the failure is strategic.
+6. If review returns `PASS WITH FIXES`, apply the named fixes in the current step and rerun targeted verification. Do not close substantial work until the reviewer returns `PASS` or the user explicitly accepts the remaining fixes.
+
+Do not claim a pass when rendered inspection, scanner output, or review could not run. Name the missing evidence and residual risk.
+
+## Routing Notes
+- `design-engineer` owns creation: interview, `DESIGN.md`, plan, and implementation.
+- `design-reviewer` owns critique: pass/fail, consultant review, scorecards, and loop decisions.
+- Keep this portable. Do not depend on slash commands, plugin-only hooks, or one vendor's skill format in `SKILL.md`.
+- Codex can often use browser automation, screenshots, and image generation for visual work. Claude Code may have stronger plugin command routing. The shared skill should still express the same phases and gates in plain Markdown.
+
+## Bundled Helper
+Use `scripts/scan-design-tells.mjs` as a deterministic anti-pattern scan. It prioritizes common generated-UI tells; it does not replace rendered review or design judgment.
+
+Use `design-tell-ignore` only for a narrow intentional exception with a product or brand reason.
+
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.
+
 ## Output Shape
-For a design recommendation:
+For interview results:
 
-1. direction
-2. rationale
-3. foundations and component decisions
-4. states and responsive behavior
-5. implementation notes
-6. checks before shipping
+1. assumptions
+2. questions still needed
+3. `DESIGN.md` changes
+4. review result
 
-For an audit:
+For a plan:
 
-1. verdict
-2. highest-impact fix
-3. findings by priority
-4. top three changes
+1. direction from `DESIGN.md`
+2. implementation steps
+3. states and responsive behavior
+4. verification
+5. review result
 
-For an implementation close-out:
+For implementation close-out:
 
 1. direction used
 2. files changed
 3. verification run
-4. remaining risks, only if material
+4. reviewer verdict
+5. remaining risks, only if material

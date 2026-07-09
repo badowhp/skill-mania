@@ -35,7 +35,8 @@ def collect(root: Path) -> dict[str, object]:
         text = skill_file.read_text(encoding="utf-8")
         name = frontmatter_value(text, "name")
         description = frontmatter_value(text, "description")
-        startup_parts.append(f"{name}: {description} ({skill_file})")
+        skill_path = f"{root.name}/{skill_file.relative_to(root).as_posix()}"
+        startup_parts.append(f"{name}: {description} ({skill_path})")
         low, high = estimate_tokens(len(text))
         references = []
         for reference in sorted((skill_file.parent / "references").glob("*.md")):
@@ -52,7 +53,7 @@ def collect(root: Path) -> dict[str, object]:
         skills.append(
             {
                 "name": name,
-                "path": skill_file.as_posix(),
+                "path": skill_path,
                 "characters": len(text),
                 "estimated_tokens": [low, high],
                 "within_budget": len(text) <= SKILL_MD_CHARS,

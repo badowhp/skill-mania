@@ -2,106 +2,84 @@
   "skill_name": "design-engineer",
   "evals": [
     {
-      "id": "audit-generic-saas-dashboard",
-      "prompt": "Audit a React/Tailwind SaaS dashboard that uses purple gradients, shadcn Cards for every section, and generic marketing copy. Give prioritized design findings and concrete replacements.",
-      "expected_output": "Reports a verdict, separates mechanical vibe-coded tells from deeper UX issues, recommends product-specific layout/content changes, and includes responsive/accessibility checks.",
+      "id": "new-design-context-interview",
+      "prompt": "Create a new design direction for our React pricing page. First interview me, inspect the current pages and tech, then write DESIGN.md before planning implementation.",
+      "expected_output": "Runs an interview/inspection phase, identifies framework and styling context, creates or updates DESIGN.md before planning, and routes the artifact through design-reviewer.",
       "should_trigger": true,
       "assertions": [
-        "The audit separates visual-default tells from workflow or usability problems",
-        "Recommendations include product-specific replacements and responsive checks"
+        "The workflow starts with interview and repository inspection before visual decisions",
+        "DESIGN.md is created or updated before implementation planning"
       ],
-      "tags": ["audit", "tailwind", "vibecoded"]
+      "tags": ["interview", "design-md", "planning"]
     },
     {
-      "id": "build-operational-form",
-      "prompt": "Design the first screen of an internal refund-review tool for support agents with filters, queue state, selected item detail, and error/loading/empty states.",
-      "expected_output": "Chooses a work-focused operational layout, avoids decorative landing-page structure, names key UI states, and includes implementation/verification notes.",
+      "id": "plan-after-design-md",
+      "prompt": "Use our DESIGN.md to plan a dashboard redesign with filters, queue state, selected item detail, empty/error/loading states, and mobile behavior.",
+      "expected_output": "Plans from DESIGN.md, classifies the surface as product UI, covers states and responsive behavior, and sends the plan to design-reviewer before implementation.",
       "should_trigger": true,
       "assertions": [
-        "The layout supports queue triage and selected-item review as the primary job",
-        "Loading, empty, error, selected, and responsive states are addressed"
+        "The plan is explicitly grounded in DESIGN.md",
+        "Operational states and reviewer gating are included before implementation"
       ],
-      "tags": ["build", "dashboard", "workflow"]
+      "tags": ["plan", "dashboard", "review-loop"]
     },
     {
-      "id": "logo-and-hero-overlap-review",
-      "prompt": "Review this portfolio hero screenshot where the logo feels amateur and a translucent skill card overlaps the portrait. Recommend final design adjustments.",
-      "expected_output": "Should trigger design-engineer, run logo consultant and final visual QA checks, treat overlap/occlusion as high priority, and ask for rendered screenshot review if final inspection cannot be performed.",
+      "id": "implement-with-review-loop",
+      "prompt": "Implement the approved plan for the landing page and keep iterating until the design review passes.",
+      "expected_output": "Implements in the existing frontend stack, verifies rendered desktop/mobile behavior when possible, runs the scanner where relevant, and loops through design-reviewer until pass or a real blocker is named.",
       "should_trigger": true,
       "assertions": [
-        "Portrait occlusion and logo legibility are treated as material visual risks",
-        "The response asks for or reports rendered mobile and desktop evidence"
+        "Implementation follows an approved plan and existing stack conventions",
+        "Final completion depends on rendered checks and a design-reviewer verdict"
       ],
-      "tags": ["logo", "visual-qa", "responsive"]
+      "tags": ["implementation", "visual-qa", "loop"]
     },
     {
-      "id": "production-token-hardening",
-      "prompt": "Our Next/Tailwind app still feels like default shadcn. Make the design system production ready for a B2B billing operations dashboard: tokens, components, states, and verification plan.",
-      "expected_output": "Defines semantic token roles, component contracts, state inventory, responsive/content limits, shadcn/Tailwind hardening steps, and concrete verification gates rather than only aesthetic advice.",
+      "id": "document-existing-system",
+      "prompt": "Audit the current app, examples, colors, typography, and component tech, then create a DESIGN.md that future agents can follow.",
+      "expected_output": "Inspects current UI, source files, tokens, colors, typography, components, and technology before writing a compact DESIGN.md with source-of-truth notes.",
       "should_trigger": true,
       "assertions": [
-        "Semantic tokens and component behavior are defined beyond color changes",
-        "The plan includes content limits, state coverage, and visual verification"
+        "Current colors, typography, components, and technology are inspected",
+        "The resulting DESIGN.md contains reusable rules and source-of-truth references"
       ],
-      "tags": ["design-system", "tokens", "shadcn", "production"]
+      "tags": ["documentation", "design-system"]
     },
     {
-      "id": "build-public-product-page",
-      "prompt": "Build a landing page for a hardware product using the existing React app. The first viewport must show the actual product, avoid generic feature cards, and pass mobile visual QA.",
-      "expected_output": "Chooses a product-specific direction, uses real or generated product media, avoids default marketing structure, defines responsive behavior and states, and verifies desktop/mobile renderings.",
+      "id": "de-genericize-ai-ui",
+      "prompt": "This shadcn/Tailwind homepage looks AI-generated. Build a less generic version using a real visual direction, not just another default palette.",
+      "expected_output": "Uses interview or explicit assumptions to choose a product-specific direction, documents it in DESIGN.md, avoids common AI tells, and verifies with scanner plus rendered review when possible.",
       "should_trigger": true,
       "assertions": [
-        "The first viewport presents the actual product or a credible product artifact",
-        "Desktop and mobile rendering checks are part of completion"
+        "The replacement direction is specific to the product rather than another generic default",
+        "Common AI-looking visual tells are checked with both scanner and rendered review"
       ],
-      "tags": ["build", "landing-page", "visual-qa"]
+      "tags": ["tailwind", "ai-slop", "build"]
     },
     {
-      "id": "component-contract-review",
-      "prompt": "Review this button/input/dialog component set for production readiness. I care about focus, disabled, loading, validation, long labels, and mobile overflow.",
-      "expected_output": "Reviews component contracts, accessibility, state coverage, content limits, responsive behavior, token usage, and verification steps with prioritized findings.",
+      "id": "brand-vs-product-register",
+      "prompt": "Design both the public homepage and the internal billing operations screen. They should not use the same visual rules.",
+      "expected_output": "Classifies homepage as brand and billing operations as product, records route-level differences in DESIGN.md, and plans distinct layout, density, copy, and motion rules.",
       "should_trigger": true,
       "assertions": [
-        "Focus, disabled, loading, validation, and overflow states are reviewed",
-        "Findings include content limits and accessible verification steps"
+        "Brand and product registers are distinguished before styling",
+        "DESIGN.md captures route-level differences rather than forcing one look everywhere"
       ],
-      "tags": ["components", "accessibility", "states"]
+      "tags": ["register", "brand", "product"]
     },
     {
-      "id": "redesign-with-product-context",
-      "prompt": "Redesign this public product page in our repo. Use company.md and DESIGN.md if present, preserve the working product flow, and make it less generic.",
-      "expected_output": "Reads durable design context when available, classifies the interface register, preserves useful information architecture, replaces generic defaults with product-specific choices, and runs final preflight checks.",
-      "should_trigger": true,
-      "assertions": [
-        "The response uses product or design context before choosing a direction",
-        "Final preflight includes rendered, responsive, overflow, and visual-tell checks"
-      ],
-      "tags": ["redesign", "context", "preflight"]
-    },
-    {
-      "id": "browser-rendered-qa",
-      "prompt": "After implementing the dashboard UI, verify it in the browser on desktop and mobile and report any overlap, clipping, unreadable text, or missing states.",
-      "expected_output": "Uses rendered browser or screenshot evidence when possible, checks desktop and narrow mobile, and names unverified states instead of claiming final QA without evidence.",
-      "should_trigger": true,
-      "assertions": [
-        "Rendered desktop and mobile checks are part of the completion criteria",
-        "Unverified visual states or missing browser evidence are reported plainly"
-      ],
-      "tags": ["visual-qa", "browser", "responsive"]
-    },
-    {
-      "id": "near-miss-api-refactor",
-      "prompt": "Refactor this API client to retry 429 responses with exponential backoff.",
-      "expected_output": "Should not require design-engineer; this is ordinary implementation or DevOps/runtime behavior.",
+      "id": "near-miss-code-only",
+      "prompt": "Fix the retry logic in our API client and add a regression test.",
+      "expected_output": "Should not require design-engineer because this is non-visual frontend or backend implementation.",
       "should_trigger": false,
-      "tags": ["near-miss"]
+      "tags": ["near-miss", "code"]
     },
     {
-      "id": "near-miss-database-schema",
-      "prompt": "Design a normalized database schema for subscription invoices and payment attempts.",
-      "expected_output": "Should not require design-engineer; this is data modeling or software architecture unless a UI surface is requested.",
+      "id": "near-miss-standalone-review",
+      "prompt": "Review this completed homepage screenshot and tell me whether the design passes or fails.",
+      "expected_output": "Should prefer design-reviewer because the user asks for standalone critique and pass/fail review, not creation or implementation.",
       "should_trigger": false,
-      "tags": ["near-miss", "architecture"]
+      "tags": ["near-miss", "review"]
     }
   ]
 }
