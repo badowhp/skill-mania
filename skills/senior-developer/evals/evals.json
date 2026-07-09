@@ -35,6 +35,28 @@
       "tags": ["debugging", "regression"]
     },
     {
+      "id": "async-concurrency-fix",
+      "prompt": "Fix this async job processor race where retries sometimes double-charge users. Keep the patch scoped and verify the behavior.",
+      "expected_output": "Inspects ownership, idempotency, ordering, retry, timeout, and shared-state assumptions before patching, then verifies with a targeted regression check.",
+      "should_trigger": true,
+      "assertions": [
+        "Concurrency and idempotency assumptions are identified before editing",
+        "Verification targets the double-charge regression rather than only linting"
+      ],
+      "tags": ["async", "concurrency", "regression"]
+    },
+    {
+      "id": "data-migration-compatibility",
+      "prompt": "Implement a small data-shape migration that renames a user preference field while keeping old saved records working.",
+      "expected_output": "Preserves compatibility for old and new data, defines rollback or forward-fix behavior, keeps scope local, and verifies both data paths.",
+      "should_trigger": true,
+      "assertions": [
+        "Old and new data shapes are both considered",
+        "Rollback or forward-fix behavior is addressed"
+      ],
+      "tags": ["migration", "compatibility"]
+    },
+    {
       "id": "near-miss-threat-model",
       "prompt": "Threat-model a new webhook endpoint and decide whether replay protection is sufficient.",
       "expected_output": "Should route to security-engineer because attacker behavior and trust boundaries are central.",

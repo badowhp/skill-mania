@@ -1,0 +1,63 @@
+{
+  "skill_name": "skill-curator",
+  "evals": [
+    {
+      "id": "top-skills-review",
+      "prompt": "Find the top agent skills and plugins this repo should learn from. Compare them against our current skills and recommend what to add, adapt, or reject.",
+      "expected_output": "Uses current external evidence, compares against local coverage, separates add/adapt/reject decisions, and includes trust/licensing gaps.",
+      "should_trigger": true,
+      "assertions": [
+        "Recommendations are based on inspected external skill or plugin sources",
+        "Each candidate has an add, adapt, borrow, reject, or monitor decision"
+      ],
+      "tags": ["discovery", "comparison"]
+    },
+    {
+      "id": "plugin-install-vetting",
+      "prompt": "Should I install this Claude plugin that exposes browser automation, shell commands, and a default prompt? Review the manifest and risks first.",
+      "expected_output": "Reviews manifest permissions, tool authority, install/update path, data exposure, and recommends install, sandbox, adapt, or reject.",
+      "should_trigger": true,
+      "assertions": [
+        "Shell, browser, network, and data boundaries are inspected before install advice",
+        "The recommendation distinguishes instruction value from plugin authority risk"
+      ],
+      "tags": ["plugin", "risk"]
+    },
+    {
+      "id": "skill-quality-audit",
+      "prompt": "Audit this SKILL.md for over-triggering, vague guidance, missing references, missing evals, and whether it overlaps with senior-developer.",
+      "expected_output": "Reviews trigger precision, specificity, progressive disclosure, eval coverage, overlap, and concrete changes.",
+      "should_trigger": true,
+      "assertions": [
+        "Over-triggering and overlap with existing skills are treated as first-class issues",
+        "The audit produces concrete local edits rather than generic writing advice"
+      ],
+      "tags": ["audit", "skill-quality"]
+    },
+    {
+      "id": "marketplace-metadata",
+      "prompt": "Improve the marketplace metadata for our skill collection so users understand which skills are included and when to use them.",
+      "expected_output": "Reviews display metadata, default prompts, coverage claims, capability descriptions, and avoids claiming unsupported behavior.",
+      "should_trigger": true,
+      "assertions": [
+        "Metadata is aligned with actual local skill inventory",
+        "Unsupported or overly broad capability claims are avoided"
+      ],
+      "tags": ["metadata", "marketplace"]
+    },
+    {
+      "id": "near-miss-create-one-skill",
+      "prompt": "Create a new skill for PostgreSQL query tuning with references and evals.",
+      "expected_output": "Should route to skill-creator because the user is authoring a specific new skill rather than curating external skills or plugins.",
+      "should_trigger": false,
+      "tags": ["near-miss", "skill-authoring"]
+    },
+    {
+      "id": "near-miss-code-review",
+      "prompt": "Review this pull request for correctness, maintainability, and missing tests.",
+      "expected_output": "Should not require skill-curator; senior-developer is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss", "code-review"]
+    }
+  ]
+}

@@ -35,6 +35,39 @@
       "tags": ["api", "contracts"]
     },
     {
+      "id": "event-driven-integration",
+      "prompt": "Decide whether order updates should use synchronous APIs, pub/sub events, or an outbox pattern. Include ordering, replay, and dead-letter handling.",
+      "expected_output": "Compares simpler synchronous contracts against event-driven options, defines event ownership, idempotency, ordering, replay, dead letters, and observability.",
+      "should_trigger": true,
+      "assertions": [
+        "Event-driven design is justified against simpler synchronous alternatives",
+        "Outbox, idempotency, ordering, and dead-letter behavior are addressed"
+      ],
+      "tags": ["events", "integration"]
+    },
+    {
+      "id": "saas-tenancy-design",
+      "prompt": "Design the account, workspace, tenant, role, and entitlement model for a B2B SaaS app that supports enterprise customers.",
+      "expected_output": "Defines tenant boundaries, user membership, data ownership, entitlement enforcement, support access, reporting, and migration tradeoffs.",
+      "should_trigger": true,
+      "assertions": [
+        "Tenant identity and data ownership are explicit",
+        "Entitlements and support/admin access are covered across boundaries"
+      ],
+      "tags": ["saas", "tenancy"]
+    },
+    {
+      "id": "reject-unneeded-microservices",
+      "prompt": "We have one team and a small billing module. Should we split it into five microservices now to prepare for scale?",
+      "expected_output": "Challenges unnecessary microservices, recommends the simplest architecture that fits current ownership and scale, and names what evidence would justify splitting later.",
+      "should_trigger": true,
+      "assertions": [
+        "Microservices are not recommended without concrete ownership or scale pressure",
+        "Future split criteria are named without overbuilding now"
+      ],
+      "tags": ["boundaries", "yagni"]
+    },
+    {
       "id": "near-miss-css-audit",
       "prompt": "Audit our Tailwind landing page for generic AI-looking design.",
       "expected_output": "Should not require software-architect; design-engineer is a better fit.",

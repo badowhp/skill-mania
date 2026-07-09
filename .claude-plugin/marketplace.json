@@ -9,7 +9,7 @@
       "name": "skill-mania",
       "displayName": "Skill Mania",
       "source": "./plugins/skill-mania",
-      "description": "Portable Agent Skills collection for Claude Code, Codex, and GitHub Copilot.",
+      "description": "Portable Agent Skills collection for Claude Code, Codex, and GitHub Copilot: engineering, testing, design, security, SEO/GEO, writing, skill curation, and context maintenance.",
       "category": "productivity",
       "tags": ["agent-skills", "codex", "claude-code", "github-copilot"],
       "homepage": "https://github.com/badowhp/skill-mania"

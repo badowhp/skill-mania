@@ -35,6 +35,28 @@
       "tags": ["migration", "redirects"]
     },
     {
+      "id": "local-ecommerce-hreflang",
+      "prompt": "Audit our multi-location ecommerce pages for product schema, local store signals, hreflang, canonical variants, reviews, and Merchant Center parity.",
+      "expected_output": "Covers local and ecommerce structured data, variant/canonical handling, hreflang, review authenticity, store/location pages, feed parity, and validation steps.",
+      "should_trigger": true,
+      "assertions": [
+        "Local, ecommerce, hreflang, and canonical variant issues are separated",
+        "Review and merchant-feed claims are kept authentic and verifiable"
+      ],
+      "tags": ["local", "ecommerce", "hreflang"]
+    },
+    {
+      "id": "rendered-html-extraction",
+      "prompt": "Check this built HTML file for title, description, canonical, robots, hreflang, Open Graph, and JSON-LD before launch.",
+      "expected_output": "Uses raw rendered HTML evidence or the extraction helper, reports exact extracted tags, and names missing validation for sitemap/headers/Search Console if unavailable.",
+      "should_trigger": true,
+      "assertions": [
+        "Rendered HTML signals are inspected directly",
+        "Missing header, sitemap, or Search Console evidence is named as residual risk"
+      ],
+      "tags": ["technical-seo", "html", "launch"]
+    },
+    {
       "id": "near-miss-logo-design",
       "prompt": "Make this app icon and landing page hero look less generic and fix the overlapping card on mobile.",
       "expected_output": "Should not require seo-geo; design-engineer is a better fit unless search visibility or metadata is central.",

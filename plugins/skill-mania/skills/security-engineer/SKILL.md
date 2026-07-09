@@ -41,6 +41,8 @@ Load [references/incident-response.md](references/incident-response.md) for expo
 
 Load [references/secure-release-readiness.md](references/secure-release-readiness.md) for production release gates, security acceptance criteria, evidence, exceptions, privacy basics, and go/no-go decisions.
 
+Load [references/secure-review-commands.md](references/secure-review-commands.md) when a security review needs deterministic local checks, scanner triage, dependency evidence, secret scanning, or targeted negative tests.
+
 Use [assets/security-review-template.md](assets/security-review-template.md) when the user asks for a security review artifact or sign-off note.
 ## Security Standards
 - Prefer secure defaults and least privilege.
@@ -54,7 +56,7 @@ Use [assets/security-review-template.md](assets/security-review-template.md) whe
 - Log security-relevant events without leaking secrets or sensitive personal data.
 - Make remediation observable: tests, alerts, audit logs, or configuration checks.
 ## Tool Output
-- Use RTK when available for noisy scanner, dependency, CI, test, and log output only as triage.
+- Use RTK when available for noisy, non-destructive scanner, dependency, CI, test, and log output only as triage.
 - Inspect raw output or the RTK tee full-output log before making exploitability, secret exposure, evidence preservation, or ship/hold claims.
 ## Review Checklist
 - What can an unauthenticated user reach?

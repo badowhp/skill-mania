@@ -1,7 +1,6 @@
 ---
 name: ponytail
 description: "Implementation-scope overlay for the laziest solution that actually works: simplest, shortest, minimal, YAGNI. Use when the user says ponytail, be lazy, lazy mode, simplest solution, minimal solution, YAGNI, do less, shortest path, or complains about over-engineering, bloat, boilerplate, or unnecessary dependencies. Do not use for terse output alone; use caveman for that. Supports lite, full (default), and ultra."
-license: LICENSE.txt
 ---
 # Ponytail
 Based on the MIT-licensed Ponytail skill by Dietrich Gebert at upstream commit `1b2760d384c44e573a9d8c7a729fac616e5c3a76`: https://github.com/DietrichGebert/ponytail/blob/1b2760d384c44e573a9d8c7a729fac616e5c3a76/skills/ponytail/SKILL.md. See `LICENSE.txt`.
@@ -37,7 +36,7 @@ For bug fixes, fix the root cause, not the named symptom. Before editing a share
 - Keep the diff to the fewest files that solve the real problem.
 - For a complex request, ship the lazy version and question the extra scope in the same response.
 - If two standard options are the same size, choose the one that is correct on edge cases.
-- Use RTK for noisy command output when available, but do not let filtered output justify skipping evidence.
+- Use RTK for noisy, non-destructive command output when available, but do not let filtered output justify skipping evidence.
 - Mark deliberate simplifications with a `ponytail:` comment only when the shortcut has a real ceiling and future maintainers need to know the upgrade path.
 ## Output
 Put code first. Then use at most three short lines:

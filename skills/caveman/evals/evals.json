@@ -35,6 +35,17 @@
       "tags": ["brevity", "review"]
     },
     {
+      "id": "terse-with-citations",
+      "prompt": "Keep it short: what changed in the latest OpenAI API docs for structured outputs? Include sources.",
+      "expected_output": "Uses a terse answer while preserving required current-source verification and source links.",
+      "should_trigger": true,
+      "assertions": [
+        "The answer remains compact without dropping citations",
+        "Current-source uncertainty is handled instead of relying on stale memory"
+      ],
+      "tags": ["brevity", "citations"]
+    },
+    {
       "id": "near-miss-minimal-implementation",
       "prompt": "Ponytail ultra: implement the smallest parser that handles this input format.",
       "expected_output": "Should not require caveman unless the user asks for terse output; ponytail is a better fit for minimal implementation scope.",

@@ -35,6 +35,28 @@
       "tags": ["ai-slop", "revision"]
     },
     {
+      "id": "technical-docs-edit",
+      "prompt": "Rewrite this README install section so it is accurate, direct, and easier to follow. Preserve commands and warnings.",
+      "expected_output": "Preserves technical facts and commands, leads with reader task completion, separates prerequisites/setup/verification, and removes vague hype.",
+      "should_trigger": true,
+      "assertions": [
+        "Commands and warnings are preserved unless clearly wrong",
+        "The revision improves task flow rather than only changing tone"
+      ],
+      "tags": ["technical-docs", "readme"]
+    },
+    {
+      "id": "line-edit-only",
+      "prompt": "Line edit this paragraph only. Do not restructure the article or rewrite the voice.",
+      "expected_output": "Limits intervention to line-level clarity, rhythm, and precision while preserving structure and voice.",
+      "should_trigger": true,
+      "assertions": [
+        "The response does not perform a broader structural rewrite",
+        "The author's voice is preserved while tightening prose"
+      ],
+      "tags": ["line-edit", "scope"]
+    },
+    {
       "id": "near-miss-terraform",
       "prompt": "Summarize the risk in this Terraform plan before production apply.",
       "expected_output": "Should not require writing-assistant; senior-devops-engineer is a better fit.",

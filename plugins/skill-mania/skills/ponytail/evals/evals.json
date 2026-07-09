@@ -35,6 +35,17 @@
       "tags": ["reuse", "dependencies"]
     },
     {
+      "id": "do-not-simplify-safety",
+      "prompt": "Ponytail ultra: remove anything unnecessary from this upload endpoint, but do not weaken validation, security, accessibility, or explicitly requested behavior.",
+      "expected_output": "Minimizes scope while preserving trust-boundary validation, security controls, required behavior, and meaningful verification.",
+      "should_trigger": true,
+      "assertions": [
+        "Input validation and security controls are not removed for minimality",
+        "The skipped scope line does not treat required behavior as optional"
+      ],
+      "tags": ["safety", "minimal"]
+    },
+    {
       "id": "near-miss-full-architecture",
       "prompt": "Design a multi-region event-driven platform with an ADR and migration plan.",
       "expected_output": "Should not require ponytail unless the user explicitly asks for minimality; software-architect is a better fit.",

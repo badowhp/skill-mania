@@ -41,6 +41,10 @@ Load [references/migration-planning.md](references/migration-planning.md) for st
 
 Load [references/production-readiness.md](references/production-readiness.md) for non-functional requirements, operability, resilience, governance, ownership, adoption, and enterprise-readiness review.
 
+Load [references/event-driven-integration.md](references/event-driven-integration.md) for queues, streams, pub/sub, webhooks, sagas, outbox/inbox, idempotency, ordering, backpressure, and eventual consistency.
+
+Load [references/saas-tenancy.md](references/saas-tenancy.md) for tenant isolation, account hierarchy, plans, entitlements, data partitioning, reporting, migrations, and compliance-sensitive SaaS boundaries.
+
 Use [assets/adr-template.md](assets/adr-template.md) when the user asks for an ADR, decision record, or durable architecture note.
 
 Use [assets/architecture-review-template.md](assets/architecture-review-template.md) when the user asks for a production architecture review artifact.
@@ -61,7 +65,7 @@ Use [assets/architecture-review-template.md](assets/architecture-review-template
 - Can the system be deployed, observed, migrated, and rolled back?
 - What will be hardest to change later?
 ## Tool Output
-- Use RTK when available for verbose read-only, build, lint, test, log, or review commands.
+- Use RTK when available for verbose, non-destructive evidence-gathering commands such as read-only, build, lint, test, log, or review commands.
 - Inspect raw output or the RTK tee full-output log before making architecture, migration, production-readiness, or ship/hold claims that depend on exact evidence.
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.

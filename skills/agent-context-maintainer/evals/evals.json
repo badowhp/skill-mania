@@ -1,0 +1,63 @@
+{
+  "skill_name": "agent-context-maintainer",
+  "evals": [
+    {
+      "id": "agents-md-cleanup",
+      "prompt": "Audit AGENTS.md and remove stale one-off task notes while preserving durable repo commands and gotchas.",
+      "expected_output": "Identifies stale versus durable guidance, edits the canonical context file, preserves commands, and reports validation gaps.",
+      "should_trigger": true,
+      "assertions": [
+        "Durable repo commands and release paths are preserved",
+        "Temporary or stale task-specific instructions are removed or moved"
+      ],
+      "tags": ["agents-md", "cleanup"]
+    },
+    {
+      "id": "cross-agent-conflict",
+      "prompt": "CLAUDE.md says to duplicate skills into the plugin folder, but AGENTS.md says to sync packaged copies. Resolve the conflict safely.",
+      "expected_output": "Finds the canonical source, updates conflicting context, avoids manual package edits, and includes sync/validation commands.",
+      "should_trigger": true,
+      "assertions": [
+        "The packaged copy is treated as generated when repo guidance says so",
+        "The final recommendation includes validation after sync"
+      ],
+      "tags": ["conflict", "packaging"]
+    },
+    {
+      "id": "skill-metadata-fix",
+      "prompt": "Fix our Codex skill metadata: some default prompts do not include the required $skill-name trigger and short descriptions are too vague.",
+      "expected_output": "Reviews agents/openai.yaml metadata, fixes exact skill trigger prompts, improves descriptions, and runs skill validation.",
+      "should_trigger": true,
+      "assertions": [
+        "Default prompts include exact skill trigger tokens",
+        "Metadata changes are validated with the repo's skill validator"
+      ],
+      "tags": ["metadata", "codex"]
+    },
+    {
+      "id": "plugin-manifest-update",
+      "prompt": "Update the plugin manifest and marketplace description after adding new skills, without overstating capabilities.",
+      "expected_output": "Aligns manifest descriptions and default prompts with actual skill inventory, avoids unsupported claims, syncs packaged copies, and validates.",
+      "should_trigger": true,
+      "assertions": [
+        "The manifest reflects the actual local skill inventory",
+        "Unsupported capabilities are not claimed"
+      ],
+      "tags": ["plugin", "manifest"]
+    },
+    {
+      "id": "near-miss-ordinary-code-refactor",
+      "prompt": "Refactor this module to share validation logic and add a unit test.",
+      "expected_output": "Should not require agent-context-maintainer; senior-developer or testing-engineer is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss", "code"]
+    },
+    {
+      "id": "near-miss-prose-edit",
+      "prompt": "Rewrite this blog post for a sharper voice and fewer generic phrases.",
+      "expected_output": "Should not require agent-context-maintainer; writing-assistant is a better fit.",
+      "should_trigger": false,
+      "tags": ["near-miss", "writing"]
+    }
+  ]
+}

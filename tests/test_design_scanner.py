@@ -117,6 +117,40 @@ class DesignScannerTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertEqual(json.loads(result.stdout)["findings"], [])
 
+    def test_additional_ai_ui_tells_are_reported(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture = Path(tmp) / "Hero.tsx"
+            fixture.write_text(
+                "\n".join(
+                    [
+                        "window.addEventListener('scroll', () => {})",
+                        "export const name = 'John Doe'",
+                        "export const eyebrow = '001 / Platform'",
+                        "export const media = 'fake screenshot'",
+                        "export const className = 'h-screen cursor-none transition-all border-l-4'",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+
+            result = subprocess.run(
+                ["node", str(SCANNER), "--json", tmp],
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            ids = {finding["id"] for finding in json.loads(result.stdout)["findings"]}
+            self.assertIn("scroll-listener", ids)
+            self.assertIn("placeholder-persona", ids)
+            self.assertIn("section-number-eyebrow", ids)
+            self.assertIn("fake-screenshot", ids)
+            self.assertIn("viewport-height-hero", ids)
+            self.assertIn("custom-cursor", ids)
+            self.assertIn("transition-all", ids)
+            self.assertIn("side-accent-border", ids)
+
 
 if __name__ == "__main__":
     unittest.main()

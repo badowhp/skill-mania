@@ -1,0 +1,63 @@
+{
+  "skill_name": "testing-engineer",
+  "evals": [
+    {
+      "id": "regression-test-plan",
+      "prompt": "Design regression tests for a pagination bug where page 2 repeats page 1 after a filter changes. Include the smallest useful test layers and commands.",
+      "expected_output": "Chooses focused unit or integration coverage near the pagination contract, includes the original failure condition, and reports commands plus residual gaps.",
+      "should_trigger": true,
+      "assertions": [
+        "The plan captures the original failure condition before broad E2E coverage",
+        "The recommended test layer is tied to the behavior boundary"
+      ],
+      "tags": ["regression", "test-plan"]
+    },
+    {
+      "id": "playwright-critical-flow",
+      "prompt": "Add Playwright coverage for checkout: logged-in user, empty cart, failed payment, mobile viewport, and accessible form errors.",
+      "expected_output": "Uses UI/browser testing guidance, stable locators, controlled data, mobile checks, error states, and no arbitrary sleeps.",
+      "should_trigger": true,
+      "assertions": [
+        "The plan covers happy, empty, failure, mobile, and accessibility-relevant states",
+        "Stable locators and deterministic waits are preferred over brittle sleeps"
+      ],
+      "tags": ["playwright", "e2e", "ui"]
+    },
+    {
+      "id": "flaky-ci-test",
+      "prompt": "This CI test fails about 1 in 20 runs around midnight and sometimes only on parallel shards. Triage and propose the stabilization path.",
+      "expected_output": "Investigates time, order dependence, parallel isolation, shared state, and CI evidence before recommending retries or quarantine.",
+      "should_trigger": true,
+      "assertions": [
+        "Time and parallel isolation are treated as likely nondeterminism sources",
+        "Retries or quarantine include owner, expiry, or residual-risk language"
+      ],
+      "tags": ["flaky", "ci"]
+    },
+    {
+      "id": "coverage-audit",
+      "prompt": "Review our test coverage before release. We have high line coverage but no tests for authorization failures, empty states, or queue retry behavior.",
+      "expected_output": "Treats coverage as a risk map, prioritizes negative and boundary tests, and recommends targeted tests rather than coverage inflation.",
+      "should_trigger": true,
+      "assertions": [
+        "High line coverage is not accepted as sufficient release evidence",
+        "Authorization, empty-state, and retry behavior gaps are prioritized"
+      ],
+      "tags": ["coverage", "release"]
+    },
+    {
+      "id": "near-miss-visual-redesign",
+      "prompt": "Make this dashboard look less generic and improve the visual hierarchy.",
+      "expected_output": "Should not require testing-engineer; design-engineer is a better fit unless test automation is requested.",
+      "should_trigger": false,
+      "tags": ["near-miss", "design"]
+    },
+    {
+      "id": "near-miss-threat-model",
+      "prompt": "Threat-model file uploads and SSRF risk for this admin endpoint.",
+      "expected_output": "Should route to security-engineer because attacker behavior and trust boundaries are central.",
+      "should_trigger": false,
+      "tags": ["near-miss", "security"]
+    }
+  ]
+}

@@ -6,7 +6,7 @@ description: "Design, build, review, or de-genericize production UI: websites, a
 Create interfaces that are chosen, usable, specific to the product, and verifiable in a browser.
 ## Core Rules
 1. Ask only when missing context would change the brand direction, user flow, or implementation architecture.
-2. Inspect the existing product, components, tokens, content, and rendered state before redesigning.
+2. Inspect the existing product, components, tokens, content, durable design context, and rendered state before redesigning.
 3. Match design effort to risk: use the simplest direction that solves the user's real workflow.
 4. Preserve existing design-system contracts unless the request intentionally changes them.
 5. Turn design decisions into concrete systems: tokens, layout primitives, components, states, content rules, and verification checks.
@@ -15,6 +15,7 @@ Create interfaces that are chosen, usable, specific to the product, and verifiab
 1. Classify the request:
    - new UI or component design
    - redesign or visual direction
+   - product, brand, landing, portfolio, or public page design
    - design-system or token work
    - UX flow, dashboard, form, or information architecture
    - audit for generic, AI-looking, or vibe-coded design
@@ -23,17 +24,20 @@ Create interfaces that are chosen, usable, specific to the product, and verifiab
    - real product, content, data, or state to show
    - one design reference, brand, screenshot, product, or named direction
    - color, type, density, motion, and accessibility constraints
-3. If context is missing but work can continue, state the assumptions and make deliberate choices. Ask only when a missing answer would change the architecture, brand direction, or user flow.
-4. Choose the production artifact before styling:
+3. Classify the interface register before styling: operational, editorial, product-inspection, creative portfolio, consumer commerce, game, internal tool, or another concrete fit.
+4. If context is missing but work can continue, state the assumptions and make deliberate choices. Ask only when a missing answer would change the architecture, brand direction, or user flow.
+5. Choose the production artifact before styling:
    - Build: implement the UI and verify it.
    - Spec: define direction, foundations, component contracts, states, and handoff notes.
    - Audit: report prioritized findings with concrete replacements and checks.
-5. Prefer real product evidence over abstract feature cards. Use screenshots, tables, data, forms, previews, maps, timelines, or operational states when they are available.
-6. Build controls and states a real user expects: empty, loading, error, disabled, selected, hover, focus, validation, mobile, and overflow.
-7. Keep layout tied to the user's task. Structure follows the workflow, not the default landing-page skeleton.
-8. Before finishing, run the Final Visual QA Gate: inspect rendered desktop and mobile states for responsive fit, text overflow, clipping, incoherent overlap, focal-point collisions, hidden actions, missing hierarchy, and unintentional default visual tells. If you cannot inspect a rendered UI, ask for a screenshot or user review for final adjustments, or clearly mark visual QA as unverified.
+6. Prefer real product evidence over abstract feature cards. Use screenshots, tables, data, forms, previews, maps, timelines, or operational states when they are available.
+7. Build controls and states a real user expects: empty, loading, error, disabled, selected, hover, focus, validation, mobile, and overflow.
+8. Keep layout tied to the user's task. Structure follows the workflow, not the default landing-page skeleton.
+9. Before finishing, run the Final Visual QA Gate: inspect rendered desktop and mobile states for responsive fit, text overflow, clipping, incoherent overlap, focal-point collisions, hidden actions, missing hierarchy, and unintentional default visual tells. If you cannot inspect a rendered UI, ask for a screenshot or user review for final adjustments, or clearly mark visual QA as unverified.
 ## Company Context
 When repo work touches UI, brand, product positioning, public pages, accessibility, or content conventions, read root `company.md` if present. Follow its audience, voice, visual, component, analytics, localization, and accessibility guidance unless higher-priority instructions or usability conflict.
+
+Also read root `PRODUCT.md`, `DESIGN.md`, brand guidelines, or screenshot notes when present and directly relevant. Use them as evidence, not as permission to ignore rendered usability problems.
 ## Reference Map
 Load [references/production-design-system.md](references/production-design-system.md) for design-system, token, component library, shadcn/Tailwind theming, production-readiness, or handoff work.
 
@@ -44,8 +48,11 @@ Load [references/deliberate-design-process.md](references/deliberate-design-proc
 Load [references/ui-audit-examples.md](references/ui-audit-examples.md) to turn audit findings into concrete UI replacements or before/after recommendations.
 
 Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for logos, marks, branded heroes, final public UI review, screenshot audits, overlap, occlusion, cropped focal points, or weak brand craft.
+
+Load [references/final-preflight.md](references/final-preflight.md) before closing substantial UI implementation, redesign, public-page work, or screenshot-driven review.
 ## Design Standards
 - Start from the user, product, and content. Generic aesthetics are a failure mode, not a neutral baseline.
+- State the interface register in product terms before making strong visual choices.
 - Use an explicit type system, color system, spacing scale, radius scale, elevation/shadow model, icon style, motion rules, and component state model.
 - Avoid one-note palettes. A mature interface has hierarchy, restraint, and enough contrast between surfaces, actions, and data.
 - Avoid oversized type inside compact tools, dashboards, cards, sidebars, and controls.
@@ -62,9 +69,11 @@ Load [references/brand-and-visual-qa.md](references/brand-and-visual-qa.md) for 
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that those tells are release-blocking for the surface under review.
 - Add `design-tell-ignore` on a source line only for a reviewed, intentional exception; the comment should make the product or brand reason clear.
 - Treat scanner output as a prioritization input. Final design decisions still require product context, screenshots, and responsive inspection.
-- Use RTK when available to keep scanner, build, lint, or test output compact. Do not substitute filtered logs for rendered visual QA.
+- Use RTK when available to keep noisy, non-destructive scanner, build, lint, or test output compact. Do not substitute filtered logs for rendered visual QA.
 ## Build Mode
 When building a UI, state the chosen direction briefly if the user did not provide one. Include the reason in terms of product and audience, not taste words like "modern" or "clean."
+
+When redesigning an existing surface, preserve working information architecture, data density, and learned user paths unless the request or evidence justifies changing them. Name the deliberate departures.
 
 For frontend implementation:
 
@@ -90,7 +99,7 @@ For production UI work, do not rely on static code review alone when a rendered 
 
 - Run the relevant build, lint, typecheck, storybook, or app-specific command when available.
 - Run the design scanner on changed UI files or the surface under review when the project uses Tailwind, shadcn, generated CSS, or public marketing UI.
-- Inspect at least one desktop and one narrow mobile viewport. Add 320px and 200% zoom checks for public pages, dense tools, and likely wrapping risk.
+- Inspect at least one desktop and one narrow mobile viewport with browser automation or screenshots when possible. Add 320px and 200% zoom checks for public pages, dense tools, and likely wrapping risk.
 - Use real, worst-case, empty, loading, error, and long-content states when they are cheap to create.
 - If a check cannot run, name the missing check and the exact residual risk.
 ## Honest Opinion

@@ -19,6 +19,7 @@ Before returning reader-facing text, remove unchosen default phrasing, assistant
    - reviewing a chapter or full manuscript
    - preparing publishing copy such as subtitle, blurb, metadata, or launch text
    - checking Kindle/KDP readiness
+   - editing technical docs, README text, release notes, support copy, or product docs
 2. Infer the operating context:
    - genre
    - language
@@ -62,13 +63,15 @@ Load [references/publishing-copy.md](references/publishing-copy.md) for titles, 
 Load [references/kdp-readiness.md](references/kdp-readiness.md) for Kindle/KDP readiness, front matter, Look Inside, categories, pricing, metadata, and platform-sensitive checks.
 
 Load [references/ai-slop-text.md](references/ai-slop-text.md) for human-read prose, requests mentioning AI-written/ChatGPT-ish/robotic/generic/slop/de-slop/human voice, or final quality checks on generated or heavily assisted text.
+
+Load [references/technical-docs.md](references/technical-docs.md) for README, docs, release notes, changelogs, support articles, migration guides, and developer-facing prose where accuracy and usability matter more than style.
 ## Bundled Helpers
 - Use `scripts/scan-ai-slop-text.py` for deterministic lexical scans of local prose files.
 - Use `--json` when another tool or CI job should consume findings.
 - Use `--fail-on medium` or `--fail-on high` only when the team has agreed that AI-slop tells are release-blocking for the text under review.
 - Use `ai-slop-ignore` only for an intentional, reviewed phrase or punctuation choice. Do not use it to silence broad sections without reading them.
 - Treat scanner output as the first pass only. Structural tells still need a human read for rhythm, claim, specificity, and voice.
-- Use RTK when available for scanner output on large local prose sets. Do not replace editorial reading with filtered command output.
+- Use RTK when available for non-destructive scanner output on large local prose sets. Do not replace editorial reading with filtered command output.
 ## Modes
 ### Drafting
 - Match the requested tone, genre, and audience; if underspecified, make the smallest reasonable assumptions.
@@ -104,6 +107,12 @@ Load [references/ai-slop-text.md](references/ai-slop-text.md) for human-read pro
 - Check opening pages: do they establish voice and deliver on the book's promise quickly?
 - Distinguish editorial quality issues (prose, structure) from file-formatting issues (metadata, TOC, front matter). Address them in order.
 - Strip generic marketing claims and assistant-shaped phrasing from reader-facing copy.
+### Technical Docs
+- Preserve technical facts, commands, compatibility notes, and warnings unless the source is demonstrably wrong.
+- Lead with what the reader can do, what changed, or what decision they need to make.
+- Replace vague "easy/simple/seamless" claims with exact prerequisites, commands, outcomes, and caveats.
+- Keep examples runnable and aligned with the surrounding codebase.
+- Separate install, configuration, usage, troubleshooting, and migration steps when mixing them would cause mistakes.
 ### Creative Writing / Fiction Consultant
 Use this mode when the user wants stronger storytelling rather than generic prose cleanup.
 

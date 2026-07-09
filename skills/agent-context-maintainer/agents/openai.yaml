@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Context Maintainer"
+  short_description: "Maintain agent instructions and context"
+  default_prompt: "Use $agent-context-maintainer to audit, update, and deduplicate AGENTS.md, company.md, skill metadata, plugin manifests, and other agent context files."

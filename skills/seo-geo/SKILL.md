@@ -40,7 +40,9 @@ Load [references/local-ecommerce.md](references/local-ecommerce.md) for local bu
 
 Load [references/measurement.md](references/measurement.md) for Search Console, analytics, baselines, launch annotations, migration monitoring, traffic-loss diagnosis, and experiment reporting.
 ## Tool Output
-- Use RTK when available for verbose crawl, build, lint, test, or log output.
+- Use `scripts/extract-page-seo.py` for a quick local HTML extraction of title, meta tags, canonicals, robots directives, hreflang links, Open Graph/Twitter tags, and JSON-LD script count.
+- Use `--json` when another tool or CI job should consume extracted page signals.
+- Use RTK when available for verbose, non-destructive crawl, build, lint, test, or log output.
 - Inspect raw rendered HTML, headers, robots, sitemap, schema, and Search Console or analytics exports when exact tags, URLs, or evidence matter.
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.

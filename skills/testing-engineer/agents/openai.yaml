@@ -1,0 +1,4 @@
+interface:
+  display_name: "Testing Engineer"
+  short_description: "Test strategy and regression quality"
+  default_prompt: "Use $testing-engineer to design or improve tests, reproduce failures, cover regressions, and verify behavior with the smallest meaningful test plan."

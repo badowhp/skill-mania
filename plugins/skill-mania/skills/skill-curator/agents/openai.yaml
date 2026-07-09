@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Curator"
+  short_description: "Find and vet agent skills"
+  default_prompt: "Use $skill-curator to find, compare, and safely vet external agent skills or plugins before installing or copying them."

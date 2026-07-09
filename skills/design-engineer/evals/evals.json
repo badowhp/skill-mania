@@ -68,6 +68,28 @@
       "tags": ["components", "accessibility", "states"]
     },
     {
+      "id": "redesign-with-product-context",
+      "prompt": "Redesign this public product page in our repo. Use company.md and DESIGN.md if present, preserve the working product flow, and make it less generic.",
+      "expected_output": "Reads durable design context when available, classifies the interface register, preserves useful information architecture, replaces generic defaults with product-specific choices, and runs final preflight checks.",
+      "should_trigger": true,
+      "assertions": [
+        "The response uses product or design context before choosing a direction",
+        "Final preflight includes rendered, responsive, overflow, and visual-tell checks"
+      ],
+      "tags": ["redesign", "context", "preflight"]
+    },
+    {
+      "id": "browser-rendered-qa",
+      "prompt": "After implementing the dashboard UI, verify it in the browser on desktop and mobile and report any overlap, clipping, unreadable text, or missing states.",
+      "expected_output": "Uses rendered browser or screenshot evidence when possible, checks desktop and narrow mobile, and names unverified states instead of claiming final QA without evidence.",
+      "should_trigger": true,
+      "assertions": [
+        "Rendered desktop and mobile checks are part of the completion criteria",
+        "Unverified visual states or missing browser evidence are reported plainly"
+      ],
+      "tags": ["visual-qa", "browser", "responsive"]
+    },
+    {
       "id": "near-miss-api-refactor",
       "prompt": "Refactor this API client to retry 429 responses with exponential backoff.",
       "expected_output": "Should not require design-engineer; this is ordinary implementation or DevOps/runtime behavior.",

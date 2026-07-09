@@ -35,6 +35,28 @@
       "tags": ["ci-cd", "release"]
     },
     {
+      "id": "github-actions-hardening",
+      "prompt": "Review our GitHub Actions release workflow for permissions, OIDC, action pinning, artifacts, environments, and production approval.",
+      "expected_output": "Reviews minimal permissions, OIDC versus long-lived secrets, action pinning, artifact promotion, environment gates, and rollback evidence.",
+      "should_trigger": true,
+      "assertions": [
+        "Workflow and job token permissions are reviewed",
+        "Artifact promotion and production environment gates are addressed"
+      ],
+      "tags": ["github-actions", "ci-cd", "release"]
+    },
+    {
+      "id": "kubernetes-rollout-debug",
+      "prompt": "Troubleshoot a Kubernetes rollout where pods pass liveness but never become ready after a config change. Include rollback and validation.",
+      "expected_output": "Checks rollout status, events, readiness probes, config drift, logs, resources, and rollback to a known revision or image.",
+      "should_trigger": true,
+      "assertions": [
+        "Readiness, events, logs, and rollout status are used as evidence",
+        "Rollback uses a known revision or promoted image rather than ad hoc edits"
+      ],
+      "tags": ["kubernetes", "debugging", "rollback"]
+    },
+    {
       "id": "near-miss-manuscript",
       "prompt": "Review this manuscript chapter for pacing and reader promise.",
       "expected_output": "Should not require senior-devops-engineer; writing-assistant is a better fit.",

@@ -35,6 +35,28 @@
       "tags": ["threat-model", "webhook"]
     },
     {
+      "id": "ssrf-file-upload-review",
+      "prompt": "Review a feature that lets admins upload files by URL and stores the fetched result for later download. Focus on realistic SSRF and upload risks.",
+      "expected_output": "Analyzes URL fetch trust boundaries, private network access, redirects, content type, path/storage exposure, malware handoff, and targeted negative tests.",
+      "should_trigger": true,
+      "assertions": [
+        "SSRF private network and redirect paths are explicitly tested",
+        "Upload storage and download exposure controls are included"
+      ],
+      "tags": ["ssrf", "uploads", "web-appsec"]
+    },
+    {
+      "id": "xss-session-negative-tests",
+      "prompt": "Security-review a rich-text comments change and session refresh logic. Include local checks and negative tests.",
+      "expected_output": "Reviews dangerous HTML sinks, stored content replay, cookie/session lifecycle, CSRF-sensitive behavior, and concrete local evidence or test commands.",
+      "should_trigger": true,
+      "assertions": [
+        "Stored XSS and session lifecycle risks are both covered",
+        "The review includes deterministic local checks or targeted negative tests"
+      ],
+      "tags": ["xss", "sessions", "tests"]
+    },
+    {
       "id": "near-miss-ui-layout",
       "prompt": "Make this billing settings page feel less generic and improve the responsive layout.",
       "expected_output": "Should not require security-engineer unless sensitive data/security controls are central; design-engineer is a better fit.",

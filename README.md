@@ -9,13 +9,16 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 ## Included Skills
 
 - `caveman` - terse, factual, low-prose response mode that preserves blockers and verification gaps.
+- `agent-context-maintainer` - durable agent context, metadata, manifest, and packaged-copy hygiene.
 - `design-engineer` - frontend, product design, UX, design-system, and vibe-coded UI audit guidance.
 - `ponytail` - minimal YAGNI implementation mode based on Dietrich Gebert's Ponytail skill.
 - `security-engineer` - application security, threat modeling, vulnerability triage, and hardening guidance.
 - `seo-geo` - technical SEO, content discoverability, structured data, and generative search visibility guidance.
 - `senior-developer` - scoped implementation, debugging, refactoring, review, and maintainability guidance.
 - `senior-devops-engineer` - senior platform, DevOps, SRE, cloud infrastructure, delivery, operations, and production-readiness guidance.
+- `skill-curator` - discovery, comparison, and trust review for external skills and plugins.
 - `software-architect` - system design, service boundaries, tradeoff analysis, and migration planning.
+- `testing-engineer` - test strategy, regression coverage, Playwright/UI tests, and flaky-test triage.
 - `writing-assistant` - drafting, revision, editorial review, fiction craft, manuscript critique, publishing copy, and Kindle/KDP readiness.
 
 Bundled Codex system skills are intentionally excluded. This repository only stores user-maintained portable skills.
@@ -68,6 +71,24 @@ Use `AGENT_SKILLS_DIR=/path/to/skills` to override the shared target. GitHub Cop
 Claude Code skills install to `~/.claude/skills` by default. Override the target with `CLAUDE_SKILLS_DIR=/path/to/skills`.
 
 Use `--copy` instead of `--link` when you need an independent snapshot rather than a live link to this repository.
+
+## Optional RTK Tooling
+
+RTK is optional. When it is installed, use explicit wrappers for noisy, non-destructive commands such as `rtk git status`, `rtk test <cmd>`, and `rtk err <cmd>`.
+
+Install the global token-saving hook with:
+
+```bash
+rtk init -g --auto-patch
+```
+
+Verify hook status with:
+
+```bash
+rtk init --show
+```
+
+Treat RTK output as triage. Rerun the raw command or inspect the RTK tee full-output log before making release, security, review, or debugging decisions that depend on exact output.
 
 ## Plugin Usage
 
