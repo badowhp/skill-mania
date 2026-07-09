@@ -35,6 +35,17 @@
       "tags": ["implementation", "visual-qa", "loop"]
     },
     {
+      "id": "rework-final-signoff",
+      "prompt": "Rework this homepage because the last version looked terrible. Do not stop until the design review is actually satisfied.",
+      "expected_output": "Audits the rendered rework against the original ask and DESIGN.md, sends screenshots/scanner/build evidence to design-reviewer, fixes any FAIL or PASS WITH FIXES findings, and only closes on PASS or explicit user acceptance of named remaining defects.",
+      "should_trigger": true,
+      "assertions": [
+        "The implementation loop treats review as a blocking gate rather than optional advice",
+        "PASS WITH FIXES is not treated as final sign-off for a user-facing visual rework"
+      ],
+      "tags": ["rework", "signoff", "review-loop"]
+    },
+    {
       "id": "document-existing-system",
       "prompt": "Audit the current app, examples, colors, typography, and component tech, then create a DESIGN.md that future agents can follow.",
       "expected_output": "Inspects current UI, source files, tokens, colors, typography, components, and technology before writing a compact DESIGN.md with source-of-truth notes.",

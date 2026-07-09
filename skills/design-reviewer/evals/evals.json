@@ -59,10 +59,10 @@
     {
       "id": "missing-evidence-risk",
       "prompt": "Give final design sign-off for this checkout flow, but I only have code snippets and no rendered screenshots.",
-      "expected_output": "Refuses to claim a clean pass when rendered evidence is missing, names residual risk, and states the evidence required for final sign-off.",
+      "expected_output": "Refuses final implementation sign-off when rendered evidence is missing for user-facing visual work, names residual risk, and states the evidence required for final sign-off.",
       "should_trigger": true,
       "assertions": [
-        "Missing rendered evidence prevents an unconditional pass",
+        "Missing rendered evidence blocks final implementation sign-off",
         "The review names the exact evidence required for sign-off"
       ],
       "tags": ["evidence", "signoff"]
@@ -77,6 +77,17 @@
         "The loop decision requires applying the fixes before final pass or explicit acceptance"
       ],
       "tags": ["verdict", "loop"]
+    },
+    {
+      "id": "weak-rework-must-fail",
+      "prompt": "Review this completed homepage rework. Screenshots show a generic purple gradient hero, identical feature cards, vague SaaS copy, weak mobile hierarchy, and one clipped CTA. Decide if it passes.",
+      "expected_output": "Returns FAIL, treats the generic visual direction and mobile clipping as blocking findings, and sends the work back to DESIGN.md or implementation rather than allowing PASS WITH FIXES.",
+      "should_trigger": true,
+      "assertions": [
+        "Serious AI-looking defaults and weak hierarchy cause FAIL",
+        "Mobile clipping or hidden primary actions are blocking implementation findings"
+      ],
+      "tags": ["rework", "ai-slop", "mobile", "verdict"]
     },
     {
       "id": "near-miss-create-design",

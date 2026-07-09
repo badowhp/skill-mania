@@ -12,7 +12,7 @@ Review design work like a senior consultant: direct, evidence-based, and willing
 4. Separate strategy failures from execution failures.
 5. When review fails, name the step to repeat: interview, `DESIGN.md`, plan, or implementation.
 6. Prefer a few decisive findings over a long preference list.
-7. Treat missing rendered evidence as a risk, not a pass.
+7. Treat missing rendered evidence as a blocker for final implementation sign-off on user-facing visual work.
 
 ## Review Targets
 Classify the target first:
@@ -71,7 +71,17 @@ Check:
 - accessibility basics are intact: semantic structure, labels, keyboard, focus, contrast, reduced motion, touch targets
 - scanner or equivalent static checks were run when relevant
 
-Fail when the page cannot be visually inspected and the risk is material.
+Fail final implementation review when:
+
+- desktop and narrow mobile rendered evidence is missing for a substantial visual change
+- the first viewport does not communicate the product, task, or hierarchy clearly
+- mobile has overlap, clipping, hidden primary actions, or accidental horizontal scroll
+- the UI still reads as generic generated output: default palettes, gradient text, side accent cards, identical feature grids, nested cards, huge icon tiles, fake screenshots, vague SaaS copy, or decorative motion without a documented product reason
+- visual direction, density, media, or component behavior contradicts `DESIGN.md` or the approved plan
+- important workflow states are absent for the surface under review
+- contrast, keyboard/focus behavior, semantic labels, or touch targets are likely to fail basic use
+
+Do not average away a blocking flaw. A serious failure in layout, hierarchy, mobile behavior, accessibility, or distinctiveness means `FAIL` even if other dimensions are acceptable.
 
 ## Scoring
 Use 0 to 4 only when a score helps compare revisions:
@@ -103,7 +113,7 @@ After the verdict, name the next step:
 - apply named current-step fixes when the verdict is `PASS WITH FIXES`; this is not final sign-off for substantial work
 - ship only when the verdict is `PASS`
 
-Use `PASS WITH FIXES` only when every remaining issue is small, local, and unambiguous. Use `FAIL` when the next agent must rethink direction, plan, layout, state coverage, accessibility, or rendered behavior.
+Use `PASS WITH FIXES` only when every remaining issue is small, local, and unambiguous, and the current evidence already proves the direction and layout work. It is not final sign-off for substantial visual rework; require the fixes and another targeted review before closure unless the user explicitly accepts the named defects. Use `FAIL` when the next agent must rethink direction, plan, layout, state coverage, accessibility, distinctiveness, or rendered behavior.
 
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.

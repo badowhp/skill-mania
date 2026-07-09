@@ -10,7 +10,7 @@ Design through durable context, then build. Do not guess a visual system when th
 2. Run the interview phase before substantial design work when `DESIGN.md` is missing, stale, or too vague.
 3. Write or update `DESIGN.md` as the first artifact for new design direction. Keep it concrete enough that another agent can continue the work.
 4. Separate phases: interview, `DESIGN.md`, plan, implementation, review. Do not collapse them unless the user asks for a tiny local change and `DESIGN.md` is already fit.
-5. Route every substantial `DESIGN.md`, plan, and implementation through `design-reviewer`. If review fails, return to the step before the failed artifact and iterate.
+5. Route every substantial `DESIGN.md`, plan, and implementation through `design-reviewer`. Treat review as a gate, not commentary: a user-facing visual rework is not done until the relevant artifact gets `PASS`, or the user explicitly accepts named remaining defects.
 6. Use real product evidence: rendered pages, screenshots, existing components, product data, states, user flows, reference sites, brand assets, and actual copy.
 7. Distinguish brand surfaces from product surfaces before choosing style. Brand surfaces can be expressive; product surfaces must serve repeated task completion.
 8. Preserve existing design-system contracts unless the request intentionally changes them.
@@ -83,11 +83,12 @@ Run review after implementation:
 1. Run local quality commands available in the repo.
 2. Run the bundled `scripts/scan-design-tells.mjs` from the loaded `design-engineer` skill directory when the changed surface is static UI, Tailwind, shadcn, public UI, or likely AI-looking.
 3. Inspect rendered desktop and narrow mobile states with browser automation or screenshots when possible.
-4. Ask `design-reviewer` for a final implementation review.
-5. If review returns `FAIL`, return to implementation for execution defects. Return to plan or `DESIGN.md` when the failure is strategic.
-6. If review returns `PASS WITH FIXES`, apply the named fixes in the current step and rerun targeted verification. Do not close substantial work until the reviewer returns `PASS` or the user explicitly accepts the remaining fixes.
+4. Self-audit the rendered result against `DESIGN.md`, the plan, and the original user ask before asking for final review. Fix obvious weak hierarchy, generic AI defaults, broken mobile layout, missing states, unreadable text, and visual direction drift first.
+5. Ask `design-reviewer` for a final implementation review and provide evidence: changed surfaces, screenshot paths or live page notes, scanner output, quality-command results, states inspected, and evidence that could not be gathered.
+6. If review returns `FAIL`, return to implementation for execution defects. Return to plan or `DESIGN.md` when the failure is strategic, generic, off-brand, or structurally wrong.
+7. If review returns `PASS WITH FIXES`, apply the named fixes and rerun targeted verification plus review. Do not close user-facing visual rework on `PASS WITH FIXES`; close only on `PASS`, or when the user explicitly accepts the named remaining defects.
 
-Do not claim a pass when rendered inspection, scanner output, or review could not run. Name the missing evidence and residual risk.
+Do not claim a pass when rendered inspection, scanner output, or review could not run. Name the missing evidence and residual risk. For substantial redesigns, missing desktop or mobile rendered evidence blocks final sign-off.
 
 ## Routing Notes
 - `design-engineer` owns creation: interview, `DESIGN.md`, plan, and implementation.
