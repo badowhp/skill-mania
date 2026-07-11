@@ -9,6 +9,12 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 VISUAL_QA = REPO_ROOT / "skills" / "visual-qa" / "scripts" / "visual-qa.mjs"
+REPORT_POLICY = REPO_ROOT / "skills" / "visual-qa" / "scripts" / "report-policy.mjs"
+
+
+def write(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
 
 
 class VisualQaTests(unittest.TestCase):
@@ -67,6 +73,111 @@ class VisualQaTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 2)
         self.assertIn("must start with /", result.stderr)
+
+    def test_runtime_policy_includes_capture_and_page_errors(self) -> None:
+        source = f"""
+import {{ shouldFail }} from {json.dumps(REPORT_POLICY.as_uri())};
+const reports = [
+  {{ pages: [{{ error: "navigation failed", consoleErrors: [], pageErrors: [], failedRequests: [] }}] }},
+  {{ pages: [{{ consoleErrors: [], pageErrors: ["uncaught"], failedRequests: [] }}] }},
+  {{ pages: [{{ consoleErrors: [], pageErrors: [], failedRequests: [], horizontalOverflow: true }}] }},
+  {{ pages: [{{ consoleErrors: [], pageErrors: [], failedRequests: [] }}] }}
+];
+console.log(JSON.stringify([
+  shouldFail(reports[0], "runtime"),
+  shouldFail(reports[1], "runtime"),
+  shouldFail(reports[2], "runtime"),
+  shouldFail(reports[2], "overflow"),
+  shouldFail(reports[3], "all")
+]));
+"""
+        result = subprocess.run(
+            ["node", "--input-type=module", "--eval", source],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout), [True, True, False, True, False])
+
+    def test_capture_writes_separate_keyboard_focus_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            output = root / "evidence"
+            write(
+                root / "node_modules" / "playwright" / "index.js",
+                """const fs = require("node:fs");
+
+function makePage() {
+  let pressed = false;
+  let evaluations = 0;
+  return {
+    on() {},
+    keyboard: {
+      async press(key) {
+        if (key !== "Tab") throw new Error("expected Tab");
+        pressed = true;
+      }
+    },
+    async goto() {},
+    async screenshot({ path }) {
+      if (path.endsWith("-focus.png") && !pressed) {
+        throw new Error("focus screenshot captured before keyboard step");
+      }
+      fs.writeFileSync(path, "mock image");
+    },
+    async evaluate() {
+      evaluations += 1;
+      if (evaluations === 1) {
+        return { title: "Demo", hasPrimaryContent: true, horizontalOverflow: false };
+      }
+      if (!pressed) throw new Error("focus inspected before keyboard step");
+      return { tag: "button", visible: true };
+    }
+  };
+}
+
+module.exports = {
+  chromium: {
+    async launch() {
+      return {
+        async newContext() {
+          return {
+            async newPage() { return makePage(); },
+            async close() {}
+          };
+        },
+        async close() {}
+      };
+    }
+  }
+};
+""",
+            )
+            result = subprocess.run(
+                [
+                    "node",
+                    str(VISUAL_QA),
+                    "--url",
+                    "http://localhost:3000",
+                    "--output",
+                    str(output),
+                    "--json",
+                ],
+                cwd=root,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            report = json.loads(result.stdout)
+            self.assertEqual(len(report["pages"]), 2)
+            for page in report["pages"]:
+                self.assertTrue((output / page["screenshot"]).is_file())
+                self.assertTrue((output / page["focusScreenshot"]).is_file())
+                self.assertEqual(page["focusedElement"], {"tag": "button", "visible": True})
 
 
 if __name__ == "__main__":

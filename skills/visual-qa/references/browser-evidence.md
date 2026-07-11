@@ -9,7 +9,7 @@
 ## Minimum Matrix
 - Capture the changed route at desktop and narrow-mobile sizes.
 - Exercise the primary task and one relevant empty, loading, error, validation, permission-limited, or long-content state.
-- Inspect accidental horizontal overflow, console errors, failed requests, and a keyboard-focus step.
+- Inspect accidental horizontal overflow, page and console errors, failed requests, and a keyboard-focus step. Capture the focused state so the visible indicator can be reviewed.
 - Capture the first stable paint. Capture fallback and final content separately when streaming or loading behavior is material.
 
 ## Stable Visual Comparisons

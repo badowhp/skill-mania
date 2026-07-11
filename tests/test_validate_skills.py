@@ -69,6 +69,7 @@ name: demo
 description: Demo skill.
 license: MIT
 compatibility: Requires git.
+allowed-tools: "Bash(git:*) Read"
 metadata:
   owner: platform
   maturity: stable
@@ -81,7 +82,27 @@ metadata:
             frontmatter, _ = validator.parse_frontmatter(skill_file)
 
             self.assertEqual(frontmatter["license"], "MIT")
+            self.assertEqual(frontmatter["allowed-tools"], "Bash(git:*) Read")
             self.assertEqual(frontmatter["metadata"], {"owner": "platform", "maturity": "stable"})
+
+    def test_frontmatter_rejects_empty_allowed_tools(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_dir = Path(tmp) / "demo"
+            write(
+                skill_dir / "SKILL.md",
+                """---
+name: demo
+description: Demo skill.
+allowed-tools:
+---
+
+# Demo
+""",
+            )
+
+            errors = validator.validate_skill(skill_dir)
+
+            self.assertIn("frontmatter.allowed-tools must be a non-empty string", errors)
 
     def test_reference_routing_requires_markdown_links(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -208,6 +229,27 @@ dependencies:
             self.assertEqual(
                 errors,
                 [f"{manifest}: source must not escape repository"],
+            )
+
+    def test_plugin_component_path_requires_dot_slash_when_requested(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            repo_root = Path(tmp) / "repo"
+            base_dir = repo_root / "plugins"
+            base_dir.mkdir(parents=True)
+            manifest = base_dir / "plugin.json"
+
+            errors = validator.validate_repo_relative_path(
+                repo_root,
+                base_dir,
+                manifest,
+                "skills",
+                "skills",
+                require_dot_slash=True,
+            )
+
+            self.assertEqual(
+                errors,
+                [f"{manifest}: skills must start with './'"],
             )
 
     def test_production_skill_requires_evals(self) -> None:

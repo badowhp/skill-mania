@@ -16,7 +16,7 @@ Prove rendered behavior with small, reviewable evidence. Do not turn screenshots
 ## Workflow
 1. Inspect existing browser tools, test runners, routes, auth setup, fixtures, and app start commands.
 2. Read [references/browser-evidence.md](references/browser-evidence.md) before choosing a runner or interpreting results.
-3. When the target repository already has Playwright, run `scripts/visual-qa.mjs` from the target repository root against an explicit URL. It writes screenshots and `report.json` to the requested output directory.
+3. When the target repository already has Playwright, run `scripts/visual-qa.mjs` from the target repository root against an explicit URL. It writes base and keyboard-focus screenshots plus `report.json` to the requested output directory.
 4. Use `agent-browser`, an existing Playwright suite, or the repository's browser tooling when the bundled helper cannot run. Preserve the same evidence matrix.
 5. Send artifacts to `design-reviewer` for a visual verdict. Send functional gaps to `testing-engineer`.
 
@@ -36,7 +36,7 @@ Use RTK when available for noisy, non-destructive browser, Playwright, build, li
 
 ## Evidence To Report
 - URL, routes, viewports, browser tool, and data/auth assumptions
-- screenshot paths and `report.json`
+- base and `*-focus.png` screenshot paths plus `report.json`
 - overflow, console, network, and focus findings
 - states inspected and states that could not be produced
 - the reviewer verdict or the reason review could not run

@@ -24,13 +24,13 @@ For description tuning, expand to 10-20 realistic queries spanning:
 
 ## Cross-Skill Routing Matrix
 
-Keep high-confusion prompts in `evals/routing-matrix.json`. The matrix gives every production skill one lead case and covers the repository's known routing collisions. Validate it locally and in the release gate:
+Keep high-confusion prompts in `evals/routing-matrix.json`. The matrix gives every production domain skill at least one lead case, exercises each overlay through `overlay_skills`, and covers the repository's known routing collisions. Validate it locally and in the release gate:
 
 ```bash
 python3 scripts/validate-routing-evals.py
 ```
 
-The validator proves that every lead and near-miss skill exists and that required overlap pairs remain covered. It does not prove model selection. Run the matrix in fresh contexts for every supported host/model, record the selected lead and overlay skills, then add ambiguous prompts to the relevant skill eval manifests.
+The validator proves that every lead, near-miss, and overlay skill exists, that overlays are not modeled as domain owners, and that required overlap pairs remain covered. It does not prove model selection. Run the matrix in fresh contexts for every supported host/model, record the selected lead and overlay skills, then add ambiguous prompts to the relevant skill eval manifests.
 
 ## Comparison Run
 

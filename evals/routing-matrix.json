@@ -17,9 +17,10 @@
     {
       "id": "terse-security-review",
       "prompt": "Keep this security-review result brief and factual while preserving every critical risk and validation gap.",
-      "lead_skill": "caveman",
-      "near_miss_skills": ["security-engineer"],
-      "why": "Caveman is the output overlay; security-engineer remains the lead domain role for the underlying review."
+      "lead_skill": "security-engineer",
+      "near_miss_skills": ["senior-devops-engineer"],
+      "overlay_skills": ["caveman"],
+      "why": "Security-engineer owns the underlying review; caveman changes only the requested output shape."
     },
     {
       "id": "create-responsive-settings-ui",
@@ -52,9 +53,10 @@
     {
       "id": "minimal-bug-fix",
       "prompt": "Use the smallest correct fix for this formatter crash; do not add abstractions or dependencies.",
-      "lead_skill": "ponytail",
-      "near_miss_skills": ["senior-developer", "caveman"],
-      "why": "The user explicitly requests an implementation-scope overlay, not a generic code role or terse output."
+      "lead_skill": "senior-developer",
+      "near_miss_skills": ["testing-engineer"],
+      "overlay_skills": ["ponytail"],
+      "why": "Senior-developer owns the formatter fix; ponytail constrains it to the smallest correct implementation."
     },
     {
       "id": "ssrf-threat-model",
@@ -69,6 +71,13 @@
       "lead_skill": "senior-developer",
       "near_miss_skills": ["senior-devops-engineer", "testing-engineer"],
       "why": "The core work is application behavior; DevOps owns edge/runtime caching and testing owns test strategy."
+    },
+    {
+      "id": "cross-team-project-launch",
+      "prompt": "Plan and govern a fixed-date customer portal launch across engineering, legal, support, and marketing, including milestones, owners, risks, status, and change control.",
+      "lead_skill": "project-manager",
+      "near_miss_skills": ["software-architect", "senior-developer"],
+      "why": "Project-manager owns cross-team delivery and governance; architecture and implementation remain with their domain roles."
     },
     {
       "id": "cdn-cache-rollout",

@@ -10,12 +10,15 @@ from pathlib import Path
 
 
 REQUIRED_CASE_KEYS = ("id", "prompt", "lead_skill", "near_miss_skills", "why")
+OVERLAY_SKILLS = frozenset(("caveman", "ponytail"))
 REQUIRED_OVERLAPS = {
     frozenset(("agent-context-maintainer", "skill-curator")),
     frozenset(("austrian-law-helper", "writing-assistant")),
     frozenset(("design-engineer", "design-reviewer")),
     frozenset(("design-reviewer", "visual-qa")),
     frozenset(("gameplay-consultant", "godot-game-creation-engineer")),
+    frozenset(("project-manager", "senior-developer")),
+    frozenset(("project-manager", "software-architect")),
     frozenset(("security-engineer", "senior-devops-engineer")),
     frozenset(("senior-developer", "senior-devops-engineer")),
     frozenset(("senior-developer", "testing-engineer")),
@@ -45,12 +48,15 @@ def load_matrix(path: Path) -> tuple[dict[str, object] | None, list[str]]:
 
 def validate_matrix(data: dict[str, object], known_skills: set[str]) -> list[str]:
     errors: list[str] = []
+    domain_skills = known_skills - OVERLAY_SKILLS
+    known_overlays = known_skills & OVERLAY_SKILLS
     cases = data.get("cases")
-    if not isinstance(cases, list) or len(cases) < len(known_skills):
-        return ["cases must cover every production skill"]
+    if not isinstance(cases, list) or len(cases) < len(domain_skills):
+        return ["cases must cover every production domain skill"]
 
     seen_ids: set[str] = set()
     covered_leads: set[str] = set()
+    covered_overlays: set[str] = set()
     observed_overlaps: set[frozenset[str]] = set()
 
     for index, case in enumerate(cases):
@@ -82,12 +88,18 @@ def validate_matrix(data: dict[str, object], known_skills: set[str]) -> list[str
         if not isinstance(lead, str) or lead not in known_skills:
             errors.append(f"{prefix}.lead_skill must name a production skill")
             continue
+        if lead in OVERLAY_SKILLS:
+            errors.append(
+                f"{prefix}.lead_skill must name a domain skill; put {lead!r} in overlay_skills"
+            )
+            continue
         covered_leads.add(lead)
 
         near_misses = case.get("near_miss_skills")
         if not isinstance(near_misses, list) or not near_misses:
             errors.append(f"{prefix}.near_miss_skills must be a non-empty list")
             continue
+        seen_near_misses: set[str] = set()
         for peer in near_misses:
             if not isinstance(peer, str) or peer not in known_skills:
                 errors.append(f"{prefix}.near_miss_skills contains an unknown skill")
@@ -95,11 +107,44 @@ def validate_matrix(data: dict[str, object], known_skills: set[str]) -> list[str
             if peer == lead:
                 errors.append(f"{prefix}.near_miss_skills must not contain the lead skill")
                 continue
+            if peer in OVERLAY_SKILLS:
+                errors.append(
+                    f"{prefix}.near_miss_skills must not contain overlays; use overlay_skills"
+                )
+                continue
+            if peer in seen_near_misses:
+                errors.append(f"{prefix}.near_miss_skills must not contain duplicates")
+                continue
+            seen_near_misses.add(peer)
             observed_overlaps.add(frozenset((lead, peer)))
 
-    missing_leads = sorted(known_skills - covered_leads)
+        overlays = case.get("overlay_skills")
+        if overlays is not None:
+            if not isinstance(overlays, list) or not overlays:
+                errors.append(f"{prefix}.overlay_skills must be a non-empty list when present")
+            else:
+                seen_overlays: set[str] = set()
+                for overlay in overlays:
+                    if not isinstance(overlay, str) or overlay not in known_overlays:
+                        errors.append(
+                            f"{prefix}.overlay_skills must contain only production overlays"
+                        )
+                        continue
+                    if overlay in seen_overlays:
+                        errors.append(f"{prefix}.overlay_skills must not contain duplicates")
+                        continue
+                    seen_overlays.add(overlay)
+                    covered_overlays.add(overlay)
+
+    missing_leads = sorted(domain_skills - covered_leads)
     if missing_leads:
         errors.append(f"routing matrix is missing lead coverage for: {', '.join(missing_leads)}")
+
+    missing_overlays = sorted(known_overlays - covered_overlays)
+    if missing_overlays:
+        errors.append(
+            f"routing matrix is missing overlay coverage for: {', '.join(missing_overlays)}"
+        )
 
     missing_overlaps = REQUIRED_OVERLAPS - observed_overlaps
     if missing_overlaps:

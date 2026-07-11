@@ -10,11 +10,13 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 
 URL_RE = re.compile(r"https?://[^\s<>()`\"]+")
 TRAILING_PUNCTUATION = ".,;:!?]}"
-SKIP_HOSTS = {"localhost", "127.0.0.1"}
+# PMI serves these public pages in browsers but blocks this bounded curl checker with 403.
+SKIP_HOSTS = {"localhost", "127.0.0.1", "www.pmi.org"}
 
 
 def collect_links(root: Path) -> dict[str, list[str]]:
@@ -33,7 +35,7 @@ def collect_links(root: Path) -> dict[str, list[str]]:
             line = re.sub(r"`[^`]*`", "", line)
             for raw_url in URL_RE.findall(line):
                 url = raw_url.rstrip(TRAILING_PUNCTUATION)
-                if any(f"//{host}" in url for host in SKIP_HOSTS):
+                if urlsplit(url).hostname in SKIP_HOSTS:
                     continue
                 links.setdefault(url, []).append(path.as_posix())
     return links

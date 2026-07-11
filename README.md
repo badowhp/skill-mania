@@ -18,10 +18,11 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 | --- | --- |
 | Implement, debug, refactor, or review application behavior | `senior-developer` |
 | Design tests, reproduce a regression, or stabilize CI | `testing-engineer` |
+| Plan, govern, report, recover, or close an individual project | `project-manager` |
 | Create UI, review UI, or collect browser evidence | `design-engineer`, `design-reviewer`, `visual-qa` |
 | Design a game loop or implement a Godot feature | `gameplay-consultant`, `godot-game-creation-engineer` |
 | Assess security, production operations, or system boundaries | `security-engineer`, `senior-devops-engineer`, `software-architect` |
-| Improve search visibility, prose, or Austrian/Vienna correspondence | `seo-geo`, `writing-assistant`, `austrian-law-helper` |
+| Improve search visibility or prose, or handle an Austrian/Vienna legal issue | `seo-geo`, `writing-assistant`, `austrian-law-helper` |
 | Maintain local skill metadata or vet an external package | `agent-context-maintainer`, `skill-curator` |
 | Change output length or implementation scope | `caveman`, `ponytail` |
 
@@ -29,11 +30,12 @@ Use the first matching domain role. Add an overlay only when the user explicitly
 
 ## Included Skills
 
-### Build and test
+### Build, plan, and test
 
 - `senior-developer` - scoped application implementation, debugging, refactoring, and review.
 - `testing-engineer` - test strategy, regression coverage, Playwright/UI tests, and flaky-test triage.
 - `software-architect` - system boundaries, tradeoffs, contracts, and migration planning.
+- `project-manager` - project initiation, tailored planning, delivery controls, status, recovery, and closure.
 
 ### Design and game work
 
@@ -69,15 +71,16 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - Production skills avoid credentials, destructive defaults, machine-specific paths, and hidden network behavior.
 - Package manifests describe only the shipped skill set. Inspect external plugins before adoption with `skill-curator`.
 
-## Docs And Templates
+## Docs and Templates
 
-- `docs/litellm.md` - non-secret LiteLLM gateway setup, Codex provider placement, verification, and security review notes.
-- `docs/openrouter.md` - direct OpenRouter setup, smoke tests, and review checklist.
-- `docs/evaluation.md` - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
-- `docs/writing-assistant-baseline-evaluation/README.md` - reproducible old-versus-current benchmark procedure for material writing-assistant changes.
-- `templates/company.md` - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
-- `templates/agent-automation/` - opt-in Claude Code and GitHub Copilot hook templates with a narrowly scoped destructive-command guard.
-- `templates/hip0-mania/` - private persona-review profile template. It is intentionally not shipped as a production skill because unfilled personal profiles are confusing in marketplace packages.
+- [LiteLLM setup](docs/litellm.md) - non-secret gateway setup, Codex provider placement, verification, and security review notes.
+- [OpenRouter setup](docs/openrouter.md) - direct provider setup, smoke tests, and review checklist.
+- [Deliberation adoption](docs/deliberation.md) - trust, cost, privacy, and verification guidance for the external multi-model review plugin.
+- [Skill evaluation](docs/evaluation.md) - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
+- [Writing-assistant baseline evaluation](docs/writing-assistant-baseline-evaluation/README.md) - reproducible old-versus-current benchmark procedure for material changes.
+- [Company context template](templates/company.md) - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
+- [Agent automation templates](templates/agent-automation/) - opt-in Claude Code and GitHub Copilot hooks with a narrowly scoped destructive-command guard.
+- [hip0-mania template](templates/hip0-mania/) - private persona-review profile. It is intentionally not shipped as a production skill because unfilled personal profiles are confusing in marketplace packages.
 
 ## Repository Layout
 
@@ -94,7 +97,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 │   ├── .claude-plugin/plugin.json  # Claude Code plugin manifest
 │   └── skills/                     # Synced copy of canonical skills
 ├── .claude-plugin/marketplace.json # Claude Code marketplace catalog
-├── .agents/plugins/marketplace.json# Codex local marketplace catalog
+├── .agents/plugins/marketplace.json # Codex local marketplace catalog
 ├── scripts/install-local.sh        # Install skills locally as symlinks or copies
 ├── scripts/report-skill-budgets.py # Report and enforce context budgets
 ├── scripts/sync-plugin-package.sh  # Refresh packaged plugin skills
@@ -168,7 +171,7 @@ When running marketplace-add commands from inside this repository, use `.` inste
 - Keep each skill focused on one coherent workflow or domain role.
 - Keep `skills/` limited to production-ready portable skills. Put personal profiles, local setup guides, and non-role documentation in `templates/` or `docs/`.
 - Use `templates/company.md` when a team needs durable company, product, infrastructure, security, design, SEO, content, or agent-preference guidance that role skills should respect during repository work. Copy it to the target repository root as `company.md`; do not leave secrets or credentials in it.
-- Keep shared `SKILL.md` frontmatter portable. `name` and `description` are required; standard `license`, `compatibility`, and string `metadata` fields are supported when they add real value.
+- Keep shared `SKILL.md` frontmatter portable. `name` and `description` are required; standard `license`, `compatibility`, string `metadata`, and experimental `allowed-tools` fields are supported when they add real value. Host support for `allowed-tools` varies, so document the compatibility requirement when using it.
 - Ensure the skill `name` matches its directory and uses lowercase letters, digits, and hyphens.
 - Put trigger wording in `description`; keep it specific and front-loaded.
 - Keep `SKILL.md` concise. Move detailed provider, framework, or domain material into `references/`.
@@ -195,7 +198,7 @@ Run the complete local release gate before publishing:
 ./scripts/check-release-ready.sh
 ```
 
-The validator checks the repository's portable skill contract: standard frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin manifests, marketplace metadata, and README skill-list drift. The release gate also validates the cross-skill routing matrix, then checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
+The validator checks the repository's portable skill contract: current standard and experimental frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin component paths, marketplace metadata, and README skill-list drift. The release gate also validates the cross-skill routing matrix, then checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
 
 Use `python3 scripts/report-skill-budgets.py` to inspect startup metadata and per-skill context estimates. These are static estimates; actual token and duration decisions should come from with-skill/baseline runs described in `docs/evaluation.md`.
 
@@ -213,6 +216,10 @@ Before publishing a plugin release:
 - Run material behavior changes through the evaluation workflow and record the benchmark result in the pull request or release notes.
 - Create a matching `v<version>` tag; the release workflow verifies the tag and publishes generated release notes.
 
+## License
+
+No repository-wide open-source license has been granted. See [LICENSE.md](LICENSE.md) and any per-skill license or notice files before copying, modifying, or redistributing material.
+
 ## References
 
 - Agent Skills specification: https://agentskills.io/specification
@@ -223,3 +230,4 @@ Before publishing a plugin release:
 - Claude Code skills docs: https://code.claude.com/docs/en/skills
 - Claude Code plugin marketplace docs: https://code.claude.com/docs/en/plugin-marketplaces
 - GitHub Copilot Agent Skills docs: https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
+- Deliberation source and documentation: https://github.com/antonbabenko/deliberation

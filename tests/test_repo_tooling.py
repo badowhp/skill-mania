@@ -34,7 +34,7 @@ class SkillBudgetTests(unittest.TestCase):
 
         self.assertEqual(budgets.failures(report), [])
         self.assertTrue(report["startup"]["within_budget"])
-        self.assertEqual(len(report["skills"]), 17)
+        self.assertEqual(len(report["skills"]), 18)
 
     def test_oversized_skill_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -84,13 +84,18 @@ class ExternalLinkTests(unittest.TestCase):
             root = Path(tmp)
             (root / "README.md").write_text(
                 "See https://example.com/docs. Local http://localhost:4000/health.\n"
+                "Bot-protected https://www.pmi.org/standards/pmbok.\n"
+                "Do not skip the lookalike https://www.pmi.org.example/standards.\n"
                 "```bash\ncurl https://example.com/api\n```\n",
                 encoding="utf-8",
             )
 
             result = links.collect_links(root)
 
-        self.assertEqual(list(result), ["https://example.com/docs"])
+        self.assertEqual(
+            list(result),
+            ["https://example.com/docs", "https://www.pmi.org.example/standards"],
+        )
 
 
 class ReleaseVersionTests(unittest.TestCase):
@@ -159,6 +164,26 @@ class RoutingEvalTests(unittest.TestCase):
         errors = routing.validate_matrix(data, {"senior-developer"})
 
         self.assertIn("lead_skill must name a production skill", errors[0])
+
+    def test_overlay_cannot_own_a_domain_routing_case(self) -> None:
+        data = {
+            "cases": [
+                {
+                    "id": "overlay-as-lead",
+                    "prompt": "Use the smallest correct implementation for this application bug.",
+                    "lead_skill": "ponytail",
+                    "near_miss_skills": ["senior-developer"],
+                    "why": "This deliberately invalid case verifies the overlay routing boundary.",
+                }
+            ]
+        }
+
+        errors = routing.validate_matrix(data, {"ponytail", "senior-developer"})
+
+        self.assertTrue(
+            any("lead_skill must name a domain skill" in error for error in errors),
+            errors,
+        )
 
 
 if __name__ == "__main__":

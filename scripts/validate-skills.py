@@ -14,7 +14,14 @@ LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 SEMVER_RE = re.compile(
     r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:[-+][0-9A-Za-z.-]+)?$"
 )
-FRONTMATTER_KEYS = {"name", "description", "license", "compatibility", "metadata"}
+FRONTMATTER_KEYS = {
+    "name",
+    "description",
+    "license",
+    "compatibility",
+    "metadata",
+    "allowed-tools",
+}
 FRONTMATTER_SCALAR_KEYS = FRONTMATTER_KEYS - {"metadata"}
 OPENAI_REQUIRED_INTERFACE_KEYS = ("display_name", "short_description", "default_prompt")
 OPENAI_OPTIONAL_INTERFACE_KEYS = ("icon_small", "icon_large", "brand_color")
@@ -503,6 +510,12 @@ def validate_skill(skill_dir: Path) -> list[str]:
     ):
         errors.append("frontmatter.compatibility must be 1-500 characters")
 
+    allowed_tools = frontmatter.get("allowed-tools")
+    if allowed_tools is not None and (
+        not isinstance(allowed_tools, str) or not allowed_tools.strip()
+    ):
+        errors.append("frontmatter.allowed-tools must be a non-empty string")
+
     metadata = frontmatter.get("metadata")
     if metadata is not None and (
         not isinstance(metadata, dict)
@@ -587,12 +600,20 @@ def load_json_object(path: Path) -> tuple[dict[str, object] | None, list[str]]:
 
 
 def validate_repo_relative_path(
-    repo_root: Path, base_dir: Path, path: Path, value: object, label: str
+    repo_root: Path,
+    base_dir: Path,
+    path: Path,
+    value: object,
+    label: str,
+    *,
+    require_dot_slash: bool = False,
 ) -> list[str]:
     if not isinstance(value, str) or not value.strip():
         return [f"{path}: {label} is required"]
     if value.startswith(("/", "~")):
         return [f"{path}: {label} must be repo-relative"]
+    if require_dot_slash and not value.startswith("./"):
+        return [f"{path}: {label} must start with './'"]
 
     resolved = (base_dir / value).resolve()
     repo_root_resolved = repo_root.resolve()
@@ -646,7 +667,12 @@ def validate_codex_plugin_manifest(repo_root: Path) -> list[str]:
             if value is not None:
                 errors.extend(
                     validate_repo_relative_path(
-                        repo_root, plugin_root, path, value, f"interface.{key}"
+                        repo_root,
+                        plugin_root,
+                        path,
+                        value,
+                        f"interface.{key}",
+                        require_dot_slash=True,
                     )
                 )
 
@@ -665,12 +691,22 @@ def validate_codex_plugin_manifest(repo_root: Path) -> list[str]:
                             path,
                             screenshot,
                             f"interface.screenshots[{index}]",
+                            require_dot_slash=True,
                         )
                     )
 
     skills_path = data.get("skills")
     plugin_root = path.parent.parent
-    errors.extend(validate_repo_relative_path(repo_root, plugin_root, path, skills_path, "skills"))
+    errors.extend(
+        validate_repo_relative_path(
+            repo_root,
+            plugin_root,
+            path,
+            skills_path,
+            "skills",
+            require_dot_slash=True,
+        )
+    )
 
     return errors
 
@@ -727,6 +763,7 @@ def validate_codex_marketplace(repo_root: Path) -> list[str]:
                         path,
                         source_path,
                         f"plugins[{index}].source.path",
+                        require_dot_slash=True,
                     )
                 )
         policy, policy_errors = require_object(plugin, "policy", path)
@@ -767,6 +804,7 @@ def validate_claude_marketplace(repo_root: Path) -> list[str]:
                 path,
                 source_path,
                 f"plugins[{index}].source",
+                require_dot_slash=True,
             )
         )
         if "tags" in plugin:

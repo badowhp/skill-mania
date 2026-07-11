@@ -13,7 +13,7 @@
   "interface": {
     "displayName": "Skill Mania",
     "shortDescription": "Portable reusable workflows for coding agents.",
-    "longDescription": "A portable Agent Skills collection for Codex, Claude Code, GitHub Copilot, and compatible clients, covering concise responses, minimal implementation, software development, testing, visual QA, platform engineering, DevOps, design, design review, Godot development, gameplay consulting, architecture, security, SEO/GEO, Austrian/Vienna legal issue spotting, writing, editing, publishing review, skill curation, and agent context maintenance.",
+    "longDescription": "A portable Agent Skills collection for Codex, Claude Code, GitHub Copilot, and compatible clients, covering concise responses, minimal implementation, software development, testing, project management, visual QA, platform engineering, DevOps, design, design review, Godot development, gameplay consulting, architecture, security, SEO/GEO, Austrian/Vienna legal issue spotting, writing, editing, publishing review, skill curation, and agent context maintenance.",
     "developerName": "Hipolit Badowski",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],

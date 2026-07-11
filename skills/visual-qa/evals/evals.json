@@ -26,10 +26,10 @@
     {
       "id": "keyboard-and-long-content-check",
       "prompt": "Check this modal redesign for narrow-screen overflow, long labels, and visible keyboard focus before design review.",
-      "expected_output": "Captures an appropriate responsive evidence matrix and routes the resulting artifacts to design-reviewer.",
+      "expected_output": "Captures an appropriate responsive evidence matrix, including the focused state, and routes the resulting artifacts to design-reviewer.",
       "should_trigger": true,
       "assertions": [
-        "The evidence includes a narrow viewport, overflow inspection, and a keyboard-focus step",
+        "The evidence includes a narrow viewport, overflow inspection, and a captured keyboard-focus state",
         "The result sends artifacts to design review rather than declaring visual quality automatically"
       ],
       "tags": ["focus", "overflow", "review"]

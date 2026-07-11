@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { basename, resolve } from "node:path";
 import { argv, exit } from "node:process";
+import { shouldFail } from "./report-policy.mjs";
 
 const defaultViewports = [
   { name: "desktop", width: 1440, height: 1100 },
@@ -18,6 +19,7 @@ Options:
   --viewport <name=WxH>      Add or replace a viewport. Repeatable.
   --wait-for <event>         Playwright load event. Default: networkidle.
   --fail-on <mode>           none, runtime, overflow, or all. Default: none.
+                             Runtime includes navigation, page, console, and request errors.
   --dry-run                  Print the resolved plan without opening a browser.
   --json                     Print the final report as JSON.
   -h, --help                 Show this help.
@@ -111,12 +113,6 @@ function loadPlaywright() {
   fail("visual-qa needs an existing local playwright or @playwright/test dependency", 1);
 }
 
-function shouldFail(report, mode) {
-  const runtime = report.pages.some((page) => page.consoleErrors.length || page.failedRequests.length);
-  const overflow = report.pages.some((page) => page.horizontalOverflow);
-  return mode === "all" ? runtime || overflow : mode === "runtime" ? runtime : mode === "overflow" ? overflow : false;
-}
-
 async function capture(options) {
   const playwright = loadPlaywright();
   const chromium = playwright.chromium;
@@ -139,16 +135,29 @@ async function capture(options) {
         const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height } });
         const page = await context.newPage();
         const consoleErrors = [];
+        const pageErrors = [];
         const failedRequests = [];
         page.on("console", (message) => {
           if (message.type() === "error") consoleErrors.push(message.text());
+        });
+        page.on("pageerror", (error) => {
+          pageErrors.push(error instanceof Error ? error.message : String(error));
         });
         page.on("requestfailed", (request) => {
           failedRequests.push({ url: request.url(), error: request.failure()?.errorText || "unknown" });
         });
 
         const screenshot = `${routeName(route)}-${viewport.name}.png`;
-        const entry = { route, viewport, screenshot, consoleErrors, failedRequests };
+        const focusScreenshot = `${routeName(route)}-${viewport.name}-focus.png`;
+        const entry = {
+          route,
+          viewport,
+          screenshot,
+          focusScreenshot,
+          consoleErrors,
+          pageErrors,
+          failedRequests,
+        };
         try {
           await page.goto(route, { waitUntil: options.waitFor, timeout: 30000 });
           await page.screenshot({ path: resolve(output, screenshot), fullPage: true });
@@ -166,8 +175,18 @@ async function capture(options) {
             const element = document.activeElement;
             if (!element || element === document.body) return null;
             const style = getComputedStyle(element);
-            return { tag: element.tagName.toLowerCase(), visible: style.visibility !== "hidden" && style.display !== "none" };
+            const bounds = element.getBoundingClientRect();
+            return {
+              tag: element.tagName.toLowerCase(),
+              visible:
+                style.visibility !== "hidden" &&
+                style.display !== "none" &&
+                style.opacity !== "0" &&
+                bounds.width > 0 &&
+                bounds.height > 0,
+            };
           });
+          await page.screenshot({ path: resolve(output, focusScreenshot), fullPage: true });
           Object.assign(entry, inspection);
         } catch (error) {
           entry.error = error instanceof Error ? error.message : String(error);

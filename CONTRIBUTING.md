@@ -24,6 +24,8 @@ description: What the skill does and when an Agent Skills client should use it.
 ---
 ```
 
+The current Agent Skills specification also defines optional `license`, `compatibility`, string `metadata`, and experimental `allowed-tools`. Use `allowed-tools` only when the restriction is intentional, and document which hosts honor it because support varies.
+
 Use provider-specific metadata outside shared frontmatter when possible:
 
 - Codex UI metadata: `skills/<skill-name>/agents/openai.yaml`
@@ -55,6 +57,7 @@ Avoid vague descriptions like "helps with infrastructure" or "writing helper".
 - [ ] Skill name matches its directory.
 - [ ] Description is specific and below 1024 characters.
 - [ ] Description has clear trigger wording and near-miss boundaries.
+- [ ] Any `allowed-tools` restriction is intentional and its host compatibility is documented.
 - [ ] `SKILL.md` is below 500 lines.
 - [ ] References are linked from `SKILL.md` with clear "when to read" guidance.
 - [ ] Routing boundaries are clear in the description and the honest-opinion contract is present.
