@@ -1,0 +1,28 @@
+{
+  "core": [
+    "agent-context-maintainer",
+    "caveman",
+    "commit",
+    "design-engineer",
+    "design-reviewer",
+    "ponytail",
+    "security-engineer",
+    "senior-developer",
+    "senior-devops-engineer",
+    "skill-curator",
+    "software-architect",
+    "testing-engineer",
+    "visual-qa"
+  ],
+  "content": [
+    "seo-geo",
+    "writing-assistant"
+  ],
+  "games": [
+    "gameplay-consultant",
+    "godot-game-creation-engineer"
+  ],
+  "regional": [
+    "austrian-law-helper"
+  ]
+}

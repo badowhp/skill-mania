@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit"
+  short_description: "Create focused, safely staged Git commits"
+  default_prompt: "Use $commit to inspect my changes and create a focused local commit."

@@ -80,7 +80,7 @@ Keep the skill generic and grow stack knowledge through references. When a new p
 ## Bundled Helpers
 - Use `scripts/summarize-terraform-plan.py` when reviewing a Terraform JSON plan for replacements, deletes, IAM, firewall, public exposure, database, or secret-related changes.
 - Use `scripts/devops-context.sh` for a quick read-only inventory of runtime, build, CI, container, Terraform, and Ansible signals.
-- Use `scripts/inspect-http-cache.py` for a read-only capture of cache and routing headers from one explicit URL; it never sends credentials or follows an implicit target list.
+- Use `scripts/inspect-http-cache.py` for a read-only capture of cache and routing headers from one explicit HTTP(S) URL. It sends no credentials, does not follow redirects, redacts cookie values, and removes query values from reported URLs.
 - Use `assets/rollback-plan.md`, `assets/incident-timeline.md`, and `assets/runbook-template.md` when the user asks for rollout, incident, or runbook artifacts.
 ## Tool Output
 - Use RTK when available for verbose, non-destructive evidence-gathering commands, including read-only, status, log, build, lint, or test commands such as `rtk docker logs`, `rtk kubectl logs`, `rtk err <cmd>`, or `rtk test <cmd>`.

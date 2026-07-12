@@ -3,13 +3,15 @@ set -euo pipefail
 
 usage() {
   cat <<'USAGE'
-Usage: scripts/install-local.sh [--all|--agents|--codex|--claude] [--link|--copy] [--force] [--no-validate]
+Usage: scripts/install-local.sh [--all|--agents|--codex|--claude] [--profile <name>]... [--link|--copy] [--force] [--no-validate]
 
 Options:
   --all      Install for Codex and Claude Code. Default when no target is set.
   --agents   Install into the shared Codex and GitHub Copilot skills directory.
   --codex    Alias for --agents for backward compatibility.
   --claude   Install into Claude Code skills directory.
+  --profile  Install one named skill profile. Repeat to combine profiles:
+             core, content, games, or regional. Without this option, install all skills.
   --link     Symlink skills from this repo. Default.
   --copy     Copy skills into the target directory.
   --force    Replace existing destination skill directories or symlinks.
@@ -29,6 +31,8 @@ install_codex=0
 install_claude=0
 force=0
 validate_before_install=1
+profiles=()
+selected_skills=()
 rsync_options=(
   --exclude '.DS_Store'
   --exclude '__pycache__/'
@@ -82,6 +86,45 @@ remove_existing_skill() {
   exit 1
 }
 
+version_at_least() {
+  local actual="$1"
+  local required="$2"
+  local actual_major actual_minor actual_patch required_major required_minor required_patch
+  IFS=. read -r actual_major actual_minor actual_patch <<<"$actual"
+  IFS=. read -r required_major required_minor required_patch <<<"$required"
+  if (( actual_major != required_major )); then
+    (( actual_major > required_major ))
+    return
+  fi
+  if (( actual_minor != required_minor )); then
+    (( actual_minor > required_minor ))
+    return
+  fi
+  (( actual_patch >= required_patch ))
+}
+
+assert_claude_link_support() {
+  command -v claude >/dev/null 2>&1 || return 0
+  local output version
+  output="$(claude --version 2>/dev/null || true)"
+  version="$(printf '%s\n' "$output" | sed -nE 's/.*([0-9]+\.[0-9]+\.[0-9]+).*/\1/p' | head -n 1)"
+  [[ -n "$version" ]] || return 0
+  if ! version_at_least "$version" "2.1.203"; then
+    echo "Claude Code $version does not support symlinked skills; upgrade to 2.1.203 or newer, or rerun with --copy" >&2
+    exit 1
+  fi
+}
+
+skill_selected() {
+  local candidate="$1"
+  local selected
+  [[ "${#selected_skills[@]}" -eq 0 ]] && return 0
+  for selected in "${selected_skills[@]}"; do
+    [[ "$selected" == "$candidate" ]] && return 0
+  done
+  return 1
+}
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --all)
@@ -93,6 +136,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --claude)
       install_claude=1
+      ;;
+    --profile)
+      if [[ $# -lt 2 ]]; then
+        echo "--profile requires a profile name" >&2
+        exit 2
+      fi
+      shift
+      profiles+=("$1")
       ;;
     --link)
       mode="link"
@@ -119,6 +170,13 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
+if [[ "${#profiles[@]}" -gt 0 ]]; then
+  profile_output="$(python3 "$repo_root/scripts/list-profile-skills.py" "${profiles[@]}")" || exit 2
+  while IFS= read -r selected_skill; do
+    [[ -n "$selected_skill" ]] && selected_skills+=("$selected_skill")
+  done <<<"$profile_output"
+fi
+
 if [[ "$install_codex" -eq 0 && "$install_claude" -eq 0 ]]; then
   install_codex=1
   install_claude=1
@@ -127,6 +185,10 @@ fi
 if [[ "$mode" == "copy" ]] && ! command -v rsync >/dev/null 2>&1; then
   echo "rsync is required for copy installs" >&2
   exit 1
+fi
+
+if [[ "$install_claude" -eq 1 && "$mode" == "link" ]]; then
+  assert_claude_link_support
 fi
 
 if [[ "$validate_before_install" -eq 1 ]]; then
@@ -151,6 +213,7 @@ install_to() {
   for skill_src in "$repo_root"/skills/*; do
     [[ -d "$skill_src" && -f "$skill_src/SKILL.md" ]] || continue
     skill_name="$(basename "$skill_src")"
+    skill_selected "$skill_name" || continue
     skill_dest="$target_root/$skill_name"
 
     if [[ -e "$skill_dest" || -L "$skill_dest" ]]; then

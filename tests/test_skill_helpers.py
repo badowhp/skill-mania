@@ -26,6 +26,7 @@ DEVOPS_CONTEXT = (
 HTTP_CACHE_INSPECTOR = (
     REPO_ROOT / "skills" / "senior-devops-engineer" / "scripts" / "inspect-http-cache.py"
 )
+SEO_EXTRACTOR = REPO_ROOT / "skills" / "seo-geo" / "scripts" / "extract-page-seo.py"
 http_cache = types.ModuleType("inspect_http_cache")
 http_cache.__file__ = str(HTTP_CACHE_INSPECTOR)
 exec(
@@ -134,12 +135,74 @@ class DevOpsHelperTests(unittest.TestCase):
             def __exit__(self, *args: object) -> None:
                 return None
 
-        with patch.object(http_cache.urllib.request, "urlopen", return_value=Response()):
+        with patch.object(http_cache, "open_url", return_value=Response()):
             report = http_cache.inspect("https://example.test/catalog", "GET", 5)
 
         self.assertEqual(report["status"], 200)
         self.assertEqual(report["headers"]["cache-control"], "public, max-age=60")
         self.assertEqual(report["headers"]["vary"], "Accept-Language")
+
+    def test_http_cache_inspector_redacts_sensitive_values(self) -> None:
+        class Response:
+            status = 200
+            url = "https://example.test/catalog?token=server-secret#fragment"
+            headers = {
+                "Cache-Control": "public, max-age=60",
+                "Set-Cookie": "session=top-secret; Secure; HttpOnly",
+                "Location": "/next?token=redirect-secret",
+            }
+
+            def __enter__(self) -> "Response":
+                return self
+
+            def __exit__(self, *args: object) -> None:
+                return None
+
+        with patch.object(http_cache, "open_url", return_value=Response()):
+            report = http_cache.inspect(
+                "https://example.test/catalog?token=request-secret", "GET", 5
+            )
+
+        self.assertEqual(report["headers"]["set-cookie"], "<redacted>")
+        self.assertNotIn("secret", json.dumps(report))
+        self.assertEqual(report["requested_url"], "https://example.test/catalog?redacted")
+
+    def test_http_cache_inspector_rejects_credentials_and_non_http_urls(self) -> None:
+        for url in ("file:///etc/passwd", "https://user:pass@example.test/"):
+            with self.subTest(url=url), self.assertRaises(ValueError):
+                http_cache.inspect(url, "GET", 5)
+
+
+class SeoExtractorTests(unittest.TestCase):
+    def test_extracts_rendered_seo_signals(self) -> None:
+        html = """<!doctype html><html><head>
+<title>  Product   Page </title>
+<meta name="description" content="A useful product.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Product">
+<link rel="canonical" href="https://example.test/product">
+<link rel="alternate" hreflang="de" href="https://example.test/de/product">
+<script type="application/ld+json">{}</script>
+</head><body><h1>Product <span>Page</span></h1></body></html>"""
+        with tempfile.TemporaryDirectory() as tmp:
+            fixture = Path(tmp) / "page.html"
+            fixture.write_text(html, encoding="utf-8")
+            result = subprocess.run(
+                ["python3", str(SEO_EXTRACTOR), "--json", str(fixture)],
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        page = json.loads(result.stdout)[0]
+        self.assertEqual(page["title"], "Product Page")
+        self.assertEqual(page["meta"]["description"], "A useful product.")
+        self.assertEqual(
+            page["links"]["canonical"][0]["href"], "https://example.test/product"
+        )
+        self.assertEqual(page["jsonLdScripts"], 1)
+        self.assertEqual(page["headings"], [{"tag": "h1", "text": "Product Page"}])
 
 
 if __name__ == "__main__":

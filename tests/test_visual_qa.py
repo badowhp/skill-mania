@@ -53,6 +53,28 @@ class VisualQaTests(unittest.TestCase):
         self.assertEqual(payload["routes"], ["http://localhost:3000/settings"])
         self.assertEqual({item["name"] for item in payload["viewports"]}, {"desktop", "mobile"})
 
+    def test_dry_run_redacts_path_query_values(self) -> None:
+        result = subprocess.run(
+            [
+                "node",
+                str(VISUAL_QA),
+                "--url",
+                "http://localhost:3000",
+                "--path",
+                "/settings?token=secret-value",
+                "--output",
+                "/tmp/visual-qa",
+                "--dry-run",
+            ],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("secret-value", result.stdout)
+        self.assertEqual(json.loads(result.stdout)["paths"], ["/settings?redacted"])
+
     def test_rejects_relative_route_path(self) -> None:
         result = subprocess.run(
             [
@@ -72,7 +94,30 @@ class VisualQaTests(unittest.TestCase):
         )
 
         self.assertEqual(result.returncode, 2)
-        self.assertIn("must start with /", result.stderr)
+        self.assertIn("same-origin absolute paths", result.stderr)
+
+    def test_rejects_non_http_and_cross_origin_routes(self) -> None:
+        for arguments in (
+            ["--url", "file:///tmp/demo.html"],
+            ["--url", "http://localhost:3000", "--path", "//attacker.example/demo"],
+            ["--url", "http://user:pass@localhost:3000"],
+        ):
+            with self.subTest(arguments=arguments):
+                result = subprocess.run(
+                    [
+                        "node",
+                        str(VISUAL_QA),
+                        *arguments,
+                        "--output",
+                        "/tmp/visual-qa",
+                        "--dry-run",
+                    ],
+                    check=False,
+                    text=True,
+                    capture_output=True,
+                )
+
+                self.assertEqual(result.returncode, 2)
 
     def test_runtime_policy_includes_capture_and_page_errors(self) -> None:
         source = f"""
@@ -100,6 +145,28 @@ console.log(JSON.stringify([
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout), [True, True, False, True, False])
+
+    def test_evidence_redaction_removes_queries_and_common_secrets(self) -> None:
+        source = f"""
+import {{ redactEvidenceText, sanitizeUrl }} from {json.dumps(REPORT_POLICY.as_uri())};
+console.log(JSON.stringify({{
+  url: sanitizeUrl("https://user:pass@example.test/path?token=secret#fragment"),
+  text: redactEvidenceText("failed https://example.test/api?key=secret Bearer abc123 api_key=xyz")
+}}));
+"""
+        result = subprocess.run(
+            ["node", "--input-type=module", "--eval", source],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["url"], "https://example.test/path?redacted")
+        self.assertNotIn("secret", payload["text"])
+        self.assertNotIn("abc123", payload["text"])
+        self.assertNotIn("xyz", payload["text"])
 
     def test_capture_writes_separate_keyboard_focus_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

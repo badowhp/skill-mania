@@ -27,7 +27,7 @@ Prove rendered behavior with small, reviewable evidence. Do not turn screenshots
 3. Report unavailable states, authentication, or browser evidence as a blocker rather than filling gaps with assumptions.
 
 ## Bundled Helper
-`scripts/visual-qa.mjs` is an optional Playwright adapter. It never installs dependencies and only visits URLs supplied by the caller.
+`scripts/visual-qa.mjs` is an optional Playwright adapter. It never installs dependencies and only visits caller-supplied same-origin HTTP(S) URLs without embedded credentials. It redacts URL query values and common credential patterns before writing evidence, but do not load pages that intentionally print secrets or sensitive personal data to the console or page.
 
 Use `--dry-run` first when checking command shape. Use `--fail-on` only for checks the team agrees should block the task; screenshots still need review.
 

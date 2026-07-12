@@ -3,7 +3,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { basename, resolve } from "node:path";
 import { argv, exit } from "node:process";
-import { shouldFail } from "./report-policy.mjs";
+import { redactEvidenceText, sanitizeUrl, shouldFail } from "./report-policy.mjs";
 
 const defaultViewports = [
   { name: "desktop", width: 1440, height: 1100 },
@@ -73,7 +73,13 @@ function parseArgs(args) {
   if (!options.url) fail("--url is required");
   if (!options.output) fail("--output is required");
   try {
-    new URL(options.url);
+    const parsed = new URL(options.url);
+    if (!["http:", "https:"].includes(parsed.protocol)) {
+      fail("--url must use http or https");
+    }
+    if (parsed.username || parsed.password) {
+      fail("--url credentials are not allowed");
+    }
   } catch {
     fail(`invalid --url: ${options.url}`);
   }
@@ -81,15 +87,24 @@ function parseArgs(args) {
     fail(`invalid --wait-for value: ${options.waitFor}`);
   }
   if (!failModes.has(options.failOn)) fail(`invalid --fail-on value: ${options.failOn}`);
-  if (options.paths.some((path) => !path || !path.startsWith("/"))) {
-    fail("--path values must start with /");
+  if (
+    options.paths.some(
+      (path) => !path || !path.startsWith("/") || path.startsWith("//") || path.includes("\\"),
+    )
+  ) {
+    fail("--path values must be same-origin absolute paths starting with one /");
   }
   return options;
 }
 
 function routesFor(options) {
   const paths = options.paths.length ? options.paths : [""];
-  return paths.map((path) => new URL(path, options.url).toString());
+  const base = new URL(options.url);
+  return paths.map((path) => {
+    const route = new URL(path, base);
+    if (route.origin !== base.origin) fail(`--path changed origin: ${path}`);
+    return route.toString();
+  });
 }
 
 function safeName(value) {
@@ -120,9 +135,10 @@ async function capture(options) {
 
   const output = resolve(options.output);
   mkdirSync(output, { recursive: true });
+  const navigationRoutes = routesFor(options);
   const report = {
-    url: options.url,
-    routes: routesFor(options),
+    url: sanitizeUrl(options.url),
+    routes: navigationRoutes.map(sanitizeUrl),
     viewports: options.viewports,
     waitFor: options.waitFor,
     pages: [],
@@ -130,7 +146,7 @@ async function capture(options) {
   const browser = await chromium.launch();
 
   try {
-    for (const route of report.routes) {
+    for (const route of navigationRoutes) {
       for (const viewport of options.viewports) {
         const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height } });
         const page = await context.newPage();
@@ -138,19 +154,22 @@ async function capture(options) {
         const pageErrors = [];
         const failedRequests = [];
         page.on("console", (message) => {
-          if (message.type() === "error") consoleErrors.push(message.text());
+          if (message.type() === "error") consoleErrors.push(redactEvidenceText(message.text()));
         });
         page.on("pageerror", (error) => {
-          pageErrors.push(error instanceof Error ? error.message : String(error));
+          pageErrors.push(redactEvidenceText(error instanceof Error ? error.message : String(error)));
         });
         page.on("requestfailed", (request) => {
-          failedRequests.push({ url: request.url(), error: request.failure()?.errorText || "unknown" });
+          failedRequests.push({
+            url: sanitizeUrl(request.url()),
+            error: redactEvidenceText(request.failure()?.errorText || "unknown"),
+          });
         });
 
         const screenshot = `${routeName(route)}-${viewport.name}.png`;
         const focusScreenshot = `${routeName(route)}-${viewport.name}-focus.png`;
         const entry = {
-          route,
+          route: sanitizeUrl(route),
           viewport,
           screenshot,
           focusScreenshot,
@@ -187,9 +206,9 @@ async function capture(options) {
             };
           });
           await page.screenshot({ path: resolve(output, focusScreenshot), fullPage: true });
-          Object.assign(entry, inspection);
+          Object.assign(entry, inspection, { title: redactEvidenceText(inspection.title) });
         } catch (error) {
-          entry.error = error instanceof Error ? error.message : String(error);
+          entry.error = redactEvidenceText(error instanceof Error ? error.message : String(error));
         } finally {
           report.pages.push(entry);
           await context.close();
@@ -205,7 +224,16 @@ async function capture(options) {
 }
 
 const options = parseArgs(argv.slice(2));
-const plan = { ...options, routes: routesFor(options), output: resolve(options.output) };
+const plan = {
+  ...options,
+  url: sanitizeUrl(options.url),
+  paths: options.paths.map((path) => {
+    const parsed = new URL(path, options.url);
+    return `${parsed.pathname}${parsed.search ? "?redacted" : ""}`;
+  }),
+  routes: routesFor(options).map(sanitizeUrl),
+  output: resolve(options.output),
+};
 if (options.dryRun) {
   console.log(JSON.stringify(plan, null, 2));
   exit(0);
@@ -217,6 +245,6 @@ try {
   else console.log(`Captured ${report.pages.length} viewport(s) in ${resolve(options.output)}`);
   exit(shouldFail(report, options.failOn) ? 1 : 0);
 } catch (error) {
-  console.error(error instanceof Error ? error.message : String(error));
+  console.error(redactEvidenceText(error instanceof Error ? error.message : String(error)));
   exit(1);
 }

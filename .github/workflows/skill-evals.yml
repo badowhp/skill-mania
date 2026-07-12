@@ -1,0 +1,175 @@
+name: Model Skill Monitoring
+
+on:
+  workflow_dispatch:
+    inputs:
+      skills:
+        description: Comma-separated skill names or all
+        required: true
+        default: all
+        type: string
+      scope:
+        description: One rotating case per skill or every positive case
+        required: true
+        default: smoke
+        type: choice
+        options:
+          - smoke
+          - full
+      baseline:
+        description: Compare with no skill or the latest release tag
+        required: true
+        default: latest-tag
+        type: choice
+        options:
+          - latest-tag
+          - without-skill
+      model_route:
+        description: Generator route from evals/model-matrix.json
+        required: true
+        default: balanced
+        type: choice
+        options:
+          - throughput
+          - balanced
+          - quality
+      judge_route:
+        description: Judge route from evals/model-matrix.json
+        required: true
+        default: quality
+        type: choice
+        options:
+          - balanced
+          - quality
+      routing_route:
+        description: Routing route from evals/model-matrix.json
+        required: true
+        default: throughput
+        type: choice
+        options:
+          - throughput
+          - balanced
+      case_offset:
+        description: Positive-case offset, or auto for the current ISO week
+        required: true
+        default: auto
+        type: string
+  schedule:
+    - cron: "41 3 * * 0"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: model-skill-evals-${{ github.event.repository.default_branch }}
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    if: github.event_name == 'schedule' || github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    environment: skill-evals
+    env:
+      EVAL_SKILLS: ${{ inputs.skills || 'all' }}
+      EVAL_SCOPE: ${{ inputs.scope || 'smoke' }}
+      EVAL_BASELINE: ${{ inputs.baseline || 'latest-tag' }}
+      MODEL_ROUTE: ${{ inputs.model_route || 'balanced' }}
+      JUDGE_ROUTE: ${{ inputs.judge_route || 'quality' }}
+      ROUTING_ROUTE: ${{ inputs.routing_route || 'throughput' }}
+      CASE_OFFSET: ${{ inputs.case_offset || 'auto' }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.x"
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: "24"
+      - name: Validate evaluation configuration
+        run: |
+          ./scripts/check-release-ready.sh
+          python3 scripts/run-skill-evals.py --dry-run --skills "$EVAL_SKILLS"
+      - name: Prepare immutable evaluation baseline
+        id: baseline
+        run: |
+          echo "kind=$EVAL_BASELINE" >> "$GITHUB_OUTPUT"
+          if [[ "$EVAL_BASELINE" == "latest-tag" ]]; then
+            latest_tag="$(git tag --list 'v[0-9]*' --sort=-v:refname | sed -n '1p')"
+            if [[ -z "$latest_tag" ]]; then
+              echo "latest-tag baseline requested, but no v* release tag exists" >&2
+              exit 1
+            fi
+            baseline_dir="$RUNNER_TEMP/skill-mania-baseline"
+            baseline_commit="$(git rev-list -n 1 "$latest_tag")"
+            git worktree add --detach "$baseline_dir" "$baseline_commit"
+            python3 scripts/check-secret-patterns.py --root "$baseline_dir"
+            {
+              echo "tag=$latest_tag"
+              echo "commit=$baseline_commit"
+              echo "skills_dir=$baseline_dir/skills"
+            } >> "$GITHUB_OUTPUT"
+          fi
+      - name: Run blind paired evaluations
+        env:
+          OPENAI_API_KEY: ${{ secrets.SKILL_EVALS_OPENAI_API_KEY }}
+          BASELINE_KIND: ${{ steps.baseline.outputs.kind }}
+          BASELINE_TAG: ${{ steps.baseline.outputs.tag }}
+          BASELINE_COMMIT: ${{ steps.baseline.outputs.commit }}
+          BASELINE_SKILLS_DIR: ${{ steps.baseline.outputs.skills_dir }}
+        run: |
+          case_count=1
+          call_cap=60
+          request_cap=90
+          token_cap=1000000
+          if [[ "$EVAL_SCOPE" == "full" ]]; then
+            case_count=0
+            call_cap=400
+            request_cap=600
+            token_cap=5000000
+          fi
+
+          offset="$CASE_OFFSET"
+          if [[ "$offset" == "auto" ]]; then
+            offset="$(date -u +%V)"
+          fi
+
+          baseline_args=()
+          if [[ "$BASELINE_KIND" == "latest-tag" ]]; then
+            baseline_args=(
+              --baseline-skills-dir "$BASELINE_SKILLS_DIR"
+              --baseline-label "$BASELINE_TAG"
+              --baseline-commit "$BASELINE_COMMIT"
+            )
+          fi
+
+          python3 scripts/run-skill-evals.py \
+            --skills "$EVAL_SKILLS" \
+            --model-route "$MODEL_ROUTE" \
+            --judge-route "$JUDGE_ROUTE" \
+            --routing-route "$ROUTING_ROUTE" \
+            --max-cases-per-skill "$case_count" \
+            --maximum-model-calls "$call_cap" \
+            --maximum-api-requests "$request_cap" \
+            --maximum-total-tokens "$token_cap" \
+            --case-offset "$offset" \
+            --output eval-workspace \
+            "${baseline_args[@]}"
+      - name: Publish job summary
+        if: always()
+        run: |
+          if [[ -f eval-workspace/summary.md ]]; then
+            cat eval-workspace/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Retain evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: skill-evals-${{ github.run_id }}
+          path: eval-workspace
+          if-no-files-found: error
+          retention-days: 30

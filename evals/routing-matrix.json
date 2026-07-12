@@ -8,6 +8,13 @@
       "why": "Local manifests, prompts, marketplace metadata, and package synchronization have one canonical owner."
     },
     {
+      "id": "focused-local-commit",
+      "prompt": "Inspect this mixed worktree, stage only the cache fix and its regression test, create one local commit, and do not push.",
+      "lead_skill": "commit",
+      "near_miss_skills": ["senior-developer", "agent-context-maintainer"],
+      "why": "The implementation already exists; the requested work is semantic staging, staged-diff verification, and a local commit."
+    },
+    {
       "id": "legal-consequential-letter",
       "prompt": "A Vienna authority notice has a short deadline. Identify what to preserve and draft a careful German request for file access.",
       "lead_skill": "austrian-law-helper",
@@ -71,13 +78,6 @@
       "lead_skill": "senior-developer",
       "near_miss_skills": ["senior-devops-engineer", "testing-engineer"],
       "why": "The core work is application behavior; DevOps owns edge/runtime caching and testing owns test strategy."
-    },
-    {
-      "id": "cross-team-project-launch",
-      "prompt": "Plan and govern a fixed-date customer portal launch across engineering, legal, support, and marketing, including milestones, owners, risks, status, and change control.",
-      "lead_skill": "project-manager",
-      "near_miss_skills": ["software-architect", "senior-developer"],
-      "why": "Project-manager owns cross-team delivery and governance; architecture and implementation remain with their domain roles."
     },
     {
       "id": "cdn-cache-rollout",

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design Engineer Legacy"
-  short_description: "Archived previous design skill"
-  default_prompt: "Use $design-engineer-legacy only to inspect the archived previous design skill; use $design-engineer and $design-reviewer for active work."

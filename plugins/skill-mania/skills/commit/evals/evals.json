@@ -1,0 +1,52 @@
+{
+  "skill_name": "commit",
+  "evals": [
+    {
+      "id": "focused-local-commit",
+      "prompt": "Inspect my current worktree and create one focused local commit for the validation changes. Leave unrelated edits untouched and do not push.",
+      "expected_output": "Inspects staged and unstaged state, identifies the semantic change set, stages explicit paths, verifies the staged patch, commits locally, and reports remaining changes without pushing.",
+      "should_trigger": true,
+      "assertions": [
+        "The workflow reviews both worktree state and the exact staged diff before committing",
+        "Only explicit relevant paths or hunks are staged and no push is attempted"
+      ],
+      "tags": ["git", "staging", "commit"]
+    },
+    {
+      "id": "split-mixed-worktree",
+      "prompt": "Prepare commits from this mixed worktree: the cache fix belongs now, but my half-finished README rewrite must remain uncommitted.",
+      "expected_output": "Separates semantic concerns, inspects new and modified files, stages only the cache fix and its direct tests, and names the README work as intentionally untouched.",
+      "should_trigger": true,
+      "assertions": [
+        "The unrelated README rewrite is preserved outside the staged change set",
+        "The proposed commit groups the cache behavior with only its directly related tests or documentation"
+      ],
+      "tags": ["git", "mixed-worktree"]
+    },
+    {
+      "id": "staged-diff-safety",
+      "prompt": "Review what is staged, run the repository's required checks, and commit it if the staged patch is coherent and safe.",
+      "expected_output": "Examines the staged patch rather than trusting status alone, checks for conflicts or secrets, runs scoped required validation, and either commits or reports a concrete blocker.",
+      "should_trigger": true,
+      "assertions": [
+        "The exact staged content is reviewed for coherence, conflicts, and sensitive material",
+        "A validation failure or unsafe staged file blocks the commit instead of being silently ignored"
+      ],
+      "tags": ["git", "verification"]
+    },
+    {
+      "id": "near-miss-push-release-branch",
+      "prompt": "Rebase the release branch, force-push it, and open the production pull request.",
+      "expected_output": "Should not route to commit because branch rewriting, remote mutation, and pull-request operations are the primary workflow.",
+      "should_trigger": false,
+      "tags": ["near-miss", "remote-git"]
+    },
+    {
+      "id": "near-miss-debug-regression",
+      "prompt": "Find the root cause of this pagination regression, implement the fix, and add a targeted test.",
+      "expected_output": "Should route to senior-developer because diagnosis and implementation are primary; commit may follow only after the work is complete.",
+      "should_trigger": false,
+      "tags": ["near-miss", "debugging"]
+    }
+  ]
+}

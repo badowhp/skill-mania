@@ -14,11 +14,10 @@ OVERLAY_SKILLS = frozenset(("caveman", "ponytail"))
 REQUIRED_OVERLAPS = {
     frozenset(("agent-context-maintainer", "skill-curator")),
     frozenset(("austrian-law-helper", "writing-assistant")),
+    frozenset(("commit", "senior-developer")),
     frozenset(("design-engineer", "design-reviewer")),
     frozenset(("design-reviewer", "visual-qa")),
     frozenset(("gameplay-consultant", "godot-game-creation-engineer")),
-    frozenset(("project-manager", "senior-developer")),
-    frozenset(("project-manager", "software-architect")),
     frozenset(("security-engineer", "senior-devops-engineer")),
     frozenset(("senior-developer", "senior-devops-engineer")),
     frozenset(("senior-developer", "testing-engineer")),

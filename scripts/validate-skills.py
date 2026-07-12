@@ -28,6 +28,7 @@ OPENAI_OPTIONAL_INTERFACE_KEYS = ("icon_small", "icon_large", "brand_color")
 OPENAI_INTERFACE_KEYS = OPENAI_REQUIRED_INTERFACE_KEYS + OPENAI_OPTIONAL_INTERFACE_KEYS
 ALLOWED_URI_SCHEMES = {"http", "https", "mailto", "data"}
 EVAL_REQUIRED_KEYS = ("id", "prompt", "expected_output", "should_trigger")
+EVAL_ID_RE = NAME_RE
 HONEST_OPINION_BLOCK = (
     "## Honest Opinion\n"
     "Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, "
@@ -384,8 +385,8 @@ def validate_skill_evals(skill_dir: Path) -> list[str]:
                 errors.append(f"{prefix}.{key} is required")
 
         eval_id = item.get("id")
-        if not isinstance(eval_id, str) or not eval_id.strip():
-            errors.append(f"{prefix}.id must be a non-empty string")
+        if not isinstance(eval_id, str) or not EVAL_ID_RE.fullmatch(eval_id):
+            errors.append(f"{prefix}.id must be a lowercase hyphenated identifier")
         elif eval_id in seen_ids:
             errors.append(f"{prefix}.id {eval_id!r} is duplicated")
         else:

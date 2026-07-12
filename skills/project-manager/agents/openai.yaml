@@ -1,4 +1,0 @@
-interface:
-  display_name: "Project Manager"
-  short_description: "Plan and steer projects with clear controls"
-  default_prompt: "Use $project-manager to turn this initiative into a tailored project plan with owners, milestones, risks, and governance."

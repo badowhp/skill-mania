@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -314,6 +315,38 @@ dependencies:
                 "evals/evals.json: include at least 2 should_trigger=false near-miss cases",
                 errors,
             )
+
+    def test_eval_id_rejects_artifact_path_traversal(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            skill_dir = Path(tmp) / "demo"
+            cases = []
+            for index, should_trigger in enumerate((True, True, True, False, False)):
+                cases.append(
+                    {
+                        "id": "../escape" if index == 0 else f"safe-{index}",
+                        "prompt": "This prompt is descriptive enough for a validator test.",
+                        "expected_output": "This expected output is descriptive enough for testing.",
+                        "should_trigger": should_trigger,
+                        **(
+                            {
+                                "assertions": [
+                                    "The required behavior is observable",
+                                    "The result includes concrete evidence",
+                                ]
+                            }
+                            if should_trigger
+                            else {}
+                        ),
+                    }
+                )
+            write(
+                skill_dir / "evals" / "evals.json",
+                json.dumps({"skill_name": "demo", "evals": cases}),
+            )
+
+            errors = validator.validate_skill_evals(skill_dir)
+
+        self.assertTrue(any("lowercase hyphenated identifier" in error for error in errors))
 
     def test_honest_opinion_block_is_required_for_production_skills(self) -> None:
         errors = validator.validate_honest_opinion(Path("demo"), ["# Demo"])

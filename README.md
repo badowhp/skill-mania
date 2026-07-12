@@ -9,7 +9,7 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 ## Start Here
 
 - Browse `skills/<name>/SKILL.md` to understand a workflow before installing it.
-- Install every portable skill locally with `./scripts/install-local.sh --all --link`.
+- Install every portable skill as an independent snapshot with `./scripts/install-local.sh --all --copy`.
 - Before publishing a change, run `./scripts/check-release-ready.sh`; the tag-driven GitHub workflow creates the release.
 
 ## Choose a Skill
@@ -17,8 +17,8 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 | If you need to… | Start with… |
 | --- | --- |
 | Implement, debug, refactor, or review application behavior | `senior-developer` |
+| Inspect, stage, and create a focused local Git commit | `commit` |
 | Design tests, reproduce a regression, or stabilize CI | `testing-engineer` |
-| Plan, govern, report, recover, or close an individual project | `project-manager` |
 | Create UI, review UI, or collect browser evidence | `design-engineer`, `design-reviewer`, `visual-qa` |
 | Design a game loop or implement a Godot feature | `gameplay-consultant`, `godot-game-creation-engineer` |
 | Assess security, production operations, or system boundaries | `security-engineer`, `senior-devops-engineer`, `software-architect` |
@@ -30,12 +30,12 @@ Use the first matching domain role. Add an overlay only when the user explicitly
 
 ## Included Skills
 
-### Build, plan, and test
+### Build and test
 
+- `commit` - explicit-path staging, staged-diff verification, and focused local commits without automatic pushes.
 - `senior-developer` - scoped application implementation, debugging, refactoring, and review.
 - `testing-engineer` - test strategy, regression coverage, Playwright/UI tests, and flaky-test triage.
 - `software-architect` - system boundaries, tradeoffs, contracts, and migration planning.
-- `project-manager` - project initiation, tailored planning, delivery controls, status, recovery, and closure.
 
 ### Design and game work
 
@@ -69,7 +69,9 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 
 - `skills/` is the canonical source; `plugins/skill-mania/skills/` is a reproducible packaged copy.
 - Production skills avoid credentials, destructive defaults, machine-specific paths, and hidden network behavior.
+- Static release checks cover every skill; scheduled model monitoring samples instruction behavior, and the manual full-regression workflow compares every skill with the latest release.
 - Package manifests describe only the shipped skill set. Inspect external plugins before adoption with `skill-curator`.
+- Retired skills are removed from the canonical and packaged trees instead of being kept in a live `decommissioned/` archive; use release tags for history.
 
 ## Docs and Templates
 
@@ -77,6 +79,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - [OpenRouter setup](docs/openrouter.md) - direct provider setup, smoke tests, and review checklist.
 - [Deliberation adoption](docs/deliberation.md) - trust, cost, privacy, and verification guidance for the external multi-model review plugin.
 - [Skill evaluation](docs/evaluation.md) - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
+- [Skill maintenance](docs/skill-maintenance.md) - quality states, review cadence, ownership tests, deprecation rules, and release gates.
 - [Writing-assistant baseline evaluation](docs/writing-assistant-baseline-evaluation/README.md) - reproducible old-versus-current benchmark procedure for material changes.
 - [Company context template](templates/company.md) - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
 - [Agent automation templates](templates/agent-automation/) - opt-in Claude Code and GitHub Copilot hooks with a narrowly scoped destructive-command guard.
@@ -87,8 +90,10 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ```text
 .
 ├── assets/                         # Repository media used by documentation
+├── config/install-profiles.json    # Complete, non-overlapping local-install profiles
 ├── docs/                           # Non-skill setup and operations notes
-├── evals/                          # Cross-skill routing evaluation matrix
+├── evals/                          # Cross-skill routing and reviewed model matrices
+│   └── model-matrix.json           # Reviewed quality, balanced, and throughput model routes
 ├── templates/                      # Optional templates such as company.md
 ├── skills/                         # Canonical skill source
 │   └── <skill-name>/SKILL.md
@@ -99,6 +104,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ├── .claude-plugin/marketplace.json # Claude Code marketplace catalog
 ├── .agents/plugins/marketplace.json # Codex local marketplace catalog
 ├── scripts/install-local.sh        # Install skills locally as symlinks or copies
+├── scripts/run-skill-evals.py      # Blind baseline-versus-skill model evaluation runner
 ├── scripts/report-skill-budgets.py # Report and enforce context budgets
 ├── scripts/sync-plugin-package.sh  # Refresh packaged plugin skills
 └── scripts/validate-skills.py      # Dependency-free repository validation
@@ -106,11 +112,20 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 
 ## Local Installation
 
-Install shared Codex/GitHub Copilot skills and Claude Code skills as symlinks:
+The safest cross-host default is a copied snapshot:
 
 ```bash
-./scripts/install-local.sh --all --link
+./scripts/install-local.sh --all --copy
 ```
+
+Install a smaller set with repeatable profiles:
+
+```bash
+./scripts/install-local.sh --agents --link --profile core
+./scripts/install-local.sh --all --copy --profile content --profile regional
+```
+
+Profiles partition the repository: `core` contains engineering, design, safety, commit, and maintenance workflows; `content` contains SEO/GEO and writing; `games` contains gameplay and Godot; `regional` contains the Austrian/Vienna legal helper. Omitting `--profile` installs every skill.
 
 The shared Agent Skills install goes to `~/.agents/skills` by default, which current Codex and GitHub Copilot installations can both discover. `--agents` is the preferred explicit target; `--codex` remains an alias. For older Codex builds that still use `~/.codex/skills`, set the target explicitly:
 
@@ -120,7 +135,7 @@ CODEX_SKILLS_DIR="$HOME/.codex/skills" ./scripts/install-local.sh --codex --link
 
 Use `AGENT_SKILLS_DIR=/path/to/skills` to override the shared target. GitHub Copilot users can also discover or install Agent Skills with `gh skill`.
 
-Claude Code skills install to `~/.claude/skills` by default. Override the target with `CLAUDE_SKILLS_DIR=/path/to/skills`.
+Claude Code skills install to `~/.claude/skills` by default. Override the target with `CLAUDE_SKILLS_DIR=/path/to/skills`. [Symlinked Agent Skills require Claude Code 2.1.203 or newer](https://code.claude.com/docs/en/skills#where-skills-live); the installer rejects `--link` on an older detected version and directs you to `--copy`.
 
 Use `--copy` instead of `--link` when you need an independent snapshot rather than a live link to this repository.
 
@@ -198,9 +213,25 @@ Run the complete local release gate before publishing:
 ./scripts/check-release-ready.sh
 ```
 
-The validator checks the repository's portable skill contract: current standard and experimental frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin component paths, marketplace metadata, and README skill-list drift. The release gate also validates the cross-skill routing matrix, then checks context budgets, synchronized versions, package sync, unit tests, shell syntax, placeholder text, helper smoke tests, and local installer copy mode.
+The validator checks the repository's portable skill contract: current standard and experimental frontmatter, naming, `SKILL.md` length, relative links, reference routing, current `agents/openai.yaml` sections, assertion-bearing eval manifests, optional RTK triage guidance, the shared honest-opinion block, plugin component paths, marketplace metadata, and README skill-list drift. The release gate also validates cross-skill and model-routing matrices, context budgets, release-version changes, package sync, pinned workflow actions, high-confidence secret patterns, Python/Node/shell helper syntax, unit tests, placeholder text, helper smoke tests, and local installer copy mode.
 
 Use `python3 scripts/report-skill-budgets.py` to inspect startup metadata and per-skill context estimates. These are static estimates; actual token and duration decisions should come from with-skill/baseline runs described in `docs/evaluation.md`.
+
+## CI/CD and Model Evaluation
+
+Every push and pull request runs the deterministic release-readiness gate without secrets. Tags matching `v*` rerun that gate, verify the manifest version, and create the GitHub release.
+
+`.github/workflows/skill-evals.yml` is intentionally separate from deterministic CI. It runs weekly or by manual dispatch on the default branch, reads `SKILL_EVALS_OPENAI_API_KEY` only in the model step, samples selected skills against the latest release by default, grades candidates blind, tests cross-skill routing plus positive and near-miss triggering, and uploads a 30-day evidence artifact. Its rotating one-case smoke run is monitoring evidence, not a release gate.
+
+`.github/workflows/skill-regression-gate.yml` is the fixed model-backed release check for material behavior changes. It runs every positive case for every skill against the immutable latest `v*` tag with the reviewed balanced generator, quality judge, throughput router, and explicit logical-call, HTTP-attempt, and token caps. Attach the retained result to the pull request or release decision. A failed or ambiguous model grade still needs evidence review; one stochastic run is not a substitute for deterministic helper tests or a real tool-execution forward test.
+
+The repository evaluator uses a clearly labeled `bundled-context` approximation: it supplies `SKILL.md` plus safe text resources to the model, records included files and SHA-256 digests, but exposes no shell, browser, filesystem, or network tools. This isolates instruction quality and routing. Actual tool behavior is covered by helper/unit tests and fresh-agent forward tests described in [Skill evaluation](docs/evaluation.md).
+
+Model workflows send the bundled skill text and committed eval fixtures to the OpenAI API. Keep confidential, customer, production, and personal data out of those files, and do not enable the workflows unless that provider processing is approved.
+
+Create a GitHub environment named `skill-evals`, restrict its deployment branches to the default branch, and store `SKILL_EVALS_OPENAI_API_KEY` as an environment secret. Add required reviewers when approval before model spend is preferable; note that this also pauses scheduled runs for approval. Both secret-backed workflows guard and explicitly check out the default branch. Protect the environment independently because repository YAML cannot create that server-side control.
+
+`evals/model-matrix.json` centralizes current OpenAI routes and has an expiry date that forces re-review. As reviewed on 2026-07-12, `gpt-5.6-sol` is the quality/judge route, `gpt-5.6-terra` is the balanced scheduled generator, and `gpt-5.6-luna` is the throughput route. These are API evaluation routes, not claims about ChatGPT UI availability. See the [official latest-model guide](https://developers.openai.com/api/docs/guides/latest-model.md).
 
 After changing top-level `skills/`, refresh the packaged plugin copy:
 
@@ -210,10 +241,12 @@ After changing top-level `skills/`, refresh the packaged plugin copy:
 
 Before publishing a plugin release:
 
+- Protect `v*` tags with a GitHub ruleset and limit tag creation to release owners; the workflow also requires the tagged commit to belong to the default branch.
 - Keep fillable personal-profile skills out of shipped `skills/` and starter prompts unless they are intentionally filled and production-ready.
 - Run `./scripts/check-release-ready.sh`.
 - Bump both Codex and Claude plugin manifest versions together.
 - Run material behavior changes through the evaluation workflow and record the benchmark result in the pull request or release notes.
+- For release evidence, use the fixed **Full Skill Regression Gate** rather than a configurable smoke run; review any failed assertion and rerun only after identifying judge noise or correcting the skill/eval.
 - Create a matching `v<version>` tag; the release workflow verifies the tag and publishes generated release notes.
 
 ## License
