@@ -64,20 +64,42 @@ The default smoke plan selects one positive case per skill, alternates paired ge
 
 The evaluator is a `bundled-context` harness, not a tool-execution harness. It supplies the body of `SKILL.md` and safe UTF-8 files under `references/`, `scripts/`, and `assets/`; it records included/skipped paths, character counts, and SHA-256 digests. Symlinks, out-of-tree paths, oversized files, binary content, and oversized packages are rejected or skipped. The model cannot invoke those scripts or use shell, browser, filesystem, or network tools. Use this tier for instruction-following and routing evidence, then use deterministic helper tests and fresh-agent forward tests for operational behavior.
 
-Every bundled instruction and committed fixture used by a model run is sent to the OpenAI API. Never use confidential repositories, customer data, production captures, credentials, or personal information as eval input unless the applicable provider processing and artifact retention are explicitly approved.
+Every bundled instruction and committed fixture used by a model run is sent to the selected
+OpenAI model endpoint. Never use confidential repositories, customer data, production captures,
+credentials, or personal information as eval input unless the applicable provider processing and
+artifact retention are explicitly approved.
 
-Run a local comparison after setting `OPENAI_API_KEY` in the environment:
+Run a local comparison with the authenticated Codex CLI; this does not use a CI pipeline or
+require `OPENAI_API_KEY`:
 
 ```bash
 python3 scripts/run-skill-evals.py \
-  --skills senior-developer,testing-engineer \
-  --max-cases-per-skill 0 \
-  --output local-eval-workspace
+  --provider codex-cli \
+  --skills all \
+  --output local-smoke-workspace \
+  --snapshot benchmarks/baselines/<label>
 ```
+
+The local backend creates a temporary Codex home, links only the existing authentication file,
+ignores personal configuration, disables plugins and apps, starts every call as an ephemeral
+session, and uses an empty read-only working directory. This prevents installed copies of the
+skills from contaminating the no-skill candidate. It records the same paired responses, blind
+grades, token counts, timings, routing report, and compact benchmark schema as the API backend.
+Run `codex login` first if local authentication is missing.
+
+The default is `--provider auto`: use the Responses API when `OPENAI_API_KEY` is set, otherwise
+use the Codex CLI. Pass `--provider openai-responses` when provider selection must be explicit.
+Provider and host are recorded in every report; compare values only when provider, models,
+reasoning effort, selected cases, case offset, and comparison-baseline kind match.
+
+The default one-positive-case-per-skill run is a local smoke baseline. Use
+`--max-cases-per-skill 0` for all positive cases when the added model time and usage are justified.
+`--snapshot` writes only `benchmark.json` and `summary.md` to an empty durable directory; raw
+responses remain in the ignored `*-workspace/` directory for temporary evidence review.
 
 Use `--baseline-skills-dir path/to/previous/skills` to compare a revision with an old snapshot. A skill absent from that snapshot automatically uses the no-skill baseline. Output directories must be empty so stale evidence cannot be mistaken for the current run.
 
-For durable evidence, also pass `--baseline-label v0.3.0 --baseline-commit <sha>`. The runner stores those values with per-package content hashes so a later reviewer can identify exactly what was compared. `--routing-route`, `--maximum-model-calls`, `--maximum-api-requests`, and `--maximum-total-tokens` make route and spend boundaries explicit. The logical-call and HTTP-attempt caps are checked before and during the run, including retries. The token cap stops the run after the first completed response that would cross it, so actual usage can exceed the limit by at most that one returned API call; a response lost during transport cannot be counted locally.
+For durable evidence, also pass `--baseline-label v0.3.0 --baseline-commit <sha>`. The runner stores those values with per-package content hashes so a later reviewer can identify exactly what was compared. `--routing-route`, `--maximum-model-calls`, `--maximum-api-requests`, and `--maximum-total-tokens` make route and spend boundaries explicit. The logical-call and attempt caps are checked before and during the run. Responses API retries count individually; Codex CLI invocations count once because transport retries are internal to that client. The token cap stops the run after the first completed response that would cross it, so actual usage can exceed the limit by at most that one returned model call; a response lost during transport cannot be counted locally.
 
 The runner writes raw responses, assertion grades, token/timing records, `routing.json`, `benchmark.json`, and `summary.md`. Its per-skill verdicts mean:
 
@@ -86,7 +108,20 @@ The runner writes raw responses, assertion grades, token/timing records, `routin
 - `below-quality-bar`: the skill response missed too many required assertions.
 - `regressed`: the skill underperformed the baseline beyond the configured tolerance.
 
-The model gate fails for the last two states or a global/per-skill routing threshold failure. It does not fail only because token use or duration rose; cost is interpreted after quality. Every artifact reports generator, judge, router, reasoning effort, Git commit, baseline provenance, package hashes, call count, token use, and cumulative API duration.
+The model gate fails for the last two states or a global/per-skill routing threshold failure. It does not fail only because token use or duration rose; cost is interpreted after quality. Every artifact reports provider, generator, judge, router, reasoning effort, Git commit, baseline provenance, package hashes, call count, token use, and cumulative model duration.
+
+Compare a later run with a saved snapshot:
+
+```bash
+python3 scripts/compare-skill-benchmarks.py \
+  benchmarks/baselines/<label>/benchmark.json \
+  later-local-workspace/benchmark.json
+```
+
+Add `--format json --output comparison.json` for machine-readable pipeline input and
+`--fail-on-regression` when a comparable run should return nonzero for a lower per-skill quality
+rate, routing rate, or passing-to-failing gate transition. Treat model differences and case-set
+differences reported by the comparator as non-comparable rather than as skill regressions.
 
 When paired run directories contain `grading.json` and `timing.json`, aggregate them with:
 

@@ -1,0 +1,2742 @@
+{
+  "schema_version": 2,
+  "configuration": {
+    "skills": [
+      "agent-context-maintainer",
+      "austrian-law-helper",
+      "caveman",
+      "commit",
+      "design-engineer",
+      "design-reviewer",
+      "gameplay-consultant",
+      "godot-game-creation-engineer",
+      "ponytail",
+      "security-engineer",
+      "senior-developer",
+      "senior-devops-engineer",
+      "seo-geo",
+      "skill-curator",
+      "software-architect",
+      "testing-engineer",
+      "visual-qa",
+      "writing-assistant"
+    ],
+    "output_cases": 18,
+    "estimated_model_calls": 56,
+    "maximum_model_calls": 400,
+    "maximum_api_requests": 600,
+    "maximum_total_tokens": 5000000,
+    "provider": "codex-cli",
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "medium",
+    "judge_model": "gpt-5.6-sol",
+    "judge_reasoning_effort": "high",
+    "routing_model": "gpt-5.6-luna",
+    "routing_reasoning_effort": "low",
+    "case_offset": 0,
+    "baseline": {
+      "kind": "without_skill",
+      "label": "without-skill",
+      "commit": null,
+      "skills_dir": null
+    },
+    "context_mode": "bundled-context",
+    "tool_execution": false,
+    "runner_version": 3,
+    "host": "local-codex-cli",
+    "git_sha": "cd335b0286c4eb1f1df385d2fdd180f72aa5c816",
+    "generated_at": "2026-07-12T21:51:36.725606+00:00",
+    "minimum_pass_rate": 0.8,
+    "maximum_regression": 0.05,
+    "minimum_routing_accuracy": 0.85,
+    "assembled_from": {
+      "output_workspace": "local-all-skills-workspace",
+      "routing_workspace": "local-routing-retry-workspace"
+    }
+  },
+  "cases": [
+    {
+      "skill": "agent-context-maintainer",
+      "case": "agents-md-cleanup",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 7448,
+      "with_skill_package_sha256": "0236bfe5bf29fd02ad7b17e2aaf5ca0757d964863d52ee2949ab56ddf6e4bbb8",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 11145,
+        "duration_ms": 4677
+      },
+      "with_skill": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 13048,
+        "duration_ms": 17703
+      },
+      "judge_tokens": 12140,
+      "judge_duration_ms": 13692
+    },
+    {
+      "skill": "austrian-law-helper",
+      "case": "vienna-tenancy-letter",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 8713,
+      "with_skill_package_sha256": "b3f4076814479a4f854b53e231fff420efb62554998d8e2cc5a42e4179fb2585",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 12286,
+        "duration_ms": 24817
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 14188,
+        "duration_ms": 27597
+      },
+      "judge_tokens": 14380,
+      "judge_duration_ms": 58646
+    },
+    {
+      "skill": "caveman",
+      "case": "explicit-caveman-summary",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 1989,
+      "with_skill_package_sha256": "c8b7a992df9262fd6392bb742f773783850c4cbcfa16cd2b69fa52221cfdeb4f",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 11263,
+        "duration_ms": 6089
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 11589,
+        "duration_ms": 4210
+      },
+      "judge_tokens": 11788,
+      "judge_duration_ms": 7664
+    },
+    {
+      "skill": "commit",
+      "case": "focused-local-commit",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 3840,
+      "with_skill_package_sha256": "5b4688f08cda1957444c27dfe41baf19791af31e3833f761baa0ac90145cbf27",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 11204,
+        "duration_ms": 5416
+      },
+      "with_skill": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 12012,
+        "duration_ms": 6366
+      },
+      "judge_tokens": 11831,
+      "judge_duration_ms": 13834
+    },
+    {
+      "skill": "design-engineer",
+      "case": "new-design-context-interview",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 22591,
+      "with_skill_package_sha256": "f4ebba36781210fa7d3f993f16f8a9d537674683959b8a23be37bbe37cdd1d0b",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 11323,
+        "duration_ms": 8937
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 16994,
+        "duration_ms": 10503
+      },
+      "judge_tokens": 12259,
+      "judge_duration_ms": 8582
+    },
+    {
+      "skill": "design-reviewer",
+      "case": "review-design-md",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 7069,
+      "with_skill_package_sha256": "6d78155ed0703bfa86648213cee0b0fed2fbc96abe591a1dadba678e3a9267b0",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11296,
+        "duration_ms": 9390
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 12982,
+        "duration_ms": 9920
+      },
+      "judge_tokens": 12280,
+      "judge_duration_ms": 9083
+    },
+    {
+      "skill": "gameplay-consultant",
+      "case": "roguelite-loop-audit",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 6554,
+      "with_skill_package_sha256": "ff6769a00d95ca7d1cded8c01f25709fd7e37de439c17dfcfd47494aa8fe400b",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11517,
+        "duration_ms": 10294
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 13344,
+        "duration_ms": 19777
+      },
+      "judge_tokens": 13164,
+      "judge_duration_ms": 10302
+    },
+    {
+      "skill": "godot-game-creation-engineer",
+      "case": "godot-4-dash-feature",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 7694,
+      "with_skill_package_sha256": "1bfbe0105cfa17ab1417e308bfc48ae7adf004e918138d38ca7f3fb47bbcc601",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 11744,
+        "duration_ms": 14324
+      },
+      "with_skill": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 13670,
+        "duration_ms": 20389
+      },
+      "judge_tokens": 13490,
+      "judge_duration_ms": 18029
+    },
+    {
+      "skill": "ponytail",
+      "case": "minimal-bug-fix",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 4368,
+      "with_skill_package_sha256": "41f858ecdae174c987164263b3c1266bfbbb7e29f2f390eabf31397dfdebf813",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11200,
+        "duration_ms": 4619
+      },
+      "with_skill": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 12323,
+        "duration_ms": 5998
+      },
+      "judge_tokens": 11811,
+      "judge_duration_ms": 11181
+    },
+    {
+      "skill": "security-engineer",
+      "case": "idor-review",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 20669,
+      "with_skill_package_sha256": "4583cf2cfa1cb110f0194c8d98c55a159bf658b68082a6e0823b97e0a7eeeec8",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 12021,
+        "duration_ms": 19428
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 16600,
+        "duration_ms": 24919
+      },
+      "judge_tokens": 13910,
+      "judge_duration_ms": 9534
+    },
+    {
+      "skill": "senior-developer",
+      "case": "scoped-code-review",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 18081,
+      "with_skill_package_sha256": "17d66b4ecb59677d1db65a3a08e34c12d1a12e1ed93adafb73873418806ddfef",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 11203,
+        "duration_ms": 4694
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 14816,
+        "duration_ms": 7823
+      },
+      "judge_tokens": 11967,
+      "judge_duration_ms": 10511
+    },
+    {
+      "skill": "senior-devops-engineer",
+      "case": "terraform-plan-review",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 49431,
+      "with_skill_package_sha256": "4c6143b0e88a48b9f9c8e4f65b4724cd77f688604da7e0a52712ef6a4e27f493",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11594,
+        "duration_ms": 11743
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 22616,
+        "duration_ms": 25678
+      },
+      "judge_tokens": 13486,
+      "judge_duration_ms": 23638
+    },
+    {
+      "skill": "seo-geo",
+      "case": "technical-seo-launch-audit",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 18745,
+      "with_skill_package_sha256": "98f9f3ec80a20dad3ac511440dec8db74d520c27e94681b6346b4d4eb90414eb",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11585,
+        "duration_ms": 31961
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 15950,
+        "duration_ms": 20499
+      },
+      "judge_tokens": 13164,
+      "judge_duration_ms": 8354
+    },
+    {
+      "skill": "skill-curator",
+      "case": "top-skills-review",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 8347,
+      "with_skill_package_sha256": "9beec6405fdcbe78063381d87b9511e9d18cf6993a7a067a175becefb19d0b3a",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 11537,
+        "duration_ms": 11946
+      },
+      "with_skill": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 13753,
+        "duration_ms": 26853
+      },
+      "judge_tokens": 13139,
+      "judge_duration_ms": 10815
+    },
+    {
+      "skill": "software-architect",
+      "case": "service-boundary-review",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 18372,
+      "with_skill_package_sha256": "c9ade589825b13cb738209a67403ef70a3ac0be45bf594c19b05479401f4a0ad",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11700,
+        "duration_ms": 13847
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 15932,
+        "duration_ms": 22308
+      },
+      "judge_tokens": 13548,
+      "judge_duration_ms": 14532
+    },
+    {
+      "skill": "testing-engineer",
+      "case": "regression-test-plan",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 11230,
+      "with_skill_package_sha256": "7192ba8629657139741e8849613491732db00d359333e7ec391629d9fe776cf0",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 11869,
+        "duration_ms": 16524
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 14295,
+        "duration_ms": 18100
+      },
+      "judge_tokens": 13510,
+      "judge_duration_ms": 10427
+    },
+    {
+      "skill": "visual-qa",
+      "case": "responsive-evidence-after-ui-change",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 16715,
+      "with_skill_package_sha256": "8438eda86197ce5832db9de2c79d60eebb1afe758191a227614dffccbb221c95",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 0,
+        "total": 2,
+        "pass_rate": 0.0,
+        "tokens": 11201,
+        "duration_ms": 5880
+      },
+      "with_skill": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 15272,
+        "duration_ms": 9616
+      },
+      "judge_tokens": 12023,
+      "judge_duration_ms": 9115
+    },
+    {
+      "skill": "writing-assistant",
+      "case": "chapter-review",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "baseline",
+        "with_skill"
+      ],
+      "with_skill_package_characters": 49540,
+      "with_skill_package_sha256": "bdbe92c35055067a84239559cb3004f5db28f23b44f91d61b720ea95755f8805",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "tokens": 11213,
+        "duration_ms": 6415
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "tokens": 22268,
+        "duration_ms": 9286
+      },
+      "judge_tokens": 12088,
+      "judge_duration_ms": 10792
+    }
+  ],
+  "skills": {
+    "agent-context-maintainer": {
+      "cases": 1,
+      "with_skill_passed": 0,
+      "baseline_passed": 0,
+      "assertions": 2,
+      "with_skill_tokens": 13048,
+      "baseline_tokens": 11145,
+      "with_skill_duration_ms": 17703,
+      "baseline_duration_ms": 4677,
+      "with_skill_pass_rate": 0.0,
+      "baseline_pass_rate": 0.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "below-quality-bar",
+      "gate_passed": false,
+      "token_delta": 1903,
+      "duration_delta_ms": 13026
+    },
+    "austrian-law-helper": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 14188,
+      "baseline_tokens": 12286,
+      "with_skill_duration_ms": 27597,
+      "baseline_duration_ms": 24817,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 1902,
+      "duration_delta_ms": 2780
+    },
+    "caveman": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 2,
+      "assertions": 2,
+      "with_skill_tokens": 11589,
+      "baseline_tokens": 11263,
+      "with_skill_duration_ms": 4210,
+      "baseline_duration_ms": 6089,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 1.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "no-measurable-lift",
+      "gate_passed": true,
+      "token_delta": 326,
+      "duration_delta_ms": -1879
+    },
+    "commit": {
+      "cases": 1,
+      "with_skill_passed": 0,
+      "baseline_passed": 0,
+      "assertions": 2,
+      "with_skill_tokens": 12012,
+      "baseline_tokens": 11204,
+      "with_skill_duration_ms": 6366,
+      "baseline_duration_ms": 5416,
+      "with_skill_pass_rate": 0.0,
+      "baseline_pass_rate": 0.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "below-quality-bar",
+      "gate_passed": false,
+      "token_delta": 808,
+      "duration_delta_ms": 950
+    },
+    "design-engineer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 2,
+      "assertions": 2,
+      "with_skill_tokens": 16994,
+      "baseline_tokens": 11323,
+      "with_skill_duration_ms": 10503,
+      "baseline_duration_ms": 8937,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 1.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "no-measurable-lift",
+      "gate_passed": true,
+      "token_delta": 5671,
+      "duration_delta_ms": 1566
+    },
+    "design-reviewer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 12982,
+      "baseline_tokens": 11296,
+      "with_skill_duration_ms": 9920,
+      "baseline_duration_ms": 9390,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 1686,
+      "duration_delta_ms": 530
+    },
+    "gameplay-consultant": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 13344,
+      "baseline_tokens": 11517,
+      "with_skill_duration_ms": 19777,
+      "baseline_duration_ms": 10294,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 1827,
+      "duration_delta_ms": 9483
+    },
+    "godot-game-creation-engineer": {
+      "cases": 1,
+      "with_skill_passed": 0,
+      "baseline_passed": 0,
+      "assertions": 2,
+      "with_skill_tokens": 13670,
+      "baseline_tokens": 11744,
+      "with_skill_duration_ms": 20389,
+      "baseline_duration_ms": 14324,
+      "with_skill_pass_rate": 0.0,
+      "baseline_pass_rate": 0.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "below-quality-bar",
+      "gate_passed": false,
+      "token_delta": 1926,
+      "duration_delta_ms": 6065
+    },
+    "ponytail": {
+      "cases": 1,
+      "with_skill_passed": 0,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 12323,
+      "baseline_tokens": 11200,
+      "with_skill_duration_ms": 5998,
+      "baseline_duration_ms": 4619,
+      "with_skill_pass_rate": 0.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": -0.5,
+      "verdict": "below-quality-bar",
+      "gate_passed": false,
+      "token_delta": 1123,
+      "duration_delta_ms": 1379
+    },
+    "security-engineer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 2,
+      "assertions": 2,
+      "with_skill_tokens": 16600,
+      "baseline_tokens": 12021,
+      "with_skill_duration_ms": 24919,
+      "baseline_duration_ms": 19428,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 1.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "no-measurable-lift",
+      "gate_passed": true,
+      "token_delta": 4579,
+      "duration_delta_ms": 5491
+    },
+    "senior-developer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 2,
+      "assertions": 2,
+      "with_skill_tokens": 14816,
+      "baseline_tokens": 11203,
+      "with_skill_duration_ms": 7823,
+      "baseline_duration_ms": 4694,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 1.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "no-measurable-lift",
+      "gate_passed": true,
+      "token_delta": 3613,
+      "duration_delta_ms": 3129
+    },
+    "senior-devops-engineer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 22616,
+      "baseline_tokens": 11594,
+      "with_skill_duration_ms": 25678,
+      "baseline_duration_ms": 11743,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 11022,
+      "duration_delta_ms": 13935
+    },
+    "seo-geo": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 15950,
+      "baseline_tokens": 11585,
+      "with_skill_duration_ms": 20499,
+      "baseline_duration_ms": 31961,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 4365,
+      "duration_delta_ms": -11462
+    },
+    "skill-curator": {
+      "cases": 1,
+      "with_skill_passed": 1,
+      "baseline_passed": 0,
+      "assertions": 2,
+      "with_skill_tokens": 13753,
+      "baseline_tokens": 11537,
+      "with_skill_duration_ms": 26853,
+      "baseline_duration_ms": 11946,
+      "with_skill_pass_rate": 0.5,
+      "baseline_pass_rate": 0.0,
+      "pass_rate_delta": 0.5,
+      "verdict": "below-quality-bar",
+      "gate_passed": false,
+      "token_delta": 2216,
+      "duration_delta_ms": 14907
+    },
+    "software-architect": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 15932,
+      "baseline_tokens": 11700,
+      "with_skill_duration_ms": 22308,
+      "baseline_duration_ms": 13847,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 4232,
+      "duration_delta_ms": 8461
+    },
+    "testing-engineer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 2,
+      "assertions": 2,
+      "with_skill_tokens": 14295,
+      "baseline_tokens": 11869,
+      "with_skill_duration_ms": 18100,
+      "baseline_duration_ms": 16524,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 1.0,
+      "pass_rate_delta": 0.0,
+      "verdict": "no-measurable-lift",
+      "gate_passed": true,
+      "token_delta": 2426,
+      "duration_delta_ms": 1576
+    },
+    "visual-qa": {
+      "cases": 1,
+      "with_skill_passed": 1,
+      "baseline_passed": 0,
+      "assertions": 2,
+      "with_skill_tokens": 15272,
+      "baseline_tokens": 11201,
+      "with_skill_duration_ms": 9616,
+      "baseline_duration_ms": 5880,
+      "with_skill_pass_rate": 0.5,
+      "baseline_pass_rate": 0.0,
+      "pass_rate_delta": 0.5,
+      "verdict": "below-quality-bar",
+      "gate_passed": false,
+      "token_delta": 4071,
+      "duration_delta_ms": 3736
+    },
+    "writing-assistant": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 22268,
+      "baseline_tokens": 11213,
+      "with_skill_duration_ms": 9286,
+      "baseline_duration_ms": 6415,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 11055,
+      "duration_delta_ms": 2871
+    }
+  },
+  "output_summary": {
+    "with_skill_pass_rate": 0.7222,
+    "baseline_pass_rate": 0.5,
+    "pass_rate_delta": 0.2222,
+    "verdict": "below-quality-bar",
+    "gate_passed": false,
+    "skills": 18,
+    "cases": 18,
+    "assertions": 36
+  },
+  "routing": {
+    "cross_skill": {
+      "cases": [
+        {
+          "id": "context-local-marketplace-metadata",
+          "selected_participants": [
+            "agent-context-maintainer",
+            "skill-curator"
+          ],
+          "expected_lead_skill": "agent-context-maintainer",
+          "actual_lead_skill": "agent-context-maintainer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Local marketplace metadata, default prompts, and packaged sync are context-maintenance tasks."
+        },
+        {
+          "id": "focused-local-commit",
+          "selected_participants": [
+            "agent-context-maintainer",
+            "commit",
+            "senior-developer"
+          ],
+          "expected_lead_skill": "commit",
+          "actual_lead_skill": "commit",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Inspecting, staging selected changes, and creating a local commit matches commit workflow."
+        },
+        {
+          "id": "legal-consequential-letter",
+          "selected_participants": [
+            "austrian-law-helper",
+            "writing-assistant"
+          ],
+          "expected_lead_skill": "austrian-law-helper",
+          "actual_lead_skill": "austrian-law-helper",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "This concerns a Vienna authority notice, deadline preservation, file access, and careful German correspondence."
+        },
+        {
+          "id": "terse-security-review",
+          "selected_participants": [
+            "caveman",
+            "security-engineer",
+            "senior-devops-engineer"
+          ],
+          "expected_lead_skill": "security-engineer",
+          "actual_lead_skill": "security-engineer",
+          "expected_overlay_skills": [
+            "caveman"
+          ],
+          "actual_overlay_skills": [
+            "caveman"
+          ],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Security review is the lead domain; the explicit request for brief factual output activates caveman."
+        },
+        {
+          "id": "create-responsive-settings-ui",
+          "selected_participants": [
+            "design-engineer",
+            "design-reviewer",
+            "visual-qa"
+          ],
+          "expected_lead_skill": "design-engineer",
+          "actual_lead_skill": "design-engineer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Visual direction, DESIGN.md, responsive UI, and implementation planning are design-engineering tasks."
+        },
+        {
+          "id": "review-rendered-checkout",
+          "selected_participants": [
+            "design-engineer",
+            "design-reviewer",
+            "visual-qa"
+          ],
+          "expected_lead_skill": "design-reviewer",
+          "actual_lead_skill": "design-reviewer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Reviewing checkout screenshots and notes for a pass/fail verdict is UI critique and release gating."
+        },
+        {
+          "id": "roguelite-loop-diagnosis",
+          "selected_participants": [
+            "gameplay-consultant",
+            "godot-game-creation-engineer"
+          ],
+          "expected_lead_skill": "gameplay-consultant",
+          "actual_lead_skill": "gameplay-consultant",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Diagnosing repetition in a roguelite loop and proposing a playtestable change is gameplay consulting."
+        },
+        {
+          "id": "godot-export-regression",
+          "selected_participants": [
+            "gameplay-consultant",
+            "godot-game-creation-engineer",
+            "senior-developer"
+          ],
+          "expected_lead_skill": "godot-game-creation-engineer",
+          "actual_lead_skill": "godot-game-creation-engineer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Godot asset discovery, Windows exports, diagnosis, and verification require the Godot engineering skill."
+        },
+        {
+          "id": "minimal-bug-fix",
+          "selected_participants": [
+            "ponytail",
+            "senior-developer",
+            "testing-engineer"
+          ],
+          "expected_lead_skill": "senior-developer",
+          "actual_lead_skill": "senior-developer",
+          "expected_overlay_skills": [
+            "ponytail"
+          ],
+          "actual_overlay_skills": [
+            "ponytail"
+          ],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Formatter crash implementation is application development; the explicit smallest-fix and no-abstractions constraint activates ponytail."
+        },
+        {
+          "id": "ssrf-threat-model",
+          "selected_participants": [
+            "security-engineer",
+            "senior-developer",
+            "senior-devops-engineer"
+          ],
+          "expected_lead_skill": "security-engineer",
+          "actual_lead_skill": "security-engineer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "SSRF threat modeling, controls, and negative tests are security-engineering work."
+        },
+        {
+          "id": "application-cache-bug",
+          "selected_participants": [
+            "senior-developer",
+            "senior-devops-engineer",
+            "testing-engineer"
+          ],
+          "expected_lead_skill": "senior-developer",
+          "actual_lead_skill": "senior-developer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "In-process application-cache invalidation and its regression test are scoped application-code changes."
+        },
+        {
+          "id": "cdn-cache-rollout",
+          "selected_participants": [
+            "security-engineer",
+            "senior-developer",
+            "senior-devops-engineer"
+          ],
+          "expected_lead_skill": "senior-devops-engineer",
+          "actual_lead_skill": "senior-devops-engineer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "CDN cache keys, production rollout, rollback, and observability are infrastructure operations."
+        },
+        {
+          "id": "search-migration-audit",
+          "selected_participants": [
+            "design-engineer",
+            "seo-geo",
+            "writing-assistant"
+          ],
+          "expected_lead_skill": "seo-geo",
+          "actual_lead_skill": "seo-geo",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Canonicals, redirects, sitemaps, structured data, and multilingual migration auditing are SEO tasks."
+        },
+        {
+          "id": "external-plugin-vetting",
+          "selected_participants": [
+            "agent-context-maintainer",
+            "security-engineer",
+            "skill-curator"
+          ],
+          "expected_lead_skill": "skill-curator",
+          "actual_lead_skill": "skill-curator",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Evaluating an external plugin's source, license, permissions, releases, and compatibility is skill curation."
+        },
+        {
+          "id": "service-boundary-decision",
+          "selected_participants": [
+            "senior-developer",
+            "senior-devops-engineer",
+            "software-architect"
+          ],
+          "expected_lead_skill": "software-architect",
+          "actual_lead_skill": "software-architect",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Choosing module versus service boundaries with ownership and migration tradeoffs is architecture work."
+        },
+        {
+          "id": "flaky-test-triage",
+          "selected_participants": [
+            "senior-developer",
+            "testing-engineer",
+            "visual-qa"
+          ],
+          "expected_lead_skill": "testing-engineer",
+          "actual_lead_skill": "testing-engineer",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Reproducing CI nondeterminism and selecting a stabilization path is test engineering."
+        },
+        {
+          "id": "browser-evidence-capture",
+          "selected_participants": [
+            "design-reviewer",
+            "testing-engineer",
+            "visual-qa"
+          ],
+          "expected_lead_skill": "visual-qa",
+          "actual_lead_skill": "visual-qa",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Desktop/mobile screenshots, overflow, console, requests, and keyboard focus are browser evidence capture."
+        },
+        {
+          "id": "technical-docs-revision",
+          "selected_participants": [
+            "austrian-law-helper",
+            "seo-geo",
+            "writing-assistant"
+          ],
+          "expected_lead_skill": "writing-assistant",
+          "actual_lead_skill": "writing-assistant",
+          "expected_overlay_skills": [],
+          "actual_overlay_skills": [],
+          "lead_passed": true,
+          "overlays_passed": true,
+          "passed": true,
+          "reason": "Revising README prose while preserving commands, warnings, and voice is writing assistance."
+        }
+      ],
+      "summary": {
+        "passed": 18,
+        "total": 18,
+        "accuracy": 1.0
+      },
+      "by_skill": {
+        "agent-context-maintainer": {
+          "passed": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "austrian-law-helper": {
+          "passed": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "caveman": {
+          "passed": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "commit": {
+          "passed": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "design-engineer": {
+          "passed": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "design-reviewer": {
+          "passed": 3,
+          "total": 3,
+          "accuracy": 1.0
+        },
+        "gameplay-consultant": {
+          "passed": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "godot-game-creation-engineer": {
+          "passed": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "ponytail": {
+          "passed": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "security-engineer": {
+          "passed": 4,
+          "total": 4,
+          "accuracy": 1.0
+        },
+        "senior-developer": {
+          "passed": 8,
+          "total": 8,
+          "accuracy": 1.0
+        },
+        "senior-devops-engineer": {
+          "passed": 5,
+          "total": 5,
+          "accuracy": 1.0
+        },
+        "seo-geo": {
+          "passed": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "skill-curator": {
+          "passed": 2,
+          "total": 2,
+          "accuracy": 1.0
+        },
+        "software-architect": {
+          "passed": 1,
+          "total": 1,
+          "accuracy": 1.0
+        },
+        "testing-engineer": {
+          "passed": 4,
+          "total": 4,
+          "accuracy": 1.0
+        },
+        "visual-qa": {
+          "passed": 4,
+          "total": 4,
+          "accuracy": 1.0
+        },
+        "writing-assistant": {
+          "passed": 3,
+          "total": 3,
+          "accuracy": 1.0
+        }
+      }
+    },
+    "triggers": {
+      "cases": [
+        {
+          "key": "agent-context-maintainer:agents-md-cleanup",
+          "skill": "agent-context-maintainer",
+          "case": "agents-md-cleanup",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "AGENTS.md context maintenance."
+        },
+        {
+          "key": "agent-context-maintainer:cross-agent-conflict",
+          "skill": "agent-context-maintainer",
+          "case": "cross-agent-conflict",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Resolves agent context instructions."
+        },
+        {
+          "key": "agent-context-maintainer:skill-metadata-fix",
+          "skill": "agent-context-maintainer",
+          "case": "skill-metadata-fix",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Skill metadata and default prompt maintenance."
+        },
+        {
+          "key": "agent-context-maintainer:plugin-manifest-update",
+          "skill": "agent-context-maintainer",
+          "case": "plugin-manifest-update",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Plugin manifest and marketplace metadata maintenance."
+        },
+        {
+          "key": "agent-context-maintainer:near-miss-ordinary-code-refactor",
+          "skill": "agent-context-maintainer",
+          "case": "near-miss-ordinary-code-refactor",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Ordinary code refactor, not context or metadata maintenance."
+        },
+        {
+          "key": "agent-context-maintainer:near-miss-prose-edit",
+          "skill": "agent-context-maintainer",
+          "case": "near-miss-prose-edit",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "General prose editing, not context or metadata maintenance."
+        },
+        {
+          "key": "austrian-law-helper:vienna-tenancy-letter",
+          "skill": "austrian-law-helper",
+          "case": "vienna-tenancy-letter",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Vienna tenancy and Austrian legal correspondence."
+        },
+        {
+          "key": "austrian-law-helper:magistrate-notice-deadline",
+          "skill": "austrian-law-helper",
+          "case": "magistrate-notice-deadline",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Vienna authority notice and deadline verification."
+        },
+        {
+          "key": "austrian-law-helper:employment-termination-review",
+          "skill": "austrian-law-helper",
+          "case": "employment-termination-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Austrian employment termination issue."
+        },
+        {
+          "key": "austrian-law-helper:consumer-notice-in-vienna",
+          "skill": "austrian-law-helper",
+          "case": "consumer-notice-in-vienna",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Vienna consumer-law dispute."
+        },
+        {
+          "key": "austrian-law-helper:urgent-residence-notice",
+          "skill": "austrian-law-helper",
+          "case": "urgent-residence-notice",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Urgent Austrian residence notice."
+        },
+        {
+          "key": "austrian-law-helper:near-miss-routine-email",
+          "skill": "austrian-law-helper",
+          "case": "near-miss-routine-email",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Routine non-legal colleague email."
+        },
+        {
+          "key": "austrian-law-helper:near-miss-german-tenancy",
+          "skill": "austrian-law-helper",
+          "case": "near-miss-german-tenancy",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Berlin tenancy is outside Austrian or Vienna scope."
+        },
+        {
+          "key": "austrian-law-helper:near-miss-security-breach",
+          "skill": "austrian-law-helper",
+          "case": "near-miss-security-breach",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Technical security threat modeling, not Austrian legal analysis."
+        },
+        {
+          "key": "caveman:explicit-caveman-summary",
+          "skill": "caveman",
+          "case": "explicit-caveman-summary",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit caveman request."
+        },
+        {
+          "key": "caveman:german-brief-answer",
+          "skill": "caveman",
+          "case": "german-brief-answer",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit request for a brief answer."
+        },
+        {
+          "key": "caveman:compact-review-findings",
+          "skill": "caveman",
+          "case": "compact-review-findings",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit brief output request."
+        },
+        {
+          "key": "caveman:terse-with-citations",
+          "skill": "caveman",
+          "case": "terse-with-citations",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit short-answer request."
+        },
+        {
+          "key": "caveman:near-miss-minimal-implementation",
+          "skill": "caveman",
+          "case": "near-miss-minimal-implementation",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Ponytail is explicitly requested, not caveman."
+        },
+        {
+          "key": "caveman:near-miss-detailed-explanation",
+          "skill": "caveman",
+          "case": "near-miss-detailed-explanation",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Detailed explanation conflicts with terse-output overlay."
+        },
+        {
+          "key": "commit:focused-local-commit",
+          "skill": "commit",
+          "case": "focused-local-commit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Focused local commit requested."
+        },
+        {
+          "key": "commit:split-mixed-worktree",
+          "skill": "commit",
+          "case": "split-mixed-worktree",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Selective commits from a mixed worktree."
+        },
+        {
+          "key": "commit:staged-diff-safety",
+          "skill": "commit",
+          "case": "staged-diff-safety",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Review staged diff, verify, and commit."
+        },
+        {
+          "key": "commit:near-miss-push-release-branch",
+          "skill": "commit",
+          "case": "near-miss-push-release-branch",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Push, rebase, and pull-request workflow is out of scope."
+        },
+        {
+          "key": "commit:near-miss-debug-regression",
+          "skill": "commit",
+          "case": "near-miss-debug-regression",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Debugging and implementation without a commit request."
+        },
+        {
+          "key": "design-engineer:new-design-context-interview",
+          "skill": "design-engineer",
+          "case": "new-design-context-interview",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "New web UI design direction and DESIGN.md workflow."
+        },
+        {
+          "key": "design-engineer:plan-after-design-md",
+          "skill": "design-engineer",
+          "case": "plan-after-design-md",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "UI redesign planning from DESIGN.md."
+        },
+        {
+          "key": "design-engineer:implement-with-review-loop",
+          "skill": "design-engineer",
+          "case": "implement-with-review-loop",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Web UI implementation with design iteration."
+        },
+        {
+          "key": "design-engineer:rework-final-signoff",
+          "skill": "design-engineer",
+          "case": "rework-final-signoff",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Homepage visual rework."
+        },
+        {
+          "key": "design-engineer:document-existing-system",
+          "skill": "design-engineer",
+          "case": "document-existing-system",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Documenting an existing design system."
+        },
+        {
+          "key": "design-engineer:de-genericize-ai-ui",
+          "skill": "design-engineer",
+          "case": "de-genericize-ai-ui",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Web UI visual redesign."
+        },
+        {
+          "key": "design-engineer:brand-vs-product-register",
+          "skill": "design-engineer",
+          "case": "brand-vs-product-register",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Designing distinct public and internal UI registers."
+        },
+        {
+          "key": "design-engineer:near-miss-code-only",
+          "skill": "design-engineer",
+          "case": "near-miss-code-only",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "API logic fix, not UI design."
+        },
+        {
+          "key": "design-engineer:near-miss-standalone-review",
+          "skill": "design-engineer",
+          "case": "near-miss-standalone-review",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Standalone UI critique belongs to design-reviewer."
+        },
+        {
+          "key": "design-reviewer:review-design-md",
+          "skill": "design-reviewer",
+          "case": "review-design-md",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Reviewing DESIGN.md."
+        },
+        {
+          "key": "design-reviewer:review-ui-plan",
+          "skill": "design-reviewer",
+          "case": "review-ui-plan",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Reviewing a UI implementation plan."
+        },
+        {
+          "key": "design-reviewer:review-implementation",
+          "skill": "design-reviewer",
+          "case": "review-implementation",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Evidence-based UI implementation review."
+        },
+        {
+          "key": "design-reviewer:consultant-screenshot-critique",
+          "skill": "design-reviewer",
+          "case": "consultant-screenshot-critique",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Screenshot-based design critique."
+        },
+        {
+          "key": "design-reviewer:ai-slop-verdict",
+          "skill": "design-reviewer",
+          "case": "ai-slop-verdict",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "UI quality and AI-slop verdict."
+        },
+        {
+          "key": "design-reviewer:missing-evidence-risk",
+          "skill": "design-reviewer",
+          "case": "missing-evidence-risk",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Design sign-off and evidence adequacy review."
+        },
+        {
+          "key": "design-reviewer:pass-with-fixes-semantics",
+          "skill": "design-reviewer",
+          "case": "pass-with-fixes-semantics",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "UI review with pass-with-fixes decision."
+        },
+        {
+          "key": "design-reviewer:weak-rework-must-fail",
+          "skill": "design-reviewer",
+          "case": "weak-rework-must-fail",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Homepage rework release verdict."
+        },
+        {
+          "key": "design-reviewer:near-miss-create-design",
+          "skill": "design-reviewer",
+          "case": "near-miss-create-design",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Design creation and implementation belong to design-engineer."
+        },
+        {
+          "key": "design-reviewer:near-miss-security-review",
+          "skill": "design-reviewer",
+          "case": "near-miss-security-review",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Security review, not UI/UX review."
+        },
+        {
+          "key": "gameplay-consultant:roguelite-loop-audit",
+          "skill": "gameplay-consultant",
+          "case": "roguelite-loop-audit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Roguelite loop audit."
+        },
+        {
+          "key": "gameplay-consultant:strategy-economy-balance",
+          "skill": "gameplay-consultant",
+          "case": "strategy-economy-balance",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Strategy economy and progression balance."
+        },
+        {
+          "key": "gameplay-consultant:boss-accessibility-review",
+          "skill": "gameplay-consultant",
+          "case": "boss-accessibility-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Gameplay difficulty and accessibility review."
+        },
+        {
+          "key": "gameplay-consultant:onboarding-playtest",
+          "skill": "gameplay-consultant",
+          "case": "onboarding-playtest",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Game onboarding playtest design."
+        },
+        {
+          "key": "gameplay-consultant:extraction-economy-loop",
+          "skill": "gameplay-consultant",
+          "case": "extraction-economy-loop",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Extraction loop and economy analysis."
+        },
+        {
+          "key": "gameplay-consultant:near-miss-godot-controller",
+          "skill": "gameplay-consultant",
+          "case": "near-miss-godot-controller",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Godot implementation belongs to godot-game-creation-engineer."
+        },
+        {
+          "key": "gameplay-consultant:near-miss-code-regression",
+          "skill": "gameplay-consultant",
+          "case": "near-miss-code-regression",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Backend bug fix, not gameplay consulting."
+        },
+        {
+          "key": "gameplay-consultant:near-miss-ui-brand-system",
+          "skill": "gameplay-consultant",
+          "case": "near-miss-ui-brand-system",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Marketing UI design, not gameplay consulting."
+        },
+        {
+          "key": "godot-game-creation-engineer:godot-4-dash-feature",
+          "skill": "godot-game-creation-engineer",
+          "case": "godot-4-dash-feature",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Godot gameplay implementation."
+        },
+        {
+          "key": "godot-game-creation-engineer:export-missing-json",
+          "skill": "godot-game-creation-engineer",
+          "case": "export-missing-json",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Godot export debugging."
+        },
+        {
+          "key": "godot-game-creation-engineer:godot-save-slot-menu",
+          "skill": "godot-game-creation-engineer",
+          "case": "godot-save-slot-menu",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Godot save/load UI implementation."
+        },
+        {
+          "key": "godot-game-creation-engineer:godot-csharp-frame-spike",
+          "skill": "godot-game-creation-engineer",
+          "case": "godot-csharp-frame-spike",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Godot C# profiling and debugging."
+        },
+        {
+          "key": "godot-game-creation-engineer:godot-input-rebinding",
+          "skill": "godot-game-creation-engineer",
+          "case": "godot-input-rebinding",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Godot input implementation."
+        },
+        {
+          "key": "godot-game-creation-engineer:near-miss-game-loop-design",
+          "skill": "godot-game-creation-engineer",
+          "case": "near-miss-game-loop-design",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Game-loop design belongs to gameplay-consultant."
+        },
+        {
+          "key": "godot-game-creation-engineer:near-miss-unity-bug",
+          "skill": "godot-game-creation-engineer",
+          "case": "near-miss-unity-bug",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Unity task, not Godot."
+        },
+        {
+          "key": "godot-game-creation-engineer:near-miss-game-balance",
+          "skill": "godot-game-creation-engineer",
+          "case": "near-miss-game-balance",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Game balance design belongs to gameplay-consultant."
+        },
+        {
+          "key": "ponytail:minimal-bug-fix",
+          "skill": "ponytail",
+          "case": "minimal-bug-fix",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit minimal-scope implementation request."
+        },
+        {
+          "key": "ponytail:challenge-speculative-abstraction",
+          "skill": "ponytail",
+          "case": "challenge-speculative-abstraction",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit ponytail request challenges unnecessary abstraction."
+        },
+        {
+          "key": "ponytail:reuse-installed-capability",
+          "skill": "ponytail",
+          "case": "reuse-installed-capability",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit minimal implementation and reuse request."
+        },
+        {
+          "key": "ponytail:do-not-simplify-safety",
+          "skill": "ponytail",
+          "case": "do-not-simplify-safety",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit ponytail request with safety preservation."
+        },
+        {
+          "key": "ponytail:near-miss-full-architecture",
+          "skill": "ponytail",
+          "case": "near-miss-full-architecture",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Architecture design is not minimal implementation."
+        },
+        {
+          "key": "ponytail:near-miss-brief-output",
+          "skill": "ponytail",
+          "case": "near-miss-brief-output",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Terse output belongs to caveman."
+        },
+        {
+          "key": "security-engineer:idor-review",
+          "skill": "security-engineer",
+          "case": "idor-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Authorization and IDOR security review."
+        },
+        {
+          "key": "security-engineer:release-secrets-gate",
+          "skill": "security-engineer",
+          "case": "release-secrets-gate",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Production secrets and CI security gate."
+        },
+        {
+          "key": "security-engineer:webhook-threat-model",
+          "skill": "security-engineer",
+          "case": "webhook-threat-model",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Webhook threat modeling and replay risk."
+        },
+        {
+          "key": "security-engineer:ssrf-file-upload-review",
+          "skill": "security-engineer",
+          "case": "ssrf-file-upload-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "SSRF and upload security review."
+        },
+        {
+          "key": "security-engineer:xss-session-negative-tests",
+          "skill": "security-engineer",
+          "case": "xss-session-negative-tests",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "XSS, sessions, and security negative tests."
+        },
+        {
+          "key": "security-engineer:near-miss-ui-layout",
+          "skill": "security-engineer",
+          "case": "near-miss-ui-layout",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "UI styling and responsive layout, not security."
+        },
+        {
+          "key": "security-engineer:near-miss-code-maintainability",
+          "skill": "security-engineer",
+          "case": "near-miss-code-maintainability",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "General maintainability refactor without security focus."
+        },
+        {
+          "key": "senior-developer:scoped-code-review",
+          "skill": "senior-developer",
+          "case": "scoped-code-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Application code review."
+        },
+        {
+          "key": "senior-developer:localized-refactor",
+          "skill": "senior-developer",
+          "case": "localized-refactor",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Scoped application refactor."
+        },
+        {
+          "key": "senior-developer:professional-debugging",
+          "skill": "senior-developer",
+          "case": "professional-debugging",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Application debugging and targeted fix."
+        },
+        {
+          "key": "senior-developer:async-concurrency-fix",
+          "skill": "senior-developer",
+          "case": "async-concurrency-fix",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Application concurrency bug fix."
+        },
+        {
+          "key": "senior-developer:data-migration-compatibility",
+          "skill": "senior-developer",
+          "case": "data-migration-compatibility",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Application data-shape migration."
+        },
+        {
+          "key": "senior-developer:go-context-and-race-fix",
+          "skill": "senior-developer",
+          "case": "go-context-and-race-fix",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Go application concurrency and cancellation fix."
+        },
+        {
+          "key": "senior-developer:next-cache-routing-change",
+          "skill": "senior-developer",
+          "case": "next-cache-routing-change",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Next.js application routing and caching change."
+        },
+        {
+          "key": "senior-developer:java-virtual-thread-diagnosis",
+          "skill": "senior-developer",
+          "case": "java-virtual-thread-diagnosis",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Java application performance diagnosis."
+        },
+        {
+          "key": "senior-developer:near-miss-threat-model",
+          "skill": "senior-developer",
+          "case": "near-miss-threat-model",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Threat modeling belongs to security-engineer."
+        },
+        {
+          "key": "senior-developer:near-miss-production-rollout",
+          "skill": "senior-developer",
+          "case": "near-miss-production-rollout",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Production Kubernetes operations belong to senior-devops-engineer."
+        },
+        {
+          "key": "senior-devops-engineer:terraform-plan-review",
+          "skill": "senior-devops-engineer",
+          "case": "terraform-plan-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Infrastructure and release safety review."
+        },
+        {
+          "key": "senior-devops-engineer:runtime-incident-after-deploy",
+          "skill": "senior-devops-engineer",
+          "case": "runtime-incident-after-deploy",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Production runtime incident."
+        },
+        {
+          "key": "senior-devops-engineer:ci-release-design",
+          "skill": "senior-devops-engineer",
+          "case": "ci-release-design",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "CI/CD release architecture."
+        },
+        {
+          "key": "senior-devops-engineer:github-actions-hardening",
+          "skill": "senior-devops-engineer",
+          "case": "github-actions-hardening",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "CI/CD operational and workflow review."
+        },
+        {
+          "key": "senior-devops-engineer:kubernetes-rollout-debug",
+          "skill": "senior-devops-engineer",
+          "case": "kubernetes-rollout-debug",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Kubernetes rollout troubleshooting."
+        },
+        {
+          "key": "senior-devops-engineer:edge-cache-release-review",
+          "skill": "senior-devops-engineer",
+          "case": "edge-cache-release-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "CDN, cache, WAF, and release review."
+        },
+        {
+          "key": "senior-devops-engineer:otel-collector-review",
+          "skill": "senior-devops-engineer",
+          "case": "otel-collector-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Observability infrastructure rollout review."
+        },
+        {
+          "key": "senior-devops-engineer:near-miss-manuscript",
+          "skill": "senior-devops-engineer",
+          "case": "near-miss-manuscript",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Manuscript review belongs to writing-assistant."
+        },
+        {
+          "key": "senior-devops-engineer:near-miss-service-boundary",
+          "skill": "senior-devops-engineer",
+          "case": "near-miss-service-boundary",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Service boundary architecture belongs to software-architect."
+        },
+        {
+          "key": "seo-geo:technical-seo-launch-audit",
+          "skill": "seo-geo",
+          "case": "technical-seo-launch-audit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Technical SEO launch audit."
+        },
+        {
+          "key": "seo-geo:geo-content-review",
+          "skill": "seo-geo",
+          "case": "geo-content-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Answer-engine and GEO content optimization."
+        },
+        {
+          "key": "seo-geo:migration-redirect-risk",
+          "skill": "seo-geo",
+          "case": "migration-redirect-risk",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "SEO migration and redirect review."
+        },
+        {
+          "key": "seo-geo:local-ecommerce-hreflang",
+          "skill": "seo-geo",
+          "case": "local-ecommerce-hreflang",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Local ecommerce SEO and hreflang audit."
+        },
+        {
+          "key": "seo-geo:rendered-html-extraction",
+          "skill": "seo-geo",
+          "case": "rendered-html-extraction",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Rendered HTML SEO metadata audit."
+        },
+        {
+          "key": "seo-geo:near-miss-logo-design",
+          "skill": "seo-geo",
+          "case": "near-miss-logo-design",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Visual design task without SEO focus."
+        },
+        {
+          "key": "seo-geo:near-miss-copy-edit",
+          "skill": "seo-geo",
+          "case": "near-miss-copy-edit",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "General essay editing without discoverability concerns."
+        },
+        {
+          "key": "skill-curator:top-skills-review",
+          "skill": "skill-curator",
+          "case": "top-skills-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "External skill and plugin discovery."
+        },
+        {
+          "key": "skill-curator:plugin-install-vetting",
+          "skill": "skill-curator",
+          "case": "plugin-install-vetting",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Plugin installation and risk vetting."
+        },
+        {
+          "key": "skill-curator:skill-quality-audit",
+          "skill": "skill-curator",
+          "case": "skill-quality-audit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Skill quality and overlap audit."
+        },
+        {
+          "key": "skill-curator:external-marketplace-claim",
+          "skill": "skill-curator",
+          "case": "external-marketplace-claim",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "External marketplace and repository verification."
+        },
+        {
+          "key": "skill-curator:near-miss-local-marketplace-metadata",
+          "skill": "skill-curator",
+          "case": "near-miss-local-marketplace-metadata",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Local metadata maintenance belongs to agent-context-maintainer."
+        },
+        {
+          "key": "skill-curator:near-miss-create-one-skill",
+          "skill": "skill-curator",
+          "case": "near-miss-create-one-skill",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Skill creation belongs to skill-creator, not external curation."
+        },
+        {
+          "key": "skill-curator:near-miss-code-review",
+          "skill": "skill-curator",
+          "case": "near-miss-code-review",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "General code review belongs to senior-developer."
+        },
+        {
+          "key": "software-architect:service-boundary-review",
+          "skill": "software-architect",
+          "case": "service-boundary-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Service boundary architecture."
+        },
+        {
+          "key": "software-architect:migration-plan",
+          "skill": "software-architect",
+          "case": "migration-plan",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Cross-system strangler migration."
+        },
+        {
+          "key": "software-architect:api-contract-design",
+          "skill": "software-architect",
+          "case": "api-contract-design",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Cross-system API and ownership contract."
+        },
+        {
+          "key": "software-architect:event-driven-integration",
+          "skill": "software-architect",
+          "case": "event-driven-integration",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Integration architecture and event handling."
+        },
+        {
+          "key": "software-architect:saas-tenancy-design",
+          "skill": "software-architect",
+          "case": "saas-tenancy-design",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "SaaS domain and tenancy architecture."
+        },
+        {
+          "key": "software-architect:reject-unneeded-microservices",
+          "skill": "software-architect",
+          "case": "reject-unneeded-microservices",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Architecture decision about service decomposition."
+        },
+        {
+          "key": "software-architect:near-miss-css-audit",
+          "skill": "software-architect",
+          "case": "near-miss-css-audit",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "UI design audit belongs to design-engineer or design-reviewer."
+        },
+        {
+          "key": "software-architect:near-miss-local-bugfix",
+          "skill": "software-architect",
+          "case": "near-miss-local-bugfix",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Local code fix belongs to senior-developer."
+        },
+        {
+          "key": "testing-engineer:regression-test-plan",
+          "skill": "testing-engineer",
+          "case": "regression-test-plan",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Regression test strategy."
+        },
+        {
+          "key": "testing-engineer:playwright-critical-flow",
+          "skill": "testing-engineer",
+          "case": "playwright-critical-flow",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Playwright end-to-end coverage."
+        },
+        {
+          "key": "testing-engineer:flaky-ci-test",
+          "skill": "testing-engineer",
+          "case": "flaky-ci-test",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Flaky test triage and stabilization."
+        },
+        {
+          "key": "testing-engineer:coverage-audit",
+          "skill": "testing-engineer",
+          "case": "coverage-audit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Test coverage audit."
+        },
+        {
+          "key": "testing-engineer:near-miss-visual-redesign",
+          "skill": "testing-engineer",
+          "case": "near-miss-visual-redesign",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Visual redesign belongs to design-engineer."
+        },
+        {
+          "key": "testing-engineer:near-miss-threat-model",
+          "skill": "testing-engineer",
+          "case": "near-miss-threat-model",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Threat modeling belongs to security-engineer."
+        },
+        {
+          "key": "visual-qa:responsive-evidence-after-ui-change",
+          "skill": "visual-qa",
+          "case": "responsive-evidence-after-ui-change",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Browser evidence after UI change."
+        },
+        {
+          "key": "visual-qa:streaming-state-check",
+          "skill": "visual-qa",
+          "case": "streaming-state-check",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Visual verification of streaming states."
+        },
+        {
+          "key": "visual-qa:keyboard-and-long-content-check",
+          "skill": "visual-qa",
+          "case": "keyboard-and-long-content-check",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Browser layout and keyboard evidence."
+        },
+        {
+          "key": "visual-qa:near-miss-create-the-ui",
+          "skill": "visual-qa",
+          "case": "near-miss-create-the-ui",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "UI design and implementation belong to design-engineer."
+        },
+        {
+          "key": "visual-qa:near-miss-functional-test-strategy",
+          "skill": "visual-qa",
+          "case": "near-miss-functional-test-strategy",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Functional test strategy belongs to testing-engineer."
+        },
+        {
+          "key": "writing-assistant:chapter-review",
+          "skill": "writing-assistant",
+          "case": "chapter-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Fiction chapter review."
+        },
+        {
+          "key": "writing-assistant:kdp-blurb",
+          "skill": "writing-assistant",
+          "case": "kdp-blurb",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "KDP publishing copy."
+        },
+        {
+          "key": "writing-assistant:ai-slop-text-audit",
+          "skill": "writing-assistant",
+          "case": "ai-slop-text-audit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Prose revision and AI-writing audit."
+        },
+        {
+          "key": "writing-assistant:technical-docs-edit",
+          "skill": "writing-assistant",
+          "case": "technical-docs-edit",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Technical documentation editing."
+        },
+        {
+          "key": "writing-assistant:line-edit-only",
+          "skill": "writing-assistant",
+          "case": "line-edit-only",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Explicit line-edit request."
+        },
+        {
+          "key": "writing-assistant:source-boundary-review",
+          "skill": "writing-assistant",
+          "case": "source-boundary-review",
+          "expected_should_trigger": true,
+          "actual_should_trigger": true,
+          "passed": true,
+          "reason": "Prose editing with source-verification flags."
+        },
+        {
+          "key": "writing-assistant:near-miss-terraform",
+          "skill": "writing-assistant",
+          "case": "near-miss-terraform",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "Terraform risk review belongs to senior-devops-engineer."
+        },
+        {
+          "key": "writing-assistant:near-miss-search-audit",
+          "skill": "writing-assistant",
+          "case": "near-miss-search-audit",
+          "expected_should_trigger": false,
+          "actual_should_trigger": false,
+          "passed": true,
+          "reason": "SEO audit belongs to seo-geo."
+        }
+      ],
+      "summary": {
+        "passed": 133,
+        "total": 133,
+        "accuracy": 1.0
+      },
+      "by_skill": {
+        "agent-context-maintainer": {
+          "passed": 6,
+          "total": 6,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 4,
+          "positive_total": 4,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "austrian-law-helper": {
+          "passed": 8,
+          "total": 8,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 5,
+          "positive_total": 5,
+          "negative_specificity": 1.0,
+          "negative_passed": 3,
+          "negative_total": 3
+        },
+        "caveman": {
+          "passed": 6,
+          "total": 6,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 4,
+          "positive_total": 4,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "commit": {
+          "passed": 5,
+          "total": 5,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 3,
+          "positive_total": 3,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "design-engineer": {
+          "passed": 9,
+          "total": 9,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 7,
+          "positive_total": 7,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "design-reviewer": {
+          "passed": 10,
+          "total": 10,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 8,
+          "positive_total": 8,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "gameplay-consultant": {
+          "passed": 8,
+          "total": 8,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 5,
+          "positive_total": 5,
+          "negative_specificity": 1.0,
+          "negative_passed": 3,
+          "negative_total": 3
+        },
+        "godot-game-creation-engineer": {
+          "passed": 8,
+          "total": 8,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 5,
+          "positive_total": 5,
+          "negative_specificity": 1.0,
+          "negative_passed": 3,
+          "negative_total": 3
+        },
+        "ponytail": {
+          "passed": 6,
+          "total": 6,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 4,
+          "positive_total": 4,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "security-engineer": {
+          "passed": 7,
+          "total": 7,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 5,
+          "positive_total": 5,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "senior-developer": {
+          "passed": 10,
+          "total": 10,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 8,
+          "positive_total": 8,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "senior-devops-engineer": {
+          "passed": 9,
+          "total": 9,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 7,
+          "positive_total": 7,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "seo-geo": {
+          "passed": 7,
+          "total": 7,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 5,
+          "positive_total": 5,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "skill-curator": {
+          "passed": 7,
+          "total": 7,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 4,
+          "positive_total": 4,
+          "negative_specificity": 1.0,
+          "negative_passed": 3,
+          "negative_total": 3
+        },
+        "software-architect": {
+          "passed": 8,
+          "total": 8,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 6,
+          "positive_total": 6,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "testing-engineer": {
+          "passed": 6,
+          "total": 6,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 4,
+          "positive_total": 4,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "visual-qa": {
+          "passed": 5,
+          "total": 5,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 3,
+          "positive_total": 3,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        },
+        "writing-assistant": {
+          "passed": 8,
+          "total": 8,
+          "accuracy": 1.0,
+          "positive_recall": 1.0,
+          "positive_passed": 6,
+          "positive_total": 6,
+          "negative_specificity": 1.0,
+          "negative_passed": 2,
+          "negative_total": 2
+        }
+      }
+    },
+    "summary": {
+      "passed": 151,
+      "total": 151,
+      "accuracy": 1.0
+    },
+    "timing": {
+      "cross_skill": {
+        "model": "gpt-5.6-luna",
+        "response_id": "019f585d-874d-7db1-983d-7afa9e10d400",
+        "input_tokens": 11841,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "output_tokens": 861,
+        "reasoning_tokens": 91,
+        "total_tokens": 12702,
+        "duration_ms": 22312
+      },
+      "triggers": {
+        "model": "gpt-5.6-luna",
+        "response_id": "019f585d-dd0a-7a42-9358-6250dc43f42a",
+        "input_tokens": 19914,
+        "cached_input_tokens": 0,
+        "cache_write_tokens": 0,
+        "output_tokens": 3815,
+        "reasoning_tokens": 58,
+        "total_tokens": 23729,
+        "duration_ms": 71173
+      }
+    }
+  },
+  "usage": {
+    "model_calls": 56,
+    "api_requests": 57,
+    "total_tokens": 744962,
+    "total_duration_ms": 850762,
+    "maximum_total_tokens": 5000000
+  },
+  "gate": {
+    "passed": false,
+    "output_passed": false,
+    "routing_passed": true
+  }
+}

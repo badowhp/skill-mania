@@ -38,6 +38,9 @@ workflow_security = load_module(
     "check_workflow_security", REPO_ROOT / "scripts" / "check-workflow-security.py"
 )
 skill_evals = load_module("run_skill_evals", REPO_ROOT / "scripts" / "run-skill-evals.py")
+benchmark_compare = load_module(
+    "compare_skill_benchmarks", REPO_ROOT / "scripts" / "compare-skill-benchmarks.py"
+)
 install_profiles = load_module(
     "list_profile_skills", REPO_ROOT / "scripts" / "list-profile-skills.py"
 )
@@ -447,6 +450,74 @@ class ModelEvalRunnerTests(unittest.TestCase):
         self.assertEqual(budgeted.requests_attempted, 1)
         self.assertEqual(budgeted.total_tokens_used, 14)
 
+    def test_codex_jsonl_usage_is_parsed(self) -> None:
+        thread_id, usage = skill_evals.parse_codex_jsonl(
+            '{"type":"thread.started","thread_id":"thread-1"}\n'
+            '{"type":"turn.completed","usage":{"input_tokens":10,'
+            '"cached_input_tokens":2,"output_tokens":4,"reasoning_output_tokens":1}}\n'
+        )
+
+        self.assertEqual(thread_id, "thread-1")
+        self.assertEqual(usage["input_tokens"], 10)
+        self.assertEqual(usage["reasoning_output_tokens"], 1)
+
+    def test_codex_client_uses_isolated_ephemeral_home(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            auth_home = Path(tmp) / "source-home"
+            auth_home.mkdir()
+            (auth_home / "auth.json").write_text("{}", encoding="utf-8")
+            with patch.object(skill_evals.shutil, "which", return_value="/usr/bin/codex"):
+                client = skill_evals.CodexExecClient(
+                    codex_bin="codex",
+                    auth_home=auth_home,
+                    maximum_total_tokens=100,
+                    maximum_api_requests=1,
+                )
+            received: dict[str, object] = {}
+
+            def fake_run(command, **kwargs):  # type: ignore[no-untyped-def]
+                received["command"] = command
+                received["environment"] = kwargs["env"]
+                received["prompt"] = kwargs["input"]
+                output = Path(command[command.index("--output-last-message") + 1])
+                output.write_text('{"result":"ok"}', encoding="utf-8")
+                schema = Path(command[command.index("--output-schema") + 1])
+                received["schema"] = json.loads(schema.read_text(encoding="utf-8"))
+                stdout = (
+                    '{"type":"thread.started","thread_id":"thread-1"}\n'
+                    '{"type":"turn.completed","usage":{"input_tokens":10,'
+                    '"cached_input_tokens":2,"output_tokens":4,'
+                    '"reasoning_output_tokens":1}}\n'
+                )
+                return subprocess.CompletedProcess(command, 0, stdout=stdout, stderr="")
+
+            try:
+                with patch.object(skill_evals.subprocess, "run", side_effect=fake_run):
+                    result = client.call(
+                        model="gpt-test",
+                        reasoning_effort="low",
+                        instructions="instructions",
+                        input_text="task",
+                        max_output_tokens=100,
+                        schema_name="result",
+                        schema={"type": "object"},
+                    )
+            finally:
+                client.close()
+
+        command = received["command"]
+        assert isinstance(command, list)
+        self.assertIn("--ephemeral", command)
+        self.assertIn("--ignore-user-config", command)
+        self.assertIn("read-only", command)
+        environment = received["environment"]
+        assert isinstance(environment, dict)
+        self.assertNotEqual(environment["CODEX_HOME"], str(auth_home))
+        self.assertIn("Do not use\ntools", received["prompt"])
+        self.assertEqual(received["schema"], {"type": "object"})
+        self.assertEqual(result.total_tokens, 14)
+        self.assertEqual(result.response_id, "thread-1")
+
     def test_blind_grade_is_mapped_back_to_runs(self) -> None:
         raw = {
             "results": [
@@ -475,6 +546,11 @@ class ModelEvalRunnerTests(unittest.TestCase):
 
         self.assertEqual(first, second)
         self.assertEqual(set(first), {"baseline", "with_skill"})
+
+    def test_routing_schema_uses_supported_strict_json_subset(self) -> None:
+        schema = skill_evals.routing_schema(["commit"], ["caveman"])
+
+        self.assertNotIn("uniqueItems", json.dumps(schema))
 
     def test_skill_package_includes_text_resources_and_skips_binary_assets(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -630,8 +706,55 @@ class ModelEvalRunnerTests(unittest.TestCase):
         self.assertEqual(plan["estimated_model_calls"], 56)
         self.assertEqual(plan["routing_model"], "gpt-5.6-luna")
         self.assertEqual(plan["maximum_api_requests"], 600)
+        self.assertEqual(plan["provider"], "codex-cli")
         self.assertEqual(plan["baseline"]["kind"], "without_skill")
         self.assertFalse(plan["tool_execution"])
+
+    def test_benchmark_comparison_reports_quality_regression(self) -> None:
+        base_config = {
+            "provider": "codex-cli",
+            "model": "generator",
+            "reasoning_effort": "medium",
+            "judge_model": "judge",
+            "judge_reasoning_effort": "high",
+            "routing_model": "router",
+            "routing_reasoning_effort": "low",
+            "case_offset": 0,
+            "context_mode": "bundled-context",
+            "baseline": {"kind": "without_skill", "label": "without-skill"},
+        }
+        baseline = {
+            "configuration": base_config,
+            "cases": [{"skill": "commit", "case": "focused"}],
+            "skills": {
+                "commit": {
+                    "with_skill_pass_rate": 1.0,
+                    "baseline_pass_rate": 0.5,
+                    "token_delta": 10,
+                    "duration_delta_ms": 20,
+                    "verdict": "measurable-lift",
+                    "gate_passed": True,
+                }
+            },
+            "output_summary": {"with_skill_pass_rate": 1.0},
+            "routing": {"summary": {"accuracy": 1.0}},
+            "gate": {"passed": True},
+        }
+        current = json.loads(json.dumps(baseline))
+        current["skills"]["commit"]["with_skill_pass_rate"] = 0.5
+        current["skills"]["commit"]["verdict"] = "below-quality-bar"
+        current["skills"]["commit"]["gate_passed"] = False
+        current["output_summary"]["with_skill_pass_rate"] = 0.5
+        current["gate"]["passed"] = False
+
+        comparison = benchmark_compare.compare_reports(baseline, current)
+
+        self.assertTrue(comparison["comparable"])
+        self.assertEqual(
+            comparison["skills"]["commit"]["with_skill_pass_rate_delta"], -0.5
+        )
+        self.assertIn("commit", comparison["regressions"])
+        self.assertIn("overall-gate", comparison["regressions"])
 
     def test_model_call_cap_rejects_an_accidental_full_run(self) -> None:
         result = subprocess.run(

@@ -90,6 +90,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ```text
 .
 ├── assets/                         # Repository media used by documentation
+├── benchmarks/baselines/           # Compact, versioned local quality snapshots
 ├── config/install-profiles.json    # Complete, non-overlapping local-install profiles
 ├── docs/                           # Non-skill setup and operations notes
 ├── evals/                          # Cross-skill routing and reviewed model matrices
@@ -104,6 +105,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ├── .claude-plugin/marketplace.json # Claude Code marketplace catalog
 ├── .agents/plugins/marketplace.json # Codex local marketplace catalog
 ├── scripts/install-local.sh        # Install skills locally as symlinks or copies
+├── scripts/compare-skill-benchmarks.py # Compare saved and current quality snapshots
 ├── scripts/run-skill-evals.py      # Blind baseline-versus-skill model evaluation runner
 ├── scripts/report-skill-budgets.py # Report and enforce context budgets
 ├── scripts/sync-plugin-package.sh  # Refresh packaged plugin skills
@@ -226,6 +228,20 @@ Every push and pull request runs the deterministic release-readiness gate withou
 `.github/workflows/skill-regression-gate.yml` is the fixed model-backed release check for material behavior changes. It runs every positive case for every skill against the immutable latest `v*` tag with the reviewed balanced generator, quality judge, throughput router, and explicit logical-call, HTTP-attempt, and token caps. Attach the retained result to the pull request or release decision. A failed or ambiguous model grade still needs evidence review; one stochastic run is not a substitute for deterministic helper tests or a real tool-execution forward test.
 
 The repository evaluator uses a clearly labeled `bundled-context` approximation: it supplies `SKILL.md` plus safe text resources to the model, records included files and SHA-256 digests, but exposes no shell, browser, filesystem, or network tools. This isolates instruction quality and routing. Actual tool behavior is covered by helper/unit tests and fresh-agent forward tests described in [Skill evaluation](docs/evaluation.md).
+
+Run the same smoke benchmark locally without a pipeline or API key by using the authenticated,
+isolated Codex CLI backend. Save a compact snapshot for later comparison:
+
+```bash
+python3 scripts/run-skill-evals.py \
+  --provider codex-cli \
+  --skills all \
+  --output local-smoke-workspace \
+  --snapshot benchmarks/baselines/<label>
+```
+
+See [Skill evaluation](docs/evaluation.md) for full-case runs, snapshot comparison, and the limits
+of bundled-context evidence.
 
 Model workflows send the bundled skill text and committed eval fixtures to the OpenAI API. Keep confidential, customer, production, and personal data out of those files, and do not enable the workflows unless that provider processing is approved.
 

@@ -75,3 +75,20 @@ Before committing, run:
 python3 scripts/validate-skills.py skills plugins/skill-mania/skills
 python3 scripts/report-skill-budgets.py --check
 ```
+
+For a material behavior change, run a local paired comparison before relying on the pipeline:
+
+```bash
+python3 scripts/run-skill-evals.py \
+  --provider codex-cli \
+  --skills <changed-skill> \
+  --max-cases-per-skill 0 \
+  --baseline-skills-dir <unchanged-snapshot>/skills \
+  --baseline-label <tag-or-commit> \
+  --baseline-commit <sha> \
+  --output local-change-workspace
+```
+
+Use a no-skill baseline for a new skill. Save accepted all-skill smoke checkpoints with
+`--snapshot benchmarks/baselines/<label>` and compare them with
+`scripts/compare-skill-benchmarks.py`.
