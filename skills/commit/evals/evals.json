@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "focused-local-commit",
-      "prompt": "Inspect my current worktree and create one focused local commit for the validation changes. Leave unrelated edits untouched and do not push.",
-      "expected_output": "Inspects staged and unstaged state, identifies the semantic change set, stages explicit paths, verifies the staged patch, commits locally, and reports remaining changes without pushing.",
+      "prompt": "Using the supplied worktree snapshot, give the exact safe staging and staged-diff verification sequence for one local validation commit. Leave unrelated work untouched. Because this is a text-only snapshot, do not claim that commands or a commit actually ran.",
+      "expected_output": "Selects only scripts/validate.py and tests/test_validate.py, excludes README.md and coverage.xml, includes status and exact cached-diff review before the local commit, uses a focused message, and does not claim execution or push.",
       "should_trigger": true,
+      "files": ["evals/fixtures/focused-worktree.txt"],
       "assertions": [
-        "The workflow reviews both worktree state and the exact staged diff before committing",
-        "Only explicit relevant paths or hunks are staged and no push is attempted"
+        "The sequence stages only scripts/validate.py and tests/test_validate.py, then reviews git diff --cached --check and the exact cached patch before committing",
+        "README.md and coverage.xml remain uncommitted, no push is attempted, and the response does not falsely claim execution"
       ],
       "tags": ["git", "staging", "commit"]
     },

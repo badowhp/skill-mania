@@ -15,6 +15,7 @@ Build Godot features that fit the existing project, engine version, target platf
 5. Put deterministic movement and collision work in the physics loop. Keep visual-only and frame-rate-independent presentation work separate.
 6. Preserve scene ownership, node paths, saved resources, signals, and public script contracts unless the request intentionally changes them.
 7. Test in the running game when possible. A clean script parse is weak evidence for input, physics, UI, pause, save, export, or platform behavior.
+8. Trace numeric UI semantics from the owning method before describing progress, health, cooldown, or meter states. Verify start and end values; do not infer whether a bar fills or empties from a parameter name alone.
 
 ## Workflow
 

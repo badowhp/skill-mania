@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "idor-review",
-      "prompt": "Review a change that adds GET /api/invoices/{id}/download for authenticated users. Identify realistic security risks and validation tests.",
-      "expected_output": "Focuses on object-level authorization, tenant boundary evidence, sensitive document exposure, negative tests, logging, and a ship/hold-style readiness decision when appropriate.",
+      "prompt": "Review the supplied authenticated invoice-download route for a multi-tenant release. Identify the exploitable path, smallest safe fix, missing validation, and a ship/hold decision.",
+      "expected_output": "Finds that the cache key excludes principal/tenant and may return a warm signed redirect before authorization, recommends moving authorization outside the cache or caching only tenant-scoped authorized data, adds a warm-cache cross-tenant negative test, checks signed-URL/audit leakage, and holds release until proved.",
       "should_trigger": true,
+      "files": ["evals/fixtures/invoice_download.py"],
       "assertions": [
-        "The review tests object-level authorization across users or tenants",
-        "The recommended fix includes a negative access-control test"
+        "The review identifies the principal-blind ttl_cache key as an authorization bypass after an allowed tenant warms the invoice URL",
+        "The fix includes a warm-cache cross-tenant denial test and a hold decision until authorization occurs on every request"
       ],
       "tags": ["authz", "web-appsec"]
     },

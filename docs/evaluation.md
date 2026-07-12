@@ -45,10 +45,18 @@ Capture per run:
 
 ```json
 {
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "reasoning_tokens": 0,
   "total_tokens": 0,
   "duration_ms": 0
 }
 ```
+
+Interpret these separately. Input-token delta estimates instruction/context cost in this harness;
+output-token delta measures response expansion or compression; reasoning tokens and total tokens
+remain useful for provider cost and latency review. Do not claim an output overlay saves tokens
+from total-token delta alone.
 
 Grade each assertion with pass/fail and specific evidence. Use deterministic scripts for mechanical checks and human review for voice, visual quality, usefulness, or other subjective outcomes.
 
@@ -63,6 +71,11 @@ python3 scripts/run-skill-evals.py --dry-run
 The default smoke plan selects one positive case per skill, alternates paired generation order deterministically, produces a baseline and `with_skill` response, and grades both candidates in a separate blind order with the quality route. Routing is a second pair of checks: the throughput route assigns cross-skill lead/overlays and independently decides every selected skill's positive and near-miss trigger cases. The gate enforces global accuracy and each selected skill's cross-skill accuracy, positive recall, and negative specificity, so one completely broken skill cannot hide inside a good global average. Assertions and expected outputs are never sent to generators.
 
 The evaluator is a `bundled-context` harness, not a tool-execution harness. It supplies the body of `SKILL.md` and safe UTF-8 files under `references/`, `scripts/`, and `assets/`; it records included/skipped paths, character counts, and SHA-256 digests. Symlinks, out-of-tree paths, oversized files, binary content, and oversized packages are rejected or skipped. The model cannot invoke those scripts or use shell, browser, filesystem, or network tools. Use this tier for instruction-following and routing evidence, then use deterministic helper tests and fresh-agent forward tests for operational behavior.
+
+When an eval lists committed `files`, the runner appends their contents to both generation arms and
+to the blind judge's task context. This lets the judge verify artifact-specific claims without
+revealing the expected winner. Keep fixtures synthetic, minimal, safe to send to the configured
+provider, and representative of the contract under test.
 
 Every bundled instruction and committed fixture used by a model run is sent to the selected
 OpenAI model endpoint. Never use confidential repositories, customer data, production captures,

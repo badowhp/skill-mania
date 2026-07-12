@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "top-skills-review",
-      "prompt": "Find the top agent skills and plugins this repo should learn from. Compare them against our current skills and recommend what to add, adapt, or reject.",
-      "expected_output": "Uses current external evidence, compares against local coverage, separates add/adapt/reject decisions, and includes trust/licensing gaps.",
+      "prompt": "Evaluate the supplied external skill snapshots against the local inventory. Assign add, adapt, borrow, reject, or monitor to every candidate, explain overlap and trust/licensing risk, and state what still needs live-source verification.",
+      "expected_output": "Rejects postgres-doctor for credential/schema exfiltration and missing license/provenance; recommends adapting or adding the focused Apache postgres-query-review because it fills a real gap with local deterministic evidence; rejects qa-superpowers as stale, generic, overlapping advice; and marks snapshot freshness for live recheck.",
       "should_trigger": true,
+      "files": ["evals/fixtures/candidates.md"],
       "assertions": [
-        "Recommendations are based on inspected external skill or plugin sources",
-        "Each candidate has an add, adapt, borrow, reject, or monitor decision"
+        "All three candidates receive an explicit taxonomy decision grounded in their supplied instructions, maintenance, verification, overlap, and license evidence",
+        "postgres-doctor is rejected for exfiltration and provenance risk while postgres-query-review is the only candidate recommended for local adoption or adaptation"
       ],
       "tags": ["discovery", "comparison"]
     },

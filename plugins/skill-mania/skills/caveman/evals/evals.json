@@ -3,18 +3,19 @@
   "evals": [
     {
       "id": "explicit-caveman-summary",
-      "prompt": "Caveman: summarize the changes from this branch and tell me what still needs verification.",
-      "expected_output": "Responds tersely with result first, minimal bullets or a short paragraph, and keeps any verification gaps visible.",
+      "prompt": "Caveman for this thread: summarize the supplied branch evidence and say what still needs verification.",
+      "expected_output": "In no more than 80 words, leads with the tenant-scoped invoice-download result, preserves the passing negative-test evidence, and keeps the missing Playwright run explicit.",
       "should_trigger": true,
+      "files": ["evals/fixtures/branch-evidence.md"],
       "assertions": [
-        "The result or branch status appears before supporting explanation",
-        "Any unresolved verification gap remains explicit"
+        "The tenant-scoped invoice-download result appears before supporting detail and the response stays within 80 words",
+        "The passing 18-test evidence and unavailable Playwright verification remain explicit"
       ],
       "tags": ["brevity", "summary"]
     },
     {
       "id": "german-brief-answer",
-      "prompt": "Bitte kurz und knapp: was ist der Unterschied zwischen unit tests und integration tests?",
+      "prompt": "Caveman: Erkläre auf Deutsch den Unterschied zwischen Unit-Tests und Integrationstests.",
       "expected_output": "Uses a compact German answer without filler while preserving the core distinction and any necessary caveat.",
       "should_trigger": true,
       "assertions": [
@@ -25,7 +26,7 @@
     },
     {
       "id": "compact-review-findings",
-      "prompt": "Be brief: review these three findings and tell me only which one blocks release and why.",
+      "prompt": "Caveman: review these three findings and tell me only which one blocks release and why.",
       "expected_output": "Names the blocking finding first, gives one short reason, and omits nonessential review narration.",
       "should_trigger": true,
       "assertions": [
@@ -36,7 +37,7 @@
     },
     {
       "id": "terse-with-citations",
-      "prompt": "Keep it short: what changed in the latest OpenAI API docs for structured outputs? Include sources.",
+      "prompt": "Caveman with citations: what changed in the latest OpenAI API docs for structured outputs?",
       "expected_output": "Uses a terse answer while preserving required current-source verification and source links.",
       "should_trigger": true,
       "assertions": [
@@ -44,6 +45,13 @@
         "Current-source uncertainty is handled instead of relying on stale memory"
       ],
       "tags": ["brevity", "citations"]
+    },
+    {
+      "id": "near-miss-ordinary-brief-answer",
+      "prompt": "Please keep this answer brief: what does HTTP 429 mean?",
+      "expected_output": "Should not require caveman because a one-off ordinary brevity request is directly answerable without loading a persistent overlay.",
+      "should_trigger": false,
+      "tags": ["near-miss", "brevity"]
     },
     {
       "id": "near-miss-minimal-implementation",

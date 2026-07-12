@@ -37,6 +37,9 @@ def run_metrics(run_dir: Path) -> dict[str, int]:
     return {
         "passed": passed,
         "total": total,
+        "input_tokens": int(timing.get("input_tokens", 0)),
+        "output_tokens": int(timing.get("output_tokens", 0)),
+        "reasoning_tokens": int(timing.get("reasoning_tokens", 0)),
         "tokens": int(timing["total_tokens"]),
         "duration_ms": int(timing["duration_ms"]),
     }
@@ -73,6 +76,15 @@ def summarize(workspace: Path) -> dict[str, Any]:
             "passed": passed,
             "total": total,
             "pass_rate": round(passed / total, 4) if total else 0.0,
+            "median_input_tokens": round(
+                statistics.median(run["input_tokens"] for run in runs)
+            ),
+            "median_output_tokens": round(
+                statistics.median(run["output_tokens"] for run in runs)
+            ),
+            "median_reasoning_tokens": round(
+                statistics.median(run["reasoning_tokens"] for run in runs)
+            ),
             "median_tokens": round(statistics.median(run["tokens"] for run in runs)),
             "median_duration_ms": round(
                 statistics.median(run["duration_ms"] for run in runs)
@@ -91,6 +103,18 @@ def summarize(workspace: Path) -> dict[str, Any]:
             ),
             "median_token_delta": (
                 with_skill_summary["median_tokens"] - baseline_summary["median_tokens"]
+            ),
+            "median_input_token_delta": (
+                with_skill_summary["median_input_tokens"]
+                - baseline_summary["median_input_tokens"]
+            ),
+            "median_output_token_delta": (
+                with_skill_summary["median_output_tokens"]
+                - baseline_summary["median_output_tokens"]
+            ),
+            "median_reasoning_token_delta": (
+                with_skill_summary["median_reasoning_tokens"]
+                - baseline_summary["median_reasoning_tokens"]
             ),
             "median_duration_delta_ms": (
                 with_skill_summary["median_duration_ms"]

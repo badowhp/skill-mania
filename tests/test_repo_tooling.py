@@ -331,9 +331,9 @@ class EvalWorkspaceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             case = root / "eval-authz"
-            for name, passed, tokens, duration in (
-                ("with_skill", 2, 1200, 900),
-                ("without_skill", 1, 800, 600),
+            for name, passed, input_tokens, output_tokens, tokens, duration in (
+                ("with_skill", 2, 1000, 200, 1200, 900),
+                ("without_skill", 1, 700, 100, 800, 600),
             ):
                 run = case / name
                 run.mkdir(parents=True)
@@ -342,7 +342,15 @@ class EvalWorkspaceTests(unittest.TestCase):
                     encoding="utf-8",
                 )
                 (run / "timing.json").write_text(
-                    json.dumps({"total_tokens": tokens, "duration_ms": duration}),
+                    json.dumps(
+                        {
+                            "input_tokens": input_tokens,
+                            "output_tokens": output_tokens,
+                            "reasoning_tokens": 0,
+                            "total_tokens": tokens,
+                            "duration_ms": duration,
+                        }
+                    ),
                     encoding="utf-8",
                 )
 
@@ -350,6 +358,8 @@ class EvalWorkspaceTests(unittest.TestCase):
 
         self.assertEqual(report["summary"]["pass_rate_delta"], 0.5)
         self.assertEqual(report["summary"]["median_token_delta"], 400)
+        self.assertEqual(report["summary"]["median_input_token_delta"], 300)
+        self.assertEqual(report["summary"]["median_output_token_delta"], 100)
         self.assertEqual(report["summary"]["median_duration_delta_ms"], 300)
 
 
@@ -539,6 +549,60 @@ class ModelEvalRunnerTests(unittest.TestCase):
 
         self.assertTrue(result["with_skill"][0]["passed"])
         self.assertFalse(result["baseline"][0]["passed"])
+
+    def test_grader_receives_fixture_augmented_task(self) -> None:
+        class FakeClient:
+            def __init__(self) -> None:
+                self.input_text = ""
+
+            def call(self, **kwargs):  # type: ignore[no-untyped-def]
+                self.input_text = kwargs["input_text"]
+                return skill_evals.ModelResult(
+                    output=json.dumps(
+                        {
+                            "results": [
+                                {
+                                    "assertion_index": 0,
+                                    "candidate_a_passed": True,
+                                    "candidate_a_evidence": "fixture-backed evidence",
+                                    "candidate_b_passed": True,
+                                    "candidate_b_evidence": "fixture-backed evidence",
+                                }
+                            ],
+                            "comparative_winner": "tie",
+                            "comparative_reason": "same evidence",
+                        }
+                    ),
+                    model="judge",
+                    response_id="judge-1",
+                    input_tokens=10,
+                    cached_input_tokens=0,
+                    cache_write_tokens=0,
+                    output_tokens=5,
+                    reasoning_tokens=0,
+                    total_tokens=15,
+                    duration_ms=1,
+                )
+
+        client = FakeClient()
+        skill_evals.grade_pair(
+            client,
+            judge_model="judge",
+            judge_effort="low",
+            skill_name="demo",
+            case={
+                "id": "fixture-case",
+                "prompt": "Review the artifact.",
+                "expected_output": "Find the artifact issue.",
+                "assertions": ["The artifact issue is identified"],
+            },
+            task_input="Review the artifact.\n--- artifact: fixture.txt ---\nBROKEN=true",
+            baseline_output="Baseline response",
+            with_skill_output="Skill response",
+        )
+
+        payload = json.loads(client.input_text)
+        self.assertIn("BROKEN=true", payload["task"])
 
     def test_generation_order_is_deterministic_and_paired(self) -> None:
         first = skill_evals.paired_generation_order("commit", "focused-local-commit")
@@ -755,6 +819,44 @@ class ModelEvalRunnerTests(unittest.TestCase):
         )
         self.assertIn("commit", comparison["regressions"])
         self.assertIn("overall-gate", comparison["regressions"])
+
+    def test_benchmark_comparison_does_not_treat_missing_routing_as_zero(self) -> None:
+        configuration = {
+            "provider": "codex-cli",
+            "model": "generator",
+            "reasoning_effort": "medium",
+            "judge_model": "judge",
+            "judge_reasoning_effort": "high",
+            "routing_model": "router",
+            "routing_reasoning_effort": "low",
+            "case_offset": 0,
+            "context_mode": "bundled-context",
+            "baseline": {"kind": "without_skill", "label": "without-skill"},
+        }
+        baseline = {
+            "configuration": configuration,
+            "cases": [{"skill": "commit", "case": "focused"}],
+            "skills": {
+                "commit": {
+                    "with_skill_pass_rate": 1.0,
+                    "baseline_pass_rate": 0.5,
+                    "token_delta": 10,
+                    "duration_delta_ms": 20,
+                    "verdict": "measurable-lift",
+                    "gate_passed": True,
+                }
+            },
+            "output_summary": {"with_skill_pass_rate": 1.0},
+            "routing": {"summary": {"accuracy": 1.0}},
+            "gate": {"passed": True},
+        }
+        current = json.loads(json.dumps(baseline))
+        current["routing"] = None
+
+        comparison = benchmark_compare.compare_reports(baseline, current)
+
+        self.assertIsNone(comparison["overall"]["routing_accuracy_delta"])
+        self.assertNotIn("routing", comparison["regressions"])
 
     def test_model_call_cap_rejects_an_accidental_full_run(self) -> None:
         result = subprocess.run(

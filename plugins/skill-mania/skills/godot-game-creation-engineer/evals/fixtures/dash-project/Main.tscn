@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id="1_player"]
+[ext_resource path="res://hud.gd" type="Script" id="2_hud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(32, 160)
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(160, 180)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(360, 180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_hud")
+
+[node name="DashCooldown" type="ProgressBar" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 176.0
+offset_bottom = 32.0
+max_value = 1.0
+value = 1.0

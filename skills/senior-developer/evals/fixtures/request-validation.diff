@@ -1,0 +1,20 @@
+diff --git a/app/requests.py b/app/requests.py
+index 155ba99..55d1b8c 100644
+--- a/app/requests.py
++++ b/app/requests.py
+@@ -41,7 +41,7 @@ def validate_create_user(request):
+-    if not request.email:
++    if request.email is None:
+         raise ValidationError("email is required")
+     return normalize_email(request.email)
+diff --git a/tests/test_requests.py b/tests/test_requests.py
+index 51ac233..f590184 100644
+--- a/tests/test_requests.py
++++ b/tests/test_requests.py
+@@ -12,3 +12,8 @@ def test_missing_email_is_rejected():
+     with pytest.raises(ValidationError, match="email is required"):
+         validate_create_user(Request(email=None))
++
++def test_email_is_normalized():
++    request = Request(email="USER@EXAMPLE.COM")
++    assert validate_create_user(request).email == "user@example.com"

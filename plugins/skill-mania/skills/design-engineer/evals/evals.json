@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "new-design-context-interview",
-      "prompt": "Create a new design direction for our React pricing page. First interview me, inspect the current pages and tech, then write DESIGN.md before planning implementation.",
-      "expected_output": "Runs an interview/inspection phase, identifies framework and styling context, creates or updates DESIGN.md before planning, and routes the artifact through design-reviewer.",
+      "prompt": "The supplied React pricing page feels like generic generated SaaS UI. Create an implementation-ready design direction and compact DESIGN.md draft from the evidence provided. State only questions whose answers would materially change the direction; do not implement yet.",
+      "expected_output": "Uses the hosted-CI audience, brand colors, existing fonts and React/Tailwind primitives to replace the purple-gradient/card-grid default; distinguishes the marketing register from comparison-task density; covers required states, mobile overflow, source-of-truth files, and the review gate before implementation.",
       "should_trigger": true,
+      "files": ["evals/fixtures/pricing-page.txt"],
       "assertions": [
-        "The workflow starts with interview and repository inspection before visual decisions",
-        "DESIGN.md is created or updated before implementation planning"
+        "The DESIGN.md draft derives a specific direction from the black/orange brand, Inter/JetBrains Mono, hosted-CI audience, and existing React/Tailwind primitives instead of retaining the purple gradient and identical card grid",
+        "The handoff covers billing, trial-error, enterprise, localization, and mobile-overflow states and requires design review before implementation"
       ],
       "tags": ["interview", "design-md", "planning"]
     },

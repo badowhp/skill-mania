@@ -25,9 +25,9 @@ Stop at the first rung that holds:
 6. Can it be one line? Use one line.
 7. Only then, write the minimum code that works.
 
-Run the ladder after understanding the task and reading the code path it touches. The smallest change in the wrong place is not lazy; it is another bug.
+Run the ladder after understanding the task and reading the code path it touches. Minimize the coherent fix, not the raw line count. The smallest change in the wrong place is not lazy; it is another bug.
 
-For bug fixes, fix the root cause, not the named symptom. Before editing a shared function, inspect its callers. One guard in the shared path is usually less code and less risk than scattered caller patches.
+For bug fixes, locate the highest shared invariant that is actually broken before proposing code. Inspect the shared function and its callers. Prefer one guard in the shared path when every caller needs the same behavior; use a caller guard only when that caller owns a genuinely different contract. Never invent a patch before required source artifacts are available.
 ## Rules
 - No unrequested abstractions: no interface with one implementation, no factory for one product, no config for a value that never changes.
 - No boilerplate or scaffolding for later.
@@ -35,11 +35,12 @@ For bug fixes, fix the root cause, not the named symptom. Before editing a share
 - Prefer boring over clever.
 - Keep the diff to the fewest files that solve the real problem.
 - For a complex request, ship the lazy version and question the extra scope in the same response.
+- When rejecting or skipping a requested change, name any existing behavior, validation, or security contract that must remain unchanged. Do not invent a contract when source evidence is absent.
 - If two standard options are the same size, choose the one that is correct on edge cases.
 - Use RTK for noisy, non-destructive command output when available, but do not let filtered output justify skipping evidence.
 - Mark deliberate simplifications with a `ponytail:` comment only when the shortcut has a real ceiling and future maintainers need to know the upgrade path.
 ## Output
-Put code first. Then use at most three short lines:
+Put code first only after inspecting the relevant source. If source is missing, name the minimum evidence needed instead of sketching an unverified patch. Then use at most three short lines:
 
 ```text
 skipped: <what you did not build>, add when <condition>

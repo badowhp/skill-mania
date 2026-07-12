@@ -26,7 +26,7 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 | Maintain local skill metadata or vet an external package | `agent-context-maintainer`, `skill-curator` |
 | Change output length or implementation scope | `caveman`, `ponytail` |
 
-Use the first matching domain role. Add an overlay only when the user explicitly asks for terse output or a deliberately minimal implementation.
+Use the first matching domain role. Add `caveman` only when the user explicitly invokes Caveman mode; an ordinary request to be brief needs no overlay. Add `ponytail` only for a deliberately minimal implementation.
 
 ## Included Skills
 
@@ -80,6 +80,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - [Deliberation adoption](docs/deliberation.md) - trust, cost, privacy, and verification guidance for the external multi-model review plugin.
 - [Skill evaluation](docs/evaluation.md) - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
 - [Skill maintenance](docs/skill-maintenance.md) - quality states, review cadence, ownership tests, deprecation rules, and release gates.
+- [Benchmark improvement plan](docs/benchmark-improvement-plan.md) - saved-baseline diagnosis, per-skill retest plans, and removal criteria.
 - [Writing-assistant baseline evaluation](docs/writing-assistant-baseline-evaluation/README.md) - reproducible old-versus-current benchmark procedure for material changes.
 - [Company context template](templates/company.md) - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
 - [Agent automation templates](templates/agent-automation/) - opt-in Claude Code and GitHub Copilot hooks with a narrowly scoped destructive-command guard.

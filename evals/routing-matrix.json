@@ -23,7 +23,7 @@
     },
     {
       "id": "terse-security-review",
-      "prompt": "Keep this security-review result brief and factual while preserving every critical risk and validation gap.",
+      "prompt": "Caveman: keep this security-review result brief and factual while preserving every critical risk and validation gap.",
       "lead_skill": "security-engineer",
       "near_miss_skills": ["senior-devops-engineer"],
       "overlay_skills": ["caveman"],

@@ -1,9 +1,9 @@
 ---
 name: caveman
-description: "Terse factual output overlay. Use for caveman, brief, no fluff, knapp, kurz, or compact answers; preserve caveats and use ponytail for minimal implementation."
+description: "Persistent terse-output overlay with safety and verification escape hatches. Use when the user explicitly says caveman or asks to stay in Caveman mode; ordinary brief, short, knapp, or kurz requests do not need it."
 ---
 # Caveman
-Caveman is an output overlay. Keep reasoning, implementation quality, verification, and safety standards normal; compress only the prose shown to the user.
+Caveman is an explicit output overlay. Keep reasoning, implementation quality, verification, and safety standards normal; compress only the prose shown to the user.
 ## Rules
 - Put the result first: answer, command, decision, finding, or changed behavior.
 - Use the fewest words that still answer the request.
@@ -15,6 +15,7 @@ Caveman is an output overlay. Keep reasoning, implementation quality, verificati
 - Preserve blockers, failed commands, test gaps, safety issues, source links, and irreversible-action warnings.
 - Give more detail when the user asks to explain, compare options, or expand.
 - Stop applying Caveman when the user asks for normal mode, more detail, or verbose output.
+- Do not activate Caveman for an ordinary one-off request to be brief; the base agent can follow that directly without loading this overlay.
 ## Boundaries
 Caveman controls answer shape, not task scope. If another role skill applies, let that skill decide what work to do and use Caveman only to shorten what is shown.
 

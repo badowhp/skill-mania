@@ -3,23 +3,28 @@
   "evals": [
     {
       "id": "minimal-bug-fix",
-      "prompt": "Ponytail full: fix a bug where empty optional tags crash the formatter. Keep the diff as small as possible.",
-      "expected_output": "Inspects the relevant path, reuses existing code, fixes the root cause with the smallest coherent change, and gives a short skipped line for omitted extra scope.",
+      "prompt": "Ponytail full: fix the empty optional-tag crash in the supplied formatter and test. Keep the diff as small as possible without leaving another caller exposed.",
+      "expected_output": "Changes only the shared format_tag contract so empty strings render as absent for both callers, preserves non-empty formatting, and adds no abstraction, dependency, or unnecessary test churn.",
       "should_trigger": true,
+      "files": [
+        "evals/fixtures/formatter.py",
+        "evals/fixtures/test_formatter.py"
+      ],
       "assertions": [
-        "The proposed change addresses the shared root cause rather than one caller",
-        "Unrequested abstraction or dependency work is explicitly avoided"
+        "The proposed change handles the empty string inside shared format_tag so both format_record and format_search_label are fixed",
+        "The diff preserves the existing non-empty formatting path and adds no abstraction, dependency, caller guard, or unnecessary test change"
       ],
       "tags": ["minimal", "bugfix"]
     },
     {
       "id": "challenge-speculative-abstraction",
-      "prompt": "Ponytail ultra: add a plugin registry abstraction for one hard-coded local plugin we use today.",
-      "expected_output": "Challenges the abstraction unless current requirements justify it, prefers direct code or deletion, and preserves validation/security basics.",
+      "prompt": "Ponytail ultra: add a plugin registry abstraction to the supplied loader for the one hard-coded local plugin we use today.",
+      "expected_output": "Rejects the registry because no second implementation, discovery, or selection requirement exists; keeps the direct loader; and explicitly preserves its fixed-ID allowlist, manifest validation, and signature verification.",
       "should_trigger": true,
+      "files": ["evals/fixtures/plugin_loader.ts"],
       "assertions": [
         "The speculative registry abstraction is rejected or materially justified",
-        "The recommendation preserves required validation and security behavior"
+        "The recommendation preserves the fixed local-plugin allowlist, manifest validation, and signature verification"
       ],
       "tags": ["yagni", "scope"]
     },

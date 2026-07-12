@@ -3,12 +3,16 @@
   "evals": [
     {
       "id": "regression-test-plan",
-      "prompt": "Design regression tests for a pagination bug where page 2 repeats page 1 after a filter changes. Include the smallest useful test layers and commands.",
-      "expected_output": "Chooses focused unit or integration coverage near the pagination contract, includes the original failure condition, and reports commands plus residual gaps.",
+      "prompt": "The supplied pagination store repeats cached results after filters change. Design the smallest regression coverage that would fail on this code and prove the repaired behavior. Include fixture data, assertions, and commands; add E2E only if it protects a boundary the focused test cannot.",
+      "expected_output": "Identifies the cache key as page-only, uses a focused integration/unit test with distinct open/closed page IDs across a filter change, proves the original code returns the wrong cached page, checks the corrected filter+page key or invalidation, and avoids redundant E2E.",
       "should_trigger": true,
+      "files": [
+        "evals/fixtures/pagination-store.ts",
+        "evals/fixtures/pagination-store.test.ts"
+      ],
       "assertions": [
-        "The plan captures the original failure condition before broad E2E coverage",
-        "The recommended test layer is tied to the behavior boundary"
+        "The primary regression test fails on the page-only cache by using distinct result IDs for at least two filters and the same page number",
+        "The plan ties the focused test to the cache-key and filter-state boundary and does not add E2E unless a separate browser contract is named"
       ],
       "tags": ["regression", "test-plan"]
     },

@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any
 
 
-RUNNER_VERSION = 3
+RUNNER_VERSION = 4
 REASONING_EFFORTS = frozenset(("none", "low", "medium", "high", "xhigh", "max"))
 PACKAGE_RESOURCE_DIRS = ("references", "scripts", "assets")
 MAX_PACKAGE_FILE_BYTES = 200_000
@@ -722,6 +722,7 @@ def grade_pair(
     judge_effort: str,
     skill_name: str,
     case: dict[str, Any],
+    task_input: str,
     baseline_output: str,
     with_skill_output: str,
 ) -> tuple[dict[str, Any], dict[str, Any], ModelResult, dict[str, Any]]:
@@ -735,7 +736,7 @@ def grade_pair(
         candidate_for_run = {"a": "baseline", "b": "with_skill"}
     judge_input = json.dumps(
         {
-            "task": case["prompt"],
+            "task": task_input,
             "expected_output_context": case["expected_output"],
             "assertions": [
                 {"assertion_index": index, "assertion": assertion}
@@ -1074,6 +1075,9 @@ def run_metrics(result: ModelResult, grading: dict[str, Any]) -> dict[str, Any]:
         "passed": summary["passed"],
         "total": summary["total"],
         "pass_rate": round(summary["passed"] / summary["total"], 4),
+        "input_tokens": result.input_tokens,
+        "output_tokens": result.output_tokens,
+        "reasoning_tokens": result.reasoning_tokens,
         "tokens": result.total_tokens,
         "duration_ms": result.duration_ms,
     }
@@ -1124,6 +1128,12 @@ def summarize_cases(
                 "assertions": 0,
                 "with_skill_tokens": 0,
                 "baseline_tokens": 0,
+                "with_skill_input_tokens": 0,
+                "baseline_input_tokens": 0,
+                "with_skill_output_tokens": 0,
+                "baseline_output_tokens": 0,
+                "with_skill_reasoning_tokens": 0,
+                "baseline_reasoning_tokens": 0,
                 "with_skill_duration_ms": 0,
                 "baseline_duration_ms": 0,
             },
@@ -1134,6 +1144,12 @@ def summarize_cases(
         skill["assertions"] += record["with_skill"]["total"]
         skill["with_skill_tokens"] += record["with_skill"]["tokens"]
         skill["baseline_tokens"] += record["baseline"]["tokens"]
+        skill["with_skill_input_tokens"] += record["with_skill"]["input_tokens"]
+        skill["baseline_input_tokens"] += record["baseline"]["input_tokens"]
+        skill["with_skill_output_tokens"] += record["with_skill"]["output_tokens"]
+        skill["baseline_output_tokens"] += record["baseline"]["output_tokens"]
+        skill["with_skill_reasoning_tokens"] += record["with_skill"]["reasoning_tokens"]
+        skill["baseline_reasoning_tokens"] += record["baseline"]["reasoning_tokens"]
         skill["with_skill_duration_ms"] += record["with_skill"]["duration_ms"]
         skill["baseline_duration_ms"] += record["baseline"]["duration_ms"]
     for skill in skills.values():
@@ -1147,6 +1163,15 @@ def summarize_cases(
             )
         )
         skill["token_delta"] = skill["with_skill_tokens"] - skill["baseline_tokens"]
+        skill["input_token_delta"] = (
+            skill["with_skill_input_tokens"] - skill["baseline_input_tokens"]
+        )
+        skill["output_token_delta"] = (
+            skill["with_skill_output_tokens"] - skill["baseline_output_tokens"]
+        )
+        skill["reasoning_token_delta"] = (
+            skill["with_skill_reasoning_tokens"] - skill["baseline_reasoning_tokens"]
+        )
         skill["duration_delta_ms"] = (
             skill["with_skill_duration_ms"] - skill["baseline_duration_ms"]
         )
@@ -1179,13 +1204,14 @@ def markdown_summary(report: dict[str, Any]) -> str:
         f"Routing model: `{report['configuration']['routing_model']}`.",
         f"Baseline: `{report['configuration']['baseline']['label']}`; context mode: `bundled-context`.",
         "",
-        "| Skill | With skill | Baseline | Delta | Token delta | Time delta | Verdict |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        "| Skill | With skill | Baseline | Delta | Input delta | Output delta | Total delta | Time delta | Verdict |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |",
     ]
     for name, item in sorted(report["skills"].items()):
         lines.append(
             f"| `{name}` | {item['with_skill_pass_rate']:.0%} | "
             f"{item['baseline_pass_rate']:.0%} | {item['pass_rate_delta']:+.0%} | "
+            f"{item['input_token_delta']:+,} | {item['output_token_delta']:+,} | "
             f"{item['token_delta']:+,} | {item['duration_delta_ms']:+,} ms | "
             f"{item['verdict']} |"
         )
@@ -1543,6 +1569,7 @@ def main() -> int:
                         judge_effort=judge_effort,
                         skill_name=skill_name,
                         case=case,
+                        task_input=task,
                         baseline_output=baseline_result.output,
                         with_skill_output=with_skill_result.output,
                     )
@@ -1556,6 +1583,7 @@ def main() -> int:
                             "prompt": case["prompt"],
                             "expected_output": case["expected_output"],
                             "assertions": case["assertions"],
+                            "files": case.get("files", []),
                             "baseline_kind": baseline_kind,
                             "baseline_provenance": baseline_configuration,
                             "generation_order": list(generation_order),
@@ -1633,7 +1661,7 @@ def main() -> int:
     routing_gate = routing_gate_passed(routing_report, minimum_routing_accuracy)
     gate_passed = bool(output_summary.get("gate_passed", True)) and routing_gate
     report = {
-        "schema_version": 2,
+        "schema_version": 3,
         "configuration": configuration,
         "cases": records,
         "skills": skills_summary,

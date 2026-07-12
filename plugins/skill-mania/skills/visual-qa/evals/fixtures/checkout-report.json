@@ -1,0 +1,17 @@
+{
+  "url": "http://127.0.0.1:4173/checkout",
+  "browser": "chromium",
+  "viewports": [
+    {"name": "desktop", "width": 1440, "height": 1000}
+  ],
+  "screenshots": ["desktop.png"],
+  "focus_screenshots": [],
+  "overflow": {"desktop": false},
+  "console": [
+    {"level": "error", "text": "PaymentSummary: currency was undefined"}
+  ],
+  "failed_requests": [
+    {"method": "GET", "url": "/api/tax", "status": 500}
+  ],
+  "state": "seeded cart with one item"
+}

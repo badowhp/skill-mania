@@ -1,0 +1,124 @@
+{
+  "schema_version": 3,
+  "configuration": {
+    "skills": [
+      "godot-game-creation-engineer"
+    ],
+    "output_cases": 1,
+    "estimated_model_calls": 3,
+    "maximum_model_calls": 400,
+    "maximum_api_requests": 600,
+    "maximum_total_tokens": 5000000,
+    "provider": "codex-cli",
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "medium",
+    "judge_model": "gpt-5.6-sol",
+    "judge_reasoning_effort": "high",
+    "routing_model": "gpt-5.6-luna",
+    "routing_reasoning_effort": "low",
+    "case_offset": 0,
+    "baseline": {
+      "kind": "without_skill",
+      "label": "without-skill",
+      "commit": null,
+      "skills_dir": null
+    },
+    "context_mode": "bundled-context",
+    "tool_execution": false,
+    "runner_version": 4,
+    "host": "local-codex-cli",
+    "git_sha": "60c4f59631d96a609da8d203453525d8ce0cbc23",
+    "generated_at": "2026-07-12T23:07:36.419171+00:00",
+    "minimum_pass_rate": 0.8,
+    "maximum_regression": 0.05,
+    "minimum_routing_accuracy": 0.85
+  },
+  "cases": [
+    {
+      "skill": "godot-game-creation-engineer",
+      "case": "godot-4-dash-feature",
+      "baseline_kind": "without_skill",
+      "generation_order": [
+        "with_skill",
+        "baseline"
+      ],
+      "with_skill_package_characters": 7912,
+      "with_skill_package_sha256": "c7202b6a400fe4c596e8e7dce23c6f5376c20f3f8db7fffe47cc0abcad7a9d8a",
+      "baseline_package_characters": 0,
+      "baseline_package_sha256": null,
+      "baseline": {
+        "passed": 1,
+        "total": 2,
+        "pass_rate": 0.5,
+        "input_tokens": 11959,
+        "output_tokens": 1125,
+        "reasoning_tokens": 516,
+        "tokens": 13084,
+        "duration_ms": 22617
+      },
+      "with_skill": {
+        "passed": 2,
+        "total": 2,
+        "pass_rate": 1.0,
+        "input_tokens": 13600,
+        "output_tokens": 1409,
+        "reasoning_tokens": 516,
+        "tokens": 15009,
+        "duration_ms": 28466
+      },
+      "judge_tokens": 14844,
+      "judge_duration_ms": 17874
+    }
+  ],
+  "skills": {
+    "godot-game-creation-engineer": {
+      "cases": 1,
+      "with_skill_passed": 2,
+      "baseline_passed": 1,
+      "assertions": 2,
+      "with_skill_tokens": 15009,
+      "baseline_tokens": 13084,
+      "with_skill_input_tokens": 13600,
+      "baseline_input_tokens": 11959,
+      "with_skill_output_tokens": 1409,
+      "baseline_output_tokens": 1125,
+      "with_skill_reasoning_tokens": 516,
+      "baseline_reasoning_tokens": 516,
+      "with_skill_duration_ms": 28466,
+      "baseline_duration_ms": 22617,
+      "with_skill_pass_rate": 1.0,
+      "baseline_pass_rate": 0.5,
+      "pass_rate_delta": 0.5,
+      "verdict": "measurable-lift",
+      "gate_passed": true,
+      "token_delta": 1925,
+      "input_token_delta": 1641,
+      "output_token_delta": 284,
+      "reasoning_token_delta": 0,
+      "duration_delta_ms": 5849
+    }
+  },
+  "output_summary": {
+    "with_skill_pass_rate": 1.0,
+    "baseline_pass_rate": 0.5,
+    "pass_rate_delta": 0.5,
+    "verdict": "measurable-lift",
+    "gate_passed": true,
+    "skills": 1,
+    "cases": 1,
+    "assertions": 2
+  },
+  "routing": null,
+  "usage": {
+    "model_calls": 3,
+    "api_requests": 3,
+    "total_tokens": 42937,
+    "maximum_total_tokens": 5000000,
+    "total_duration_ms": 68957
+  },
+  "gate": {
+    "passed": true,
+    "output_passed": true,
+    "routing_passed": true
+  }
+}

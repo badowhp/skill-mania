@@ -3,12 +3,20 @@
   "evals": [
     {
       "id": "godot-4-dash-feature",
-      "prompt": "In this Godot 4 project, add a player dash that respects the existing Input Map, collision behavior, cooldown UI, and pause state.",
-      "expected_output": "Inspects the project and player scene before editing, uses the existing input action and state boundaries, and verifies dash behavior in the running game.",
+      "prompt": "Using the supplied Godot project snapshot, provide the smallest coherent player-dash patch. Reuse its Input Map, CharacterBody2D collision movement, Timer, and HUD contract. Explain the exact running-game checks, but do not claim they ran in this text-only harness.",
+      "expected_output": "Uses the existing Godot 4 dash action, Player-owned DashCooldown Timer, move_and_slide collision path, HUD method, and always-processing PauseController; leaves Player and Timer pausable so dash and cooldown freeze while paused, and gives honest runtime checks.",
       "should_trigger": true,
+      "files": [
+        "evals/fixtures/dash-project/project.godot",
+        "evals/fixtures/dash-project/Main.tscn",
+        "evals/fixtures/dash-project/Player.tscn",
+        "evals/fixtures/dash-project/player.gd",
+        "evals/fixtures/dash-project/hud.gd",
+        "evals/fixtures/dash-project/pause_controller.gd"
+      ],
       "assertions": [
-        "Godot version, player ownership, and input actions are inspected before implementation",
-        "Pause, cooldown, and collision behavior are included in verification"
+        "The patch is compatible with Godot 4 and reuses the existing dash action, Player-owned Timer, move_and_slide collision path, and HUD set_dash_cooldown contract",
+        "The patch preserves the always-processing PauseController and pausable Player/Timer contract, and wall collision, one-dash-per-cooldown, HUD progress, plus text-only verification limits are explicit"
       ],
       "tags": ["godot", "input", "physics"]
     },

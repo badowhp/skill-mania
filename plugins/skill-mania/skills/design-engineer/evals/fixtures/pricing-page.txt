@@ -1,0 +1,26 @@
+Product context:
+- Audience: engineering managers comparing hosted CI plans for teams of 20-200.
+- Primary action: start a 14-day Team trial; Enterprise is secondary contact-sales.
+- Existing brand: black, signal orange `#F05A28`, white; Inter and JetBrains Mono are already loaded.
+- Current stack: React 19, Tailwind 4, local Button and Tabs primitives, Lucide icons.
+
+Current route excerpt:
+```tsx
+<main className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
+  <h1 className="bg-gradient-to-r from-purple-600 to-fuchsia-500 bg-clip-text text-transparent">
+    Pricing that scales with you
+  </h1>
+  <div className="grid md:grid-cols-3 gap-6">
+    {plans.map(plan => <Card className="rounded-3xl shadow-xl">...</Card>)}
+  </div>
+</main>
+```
+
+Known states:
+- monthly/annual billing
+- Team trial eligibility error
+- Enterprise contact-sales path
+- long localized feature names
+- mobile comparison overflow
+
+No DESIGN.md exists.

@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "agents-md-cleanup",
-      "prompt": "Audit AGENTS.md and remove stale one-off task notes while preserving durable repo commands and gotchas.",
-      "expected_output": "Identifies stale versus durable guidance, edits the canonical context file, preserves commands, and reports validation gaps.",
+      "prompt": "Return a cleaned complete replacement for the supplied AGENTS.md. Keep durable repository rules, validation commands, and the release path; remove one-off sprint reminders that do not belong in durable agent context.",
+      "expected_output": "Produces a complete cleaned AGENTS.md that preserves canonical paths, both validation commands, and the tag release rule while removing the task-, person-, date-, and stand-up-specific reminders.",
       "should_trigger": true,
+      "files": ["evals/fixtures/agents-md-cleanup.md"],
       "assertions": [
-        "Durable repo commands and release paths are preserved",
-        "Temporary or stale task-specific instructions are removed or moved"
+        "The complete replacement preserves the skills canonical-source rule, both exact validation commands, and the v* release path",
+        "The replacement removes SM-184, Maria/Friday, July 8/stand-up, and this-afternoon benchmark reminders"
       ],
       "tags": ["agents-md", "cleanup"]
     },

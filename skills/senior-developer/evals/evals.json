@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "scoped-code-review",
-      "prompt": "Review a small diff that changes request validation and adds a new unit test. Lead with correctness and missing-test risks.",
-      "expected_output": "Reports findings first with file/line evidence, distinguishes correctness from style, and names residual test gaps.",
+      "prompt": "Review the supplied request-validation diff. Lead with correctness and regression risk, cite the changed line, and name the smallest remediation and missing tests.",
+      "expected_output": "Flags that changing a falsy check to None-only accepts the previously rejected empty string and may fail later in normalization; recommends restoring the contract or explicitly defining it and adding empty/whitespace regression tests before style comments.",
       "should_trigger": true,
+      "files": ["evals/fixtures/request-validation.diff"],
       "assertions": [
-        "Correctness and regression findings appear before style preferences",
-        "Each material finding includes evidence and a remediation direction"
+        "The first material finding cites the None-only condition in app/requests.py and explains that an empty string is newly accepted",
+        "The remediation restores or explicitly validates the prior contract and adds empty-string plus whitespace regression coverage"
       ],
       "tags": ["review", "testing"]
     },

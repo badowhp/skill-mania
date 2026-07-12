@@ -1,0 +1,25 @@
+Repository guidance:
+- Run `python3 -m unittest tests.test_validate` for validator changes.
+- Never stage generated coverage output.
+
+`git status --short`:
+ M README.md
+ M scripts/validate.py
+?? tests/test_validate.py
+?? coverage.xml
+
+`git diff -- scripts/validate.py`:
+@@
+-    return bool(name)
++    return bool(name and name.strip())
+
+`git diff -- tests/test_validate.py`:
++def test_whitespace_name_is_rejected():
++    assert validate_name("   ") is False
+
+`git diff -- README.md`:
+-Old introduction.
++Half-finished rewrite that the user said is unrelated.
+
+Index before the task: empty.
+Required test result: `python3 -m unittest tests.test_validate` passed (1 test).

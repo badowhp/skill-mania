@@ -3,12 +3,13 @@
   "evals": [
     {
       "id": "responsive-evidence-after-ui-change",
-      "prompt": "Capture browser evidence for the changed checkout route at desktop and mobile widths, including console errors and overflow.",
-      "expected_output": "Uses a running URL and existing browser tooling to produce screenshots plus a report with the requested runtime checks.",
+      "prompt": "Audit the supplied checkout browser report before design review. Decide whether its evidence matrix is complete, list actual findings separately from missing evidence, and give the smallest recapture needed. Do not claim screenshots that are not listed.",
+      "expected_output": "Reports the desktop screenshot and no desktop overflow as observed; reports the currency console error and /api/tax 500 separately; blocks sign-off because narrow mobile and keyboard-focus screenshots plus mobile overflow are missing; gives a targeted recapture.",
       "should_trigger": true,
+      "files": ["evals/fixtures/checkout-report.json"],
       "assertions": [
-        "The workflow records desktop and narrow-mobile evidence for the changed route",
-        "The result distinguishes screenshots from overflow, console, and network findings"
+        "The audit distinguishes the desktop screenshot and overflow result from the currency console error and the /api/tax 500 network failure",
+        "The audit blocks completion on missing narrow-mobile, mobile-overflow, and keyboard-focus evidence without inventing artifacts"
       ],
       "tags": ["responsive", "browser", "evidence"]
     },

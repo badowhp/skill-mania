@@ -77,6 +77,12 @@ def rate_delta(old: Any, new: Any) -> float:
     return round(float(new or 0) - float(old or 0), 4)
 
 
+def optional_rate_delta(old: Any, new: Any) -> float | None:
+    if old is None or new is None:
+        return None
+    return rate_delta(old, new)
+
+
 def compare_reports(
     baseline: dict[str, Any], current: dict[str, Any]
 ) -> dict[str, Any]:
@@ -105,6 +111,12 @@ def compare_reports(
             "current_token_delta": new.get("token_delta"),
             "token_delta_change": int(new.get("token_delta", 0))
             - int(old.get("token_delta", 0)),
+            "baseline_input_token_delta": old.get("input_token_delta"),
+            "current_input_token_delta": new.get("input_token_delta"),
+            "baseline_output_token_delta": old.get("output_token_delta"),
+            "current_output_token_delta": new.get("output_token_delta"),
+            "output_token_delta_change": int(new.get("output_token_delta", 0))
+            - int(old.get("output_token_delta", 0)),
             "baseline_duration_delta_ms": old.get("duration_delta_ms"),
             "current_duration_delta_ms": new.get("duration_delta_ms"),
             "duration_delta_change_ms": int(new.get("duration_delta_ms", 0))
@@ -120,8 +132,10 @@ def compare_reports(
     new_output = current.get("output_summary") or {}
     old_routing = (baseline.get("routing") or {}).get("summary") or {}
     new_routing = (current.get("routing") or {}).get("summary") or {}
-    routing_delta = rate_delta(old_routing.get("accuracy"), new_routing.get("accuracy"))
-    if routing_delta < 0:
+    routing_delta = optional_rate_delta(
+        old_routing.get("accuracy"), new_routing.get("accuracy")
+    )
+    if routing_delta is not None and routing_delta < 0:
         regressions.append("routing")
     old_gate = (baseline.get("gate") or {}).get("passed")
     new_gate = (current.get("gate") or {}).get("passed")
@@ -179,8 +193,8 @@ def markdown(report: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "| Skill | Previous | Current | Quality delta | Token-delta change | Verdict change |",
-            "| --- | ---: | ---: | ---: | ---: | --- |",
+            "| Skill | Previous | Current | Quality delta | Output-token change | Total-token change | Verdict change |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
         ]
     )
     for name, item in report["skills"].items():
@@ -188,6 +202,7 @@ def markdown(report: dict[str, Any]) -> str:
             f"| `{name}` | {percent(item['baseline_with_skill_pass_rate'])} | "
             f"{percent(item['current_with_skill_pass_rate'])} | "
             f"{signed_percent(item['with_skill_pass_rate_delta'])} | "
+            f"{item['output_token_delta_change']:+,} | "
             f"{item['token_delta_change']:+,} | "
             f"{item['baseline_verdict']} -> {item['current_verdict']} |"
         )

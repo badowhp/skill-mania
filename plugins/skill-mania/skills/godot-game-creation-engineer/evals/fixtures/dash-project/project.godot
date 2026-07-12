@@ -1,0 +1,20 @@
+config_version=5
+
+[application]
+run/main_scene="res://Main.tscn"
+
+[autoload]
+PauseController="*res://pause_controller.gd"
+
+[input]
+move_left={"deadzone": 0.5, "events": [Object(InputEventKey,"physical_keycode":65)]}
+move_right={"deadzone": 0.5, "events": [Object(InputEventKey,"physical_keycode":68)]}
+dash={"deadzone": 0.5, "events": [Object(InputEventKey,"physical_keycode":4194325)]}
+pause={"deadzone": 0.5, "events": [Object(InputEventKey,"physical_keycode":80)]}
+
+[display]
+window/size/viewport_width=640
+window/size/viewport_height=360
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
