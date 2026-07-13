@@ -1,0 +1,47 @@
+approval_policy = "untrusted"
+approvals_reviewer = "user"
+default_permissions = "agent_safe_workspace"
+
+[permissions.agent_safe_workspace]
+description = "Edit only the active workspace, with credential reads and command network access denied."
+extends = ":workspace"
+
+[permissions.agent_safe_workspace.filesystem]
+glob_scan_max_depth = 4
+"~/.aws" = "deny"
+"~/.codex/auth.json" = "deny"
+"~/.config/gh/hosts.yml" = "deny"
+"~/.docker/config.json" = "deny"
+"~/.gnupg" = "deny"
+"~/.kube" = "deny"
+"~/.netrc" = "deny"
+"~/.npmrc" = "deny"
+"~/.pypirc" = "deny"
+"~/.ssh" = "deny"
+
+[permissions.agent_safe_workspace.filesystem.":workspace_roots"]
+"**/.env" = "deny"
+"**/.env.local" = "deny"
+"**/.env.*.local" = "deny"
+"**/*.key" = "deny"
+"**/*.pem" = "deny"
+
+[permissions.agent_safe_workspace.network]
+enabled = false
+
+[features]
+browser_use = false
+browser_use_external = false
+browser_use_full_cdp_access = false
+computer_use = false
+hooks = true
+in_app_browser = false
+
+[[hooks.PreToolUse]]
+matcher = "^(Bash|apply_patch)$"
+
+[[hooks.PreToolUse.hooks]]
+type = "command"
+command = 'python3 "$(git rev-parse --show-toplevel)/.agent-automation/guard-agent-command.py"'
+timeout = 5
+statusMessage = "Checking destructive-command policy"

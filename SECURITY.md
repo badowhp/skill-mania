@@ -7,6 +7,7 @@ Skills are operational instructions for coding agents. Treat them like executabl
 - Do not commit secrets, API keys, credentials, private tokens, or production hostnames that are not meant to be public.
 - Do not add hidden network calls, background processes, credential collection, or destructive commands.
 - Scripts must fail closed, print useful errors, and avoid modifying files outside the requested workspace unless the user explicitly asks.
+- Keep interactive agent sessions inside the project sandbox. Do not weaken `.codex/config.toml`, `.claude/settings.json`, or the shared destructive-command guard to make a blocked command convenient; run the command manually after reviewing it or use a separately isolated environment.
 - Any skill that can affect production must require a rollout plan, validation steps, and rollback path.
 - Review third-party skills before importing them. Do not install marketplace skills blindly.
 - Keep model-evaluation credentials in the `skill-evals` GitHub environment, restrict that environment to the default branch, and run secret-backed evaluator code only from that branch. Add required reviewers when scheduled approval is acceptable.

@@ -18,6 +18,10 @@
 - Use Ansible Vault or an external secret backend for sensitive values. Never leave production secrets in plain group vars.
 - Separate bootstrap access from long-term operational access.
 - Keep SSH options, bastion behavior, and interpreter settings explicit in inventory or `ansible.cfg`.
+## Variables And Templating
+- Use documented Ansible variable access, filters, tests, and lookup plugins. Do not treat Python or Jinja implementation details such as `vars.get(...)` as an Ansible variable API.
+- Use `value | default(...)` for optional values, `value is defined` for existence checks, role defaults for stable role inputs, and `lookup('ansible.builtin.vars', variable_name, default=...)` for a dynamic top-level variable name.
+- Prefer the fully qualified collection name when a filter, lookup, test, or module name could be ambiguous, and keep expressions simple enough to validate with `ansible-lint` and the supported `ansible-core` versions.
 ## Deployment Patterns
 - Render config, validate it if possible, then reload or restart the service only when the file changed.
 - For application deploys:
@@ -40,5 +44,6 @@
 - Is the playbook idempotent and readable in failure?
 - Are secrets and inventory boundaries handled correctly?
 - Are service reloads tied to actual config changes?
+- Does templating use documented Ansible interfaces instead of Python-style calls such as `vars.get(...)`?
 - Is deployment order safe for customer-facing systems?
 - Are validation and rollback steps present?

@@ -73,9 +73,7 @@
         "~/.netrc",
         "~/.npmrc",
         "~/.pypirc",
-        "~/.ssh",
-        ".env",
-        ".env.local"
+        "~/.ssh"
       ]
     },
     "credentials": {
@@ -110,7 +108,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agent-automation/guard-agent-command.py",
+            "command": "python3 /etc/agent-safety/guard-agent-command.py",
             "timeout": 5
           }
         ]

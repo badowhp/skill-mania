@@ -110,7 +110,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agent-automation/guard-agent-command.py",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/templates/agent-automation/guard-agent-command.py\"",
             "timeout": 5
           }
         ]

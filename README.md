@@ -83,7 +83,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - [Benchmark improvement plan](docs/benchmark-improvement-plan.md) - saved-baseline diagnosis, per-skill retest plans, and removal criteria.
 - [Writing-assistant baseline evaluation](docs/writing-assistant-baseline-evaluation/README.md) - reproducible old-versus-current benchmark procedure for material changes.
 - [Company context template](templates/company.md) - copy to a repository root as `company.md` when skills should respect durable company, product, infrastructure, security, design, SEO, or content guidance.
-- [Agent automation templates](templates/agent-automation/) - opt-in Claude Code and GitHub Copilot hooks with a narrowly scoped destructive-command guard.
+- [Agent permission templates](templates/agent-automation/) - project and managed Codex/Claude Code sandbox policy, approval rules, credential isolation, and a shared destructive-command guard.
 - [hip0-mania template](templates/hip0-mania/) - private persona-review profile. It is intentionally not shipped as a production skill because unfilled personal profiles are confusing in marketplace packages.
 
 ## Repository Layout

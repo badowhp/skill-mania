@@ -79,6 +79,17 @@
       "tags": ["opentelemetry", "observability", "operations"]
     },
     {
+      "id": "ansible-documented-variable-access",
+      "prompt": "Review this Ansible template expression and replace it if needed: {{ vars.get(variable_name, 'fallback') }}. The variable name is dynamic and may be undefined.",
+      "expected_output": "Rejects vars.get as an undocumented Python/Jinja implementation shortcut for Ansible variable access and recommends the documented ansible.builtin.vars lookup with its default parameter. Distinguishes this dynamic-name case from ordinary optional values handled with default or defined.",
+      "should_trigger": true,
+      "assertions": [
+        "The response does not recommend vars.get or another Python-style mapping method",
+        "The replacement uses lookup('ansible.builtin.vars', variable_name, default='fallback') or an equivalent documented vars lookup"
+      ],
+      "tags": ["ansible", "templating", "review"]
+    },
+    {
       "id": "near-miss-manuscript",
       "prompt": "Review this manuscript chapter for pacing and reader promise.",
       "expected_output": "Should not require senior-devops-engineer; writing-assistant is a better fit.",

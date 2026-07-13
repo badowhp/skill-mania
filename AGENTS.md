@@ -14,6 +14,7 @@ Keep this file lean: only durable repo-specific rules, commands, gotchas, and re
 - Put Claude Code plugin configuration in `.claude-plugin/`.
 - Put Codex plugin configuration in `.codex-plugin/` and `.agents/plugins/`.
 - Do not use emojis unless the user explicitly requests them.
+- Keep agent safety policy in `.codex/config.toml`, `.claude/settings.json`, and `templates/agent-automation/`; keep the shared guard compatible with both clients and run `python3 -m unittest tests.test_agent_automation_templates -v` after changing it.
 - Run `./scripts/sync-plugin-package.sh --check` and `python3 scripts/validate-skills.py skills plugins/skill-mania/skills` after editing skills.
 
 ## Tooling
