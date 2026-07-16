@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Verifier"
+  short_description: "Independent post-implementation verification"
+  default_prompt: "Use $implementation-verifier to independently verify the implementation that was just completed and report a verdict with evidence."

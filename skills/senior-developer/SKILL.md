@@ -43,6 +43,7 @@ Deliver scoped engineering work with clear assumptions, practical judgment, and 
 1. Run the narrowest meaningful check against the changed contract.
 2. If it fails, inspect the failure, fix the responsible code path, and rerun before broadening coverage.
 3. Stop and report the residual risk when reproduction, dependencies, or an integration environment prevent trustworthy verification.
+4. Before reporting done, load [references/verification.md](references/verification.md) and run its deterministic floor and evidence checklist.
 ## Company Context
 When repo work touches implementation, review, architecture-sensitive choices, release behavior, or team conventions, read root `company.md` if present. Follow its development, tooling, environment, review, and non-goal guidance unless security, correctness, or higher-priority instructions conflict.
 ## Reference Map

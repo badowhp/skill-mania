@@ -90,6 +90,42 @@
       "tags": ["ansible", "templating", "review"]
     },
     {
+      "id": "dockerfile-implementation-fix",
+      "prompt": "Using the supplied Dockerfile snapshot, rewrite it so the image builds reliably and runs safely: pinned base image, dependency layer caching, non-root runtime, no baked-in secrets, and a working start command. Return the full corrected Dockerfile plus the validation chain you would run. This is a text-only snapshot; do not claim any command actually ran.",
+      "expected_output": "Returns a complete corrected Dockerfile that pins the base image, copies package manifests before installing with npm ci, drops the hardcoded API token in favor of runtime configuration, runs as a non-root user with exec-form CMD, and reports the hadolint plus docker build plus smoke-run validation chain as pending rather than executed.",
+      "should_trigger": true,
+      "files": ["evals/fixtures/broken-dockerfile.txt"],
+      "assertions": [
+        "The corrected Dockerfile pins the base image version, copies package.json and package-lock.json before running npm ci, removes the hardcoded API_TOKEN, and runs the service as a non-root user",
+        "The response names hadolint and docker build (and a smoke run of the image) as the validation chain without claiming those commands were executed"
+      ],
+      "tags": ["containers", "implementation"]
+    },
+    {
+      "id": "release-workflow-implementation",
+      "prompt": "Implement a GitHub Actions release workflow that satisfies the supplied requirements. Return the complete workflow YAML plus the validation you would run before merging. This is a text-only task; do not claim any command actually ran.",
+      "expected_output": "Returns one complete workflow: tag trigger, minimal top-level permissions widened per job, OIDC auth to GCP with id-token write, SHA-pinned third-party actions, a build job that pushes the image and exposes its digest as an output, a deploy job that consumes that digest behind the production environment gate with per-environment concurrency, a visible post-deploy smoke check, and actionlint named as pending validation.",
+      "should_trigger": true,
+      "files": ["evals/fixtures/release-workflow-requirements.txt"],
+      "assertions": [
+        "The workflow sets minimal permissions with job-level id-token write for OIDC, SHA-pins third-party actions, and the deploy job reuses the built image digest from job outputs instead of rebuilding",
+        "The deploy job declares the production environment and a per-environment concurrency group, includes a failing smoke check, and the response names actionlint validation without claiming it ran"
+      ],
+      "tags": ["github-actions", "ci-cd", "implementation"]
+    },
+    {
+      "id": "terraform-refactor-implementation",
+      "prompt": "Apply the supplied change request to this deployed Terraform module and return the exact resulting configuration plus the validation chain that proves the plan is non-destructive. This is a text-only snapshot; do not claim any command actually ran.",
+      "expected_output": "Renames the resource to google_sql_database_instance.primary and adds a moved block from google_sql_database_instance.main (or an explicit terraform state mv step), keeps deletion_protection, and reports fmt, validate, and plan -json with a zero-destroy assertion as the pending validation gate before apply.",
+      "should_trigger": true,
+      "files": ["evals/fixtures/terraform-rename-refactor.txt"],
+      "assertions": [
+        "The solution uses a moved block or an explicit terraform state mv so the rename produces no destroy or replacement of the database instance",
+        "The response requires terraform validate and a plan reviewed for zero destructive actions (for example via plan -json summarization) before any apply, without claiming those commands were executed"
+      ],
+      "tags": ["terraform", "implementation"]
+    },
+    {
       "id": "near-miss-manuscript",
       "prompt": "Review this manuscript chapter for pacing and reader promise.",
       "expected_output": "Should not require senior-devops-engineer; writing-assistant is a better fit.",

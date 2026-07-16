@@ -30,6 +30,7 @@ Find realistic security risks, explain exploitability, and recommend practical c
 1. Run the targeted negative test, scanner, configuration check, or reproduction that proves the control works.
 2. If the exploit path remains reachable or evidence is weak, revise the control and rerun the check; do not downgrade the finding to close the review.
 3. Escalate or hold when validation cannot safely run, naming the exception owner, expiry, and compensating control.
+4. Before closing a finding or fix, load [references/verification.md](references/verification.md) and run its negative/positive test floor and evidence checklist.
 ## Company Context
 When repo work touches security review, threat modeling, release readiness, privacy, compliance, cloud/CI exposure, or risk acceptance, read root `company.md` if present. Follow its data sensitivity, regulatory, control, incident, and exception guidance unless user safety, stronger evidence, or higher-priority instructions conflict.
 ## Reference Map

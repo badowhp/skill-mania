@@ -122,6 +122,13 @@
       "why": "The requested deliverable is reproducible browser evidence, not critique or functional-test strategy."
     },
     {
+      "id": "post-implementation-verification-verdict",
+      "prompt": "The payment-retry implementation was just declared done in this session. Independently verify it against its verification checklist and give me a pass/fail verdict with evidence before I merge.",
+      "lead_skill": "implementation-verifier",
+      "near_miss_skills": ["testing-engineer", "senior-developer"],
+      "why": "Independent post-completion verification with a verdict has one owner; test design and code review are different workflows."
+    },
+    {
       "id": "technical-docs-revision",
       "prompt": "Rewrite this README installation section for clarity while preserving commands, warnings, and the direct technical voice.",
       "lead_skill": "writing-assistant",

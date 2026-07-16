@@ -34,6 +34,7 @@ Design systems that are understandable, changeable, and fit the actual constrain
 1. Validate the proposed boundaries, contracts, migration assumptions, and operational criteria against the current system evidence.
 2. If a constraint invalidates the design, revise the recommendation and reassess rejected alternatives instead of forcing the original plan.
 3. Define a milestone-level validation, rollback or forward-fix path, and decision owner before calling the architecture ready.
+4. Before delivering, load [references/verification.md](references/verification.md) and run its contract-validation floor and evidence checklist.
 ## Company Context
 When repo work touches system design, boundaries, technology choices, data ownership, migration, reliability, or governance, read root `company.md` if present. Follow its platform, ownership, integration, compliance, scale, and delivery guidance unless correctness or higher-priority instructions conflict.
 ## Reference Map

@@ -1,0 +1,59 @@
+{
+  "skill_name": "implementation-verifier",
+  "evals": [
+    {
+      "id": "verify-devops-workflow-implementation",
+      "prompt": "The DevOps work is done: a new GitHub Actions release workflow was just added at .github/workflows/release.yml. Independently verify the implementation before we merge and give me a verdict.",
+      "expected_output": "Loads the senior-devops-engineer validation chain for GitHub Actions, runs or names actionlint plus permissions/pinning/artifact-promotion checks, inspects the diff scope, and reports a structured PASS/FAIL verdict with per-check results and unverified gaps without editing the workflow.",
+      "should_trigger": true,
+      "assertions": [
+        "The verification uses the GitHub Actions deterministic chain (actionlint, minimal permissions, SHA pinning, artifact promotion) and reports each check with its actual or pending status",
+        "The response ends in a structured verdict with findings and unverified gaps, and does not modify or re-implement the workflow itself"
+      ],
+      "tags": ["devops", "verification"]
+    },
+    {
+      "id": "verify-bugfix-regression-evidence",
+      "prompt": "A cache-invalidation bug fix in src/cache.ts was just declared done, with tests supposedly added. Run an independent verification pass and tell me whether I can trust it.",
+      "expected_output": "Applies the senior-developer verification checklist: build/typecheck, targeted tests, demands failing-before/passing-after regression evidence for the specific bug, checks diff scope for unrelated edits, and returns a verdict with evidence and residual risks.",
+      "should_trigger": true,
+      "assertions": [
+        "The verification requires evidence that a regression test fails before the fix and passes after, not merely that the suite is green",
+        "The report separates deterministic results, findings, and unverified gaps, and proposes fixes as findings instead of applying them"
+      ],
+      "tags": ["code", "verification"]
+    },
+    {
+      "id": "verify-godot-feature-headless",
+      "prompt": "The inventory drag-and-drop feature for our Godot 4 project was implemented earlier in this session. The engine binary is available. Verify the implementation independently and report.",
+      "expected_output": "Loads the godot-game-creation-engineer verification checklist, runs headless parse and scene-load checks on the changed scripts and scenes, exercises the test scene or suite when present, and reports an evidence-backed verdict without expanding scope.",
+      "should_trigger": true,
+      "assertions": [
+        "Headless parse or scene-integrity checks are run (or named as blocked with the reason) for the changed scripts and scenes",
+        "The verdict cites observed behavior or explicitly states that behavioral verification needs a display or manual test, rather than inferring success"
+      ],
+      "tags": ["godot", "verification"]
+    },
+    {
+      "id": "near-miss-test-strategy",
+      "prompt": "Design the test strategy and coverage plan for our new billing service before we start building it.",
+      "expected_output": "Should route to testing-engineer: this is test design ahead of implementation, not independent verification of completed work.",
+      "should_trigger": false,
+      "tags": ["near-miss", "testing"]
+    },
+    {
+      "id": "near-miss-refactor-review",
+      "prompt": "Review this pull request for code quality and suggest refactors and simplifications.",
+      "expected_output": "Should route to senior-developer: the request is qualitative code review and refactoring advice, not a verdict on whether a completed implementation meets its verification checklist.",
+      "should_trigger": false,
+      "tags": ["near-miss", "review"]
+    },
+    {
+      "id": "near-miss-ui-critique",
+      "prompt": "The new onboarding screen is implemented; critique the visual design and interaction flow.",
+      "expected_output": "Should route to design-reviewer (with visual-qa for browser evidence): UI critique has dedicated owners; implementation-verifier hands UI work to them.",
+      "should_trigger": false,
+      "tags": ["near-miss", "design"]
+    }
+  ]
+}

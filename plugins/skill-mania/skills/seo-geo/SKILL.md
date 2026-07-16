@@ -35,6 +35,7 @@ Improve discoverability without hacks: make pages crawlable, indexable, understa
 1. Validate changed rendered HTML, headers, robots, sitemaps, structured data, and canonical behavior before release.
 2. If a signal is absent, contradictory, or blocked, correct the implementation and recrawl or rerun the relevant inspection.
 3. After release, monitor the named baseline and rollback or forward-fix only with evidence; do not claim crawl or ranking outcomes without it.
+4. Before reporting done, load [references/verification.md](references/verification.md) and run its rendered-output floor and evidence checklist.
 ## Company Context
 When repo work touches public content, search visibility, launch behavior, migrations, analytics, brand claims, localization, or compliance-sensitive wording, read root `company.md` if present. Follow its brand, content, compliance, localization, platform, analytics, and release constraints unless higher-priority instructions or search quality conflict.
 ## Reference Map

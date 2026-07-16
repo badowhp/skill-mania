@@ -1,0 +1,15 @@
+# Dockerfile (current, failing review and slow to build)
+FROM node:latest
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN apt-get update && apt-get install -y curl
+ENV API_TOKEN=changeme-prod-token
+EXPOSE 3000
+CMD npm start
+
+# Context from the service repository:
+# - package.json and package-lock.json exist at the repo root
+# - the app is a plain Node HTTP service started with "node server.js"
+# - production traffic requires GET /healthz to return 200
+# - the platform blocks containers running as root

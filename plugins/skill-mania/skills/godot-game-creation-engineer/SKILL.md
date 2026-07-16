@@ -31,6 +31,7 @@ Build Godot features that fit the existing project, engine version, target platf
 1. Run the narrowest scene, gameplay, or export check that exercises the changed behavior.
 2. If it fails, inspect the debugger and project evidence, correct the smallest responsible scene, script, resource, or setting, then rerun the same check.
 3. Stop and report the missing engine version, target platform, SDK, or reproduction evidence when a safe verification path is unavailable.
+4. Before reporting done, load [references/verification.md](references/verification.md) and run its headless checks and evidence checklist.
 
 ## Routing
 

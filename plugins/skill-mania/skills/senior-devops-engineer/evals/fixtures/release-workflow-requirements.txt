@@ -1,0 +1,11 @@
+Release workflow requirements for service billing-api (GitHub Actions):
+
+- Trigger: push of a tag matching v*
+- Build once: container image pushed to ghcr.io/acme/billing-api, addressed by digest
+- The deploy job must reuse the exact built digest; it must not rebuild
+- Cloud auth: OIDC federation to GCP; no long-lived service-account JSON keys
+- Production deploy sits behind the "production" environment approval gate
+- Only one release may run at a time per environment; queued, not cancelled
+- Third-party actions must be SHA-pinned
+- GITHUB_TOKEN permissions must be minimal at workflow level and widened per job
+- A post-deploy smoke test must fail the release visibly if the service is unhealthy

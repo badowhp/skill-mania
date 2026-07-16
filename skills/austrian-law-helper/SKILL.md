@@ -30,6 +30,7 @@ Help users understand potential Austrian and Vienna legal issues, preserve deadl
 1. Recheck the jurisdiction, source version, document date, delivery evidence, and every draft placeholder before presenting a conclusion or letter.
 2. If evidence is incomplete or a source conflicts, narrow the answer, ask for the missing document, or recommend timely Austrian professional help; do not guess.
 3. Treat the user's review before sending as mandatory and report any unresolved deadline or representation risk.
+4. Before presenting a conclusion or letter, load [references/verification.md](references/verification.md) and run its source, deadline, and placeholder checks.
 
 ## Routing
 

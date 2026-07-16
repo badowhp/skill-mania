@@ -33,6 +33,26 @@ Add or enlarge a skill only when all answers are yes:
 
 Otherwise improve the current owner. Generic debugging remains in `senior-developer`, production diagnosis in `senior-devops-engineer`, and failure-isolation strategy in `testing-engineer`; pressure-test those boundaries instead of adding another broad debugger.
 
+## Token And Cache Posture
+
+Skill text is paid for in two different places; treat them separately.
+
+- Startup metadata (every skill's name and description) loads into every session and sits in
+  the cached prompt prefix. Keep descriptions short, stable, and free of volatile content
+  (dates, counts, versions). Changing installed skills, plugins, or MCP tools mid-session
+  invalidates the conversation's cache prefix; batch such changes between sessions.
+- SKILL.md bodies load per invocation, mid-conversation. Body size is the recurring cost, so
+  keep procedure in `references/` and let the body route to it (progressive disclosure).
+  `scripts/report-skill-budgets.py --check` enforces the budgets in the release gate.
+- A task should normally load at most two references. If a skill routinely needs more, its
+  reference boundaries are wrong; restructure the files around the actual tasks.
+- Run verification passes (implementation-verifier, reviewers) in a fresh-context subagent
+  where the harness supports it: churn stays out of the main thread and its cache prefix
+  survives intact.
+- When comparing eval runs, read `cached_input_tokens` and `cache_write_tokens` next to raw
+  input tokens; an instruction change that looks cheap in totals can still be expensive when
+  it breaks prefix reuse.
+
 ## Evidence Review
 
 For each model artifact, inspect:
@@ -43,7 +63,7 @@ For each model artifact, inspect:
 - routing lead and overlay mismatches
 - each skill's trigger recall and near-miss specificity; do not rely only on the global routing score
 - baseline tag/commit and current/baseline package hashes
-- token and duration deltas after quality is acceptable
+- token and duration deltas after quality is acceptable, including cached-input and cache-write splits
 - cases that could not exercise a referenced script, browser, external source, or real repository artifact
 
 Do not weaken assertions to make a gate green. Fix the skill, fixture, runner, or routing boundary and rerun the same case.

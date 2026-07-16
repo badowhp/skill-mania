@@ -52,7 +52,7 @@ class SkillBudgetTests(unittest.TestCase):
 
         self.assertEqual(budgets.failures(report), [])
         self.assertTrue(report["startup"]["within_budget"])
-        self.assertEqual(len(report["skills"]), 18)
+        self.assertEqual(len(report["skills"]), 19)
 
     def test_oversized_skill_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -765,9 +765,9 @@ class ModelEvalRunnerTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
         plan = json.loads(result.stdout)
-        self.assertEqual(len(plan["skills"]), 18)
-        self.assertEqual(plan["output_cases"], 18)
-        self.assertEqual(plan["estimated_model_calls"], 56)
+        self.assertEqual(len(plan["skills"]), 19)
+        self.assertEqual(plan["output_cases"], 19)
+        self.assertEqual(plan["estimated_model_calls"], 59)
         self.assertEqual(plan["routing_model"], "gpt-5.6-luna")
         self.assertEqual(plan["maximum_api_requests"], 600)
         self.assertEqual(plan["provider"], "codex-cli")

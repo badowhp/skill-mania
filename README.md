@@ -35,6 +35,7 @@ Use the first matching domain role. Add `caveman` only when the user explicitly 
 - `commit` - explicit-path staging, staged-diff verification, and focused local commits without automatic pushes.
 - `senior-developer` - scoped application implementation, debugging, refactoring, and review.
 - `testing-engineer` - test strategy, regression coverage, Playwright/UI tests, and flaky-test triage.
+- `implementation-verifier` - independent post-implementation verification against per-skill checklists with evidence-backed verdicts.
 - `software-architect` - system boundaries, tradeoffs, contracts, and migration planning.
 
 ### Design and game work
