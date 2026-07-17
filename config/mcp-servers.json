@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "gitlab": {
+      "command": "npx",
+      "args": ["-y", "@zereight/mcp-gitlab@2.1.38"],
+      "env": {
+        "GITLAB_API_URL": "https://gitlab.com/api/v4",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "${GITLAB_PERSONAL_ACCESS_TOKEN}",
+        "GITLAB_PERMISSION_MODE": "readonly",
+        "GITLAB_READ_ONLY_MODE": "true",
+        "GITLAB_ALLOWED_HOSTS": "gitlab.com"
+      }
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    },
+    "blender": {
+      "command": "uvx",
+      "args": ["blender-mcp"]
+    },
+    "godot": {
+      "command": "node",
+      "args": ["${GODOT_MCP_PATH}/build/index.js"],
+      "env": {
+        "GODOT_PATH": "${GODOT_BINARY_PATH}"
+      }
+    }
+  }
+}
