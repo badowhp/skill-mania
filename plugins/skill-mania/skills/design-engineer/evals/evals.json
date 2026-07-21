@@ -80,6 +80,30 @@
       "tags": ["register", "brand", "product"]
     },
     {
+      "id": "fidelity-staged-build",
+      "prompt": "Using the supplied DESIGN.md excerpt, implement the two requested sections. Return the markup/styles and the verification you would run. This is a text-only task; do not claim any command actually ran.",
+      "expected_output": "Builds Method first and locks it against the tokens before Proof, leaves the hero untouched, uses only the fixture's colors, type roles, spacing, radius, shadow, and easing (or explicitly adds a new token with a role first), defers motion, and names the design-tells scan with --design-md and --fail-on medium as pending verification.",
+      "should_trigger": true,
+      "files": ["evals/fixtures/design-tokens.txt"],
+      "assertions": [
+        "Every color, type size, spacing value, radius, shadow, and easing in the produced code traces to the fixture tokens, or a new token is explicitly added to DESIGN.md before use",
+        "The response builds section by section referencing DESIGN.md rather than one monolithic dump, does not modify the approved hero, and names the scanner traceability check with --design-md and --fail-on medium without claiming it ran"
+      ],
+      "tags": ["implementation", "fidelity", "tokens"]
+    },
+    {
+      "id": "pixel-perfect-extraction",
+      "prompt": "Replicate this measured reference component 1:1 as HTML/CSS. Work extraction-first and return your extraction, the code, and any deviations. Text-only task; do not claim commands ran.",
+      "expected_output": "Produces an extraction table from the supplied measurements before any code, builds the card with every value traced to the extraction, adds accessible focus/hover states for what the screenshot cannot show while flagging them as additions, and reports uncertainties or deviations explicitly.",
+      "should_trigger": true,
+      "files": ["evals/fixtures/reference-spec.txt"],
+      "assertions": [
+        "An extraction table with the exact measured values precedes the code and every color, size, radius, and shadow in the code matches it",
+        "States not visible in the reference (hover, focus) are added as explicitly flagged additions with accessible treatment, and remaining uncertainties or deviations are reported instead of silently guessed"
+      ],
+      "tags": ["pixel-perfect", "implementation"]
+    },
+    {
       "id": "near-miss-code-only",
       "prompt": "Fix the retry logic in our API client and add a regression test.",
       "expected_output": "Should not require design-engineer because this is non-visual frontend or backend implementation.",

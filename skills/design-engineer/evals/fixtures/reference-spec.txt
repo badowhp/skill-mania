@@ -1,0 +1,28 @@
+# Reference measurements (sampled from the client's approved screenshot)
+
+Component: pricing card, desktop 380px wide.
+
+Colors sampled:
+- card background #ffffff
+- page background behind card #0e1a2b
+- plan name text #0e1a2b
+- price text #0e1a2b
+- feature text #4a5568
+- accent (button background, one feature icon) #2f6df6
+- button label #ffffff
+- divider line #e2e8f0
+
+Type measured:
+- plan name: 15px, weight 600, uppercase, letter-spacing ~0.06em
+- price: 48px, weight 700, tight line height (~1.05)
+- "/month" suffix: 15px, weight 400, same baseline as price
+- feature rows: 15px/24px, weight 400
+- button label: 15px, weight 600
+
+Spacing and geometry measured:
+- card padding 32px all sides; radius 12px
+- shadow: soft, approximately 0 8px 24px rgba(14,26,43,0.18)
+- 20px vertical gap between feature rows; divider 16px above the button
+- button: full card width, 44px tall, radius 8px
+
+Not visible in the screenshot: hover, focus, and disabled states.

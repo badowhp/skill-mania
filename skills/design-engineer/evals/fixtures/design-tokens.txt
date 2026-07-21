@@ -1,0 +1,27 @@
+# DESIGN.md (excerpt, current and reviewed)
+
+## Direction
+Register: brand surface. Composition: asymmetric split. Quality bar: matches the
+existing hero at /src/sections/Hero.tsx.
+
+## Color Tokens
+- ink `#101418` — primary text
+- paper `#f4f1ea` — page background
+- moss `#3f6b4f` — primary accent, buttons, links
+- clay `#c96f4a` — secondary accent, highlights only
+- line `#d8d2c4` — hairline borders
+
+## Typography
+- Display: Söhne Breit 64/68, weight 700, only for section headlines
+- Body: Söhne 17/26, weight 400
+- Caption: Söhne 13/18, weight 500, uppercase, letter-spacing 0.08em
+
+## Spacing / Geometry
+- Base unit 8px; section padding 96px desktop, 48px mobile
+- Radius: 2px on inputs and cards; no pill shapes
+- Shadow: single bespoke elevation `0 2px 12px rgba(16,20,24,0.10)`
+- Easing: enter `cubic-bezier(0.2, 0.8, 0.2, 1)` 240ms; no other motion defined
+
+## Task Context
+Two new sections are requested below the existing hero: "Method" (three-step
+process) and "Proof" (two client quotes). The hero is approved and must not change.

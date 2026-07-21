@@ -4,6 +4,7 @@ import datetime as dt
 import importlib.util
 import json
 import os
+import shlex
 import subprocess
 import sys
 import tempfile
@@ -309,6 +310,76 @@ class InstallerTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 1)
         self.assertIn("does not support symlinked skills", result.stderr)
+
+
+class McpInstallerTests(unittest.TestCase):
+    def test_every_mcp_has_separate_codex_and_claude_dry_runs(self) -> None:
+        servers = json.loads(
+            (REPO_ROOT / "config" / "mcp-servers.json").read_text(encoding="utf-8")
+        )["mcpServers"]
+
+        for client in ("codex", "claude"):
+            for server in servers:
+                with self.subTest(client=client, server=server):
+                    result = subprocess.run(
+                        [
+                            str(REPO_ROOT / "scripts" / "install-mcp.py"),
+                            f"--{client}",
+                            "--dry-run",
+                            server,
+                        ],
+                        check=False,
+                        text=True,
+                        capture_output=True,
+                    )
+
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                    self.assertEqual(len(result.stdout.splitlines()), 1)
+                    self.assertIn("mcp add", result.stdout)
+                    self.assertIn(server, shlex.split(result.stdout))
+
+    def test_blender_mcp_is_pinned_and_private_by_default(self) -> None:
+        blender = json.loads(
+            (REPO_ROOT / "config" / "mcp-servers.json").read_text(encoding="utf-8")
+        )["mcpServers"]["blender"]
+
+        self.assertIn("blender-mcp==1.6.4", blender["args"])
+        self.assertEqual(blender["env"]["DISABLE_TELEMETRY"], "true")
+        self.assertEqual(blender["env"]["UV_PYTHON_PREFERENCE"], "only-managed")
+
+    def test_secret_environment_references_are_not_expanded_in_dry_run(self) -> None:
+        env = {**os.environ, "GITLAB_PERSONAL_ACCESS_TOKEN": "do-not-print-this"}
+        result = subprocess.run(
+            [
+                str(REPO_ROOT / "scripts" / "install-mcp.py"),
+                "--codex",
+                "--dry-run",
+                "gitlab",
+            ],
+            env=env,
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertNotIn("do-not-print-this", result.stdout)
+        self.assertIn("GITLAB_PERSONAL_ACCESS_TOKEN", result.stdout)
+
+    def test_unknown_mcp_is_rejected(self) -> None:
+        result = subprocess.run(
+            [
+                str(REPO_ROOT / "scripts" / "install-mcp.py"),
+                "--dry-run",
+                "unknown",
+            ],
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("unknown MCP server", result.stderr)
 
 
 class ModelMatrixTests(unittest.TestCase):

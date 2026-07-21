@@ -10,7 +10,7 @@ Design through durable context, then build. Do not guess a visual system when th
 2. Run the interview phase before substantial design work when `DESIGN.md` is missing, stale, or too vague.
 3. Write or update `DESIGN.md` as the first artifact for new design direction. Keep it concrete enough that another agent can continue the work.
 4. Separate phases: interview, `DESIGN.md`, plan, implementation, review. Do not collapse them unless the user asks for a tiny local change and `DESIGN.md` is already fit.
-5. Route every substantial `DESIGN.md`, plan, and implementation through `design-reviewer`. Treat review as a gate, not commentary: a user-facing visual rework is not done until the relevant artifact gets `PASS`, or the user explicitly accepts named remaining defects.
+5. Route substantial `DESIGN.md`, plans, and implementations through `design-reviewer` as a gate. Finish visual rework only on `PASS` or explicit user acceptance of named defects.
 6. Use real product evidence: rendered pages, screenshots, existing components, product data, states, user flows, reference sites, brand assets, and actual copy.
 7. Distinguish brand surfaces from product surfaces before choosing style. Brand surfaces can be expressive; product surfaces must serve repeated task completion.
 8. Preserve existing design-system contracts unless the request intentionally changes them.
@@ -25,6 +25,7 @@ Gather:
 - register: `brand` for marketing, editorial, portfolio, campaign, or showcase; `product` for apps, dashboards, admin, tools, forms, and settings
 - target surfaces, routes, components, states, and success criteria
 - examples, competitors, screenshots, references, and anti-references
+- layout direction (standard versus beyond-standard) and the quality bar or reference to match
 - color, typography, density, motion, accessibility, localization, and content constraints
 - technology: framework, router, styling system, component library, tokens, icon library, image pipeline, test/browser tooling
 - assets: logos, photos, generated images, product screenshots, fonts, charts, maps, videos, and sample data
@@ -67,10 +68,13 @@ Review the plan with `design-reviewer`. If review fails, return to `DESIGN.md` w
 ## Phase 4: Implement
 Implement only after the plan passes, unless the user explicitly asks for exploration or a quick local fix.
 
+- Fidelity gate: trace every literal color, type size, spacing, radius, shadow, and easing to `DESIGN.md`. Declare colors in a Colors block or semantic token line, apart from prohibited examples. Gate hex and CSS color functions with `--design-md DESIGN.md --fail-on medium`; inspect named colors and variables manually.
+- Build sections sequentially. Finish and audit one against tokens before starting the next; never return a monolithic multi-section dump. Lock the first viewport, re-read `DESIGN.md` before each section, and add motion last. On generic drift, return to tokens.
+- Load [references/brand-surfaces.md](references/brand-surfaces.md) for expressive brand work, [references/motion.md](references/motion.md) before motion, and [references/pixel-perfect.md](references/pixel-perfect.md) for 1:1 replication.
 - Follow the existing framework, routing, component library, tokens, and state patterns.
 - Extend tokens and primitives before scattering one-off styles.
 - Use the existing icon library, usually lucide or the local design-system icons.
-- Use real or generated bitmap imagery for websites, product pages, portfolios, venues, objects, games, or visual experiences where assets matter.
+- Use real or generated bitmap imagery where assets matter; prompt generated assets with named lighting, mood, and materials rather than generic stock.
 - Keep dashboards and operational tools dense, scannable, and quiet. Avoid landing-page composition for repeated workflows.
 - Keep cards for repeated items, modals, and genuinely framed tools. Do not nest cards.
 - Use stable dimensions for boards, grids, toolbars, icon buttons, counters, media frames, and tiles.
@@ -81,28 +85,24 @@ Implement only after the plan passes, unless the user explicitly asks for explor
 Run review after implementation:
 
 1. Run local quality commands available in the repo.
-2. Run the bundled `scripts/scan-design-tells.mjs` from the loaded `design-engineer` skill directory when the changed surface is static UI, Tailwind, shadcn, public UI, or likely AI-looking.
+2. Run bundled `scripts/scan-design-tells.mjs` for static, public, Tailwind, shadcn, or likely AI-looking UI; add `--design-md DESIGN.md --fail-on medium` to gate color traceability.
 3. Capture rendered desktop and narrow mobile evidence with `visual-qa` or existing browser automation when possible.
-4. Self-audit the rendered result against `DESIGN.md`, the plan, and the original user ask before asking for final review. Fix obvious weak hierarchy, generic AI defaults, broken mobile layout, missing states, unreadable text, and visual direction drift first.
-5. Ask `design-reviewer` for a final implementation review and provide evidence: changed surfaces, screenshot paths or live page notes, scanner output, quality-command results, states inspected, and evidence that could not be gathered.
+4. Self-audit the render against `DESIGN.md`, the plan, and the user ask. Fix weak hierarchy, generic defaults, mobile breaks, missing states, unreadable text, and direction drift before review.
+5. Ask `design-reviewer` for a final implementation review with evidence: changed surfaces, screenshots or live page notes, scanner output, quality-command results, states inspected, and evidence gaps.
 6. If review returns `FAIL`, return to implementation for execution defects. Return to plan or `DESIGN.md` when the failure is strategic, generic, off-brand, or structurally wrong.
-7. If review returns `PASS WITH FIXES`, apply the named fixes and rerun targeted verification plus review. Do not close user-facing visual rework on `PASS WITH FIXES`; close only on `PASS`, or when the user explicitly accepts the named remaining defects.
+7. On `PASS WITH FIXES`, apply the named fixes and rerun targeted verification plus review. Close only on `PASS` or explicit user acceptance of named defects.
 
-Do not claim a pass when rendered inspection, scanner output, or review could not run. Name the missing evidence and residual risk. For substantial redesigns, missing desktop or mobile rendered evidence blocks final sign-off.
+Never claim a pass when rendered inspection, scanner output, or review could not run; name the missing evidence and residual risk. Missing desktop or mobile rendered evidence blocks sign-off on substantial redesigns.
 
 ## Routing Notes
 - `design-engineer` owns creation: interview, `DESIGN.md`, plan, and implementation.
 - `design-reviewer` owns critique: pass/fail, consultant review, scorecards, and loop decisions.
 - `visual-qa` owns reproducible browser evidence: screenshots, overflow, runtime findings, and focus checks.
-- Keep this portable. Do not depend on slash commands, plugin-only hooks, or one vendor's skill format in `SKILL.md`.
-- Codex can often use browser automation, screenshots, and image generation for visual work. Claude Code may have stronger plugin command routing. The shared skill should still express the same phases and gates in plain Markdown.
 
 ## Bundled Helper
-Use `scripts/scan-design-tells.mjs` as a deterministic anti-pattern scan. It prioritizes common generated-UI tells; it does not replace rendered review or design judgment.
-
-Use `design-tell-ignore` only for a narrow intentional exception with a product or brand reason.
+`scripts/scan-design-tells.mjs` is an anti-pattern scan, not rendered review. Scope exceptions to check IDs: `design-tell-ignore: purple-gradient, oversized-radius -- established brand`. Only `untraced-color` suppresses traceability.
 ## Tool Output
-Use RTK when available for noisy, non-destructive build, lint, test, scanner, or browser-evidence output. Treat filtered output as triage and inspect raw output before making a release or visual-quality claim that depends on exact details.
+Use RTK when available for noisy, non-destructive build, lint, test, scanner, or browser output; inspect raw output before any release or visual-quality claim that depends on exact details.
 
 ## Honest Opinion
 Use `honest opinion:` when it adds decision value: reviews, audits, recommendations, plans, tradeoffs, or implementation close-outs with a material risk or gap. Be brutally honest and evidence-based. Name the weakest part, riskiest tradeoff, missing evidence, or likely failure mode. Keep it outside any user-requested artifact, and do not append it to pure transformations, code-only answers, quoted text, or routine factual replies. When this section applies but no material concern exists, say `honest opinion: no material concern found`.

@@ -14,7 +14,9 @@ VERSION_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
 RELEASE_PATHS = (
     "skills",
     "config/install-profiles.json",
+    "config/mcp-servers.json",
     "scripts/install-local.sh",
+    "scripts/install-mcp.py",
     "plugins/skill-mania/skills",
     "plugins/skill-mania/.codex-plugin/plugin.json",
     "plugins/skill-mania/.claude-plugin/plugin.json",

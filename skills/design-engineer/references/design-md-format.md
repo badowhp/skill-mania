@@ -41,6 +41,8 @@ Use semantic roles rather than only swatches:
 
 Prefer OKLCH when the project already uses modern CSS color. Otherwise match the existing stack. Explain why the palette fits the product, not just what it looks like.
 
+Declare approved colors as semantic bullets or table rows inside `## 2. Colors`, or as explicit token assignments such as `--color-focus: oklch(...)`. Put deprecated, forbidden, example-only, and anti-reference colors under clearly negative headings instead of mixing them into the approved token list. The scanner treats those negative sections as non-tokens.
+
 ## 3. Typography
 Define:
 

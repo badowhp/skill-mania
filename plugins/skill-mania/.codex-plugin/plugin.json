@@ -1,6 +1,6 @@
 {
   "name": "skill-mania",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Portable Agent Skills collection for Codex, Claude Code, and GitHub Copilot.",
   "author": {
     "name": "Hipolit Badowski"

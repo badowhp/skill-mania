@@ -10,6 +10,7 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 
 - Browse `skills/<name>/SKILL.md` to understand a workflow before installing it.
 - Install every portable skill as an independent snapshot with `./scripts/install-local.sh --all --copy`.
+- Install one curated MCP server at a time with `./scripts/install-mcp.py --codex <name>`.
 - Before publishing a change, run `./scripts/check-release-ready.sh`; the tag-driven GitHub workflow creates the release.
 
 ## Choose a Skill
@@ -79,6 +80,8 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - [LiteLLM setup](docs/litellm.md) - non-secret gateway setup, Codex provider placement, verification, and security review notes.
 - [OpenRouter setup](docs/openrouter.md) - direct provider setup, smoke tests, and review checklist.
 - [Deliberation adoption](docs/deliberation.md) - trust, cost, privacy, and verification guidance for the external multi-model review plugin.
+- [MCP server setup](docs/mcp-servers.md) - independently installable Codex and Claude Code registrations, including BlenderMCP.
+- [BlenderMCP with Godot MCP](docs/blender_mcp.md) - activate both servers together and move Blender assets into a Godot project.
 - [Skill evaluation](docs/evaluation.md) - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
 - [Skill maintenance](docs/skill-maintenance.md) - quality states, review cadence, ownership tests, deprecation rules, and release gates.
 - [Benchmark improvement plan](docs/benchmark-improvement-plan.md) - saved-baseline diagnosis, per-skill retest plans, and removal criteria.
@@ -107,6 +110,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ├── .claude-plugin/marketplace.json # Claude Code marketplace catalog
 ├── .agents/plugins/marketplace.json # Codex local marketplace catalog
 ├── scripts/install-local.sh        # Install skills locally as symlinks or copies
+├── scripts/install-mcp.py          # Register one curated MCP server with one client
 ├── scripts/compare-skill-benchmarks.py # Compare saved and current quality snapshots
 ├── scripts/run-skill-evals.py      # Blind baseline-versus-skill model evaluation runner
 ├── scripts/report-skill-budgets.py # Report and enforce context budgets
@@ -142,6 +146,21 @@ Use `AGENT_SKILLS_DIR=/path/to/skills` to override the shared target. GitHub Cop
 Claude Code skills install to `~/.claude/skills` by default. Override the target with `CLAUDE_SKILLS_DIR=/path/to/skills`. [Symlinked Agent Skills require Claude Code 2.1.203 or newer](https://code.claude.com/docs/en/skills#where-skills-live); the installer rejects `--link` on an older detected version and directs you to `--copy`.
 
 Use `--copy` instead of `--link` when you need an independent snapshot rather than a live link to this repository.
+
+## MCP Installation
+
+List the curated servers, then register only the one you want. Codex is the default target;
+Claude Code supports an explicit user, local, or project scope:
+
+```bash
+./scripts/install-mcp.py --list
+./scripts/install-mcp.py --codex blender
+./scripts/install-mcp.py --claude --scope user blender
+```
+
+The installer intentionally accepts one server per invocation. Use `--dry-run` to verify
+the exact client command first. BlenderMCP additionally requires `uv` and its Blender
+addon; see [MCP server setup](docs/mcp-servers.md#blender-setup).
 
 ## Optional RTK Tooling
 
