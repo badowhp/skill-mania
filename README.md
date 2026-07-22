@@ -2,16 +2,32 @@
   <img src="assets/readme-header.svg" alt="Skill Mania" width="100%">
 </p>
 
-# Skill Mania
+# Skill Mania: Agent Skills Manager for Codex, Claude Code, and GitHub Copilot
 
-Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and GitHub Copilot. It keeps reusable agent workflows in a tool-neutral `skills/` source tree, then packages the same production skills for plugin and marketplace use.
+Skill Mania is a portable Agent Skills library and local skill manager for Codex, Claude Code, and GitHub Copilot. Install one skill, an overlapping workflow package, or the complete catalog from the command line or the Docker-based Go interface. The tool-neutral `skills/` tree remains the canonical source for every packaged distribution.
 
 ## Start Here
 
 - Browse `skills/<name>/SKILL.md` to understand a workflow before installing it.
 - Install every portable skill as an independent snapshot with `./scripts/install-local.sh --all --copy`.
+- Install a workflow package with `./scripts/install-local.sh --group game-development --copy`.
+- Start the local visual manager with `docker compose up --build --detach`, then open <http://127.0.0.1:8787>.
 - Install one curated MCP server at a time with `./scripts/install-mcp.py --codex <name>`.
 - Before publishing a change, run `./scripts/check-release-ready.sh`; the tag-driven GitHub workflow creates the release.
+
+## Visual Skill Manager
+
+The local Go interface discovers the full repository catalog, groups skills by workflow, shows installation ownership for Codex and Claude Code, and presents eval coverage plus saved benchmark history before installation.
+
+<p align="center">
+  <img src="docs/images/skill-manager/overview.png" alt="Skill Mania local Agent Skills manager showing workflow packages, skill inventory, installation status, and benchmark evidence" width="100%">
+</p>
+
+```bash
+docker compose up --build --detach
+```
+
+Open <http://127.0.0.1:8787>. The image is built locally as `skill-mania:local`; it is not published to a registry. See the [local Skill Manager guide](docs/skill-manager.md) for directory overrides, ownership rules, benchmark imports, and troubleshooting.
 
 ## Choose a Skill
 
@@ -21,7 +37,7 @@ Skill Mania is a portable Agent Skills repository for Codex, Claude Code, and Gi
 | Inspect, stage, and create a focused local Git commit | `commit` |
 | Design tests, reproduce a regression, or stabilize CI | `testing-engineer` |
 | Create UI, review UI, or collect browser evidence | `design-engineer`, `design-reviewer`, `visual-qa` |
-| Design a game loop or implement a Godot feature | `gameplay-consultant`, `godot-game-creation-engineer` |
+| Design gameplay, levels, quests, Blender assets, or implement a Godot game | `gameplay-consultant`, `godot-level-designer`, `godot-quest-designer`, `blender-game-asset-artist`, `godot-game-creation-engineer` |
 | Assess security, production operations, or system boundaries | `security-engineer`, `senior-devops-engineer`, `software-architect` |
 | Improve search visibility or prose, or handle an Austrian/Vienna legal issue | `seo-geo`, `writing-assistant`, `austrian-law-helper` |
 | Maintain local skill metadata or vet an external package | `agent-context-maintainer`, `skill-curator` |
@@ -45,7 +61,10 @@ Use the first matching domain role. Add `caveman` only when the user explicitly 
 - `design-reviewer` - evidence-based UI/design critique and pass/fail gates.
 - `visual-qa` - reproducible browser evidence for responsive UI and runtime findings.
 - `gameplay-consultant` - player experience, mechanics, balance, accessibility, and playtest guidance.
-- `godot-game-creation-engineer` - Godot scenes, scripts, input, physics, UI, debugging, and export work.
+- `godot-level-designer` - playable Godot level pitches, flow, grayboxing, encounters, art handoffs, and level playtests.
+- `godot-quest-designer` - reactive quest graphs, emotional arcs, world facts, consequences, persistence, and narrative path testing.
+- `blender-game-asset-artist` - game-ready Blender models, rigs, animations, glTF handoff, and Godot import verification.
+- `godot-game-creation-engineer` - complete-game and vertical-slice planning, Godot implementation, system integration, debugging, and exports.
 
 ### Operate, secure, and discover
 
@@ -81,6 +100,7 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 - [OpenRouter setup](docs/openrouter.md) - direct provider setup, smoke tests, and review checklist.
 - [Deliberation adoption](docs/deliberation.md) - trust, cost, privacy, and verification guidance for the external multi-model review plugin.
 - [MCP server setup](docs/mcp-servers.md) - independently installable Codex and Claude Code registrations, including BlenderMCP.
+- [Local Skill Manager](docs/skill-manager.md) - Docker startup, skill-directory mapping, safe removal, benchmark data, and troubleshooting.
 - [BlenderMCP with Godot MCP](docs/blender_mcp.md) - activate both servers together and move Blender assets into a Godot project.
 - [Skill evaluation](docs/evaluation.md) - trigger testing, with-skill/baseline comparison, assertions, token/time capture, prompt-cache discipline, and release evidence.
 - [Skill maintenance](docs/skill-maintenance.md) - quality states, review cadence, ownership tests, deprecation rules, and release gates.
@@ -95,7 +115,11 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 ```text
 .
 ├── assets/                         # Repository media used by documentation
+├── benchmarks/catalog.json         # Static aggregate of every saved benchmark summary
 ├── benchmarks/baselines/           # Compact, versioned local quality snapshots
+├── cmd/skill-manager/              # Go manager entry point
+├── internal/skillmanager/          # Catalog, operations, HTTP server, and embedded UI
+├── config/skill-groups.json        # Overlapping workflow packages
 ├── config/install-profiles.json    # Complete, non-overlapping local-install profiles
 ├── docs/                           # Non-skill setup and operations notes
 ├── evals/                          # Cross-skill routing and reviewed model matrices
@@ -109,7 +133,10 @@ Bundled Codex system skills are intentionally excluded. This repository only sto
 │   └── skills/                     # Synced copy of canonical skills
 ├── .claude-plugin/marketplace.json # Claude Code marketplace catalog
 ├── .agents/plugins/marketplace.json # Codex local marketplace catalog
+├── .dockerignore                   # Minimal local image build context
 ├── scripts/install-local.sh        # Install skills locally as symlinks or copies
+├── Dockerfile                      # Minimal local Go manager image
+├── compose.yaml                    # Loopback-only local manager service
 ├── scripts/install-mcp.py          # Register one curated MCP server with one client
 ├── scripts/compare-skill-benchmarks.py # Compare saved and current quality snapshots
 ├── scripts/run-skill-evals.py      # Blind baseline-versus-skill model evaluation runner
@@ -133,9 +160,9 @@ Install a smaller set with repeatable profiles:
 ./scripts/install-local.sh --all --copy --profile content --profile regional
 ```
 
-Profiles partition the repository: `core` contains engineering, design, safety, commit, and maintenance workflows; `content` contains SEO/GEO and writing; `games` contains gameplay and Godot; `regional` contains the Austrian/Vienna legal helper. Omitting `--profile` installs every skill.
+Profiles partition the repository: `core` contains engineering, design, safety, commit, and maintenance workflows; `content` contains SEO/GEO and writing; `games` contains gameplay, Godot, and Blender game-asset workflows; `regional` contains the Austrian/Vienna legal helper. Omitting `--profile` installs every skill.
 
-The shared Agent Skills install goes to `~/.agents/skills` by default, which current Codex and GitHub Copilot installations can both discover. `--agents` is the preferred explicit target; `--codex` remains an alias. For older Codex builds that still use `~/.codex/skills`, set the target explicitly:
+The shared Agent Skills install goes to `~/.agents/skills` by default, which current Codex and GitHub Copilot installations can both discover. If it is empty and a populated legacy `~/.codex/skills` directory exists, the installer selects that legacy location automatically. `--agents` is the preferred explicit target; `--codex` remains an alias. Environment overrides remain the deterministic choice for scripts and containers:
 
 ```bash
 CODEX_SKILLS_DIR="$HOME/.codex/skills" ./scripts/install-local.sh --codex --link
@@ -146,6 +173,15 @@ Use `AGENT_SKILLS_DIR=/path/to/skills` to override the shared target. GitHub Cop
 Claude Code skills install to `~/.claude/skills` by default. Override the target with `CLAUDE_SKILLS_DIR=/path/to/skills`. [Symlinked Agent Skills require Claude Code 2.1.203 or newer](https://code.claude.com/docs/en/skills#where-skills-live); the installer rejects `--link` on an older detected version and directs you to `--copy`.
 
 Use `--copy` instead of `--link` when you need an independent snapshot rather than a live link to this repository.
+
+Inspect install state and preview stale managed entries before removal:
+
+```bash
+./scripts/install-local.sh --agents --list --all-skills
+./scripts/install-local.sh --agents --cleanup
+```
+
+Unmanaged directories are protected. Adopting one requires the exact skill name plus both replacement overrides; inspect it first because adoption replaces that directory. The [local Skill Manager guide](docs/skill-manager.md#ownership-and-deletion) explains ownership and deletion in detail.
 
 ## MCP Installation
 
@@ -241,6 +277,8 @@ The validator checks the repository's portable skill contract: current standard 
 Use `python3 scripts/report-skill-budgets.py` to inspect startup metadata and per-skill context estimates. These are static estimates; actual token and duration decisions should come from with-skill/baseline runs described in `docs/evaluation.md`.
 
 ## CI/CD and Model Evaluation
+
+The deterministic gate also formats, tests, and vets the Go manager.
 
 Every push and pull request runs the deterministic release-readiness gate without secrets. Tags matching `v*` rerun that gate, verify the manifest version, and create the GitHub release.
 

@@ -1,0 +1,29 @@
+services:
+  skill-manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      pull: false
+    image: skill-mania:local
+    pull_policy: build
+    init: true
+    read_only: true
+    user: "${SKILL_MANAGER_UID:-65532}:${SKILL_MANAGER_GID:-65532}"
+    ports:
+      - "127.0.0.1:${SKILL_MANAGER_PORT:-8787}:8080"
+    volumes:
+      - type: bind
+        source: "${CODEX_SKILLS_DIR:-${AGENT_SKILLS_DIR:-${HOME}/.codex/skills}}"
+        target: /targets/agents
+        bind:
+          create_host_path: true
+      - type: bind
+        source: "${CLAUDE_SKILLS_DIR:-${HOME}/.claude/skills}"
+        target: /targets/claude
+        bind:
+          create_host_path: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 12s

@@ -20,8 +20,11 @@
     "writing-assistant"
   ],
   "games": [
+    "blender-game-asset-artist",
     "gameplay-consultant",
-    "godot-game-creation-engineer"
+    "godot-game-creation-engineer",
+    "godot-level-designer",
+    "godot-quest-designer"
   ],
   "regional": [
     "austrian-law-helper"

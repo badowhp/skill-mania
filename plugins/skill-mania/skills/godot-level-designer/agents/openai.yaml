@@ -1,0 +1,4 @@
+interface:
+  display_name: "Godot Level Designer"
+  short_description: "Design playable Godot levels and encounters"
+  default_prompt: "Use $godot-level-designer to design and verify this Godot level."

@@ -58,6 +58,27 @@
       "why": "Godot export configuration and runtime resource behavior are the central evidence boundary."
     },
     {
+      "id": "godot-level-graybox",
+      "prompt": "Design and graybox a Godot RPG district with measured traversal, direct and rooftop routes, landmarks, quest hooks, an art handoff, and level playtests.",
+      "lead_skill": "godot-level-designer",
+      "near_miss_skills": ["godot-quest-designer", "gameplay-consultant", "godot-game-creation-engineer", "blender-game-asset-artist"],
+      "why": "Spatial flow and playable level proof are primary; narrative graph, general mechanics, production code, and source assets are supporting handoffs."
+    },
+    {
+      "id": "godot-reactive-quest",
+      "prompt": "Design a reactive Godot investigation with emotional beats, out-of-order objectives, early actor deaths, persistent world facts, consequences, and narrative path tests.",
+      "lead_skill": "godot-quest-designer",
+      "near_miss_skills": ["godot-level-designer", "gameplay-consultant", "godot-game-creation-engineer", "writing-assistant"],
+      "why": "Interactive story structure and state-safe consequences are primary; space, broad mechanics, runtime code, and dialogue prose are separate responsibilities."
+    },
+    {
+      "id": "blender-godot-character-asset",
+      "prompt": "Create and verify a game-ready Blender character model, minimal deform rig, named animation clips, glTF delivery, and clean Godot import.",
+      "lead_skill": "blender-game-asset-artist",
+      "near_miss_skills": ["godot-game-creation-engineer", "godot-level-designer"],
+      "why": "Source modeling, rigging, animation, and asset handoff are primary; runtime AnimationTree code and spatial placement begin after asset acceptance."
+    },
+    {
       "id": "minimal-bug-fix",
       "prompt": "Use the smallest correct fix for this formatter crash; do not add abstractions or dependencies.",
       "lead_skill": "senior-developer",

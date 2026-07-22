@@ -8,6 +8,7 @@ python3 scripts/validate-skills.py skills plugins/skill-mania/skills
 python3 scripts/validate-routing-evals.py
 python3 scripts/validate-model-matrix.py
 python3 scripts/list-profile-skills.py --check
+python3 scripts/build-benchmark-catalog.py --check
 ./scripts/sync-plugin-package.sh --check
 python3 scripts/report-skill-budgets.py --check
 python3 scripts/check-release-version.py --require-bump
@@ -17,6 +18,14 @@ python3 scripts/check-helper-syntax.py
 python3 scripts/run-skill-evals.py --dry-run >/dev/null
 python3 scripts/check-external-links.py --list >/dev/null
 python3 -m unittest discover -s tests
+
+if gofmt -l cmd internal | awk 'END { exit (NR == 0) }'; then
+  echo "unformatted Go files found:" >&2
+  gofmt -l cmd internal >&2
+  exit 1
+fi
+go test ./...
+go vet ./...
 
 non_executable_helpers="$({ find scripts -maxdepth 1 -type f; find skills -path '*/scripts/*' -type f; } | while IFS= read -r helper; do [[ -x "$helper" ]] || printf '%s\n' "$helper"; done)"
 if [[ -n "$non_executable_helpers" ]]; then

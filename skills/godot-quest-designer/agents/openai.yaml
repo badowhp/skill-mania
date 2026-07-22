@@ -1,0 +1,4 @@
+interface:
+  display_name: "Godot Quest Designer"
+  short_description: "Design reactive Godot quests and story paths"
+  default_prompt: "Use $godot-quest-designer to design and verify this Godot quest."

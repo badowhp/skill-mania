@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Game Asset Artist"
+  short_description: "Build game-ready models and animations"
+  default_prompt: "Use $blender-game-asset-artist to create and verify this Godot-ready model or animation."

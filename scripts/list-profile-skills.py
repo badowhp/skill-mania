@@ -8,6 +8,10 @@ import json
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from skill_groups import load_groups, resolve_groups, validate_groups
+
 
 PROFILE_NAMES = frozenset(("core", "content", "games", "regional"))
 
@@ -61,21 +65,58 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profiles", nargs="*")
     parser.add_argument("--config", type=Path, default=root / "config" / "install-profiles.json")
+    parser.add_argument(
+        "--groups-config", type=Path, default=root / "config" / "skill-groups.json"
+    )
     parser.add_argument("--skills-dir", type=Path, default=root / "skills")
+    parser.add_argument("--group", action="append", default=[], dest="groups")
+    parser.add_argument("--list-groups", action="store_true")
+    parser.add_argument("--json", action="store_true", dest="json_output")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 
     try:
         profiles = load_profiles(args.config)
+        groups = load_groups(args.groups_config)
         errors = validate_inventory(profiles, args.skills_dir)
+        errors.extend(validate_groups(groups, args.skills_dir))
         if errors:
             raise ValueError("; ".join(errors))
-        selected = resolve(profiles, args.profiles)
+        selected = list(dict.fromkeys(
+            resolve(profiles, args.profiles) + resolve_groups(groups, args.groups)
+        ))
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"install profile error: {exc}", file=sys.stderr)
         return 1
+
+    if args.list_groups:
+        if args.json_output:
+            print(
+                json.dumps(
+                    [
+                        {
+                            "id": group.id,
+                            "name": group.name,
+                            "description": group.description,
+                            "aliases": list(group.aliases),
+                            "skills": list(group.skills),
+                        }
+                        for group in groups
+                    ],
+                    indent=2,
+                )
+            )
+        else:
+            for group in groups:
+                print(f"{group.id}\t{len(group.skills)}\t{group.name}\t{group.description}")
+        return 0
     if args.check:
-        print(f"install profiles cover {sum(len(items) for items in profiles.values())} skills")
+        print(
+            f"install profiles partition {sum(len(items) for items in profiles.values())} skills; "
+            f"{len(groups)} overlapping groups validated"
+        )
+    elif args.json_output:
+        print(json.dumps(selected, indent=2))
     else:
         for skill in selected:
             print(skill)

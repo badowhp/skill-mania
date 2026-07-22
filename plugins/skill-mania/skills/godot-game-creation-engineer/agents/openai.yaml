@@ -1,4 +1,4 @@
 interface:
   display_name: "Godot Game Engineer"
-  short_description: "Build and debug Godot games"
-  default_prompt: "Use $godot-game-creation-engineer to implement and verify this Godot game feature."
+  short_description: "Plan, integrate, and debug Godot games"
+  default_prompt: "Use $godot-game-creation-engineer to plan, implement, connect, and verify this Godot game or vertical slice."

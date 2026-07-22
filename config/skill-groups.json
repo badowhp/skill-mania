@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "groups": [
+    {
+      "id": "game-development",
+      "name": "Game development",
+      "description": "Design, build, test, and verify Godot games and Blender assets.",
+      "aliases": ["games", "game-dev"],
+      "skills": [
+        "blender-game-asset-artist",
+        "gameplay-consultant",
+        "godot-game-creation-engineer",
+        "godot-level-designer",
+        "godot-quest-designer",
+        "testing-engineer",
+        "implementation-verifier"
+      ]
+    },
+    {
+      "id": "software-development",
+      "name": "Software development",
+      "description": "Architecture, implementation, testing, verification, and focused commits.",
+      "aliases": ["software-developer", "developer"],
+      "skills": [
+        "software-architect",
+        "senior-developer",
+        "testing-engineer",
+        "implementation-verifier",
+        "security-engineer",
+        "commit"
+      ]
+    },
+    {
+      "id": "devops-engineering",
+      "name": "DevOps engineering",
+      "description": "Infrastructure, delivery, reliability, security, testing, and rollback-aware verification.",
+      "aliases": ["devops", "devops-engineer"],
+      "skills": [
+        "senior-devops-engineer",
+        "security-engineer",
+        "software-architect",
+        "testing-engineer",
+        "implementation-verifier",
+        "commit"
+      ]
+    },
+    {
+      "id": "writing-publishing",
+      "name": "Writing and publishing",
+      "description": "Draft, revise, publish, and improve search and answer-engine visibility.",
+      "aliases": ["writing", "content"],
+      "skills": [
+        "writing-assistant",
+        "seo-geo"
+      ]
+    },
+    {
+      "id": "product-design",
+      "name": "Product design",
+      "description": "Design interfaces, review quality, and capture reproducible browser evidence.",
+      "aliases": ["design", "ui-design"],
+      "skills": [
+        "design-engineer",
+        "design-reviewer",
+        "visual-qa",
+        "testing-engineer"
+      ]
+    },
+    {
+      "id": "skill-maintenance",
+      "name": "Skill maintenance",
+      "description": "Maintain, audit, test, package, and release local Agent Skills.",
+      "aliases": ["skills", "skill-authoring"],
+      "skills": [
+        "agent-context-maintainer",
+        "skill-curator",
+        "testing-engineer",
+        "implementation-verifier",
+        "commit"
+      ]
+    },
+    {
+      "id": "austrian-legal-writing",
+      "name": "Austrian legal writing",
+      "description": "Analyze Austrian or Vienna issues and draft careful correspondence.",
+      "aliases": ["legal", "austrian-law"],
+      "skills": [
+        "austrian-law-helper",
+        "writing-assistant"
+      ]
+    },
+    {
+      "id": "lean-agent-workflow",
+      "name": "Lean agent workflow",
+      "description": "Add concise-output and minimal-implementation overlays to other roles.",
+      "aliases": ["lean", "overlays"],
+      "skills": [
+        "caveman",
+        "ponytail"
+      ]
+    }
+  ]
+}

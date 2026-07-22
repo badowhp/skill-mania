@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import datetime as dt
 import importlib.util
 import json
@@ -45,6 +46,9 @@ benchmark_compare = load_module(
 install_profiles = load_module(
     "list_profile_skills", REPO_ROOT / "scripts" / "list-profile-skills.py"
 )
+local_skills = load_module(
+    "manage_local_skills", REPO_ROOT / "scripts" / "manage-local-skills.py"
+)
 
 
 class SkillBudgetTests(unittest.TestCase):
@@ -53,7 +57,7 @@ class SkillBudgetTests(unittest.TestCase):
 
         self.assertEqual(budgets.failures(report), [])
         self.assertTrue(report["startup"]["within_budget"])
-        self.assertEqual(len(report["skills"]), 19)
+        self.assertEqual(len(report["skills"]), 22)
 
     def test_oversized_skill_is_reported(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -278,6 +282,291 @@ class InstallerTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(installed, ["seo-geo", "writing-assistant"])
+
+    def test_group_alias_installs_a_handy_overlapping_package(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "skills"
+            env = {**os.environ, "AGENT_SKILLS_DIR": str(target)}
+            result = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--copy",
+                    "--group",
+                    "writing",
+                    "--no-validate",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            installed = sorted(path.name for path in target.iterdir())
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(installed, ["seo-geo", "writing-assistant"])
+
+    def test_uninstall_removes_only_explicit_managed_skills(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "skills"
+            env = {**os.environ, "AGENT_SKILLS_DIR": str(target)}
+            install = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--copy",
+                    "--group",
+                    "writing",
+                    "--no-validate",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            remove = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--uninstall",
+                    "--skill",
+                    "seo-geo",
+                    "--yes",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+            remaining = sorted(path.name for path in target.iterdir())
+
+        self.assertEqual(install.returncode, 0, install.stdout + install.stderr)
+        self.assertEqual(remove.returncode, 0, remove.stdout + remove.stderr)
+        self.assertEqual(remaining, ["writing-assistant"])
+        self.assertIn("removed agents:seo-geo", remove.stdout)
+
+    def test_uninstall_refuses_unmanaged_skill_without_override(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "skills"
+            unmanaged = target / "seo-geo"
+            unmanaged.mkdir(parents=True)
+            (unmanaged / "SKILL.md").write_text(
+                "---\nname: seo-geo\ndescription: Local copy.\n---\n",
+                encoding="utf-8",
+            )
+            env = {**os.environ, "AGENT_SKILLS_DIR": str(target)}
+            result = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--uninstall",
+                    "--skill",
+                    "seo-geo",
+                    "--yes",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            unmanaged_survived = unmanaged.exists()
+
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        self.assertIn("unmanaged", result.stderr)
+        self.assertTrue(unmanaged_survived)
+
+    def test_install_replaces_unmanaged_skill_only_with_double_override(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "skills"
+            unmanaged = target / "seo-geo"
+            unmanaged.mkdir(parents=True)
+            local_skill = unmanaged / "SKILL.md"
+            local_skill.write_text(
+                "---\nname: seo-geo\ndescription: Local copy.\n---\n",
+                encoding="utf-8",
+            )
+            sentinel = unmanaged / "local-notes.txt"
+            sentinel.write_text("preserve me\n", encoding="utf-8")
+            env = {**os.environ, "AGENT_SKILLS_DIR": str(target)}
+            refused = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--copy",
+                    "--skill",
+                    "seo-geo",
+                    "--force",
+                    "--no-validate",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            preserved = sentinel.read_text(encoding="utf-8")
+            adopted = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--copy",
+                    "--skill",
+                    "seo-geo",
+                    "--force",
+                    "--force-unmanaged",
+                    "--no-validate",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            marker = json.loads(
+                (unmanaged / ".skill-mania-managed.json").read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(refused.returncode, 1, refused.stdout + refused.stderr)
+        self.assertIn("unmanaged", refused.stderr)
+        self.assertEqual(preserved, "preserve me\n")
+        self.assertEqual(adopted.returncode, 0, adopted.stdout + adopted.stderr)
+        self.assertEqual(marker["manager"], "skill-mania")
+
+    def test_failed_staging_preserves_existing_managed_install(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "skills"
+            destination = target / "seo-geo"
+            destination.mkdir(parents=True)
+            sentinel = destination / "previous.txt"
+            sentinel.write_text("previous install\n", encoding="utf-8")
+            (destination / local_skills.MANAGED_MARKER).write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "manager": "skill-mania",
+                        "skill": "seo-geo",
+                        "mode": "copy",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            args = argparse.Namespace(
+                force=True,
+                force_unmanaged=False,
+                dry_run=False,
+                mode="copy",
+            )
+
+            with patch.object(
+                local_skills.shutil,
+                "copytree",
+                side_effect=OSError("simulated copy failure"),
+            ):
+                with self.assertRaisesRegex(OSError, "simulated copy failure"):
+                    local_skills.install_one("agents", target, "seo-geo", args)
+
+            preserved = sentinel.read_text(encoding="utf-8")
+            temporary_entries = sorted(
+                path.name
+                for path in target.iterdir()
+                if path.name.startswith(".skill-mania-")
+            )
+
+        self.assertEqual(preserved, "previous install\n")
+        self.assertEqual(temporary_entries, [])
+
+    def test_agents_target_prefers_populated_legacy_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            home = Path(tmp)
+            (home / ".agents" / "skills").mkdir(parents=True)
+            legacy_skill = home / ".codex" / "skills" / "seo-geo"
+            legacy_skill.mkdir(parents=True)
+            (legacy_skill / "SKILL.md").write_text(
+                "---\nname: seo-geo\ndescription: Legacy copy.\n---\n",
+                encoding="utf-8",
+            )
+            env = {**os.environ, "HOME": str(home)}
+            env.pop("AGENT_SKILLS_DIR", None)
+            env.pop("CODEX_SKILLS_DIR", None)
+            result = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--copy",
+                    "--skill",
+                    "seo-geo",
+                    "--dry-run",
+                    "--no-validate",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn(str(legacy_skill), result.stdout)
+
+    def test_target_inside_repository_is_rejected(self) -> None:
+        env = {
+            **os.environ,
+            "AGENT_SKILLS_DIR": str(REPO_ROOT / ".skill-mania-test-target"),
+        }
+        result = subprocess.run(
+            [
+                str(REPO_ROOT / "scripts" / "install-local.sh"),
+                "--agents",
+                "--list",
+                "--skill",
+                "seo-geo",
+            ],
+            env=env,
+            check=False,
+            text=True,
+            capture_output=True,
+        )
+
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        self.assertIn("refusing broad agents target directory", result.stderr)
+
+    def test_cleanup_removes_only_stale_marked_copies(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            target = Path(tmp) / "skills"
+            stale = target / "retired-demo"
+            stale.mkdir(parents=True)
+            (stale / "SKILL.md").write_text(
+                "---\nname: retired-demo\ndescription: Retired demo.\n---\n",
+                encoding="utf-8",
+            )
+            (stale / ".skill-mania-managed.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "manager": "skill-mania",
+                        "skill": "retired-demo",
+                        "mode": "copy",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            env = {**os.environ, "AGENT_SKILLS_DIR": str(target)}
+            result = subprocess.run(
+                [
+                    str(REPO_ROOT / "scripts" / "install-local.sh"),
+                    "--agents",
+                    "--cleanup",
+                    "--yes",
+                ],
+                env=env,
+                check=False,
+                text=True,
+                capture_output=True,
+            )
+            stale_removed = not stale.exists()
+
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("cleaned agents:retired-demo", result.stdout)
+        self.assertTrue(stale_removed)
 
     def test_old_claude_requires_copy_mode(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -836,9 +1125,9 @@ class ModelEvalRunnerTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
         plan = json.loads(result.stdout)
-        self.assertEqual(len(plan["skills"]), 19)
-        self.assertEqual(plan["output_cases"], 19)
-        self.assertEqual(plan["estimated_model_calls"], 59)
+        self.assertEqual(len(plan["skills"]), 22)
+        self.assertEqual(plan["output_cases"], 22)
+        self.assertEqual(plan["estimated_model_calls"], 68)
         self.assertEqual(plan["routing_model"], "gpt-5.6-luna")
         self.assertEqual(plan["maximum_api_requests"], 600)
         self.assertEqual(plan["provider"], "codex-cli")

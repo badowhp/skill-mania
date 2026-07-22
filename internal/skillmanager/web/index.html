@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manage Skill Mania Agent Skills packages for Codex, Claude Code, and GitHub Copilot.">
+  <meta name="csrf-token" content="{{.CSRFToken}}">
+  <title>Skill Mania Manager</title>
+  <link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#skill-ledger">Skip to skill inventory</a>
+
+  <header class="app-header">
+    <div class="brand-lockup">
+      <img src="/assets/mark.svg" width="42" height="42" alt="">
+      <div>
+        <p class="eyebrow">Agent Skills workspace</p>
+        <h1>Skill Mania</h1>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span class="health-state"><span class="status-dot" aria-hidden="true"></span>Local manager</span>
+      <a href="https://github.com/badowhp/skill-mania">Documentation</a>
+    </div>
+  </header>
+
+  <section class="summary-strip" aria-label="Catalog summary">
+    <div>
+      <span class="summary-value" id="summary-skills">—</span>
+      <span class="summary-label">catalog skills</span>
+    </div>
+    <div>
+      <span class="summary-value" id="summary-groups">—</span>
+      <span class="summary-label">install packages</span>
+    </div>
+    <div>
+      <span class="summary-value" id="summary-benchmarks">—</span>
+      <span class="summary-label">saved benchmarks</span>
+    </div>
+    <div class="summary-target" id="summary-targets">Checking mounted targets…</div>
+  </section>
+
+  <main class="workspace">
+    <aside class="package-rail" aria-labelledby="packages-title">
+      <div class="panel-heading">
+        <p class="eyebrow">Packages</p>
+        <h2 id="packages-title">Choose a workflow</h2>
+      </div>
+      <nav id="package-list" aria-label="Skill packages">
+        <div class="loading-line"></div>
+        <div class="loading-line short"></div>
+        <div class="loading-line"></div>
+      </nav>
+    </aside>
+
+    <section class="skill-panel" id="skill-ledger" aria-labelledby="skills-title">
+      <div class="skill-toolbar">
+        <div>
+          <p class="eyebrow">Inventory</p>
+          <h2 id="skills-title">All available skills</h2>
+          <p class="toolbar-context" id="filter-context">Every folder with a valid SKILL.md</p>
+        </div>
+        <button class="text-button" type="button" id="select-visible">Select visible</button>
+      </div>
+
+      <div class="filters" role="search">
+        <label class="search-field">
+          <span class="sr-only">Search skills</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+          <input id="skill-search" type="search" placeholder="Search names, triggers, or groups" autocomplete="off">
+        </label>
+        <label>
+          <span class="sr-only">Installation target</span>
+          <select id="target-filter">
+            <option value="agents">Codex</option>
+            <option value="claude">Claude Code</option>
+          </select>
+        </label>
+        <label>
+          <span class="sr-only">Installation state</span>
+          <select id="state-filter">
+            <option value="all">Any state</option>
+            <option value="installed">Installed</option>
+            <option value="managed">Managed only</option>
+            <option value="absent">Not installed</option>
+            <option value="unmanaged">Unmanaged</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="ledger-header" aria-hidden="true">
+        <span>Skill</span>
+        <span>Evidence</span>
+        <span>Status</span>
+      </div>
+      <div class="skill-list" id="skill-list" aria-live="polite" aria-busy="true">
+        <div class="loading-row"></div>
+        <div class="loading-row"></div>
+        <div class="loading-row"></div>
+      </div>
+    </section>
+
+    <aside class="evidence-panel" id="evidence-panel" aria-labelledby="evidence-title">
+      <div class="empty-inspector" id="empty-inspector">
+        <img src="/assets/mark.svg" width="32" height="32" alt="">
+        <h2 id="evidence-title">Inspect a skill</h2>
+        <p>Select a row to see its full trigger description, eval coverage, saved benchmark, package membership, and install state.</p>
+      </div>
+      <div id="skill-inspector" hidden></div>
+    </aside>
+  </main>
+
+  <div class="selection-bar" id="selection-bar" hidden>
+    <div>
+      <strong id="selection-count">0 selected</strong>
+      <span id="selection-target">for Codex</span>
+    </div>
+    <div class="selection-actions">
+      <button class="secondary-button" id="clear-selection" type="button">Clear</button>
+      <button class="danger-button" id="remove-selected" type="button">Remove managed</button>
+      <button class="primary-button" id="install-selected" type="button">Install selected</button>
+    </div>
+  </div>
+
+  <dialog id="remove-dialog" aria-labelledby="remove-title">
+    <form method="dialog" class="dialog-shell">
+      <div class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 8v5m0 3.5v.01M10.3 3.8 2.7 17a2 2 0 0 0 1.74 3h15.12a2 2 0 0 0 1.74-3L13.7 3.8a2 2 0 0 0-3.4 0Z"/></svg>
+      </div>
+      <div>
+        <p class="eyebrow danger-text">Destructive action</p>
+        <h2 id="remove-title">Remove managed skills?</h2>
+        <p id="remove-summary"></p>
+        <ul class="removal-list" id="remove-list"></ul>
+        <p class="dialog-note">Unmanaged folders are always protected. Removed copies can be restored from this catalog.</p>
+      </div>
+      <div class="dialog-actions">
+        <button class="secondary-button" value="cancel">Cancel</button>
+        <button class="danger-button" id="confirm-remove" value="confirm">Remove managed skills</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <noscript>
+    <p class="noscript">The Skill Mania Manager requires JavaScript for search, selection, and installation actions.</p>
+  </noscript>
+</body>
+</html>

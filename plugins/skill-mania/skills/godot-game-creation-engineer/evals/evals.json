@@ -65,6 +65,17 @@
       "tags": ["godot", "input", "settings"]
     },
     {
+      "id": "godot-full-game-vertical-slice-plan",
+      "prompt": "Plan how to implement our Godot RPG graphic style and story, connect combat, AI, level, quest, inventory, dialogue, UI, animation, audio, save systems, and prove them in one production-ready vertical slice.",
+      "expected_output": "Creates measurable visual and story contracts, maps system ownership and persistence, chooses a representative slice, defines explicit connection rules, and climbs the test ladder through target export and human playtest.",
+      "should_trigger": true,
+      "assertions": [
+        "The plan maps authored definitions, runtime owners, persisted state, inputs, outputs, failures, and tests for every connected system",
+        "Graphic style, story, save continuity, performance, accessibility, and export are proven together in a bounded vertical slice"
+      ],
+      "tags": ["godot", "vertical-slice", "integration", "production-plan"]
+    },
+    {
       "id": "near-miss-game-loop-design",
       "prompt": "Our roguelite starts to feel repetitive after twenty minutes. Redesign the run loop, rewards, and risk choices before we build anything.",
       "expected_output": "Should prefer gameplay-consultant because the primary task is player experience and game design, not Godot implementation.",

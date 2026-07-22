@@ -1,0 +1,70 @@
+{
+  "skill_name": "godot-level-designer",
+  "evals": [
+    {
+      "id": "rpg-district-graybox",
+      "prompt": "Design a Godot 4 third-person RPG market district that introduces a faction conflict, supports a direct route and a risky rooftop route, and can be grayboxed before final art.",
+      "expected_output": "Defines the player promise, controller-derived metrics, flow and meaningful route differences, a small playable graybox, visual-story handoffs, quest hooks, and a path and performance test matrix.",
+      "should_trigger": true,
+      "assertions": [
+        "The proposal starts from narrative purpose, player verbs, camera, and measured controller metrics",
+        "The direct and rooftop routes differ materially and are tested with quest, save, navigation, and exported-build states"
+      ],
+      "tags": ["godot", "level-design", "rpg", "graybox"]
+    },
+    {
+      "id": "tilemap-metroidvania-zone",
+      "prompt": "Plan and audit a 2D Godot metroidvania zone built with TileMapLayer. It needs a readable critical path, an ability-gated loop, optional lore, checkpoints, and an art-pass handoff.",
+      "expected_output": "Maps flow and metrics, assigns TileMapLayer and TileSet responsibilities, keeps interactive state in scenes, and defines navigation, checkpoint, art, story, and playtest gates.",
+      "should_trigger": true,
+      "assertions": [
+        "TileMapLayer, TileSet, scene-owned interactions, camera, collision, and navigation responsibilities are explicit",
+        "The gated loop, optional lore, checkpoints, backtracking, and art replacement are verified in motion"
+      ],
+      "tags": ["godot", "2d", "tilemap", "flow"]
+    },
+    {
+      "id": "stealth-fortress-audit",
+      "prompt": "Audit our Godot stealth fortress. Players miss the infiltration choices, guards fail on stairs, one checkpoint traps them behind a locked gate, and the art pass cut performance in half.",
+      "expected_output": "Separates readability, spatial flow, navigation, state recovery, and measured performance issues, then proposes the smallest graybox and integrated-slice retests.",
+      "should_trigger": true,
+      "assertions": [
+        "Choice readability, navigation connectivity, checkpoint recovery, and performance are diagnosed as distinct evidence tracks",
+        "The retest covers routes, stairs, gate states, reload, target hardware, and an exported build"
+      ],
+      "tags": ["godot", "3d", "stealth", "audit"]
+    },
+    {
+      "id": "modular-kit-handoff",
+      "prompt": "Turn this approved Godot dungeon graybox into a handoff for a Blender modular kit without losing cover, sightlines, navigation, landmarks, or frame budget.",
+      "expected_output": "Produces a spatial and visual asset contract with metrics, pivots, grid, variants, collision and navigation assumptions, budgets, acceptance scene, and rollback or cut priorities.",
+      "should_trigger": true,
+      "assertions": [
+        "The handoff preserves measured gameplay geometry and defines an explicit modular asset contract",
+        "Representative art is validated in Godot before full replacement of the graybox"
+      ],
+      "tags": ["godot", "level-art", "handoff", "blender"]
+    },
+    {
+      "id": "near-miss-branching-murder-quest",
+      "prompt": "Design the complete branching logic for a murder quest where every suspect can die early and evidence can be destroyed.",
+      "expected_output": "Should prefer godot-quest-designer because reactive story graph, facts, consequences, and hostile-path narrative testing are primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "quest-design"]
+    },
+    {
+      "id": "near-miss-character-controller",
+      "prompt": "Implement coyote time, wall sliding, controller vibration, and regression tests in our Godot player controller.",
+      "expected_output": "Should prefer godot-game-creation-engineer because engine-specific runtime implementation is primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "godot", "implementation"]
+    },
+    {
+      "id": "near-miss-economy-balance",
+      "prompt": "Rebalance our extraction-game rewards so risky objectives outperform safe farming without causing an expert snowball.",
+      "expected_output": "Should prefer gameplay-consultant because economy and player incentives are primary rather than spatial design.",
+      "should_trigger": false,
+      "tags": ["near-miss", "gameplay", "economy"]
+    }
+  ]
+}

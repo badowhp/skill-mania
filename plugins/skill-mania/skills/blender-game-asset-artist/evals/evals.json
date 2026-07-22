@@ -1,0 +1,70 @@
+{
+  "skill_name": "blender-game-asset-artist",
+  "evals": [
+    {
+      "id": "modular-medieval-kit",
+      "prompt": "Create a compact Blender production plan for a Godot medieval street kit with grid-snapped walls, corners, doors, roofs, LODs, collision, and reusable PBR materials.",
+      "expected_output": "Defines measurable dimensions, pivots, grid, silhouette and surface targets, geometry and material budgets, LOD and collision contracts, glTF delivery, and a clean Godot acceptance scene.",
+      "should_trigger": true,
+      "assertions": [
+        "The modular contract covers scale, origin, pivots, snap dimensions, variants, UVs, materials, LODs, and collision",
+        "A representative kit slice is freshly exported and verified in Godot before full production"
+      ],
+      "tags": ["blender", "modeling", "modular-kit", "godot"]
+    },
+    {
+      "id": "humanoid-animation-set",
+      "prompt": "Plan and verify a Blender humanoid rig with idle, walk, run, attack, hit, and death clips for Godot, including loop seams, root motion, and retargeting.",
+      "expected_output": "Locks a minimal skeleton and deformation contract, tests weights and extreme poses, defines named action ranges and motion policy, and verifies retargeted clips in Godot.",
+      "should_trigger": true,
+      "assertions": [
+        "Rig hierarchy, deform bones, weights, actions, loop contacts, root motion, and transitions are explicit",
+        "Fresh glTF import verifies rest pose, mapping, scale, orientation, every representative clip, and game-speed playback"
+      ],
+      "tags": ["blender", "rigging", "animation", "godot"]
+    },
+    {
+      "id": "broken-gltf-audit",
+      "prompt": "Audit a Blender asset that imports into Godot at the wrong scale with invisible faces, flat materials, and only one of four animations.",
+      "expected_output": "Traces source transforms, axes, normals and backfaces, glTF material compatibility, action export, and Godot import settings, then repeats a clean export and import.",
+      "should_trigger": true,
+      "assertions": [
+        "Scale, orientation, normals, backface culling, materials, Actions, and importer configuration are inspected from evidence",
+        "The result is verified through a fresh artifact and clean Godot import rather than cached editor state"
+      ],
+      "tags": ["blender", "gltf", "debugging", "godot"]
+    },
+    {
+      "id": "creature-deformation-asset",
+      "prompt": "Build an acceptance plan for a stylized quadruped creature with facial shape keys, extreme joint deformation, two LODs, and a mobile Godot target.",
+      "expected_output": "Turns style and deformation goals into camera-aware criteria, mesh and texture budgets, topology and weight tests, shape-key export checks, LOD acceptance, and mobile profiling.",
+      "should_trigger": true,
+      "assertions": [
+        "Silhouette, topology, weights, shape keys, materials, LODs, and mobile budgets are measurable",
+        "Extreme poses and clean Godot imports are tested under representative camera, lighting, animation, and device conditions"
+      ],
+      "tags": ["blender", "creature", "shape-keys", "mobile"]
+    },
+    {
+      "id": "near-miss-place-dungeon-kit",
+      "prompt": "Use our finished modular meshes to design the dungeon flow, infiltration routes, landmarks, encounters, checkpoints, and navigation in Godot.",
+      "expected_output": "Should prefer godot-level-designer because spatial composition and playability are primary and the assets already exist.",
+      "should_trigger": false,
+      "tags": ["near-miss", "level-design", "godot"]
+    },
+    {
+      "id": "near-miss-animationtree-code",
+      "prompt": "Implement the Godot AnimationTree state machine, input-driven blends, root-motion movement, and runtime regression tests for imported clips.",
+      "expected_output": "Should prefer godot-game-creation-engineer because runtime engine integration is primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "godot", "implementation"]
+    },
+    {
+      "id": "near-miss-web-brand-system",
+      "prompt": "Create the visual direction, typography, color tokens, and responsive components for a game studio website.",
+      "expected_output": "Should prefer design-engineer because web visual direction and UI implementation are primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "design", "web"]
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "skill_name": "godot-quest-designer",
+  "evals": [
+    {
+      "id": "reactive-murder-investigation",
+      "prompt": "Design a Godot murder investigation where suspects can die before questioning, evidence can be stolen or destroyed, and the player may accuse the wrong person but continue the story.",
+      "expected_output": "Defines the emotional and role-playing promise, playable spine, stable facts, branches and recovery, explicit Godot data contracts, and hostile path and persistence tests.",
+      "should_trigger": true,
+      "assertions": [
+        "Early deaths, missing evidence, wrong accusation, recovery, and aftermath are represented as explicit graph states",
+        "Authored definitions, mutable facts, effects, save behavior, level hooks, and path tests have clear owners"
+      ],
+      "tags": ["godot", "quest-design", "investigation", "branching"]
+    },
+    {
+      "id": "companion-delayed-consequence",
+      "prompt": "Plan a companion quest whose apparent victory creates a delayed relationship consequence two chapters later, including how players understand why it happened.",
+      "expected_output": "Maps the emotional arc, commitment and delayed callback, attribution feedback, branch budget, persistent facts, save migration needs, and narrative acceptance tests.",
+      "should_trigger": true,
+      "assertions": [
+        "The delayed consequence has a stable persisted cause and understandable callback without spoiling the result",
+        "Functional state coverage and human emotional playtesting are treated as separate gates"
+      ],
+      "tags": ["godot", "quest-design", "companion", "consequence"]
+    },
+    {
+      "id": "systemic-faction-contract",
+      "prompt": "Create the quest-data contract for a Godot faction mission that can resolve through stealth, combat, bribery, or exposing evidence, while journal and world state survive scene unload and save reload.",
+      "expected_output": "Produces a stable ID and fact ledger, condition and effect registry, state graph, journal mapping, level and system hooks, persistence policy, debug surface, and scenario matrix.",
+      "should_trigger": true,
+      "assertions": [
+        "The four solutions map to explicit inputs, effects, convergence, outcomes, and world-state ownership",
+        "Scene unload, repeated effects, journal derivation, save or reload, and unknown handlers have defined behavior and tests"
+      ],
+      "tags": ["godot", "quest-data", "systemic", "persistence"]
+    },
+    {
+      "id": "stuck-quest-save-audit",
+      "prompt": "Audit a Godot quest that becomes impossible after saving between reward delivery and the final dialogue, especially if the NPC scene unloads.",
+      "expected_output": "Traces state ownership and transition order, checks idempotency and missing-scene behavior, reproduces boundary saves, and proposes the smallest safe contract correction.",
+      "should_trigger": true,
+      "assertions": [
+        "Reward application, final-state transition, NPC lifetime, and persistence ordering are traced from evidence",
+        "Regression coverage reloads before, during, and after the commitment and terminal boundary"
+      ],
+      "tags": ["godot", "quest-bug", "save-load", "audit"]
+    },
+    {
+      "id": "near-miss-dungeon-graybox",
+      "prompt": "Graybox a third-person dungeon with three infiltration routes, readable landmarks, cover metrics, checkpoints, and navigation.",
+      "expected_output": "Should prefer godot-level-designer because spatial flow and playable level proof are primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "level-design"]
+    },
+    {
+      "id": "near-miss-quest-runtime-code",
+      "prompt": "Implement a generic Resource-backed quest runtime, save migration, debug panel, and GDScript tests in our Godot project from an approved schema.",
+      "expected_output": "Should prefer godot-game-creation-engineer because the quest design contract is approved and production implementation is primary.",
+      "should_trigger": false,
+      "tags": ["near-miss", "godot", "implementation"]
+    },
+    {
+      "id": "near-miss-dialogue-prose",
+      "prompt": "Rewrite this completed companion conversation so the banter feels tense, concise, and distinct in voice without changing any choices or state.",
+      "expected_output": "Should prefer writing-assistant because prose craft is primary and interactive structure is fixed.",
+      "should_trigger": false,
+      "tags": ["near-miss", "writing", "dialogue"]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Skill Mania">
+  <rect width="48" height="48" rx="12" fill="#1D1D1F"/>
+  <path d="M13 31.5 20.5 24l6 6L36 16.5" fill="none" stroke="#5AC8FA" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="13" cy="31.5" r="3" fill="#F5F5F7"/>
+  <circle cx="20.5" cy="24" r="3" fill="#F5F5F7"/>
+  <circle cx="26.5" cy="30" r="3" fill="#F5F5F7"/>
+  <circle cx="36" cy="16.5" r="3" fill="#5AC8FA"/>
+</svg>

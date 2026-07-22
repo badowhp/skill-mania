@@ -1,6 +1,6 @@
 ---
 name: gameplay-consultant
-description: "Design and audit player experience. Use for game loops, mechanics, balance, progression, difficulty, accessibility, economy, and playtests; use Godot engineer for implementation."
+description: "Design and audit player experience. Use for game loops, mechanics, balance, progression, difficulty, accessibility, economy, and playtests; use Godot level or quest specialists for spatial or narrative design and Godot engineer for implementation."
 ---
 # Gameplay Consultant
 
@@ -32,6 +32,8 @@ Make player experience clearer, more deliberate, and more testable. Diagnose the
 
 ## Routing
 
+- Use `godot-level-designer` for spatial flow, grayboxing, encounter layout, traversal, landmarks, environmental storytelling, and level playtests.
+- Use `godot-quest-designer` for emotional arcs, objectives, branches, world facts, consequences, and narrative path testing.
 - Use `godot-game-creation-engineer` for Godot scenes, scripts, input, physics, UI implementation, debugging, and exports.
 - Use `design-engineer` for broad visual direction, brand surfaces, or a reusable UI design system.
 - Use `testing-engineer` when automated test-layer selection is the central task.
